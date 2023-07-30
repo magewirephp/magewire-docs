@@ -2,7 +2,7 @@
 site_name: Magewire Docs
 site_description: Magewire Developer Documentation
 site_url: https://magewire.wpoortman.nl/
-copyright: Copyright &copy; Hyvä Themes 2020-present. All rights reserved.
+copyright: Copyright &copy; Magewire PHP 2023-present. All rights reserved.
 #repo_url: https://github.com/magewirephp/magewire-docs.git
 
 # Keep use_directory_urls as false, otherwise it will break internal links, the slackbot and who knows what else
@@ -35,8 +35,6 @@ extra:
     - icon: fontawesome/brands/twitter
       link: https://twitter.com/magewirephp
   generator: false
-  analytics:
-    provider: custom
 
 markdown_extensions:
   - abbr
