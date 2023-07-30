@@ -1,3 +1,3 @@
 # Welcome to the Magewire Documentation
 
-:fontawesome-regular-comment: &nbsp;&nbsp;&nbsp; [Welcome](welcome/what-is-hyva.md)
+[Welcome](welcome/what-is-magewire.md)
