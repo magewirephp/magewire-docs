@@ -75,7 +75,6 @@ plugins:
   - search:
       enabled: true
       separator: '[\s\-,:!=\[\]()"/]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)|&[lg]t;'
-  - redirects: {}
 
 nav:
   - 'Getting Started':
