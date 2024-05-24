@@ -69,9 +69,6 @@ plugins:
       enabled: true
   - privacy:
       enabled: !ENV
-  - social:
-      enabled: true
-      cards: true
   - search:
       enabled: true
       separator: '[\s\-,:!=\[\]()"/]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)|&[lg]t;'
