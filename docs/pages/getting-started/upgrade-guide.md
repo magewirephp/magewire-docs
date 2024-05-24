@@ -1,1 +1,1 @@
-# Installation
+# Upgrade Guide

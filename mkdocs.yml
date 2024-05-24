@@ -1,9 +1,6 @@
-
-site_name: Magewire Docs
-site_description: Magewire Developer Documentation
-site_url: https://magewire.wpoortman.nl/
-copyright: Copyright &copy; Magewire PHP 2023-present. All rights reserved.
-#repo_url: https://github.com/magewirephp/magewire-docs.git
+site_name: Magewire PHP Docs
+site_description: Magewire PHP Developer Documentation
+site_url: https://magewire-docs.wpoortman.nl/
 
 # Keep use_directory_urls as false, otherwise it will break internal links, the slackbot and who knows what else
 use_directory_urls: false
@@ -11,10 +8,14 @@ use_directory_urls: false
 theme:
   name: material
   custom_dir: overrides
-  logo: images/hyva-logo-192x192.png
-  favicon: images/hyva-logo-192x192.png
   features:
     - navigation.tabs
+    - navigation.footer
+    - navigation.instant
+    - navigation.tracking
+    - navigation.prune
+    - navigation.top
+    - navigation.indexes
   palette:
     - media: '(prefers-color-scheme: light)'
       scheme: default
@@ -27,14 +28,16 @@ theme:
         icon: material/toggle-switch
         name: Switch to light mode
 
-extra_javascript:
-  - js/search-focus.js
+extra_css:
+  - stylesheets/style.css
 
 extra:
   social:
     - icon: fontawesome/brands/twitter
-      link: https://twitter.com/magewirephp
+      link: https://x.com/magewirephp
   generator: false
+  analytics:
+    provider: custom
 
 markdown_extensions:
   - abbr
@@ -54,9 +57,43 @@ markdown_extensions:
   - pymdownx.mark
   - pymdownx.tilde
   - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+plugins:
+  - blog:
+      enabled: true
+      post_readtime: true
+      blog_dir: blogs
+  - tags:
+      enabled: true
+  - privacy:
+      enabled: !ENV
+  - social:
+      enabled: true
+      cards: true
+  - search:
+      enabled: true
+      separator: '[\s\-,:!=\[\]()"/]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)|&[lg]t;'
+  - redirects: {}
 
 nav:
-  - 'Welcome!':
-    - 'welcome/what-is-magewire.md'
+  - 'Getting Started':
+      - 'pages/getting-started/quickstart.md'
+      - 'pages/getting-started/installation.md'
+      - 'pages/getting-started/upgrade-guide.md'
+  - 'Essentials':
+      - 'pages/essentials/components.md'
+      - 'pages/essentials/properties.md'
+      - 'pages/essentials/actions.md'
+      - 'pages/essentials/events.md'
+      - 'pages/essentials/lifecycle-hooks.md'
+      - 'pages/essentials/nesting-components.md'
+      - 'pages/essentials/testing.md'
+  - 'Features':
+      - 'pages/features/alpine.md'
+      - 'pages/features/navigate.md'
+      - 'pages/features/lazy-loading.md'
+      - 'pages/features/validation.md'
+  - 'Blog':
+      - 'blogs/index.md'

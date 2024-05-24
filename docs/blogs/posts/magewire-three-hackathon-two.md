@@ -2,27 +2,26 @@
 title: Magewire 3 - Hackathon #1
 authors:
     - willem
-date: 2024-05-24
+date: 2024-05-08
+tags: [hackathon]
 ---
 
-Alongside Yireo, I'm excited to announce a special Magewire hackathon scheduled for the 17th of April. Jisse has graciously offered his course space to gather with a great group of enthusiasts for a full day of hacking on Magewire. But this isn't just any version of Magewire; it's the version that remains unseen, built upon Livewire 3.x.
+After having a blast during the first official Magewire hackathon last April, I'm pleased to announce a second Magewire hackathon has been scheduled for May 29th. Again, together with Jisse, we've planned another hackathon to continue the path that we've endeavored during the previous hackathon. No, this certaintly doesn't mean you've missed out; it means we really encourage you to join us in hacking your way into the deep dungeons of this new version.
 
-You read it correctly, Magewire is getting a complete new version, where I've decided to align it with the latest major version of Livewire. In other words, Magewire will skip version 2.x and be released as 3.x.
+## Previous version
+I have to admit, getting everyone up to speed during the previous event was quite an undertaking. This was largely because, apart from myself, none of us had seen a single line of code from Magewire 3. As Jisse already mentioned, the codebase is vastly different from what you're familiar with in Magewire 1. Thanks to Jisse's transparency, this is due to the architectural decision I made to closely adhere to the original codebase of Livewire itself. In simple terms, I chose not to reinvent the wheel (again) but rather to aim for a true port of what was already there.
 
-## History
-Over the past few months, my main focus has been on understanding the concept behind Livewire 3. Since this has become a complete rewrite, it was quite a puzzle to adapt the architecture to Magento. In comparison to the current Magewire version, I've decided to stay a lot closer to Livewire this time.
-Main reason for this decision is that I've noticed porting features in the current version was always quite a challenge, encountering numerous barriers, which resulted in some features never making it through. My goal with this version is to significantly lower this threshold to simplify contributions.
+## Behind closed doors
+While I'm keen on involving people, I also prefer to keep some aspects behind closed doors for now. Certain elements are still subject to change, and based on the excellent feedback from the previous hackathon, I can certainly reveal more details after this second iteration. Moreover, I believe it would become overwhelming for me if I were to make everything public at this stage. It's safe to say that depending on the feedback gathered from the upcoming hackathon, I aim to unveil more about the current architecture, its advantages, and some exciting new features that accompany it.
 
-## Hackathon
-The concept of the hackathon is to divide the participants into multiple groups according to their preferences. This setup allows for various activities, such as porting features, brainstorming sessions on the new architecture, and exploring solutions for specific challenges.
-Additionally, there will be discussions on implementing unit and playwright testing. In short, there's a wide range of options available to cater to everyone's interests.
-
-Naturally, Jisse and I will be present throughout the entire day to offer assistance and provide context to everyone. We'll kick off the day with a basic introduction to the new architecture, then break into groups to dive into the tasks, all while enjoying coffee, tea, and refreshments.
-The aim of the day is to give people a unique glimpse into Magewire's future direction and actively engage them in shaping it. Ultimately, as with any hackathon, the goal is to inspire and have fun. In other words, your knowledge and experience don't matter — everyone is welcome to participate.
+## Required knowledge
+I believe it's safe to say that for those interested in joining us (again) during the hackathon, having some prior knowledge of Magewire is beneficial. I received feedback from the previous event indicating that some attendees were there to learn more about Magewire itself. This was a miscommunication on my part, and I should have clarified this better. The Magewire hackathon primarily caters to individuals who enjoy exploring how a particular framework operates and endeavor to port existing Livewire features and solutions with the assistance I can provide during the event.
 
 ## See you there?
-The day will start at 09:00 and conclude at 17:00.
+The day will start at 09:30 and conclude at 16:30.
 
-The entrance fee is 25 euros.
+More details can be found here.
 
-I'm already looking forward to it immensely. Hopefully, I'll see you there!
+I'm again looking forward to it immensely.
+
+Hopefully, I'll see you there!

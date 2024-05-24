@@ -1,8 +1,9 @@
 ---
-title: Magewire 3 - Hackathon
+title: Magewire 3 - Hackathon #1
 authors:
     - willem
-date: 2024-05-24
+date: 2024-03-17
+tags: [hackathon]
 ---
 
 Alongside Yireo, I'm excited to announce a special Magewire hackathon scheduled for the 17th of April. Jisse has graciously offered his course space to gather with a great group of enthusiasts for a full day of hacking on Magewire. But this isn't just any version of Magewire; it's the version that remains unseen, built upon Livewire 3.x.
