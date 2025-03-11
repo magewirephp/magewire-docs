@@ -1,6 +1,11 @@
 .md-header {
-  background-color: #11A266
+  background-color: #f54a00;
 }
 .md-tabs {
-  background-color: #008246
+  background-color: #f54a00;
+
+  a.md-tabs__link {
+    color: #fff;
+    font-weight: bold;
+  }
 }
