@@ -9,6 +9,14 @@
 Welcome to the official documentation for Magewire PHP. This guide provides all the necessary information to get started
 with Magewire V3, understand its core concepts, and build dynamic Magento applications using Livewire-like components.
 
+!!! info "Understanding Magewire Documentation and Its Relation to Livewire"
+    Magewire is heavily inspired by Livewire, and as a result, most of its core functionality works in the same way.
+    For this reason, all essential documentation can be found in the official [Livewire documentation](https://livewire.laravel.com/docs/quickstart).
+    The Magewire documentation primarily focuses on Magento-specific implementations, custom features,
+    and additional explanations that are either missing from the Livewire docs or are not relevant due to platform differences.
+    If you're looking for a deeper understanding of how Magewire works under the hood, we highly recommend referring to the
+    Livewire documentation alongside this guide.
+
 ## What is Magewire?
 
 MagewirePHP is a powerful framework for Magento 2 that enables developers to build reactive and dynamic user interfaces
@@ -23,9 +31,16 @@ Each theme should have its own submodule on top of Magewire to ensure compatibil
 such as custom events and loading files, are required for proper functionality. By default, Magewire is built on the [Hyvä theme](https://www.hyva.io/),
 but this integration can easily be disabled, as it is a separate compatibility module rather than part of the core architecture.
 
-!!! info "Security Vulnerabilities"
+!!! warning "Security Vulnerabilities"
     If you discover a security vulnerability within Magewire, please create a [merge request](https://github.com/magewirephp/magewire/pulls)
     or an [discussion](https://github.com/magewirephp/magewire/discussions). All security vulnerabilities will be promptly addressed.
+
+## Requirements
+
+Before we start, make sure you have the following installed:
+
+- Magento version 2.4.4 or later
+- PHP version 8.1 or later
 
 ## Installation
 
@@ -59,20 +74,22 @@ To install Magewire in your Magento 2 project, follow these steps:
 
 ## Quickstart Guide
 
+!!! info "Details"
+    This quickstart guide does not cover all the details behind the "why" and "how" but is intended to provide a concise
+    overview of creating a basic Layout XML-driven Magewire component.
+
 Let's create a simple Magewire component to demonstrate its basic capabilities.
 
-### 1. Create a Magewire Component
+### 1. Create a Component class
 
 Create a new component class:
 
-```php
+```php title="File: Magewire/Counter.php"
 <?php
 
 namespace Vendor\Module\Magewire;
 
-use Magewirephp\Magewire\Component;
-
-class Counter extends Component
+class Counter extends \Magewirephp\Magewire\Component
 {
     public int $count = 0;
 
@@ -86,11 +103,11 @@ class Counter extends Component
 **Note:** It is advisable to keep your components inside the `Magewire` root directory of your module,
 either as direct children or nested within subdirectories.
 
-### 2. Create a Component Template File
+### 2. Create a Template File
 
 Now, create the corresponding template file:
 
-```html
+```html title="File: view/frontend/templates/magewire/counter.phtml"
 <div>
     Counter: <?= $magewire->count ?>
     
@@ -104,11 +121,11 @@ Now, create the corresponding template file:
 This means you must always wrap your component's content in a root HTML element,
 such as a `<div>`, to ensure proper functionality.
 
-### 3. Then, Use the Component on a page
+### 3. Inject onto a page
 
 To render the component, update the `layout.xml` file:
 
-```xml
+```xml title="File: view/frontend/layout/page_handle.xml"
 <referenceBlock name="content">
     <block name="counter.block" template="Vendor_Module::magewire/counter.phtml">
         <arguments>
@@ -124,15 +141,20 @@ To render the component, update the `layout.xml` file:
 However, alternatives exist through component resolvers, allowing more flexible integration.
 You can even create a custom resolver to fit specific requirements.
 
-### 4. Finally, Test the new Magewire Component
+### 4. Test it out
 
-Clear the Magento cache and navigate to the relevant page to see the Magewire component in action:
+Clear the Magento cache and navigate to the relevant page:
 
 ```sh
 bin/magento cache:flush
 ```
 
 Congratulations! You have successfully created your first Magewire component.
+
+When you click the button, you'll notice the count updates instantly without a full page reload.
+This is the power of Magewire—seamless, dynamic frontend interactions built entirely in PHP.
+
+We've only scratched the surface of what Magewire can do. Continue exploring the documentation to unlock its full potential!
 
 !!! info "Full Page Cache (FPC)"
     Since a Magewire component's state is determined by the JSON objects bound to the component, cached pages will

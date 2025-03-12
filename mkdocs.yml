@@ -1,21 +1,29 @@
 site_name: Magewire PHP (Alpha)
-site_description: Magewire PHP Developer Documentation
-site_url: https://magewire-docs.wpoortman.nl/
+site_description: Magewire PHP Documentation
+site_url: https://magewirephp.github.io/magewire-docs/
 
-# Keep use_directory_urls as false, otherwise it will break internal links, the slackbot and who knows what else
 use_directory_urls: false
 
 theme:
   name: material
   custom_dir: overrides
+  font:
+    text: Roboto
+    code: Roboto Mono
   features:
+    - navigation.path
     - navigation.tabs
     - navigation.footer
     - navigation.instant
+    - navigation.instant.progress
     - navigation.tracking
     - navigation.prune
     - navigation.top
     - navigation.indexes
+    - content.code.copy
+    - content.code.annotate
+    - content.code.select
+    - header.autohide
   palette:
     - media: '(prefers-color-scheme: light)'
       scheme: default
@@ -38,9 +46,12 @@ extra:
   generator: false
   analytics:
     provider: custom
+  includes:
+    dir: includes
 
 markdown_extensions:
   - abbr
+  - attr_list
   - pymdownx.highlight:
       anchor_linenums: true
       extend_pygments_lang:
@@ -72,12 +83,20 @@ plugins:
   - search:
       enabled: true
       separator: '[\s\-,:!=\[\]()"/]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)|&[lg]t;'
+  - macros:
+      include_dir: includes
 
 nav:
   - 'Getting Started':
-      - 'pages/getting-started/quickstart.md'
-      - 'pages/getting-started/installation.md'
-      - 'pages/getting-started/upgrade-guide.md'
+      - 'index.md'
+      - 'pages/getting-started/community.md'
+      - 'pages/getting-started/contribute.md'
+      - 'pages/getting-started/documentation.md'
+      - 'pages/getting-started/license.md'
+      - 'pages/getting-started/purpose.md'
+      - 'pages/getting-started/security.md'
+      - 'pages/getting-started/sponsors.md'
+      - 'pages/getting-started/upgrade.md'
   - 'Essentials':
       - 'pages/essentials/components.md'
       - 'pages/essentials/properties.md'
