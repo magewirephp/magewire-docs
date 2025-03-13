@@ -11,7 +11,7 @@ def define_env(env):
         file_path = os.path.join(includes_dir, file)
 
         if not os.path.exists(file_path):
-            return f"⚠️ Error: File {file} not found."
+            return f"!!! danger \"File \"{file}\" not found.\""
 
         with open(file_path, "r", encoding="utf-8") as f:
             content = f.read()

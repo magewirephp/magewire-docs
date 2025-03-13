@@ -1,5 +1,10 @@
 # License
 
+!!! warning "Disclaimer"
+    This MagewirePHP packages are provided as is, without any warranties or guarantees. Use it at your own risk.
+    We are not responsible for any issues, damages, or consequences that may arise from its use,
+    and no claims can be made against us for any reason.
+
 MagewirePHP is an open-source project licensed under the MIT License. This means you are free to use, modify, distribute, and even incorporate MagewirePHP into commercial projects, as long as you include the original license and copyright notice.
 
 ## MIT License Overview

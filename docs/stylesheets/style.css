@@ -29,3 +29,11 @@ a.md-button.md-button--livewire {
     border-color: rgb(251 112 169);
   }
 }
+
+.md-typeset__table {
+  min-width: 100%;
+
+  table {
+    display: table !important;
+  }
+}

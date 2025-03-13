@@ -123,7 +123,7 @@ such as a `<div>`, to ensure proper functionality.
 
 ### 3. Inject onto a page
 
-To render the component, update the `layout.xml` file:
+To render the component, add the following to your layout handle:
 
 ```xml title="File: view/frontend/layout/page_handle.xml"
 <referenceBlock name="content">

@@ -21,21 +21,14 @@ a direct link to the corresponding Livewire page for quick access. The Magewire 
 additional information specific to Magewire, such as Magento-specific implementations, platform-specific limitations,
 and custom features.
 
+{{ include("admonition/livewire-reference.md", reference_url="#") }}
+
 We deliberately avoid copying and pasting content from the Livewire documentation. Instead, our goal is to complement
 it with details that are unique to Magewire, ensuring you get the most relevant and accurate information without redundancy.
 
-!!! info "Quick link"
-    On certain pages in this documentation, you will find a button labeled "View Livewire Docs" (or a similar title). This button serves as a direct link to the corresponding page in the official Livewire documentation.
-
-    Whenever you see this button, it means the topic being discussed is largely the same in both Magewire and Livewire. Clicking it will take you to the original Livewire documentation, where you can find in-depth explanations, examples, and additional details.
-
-    [:fontawesome-solid-heart: View Livewire Documentation](#){ .md-button .md-button--livewire }
-
-    The Magewire documentation will only cover Magento-specific differences, custom features, or enhancements that are not present in Livewire. This approach helps avoid content duplication while ensuring you always have access to the most relevant information.
-
 ## Clarity
 
-I strive to keep this documentation as clean and clear as possible. This means that, in most cases, page titles will
+We strive to keep this documentation as clean and clear as possible. This means that, in most cases, page titles will
 consist of a single word rather than a full sentence. Titles are carefully chosen to be self-explanatory,
 ensuring that readers can quickly understand the topic at a glance.
 
@@ -43,4 +36,17 @@ The goal is to make navigation intuitive and to avoid unnecessary complexity. By
 it becomes easier to scan through the documentation and find the information you need without distractions.
 If a topic requires further clarification, the content of the page itself will provide the necessary details.
 
-##
+## Specific
+
+For Magewire-specific features, we are introducing a "Magewire Specific" block. This serves as a clear indicator that
+the content applies specifically to Magewire and also displays the version in which the feature was introduced.
+
+{{ include("admonition/magewire-specific.md", since_version="3.0.0") }}
+
+While version-specific documentation with a version selector could be an option in the future,
+we currently do not see an immediate need for it, and implementing it would be a significantly larger project.
+
+## Contribute
+
+If you notice any missing details or information in this documentation, please refer to the [Contribution](contribute.md) section.
+We encourage everyone to contribute and help make the documentation as clear and accessible as possible for everyone.
