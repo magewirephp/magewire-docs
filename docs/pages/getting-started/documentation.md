@@ -36,17 +36,38 @@ The goal is to make navigation intuitive and to avoid unnecessary complexity. By
 it becomes easier to scan through the documentation and find the information you need without distractions.
 If a topic requires further clarification, the content of the page itself will provide the necessary details.
 
-## Specific
-
-For Magewire-specific features, we are introducing a "Magewire Specific" block. This serves as a clear indicator that
-the content applies specifically to Magewire and also displays the version in which the feature was introduced.
-
-{{ include("admonition/magewire-specific.md", since_version="3.0.0") }}
-
-While version-specific documentation with a version selector could be an option in the future,
-we currently do not see an immediate need for it, and implementing it would be a significantly larger project.
-
 ## Contribute
 
 If you notice any missing details or information in this documentation, please refer to the [Contribution](contribute.md) section.
 We encourage everyone to contribute and help make the documentation as clear and accessible as possible for everyone.
+
+## Includes
+
+The following blocks are included as a preview of what to expect within these docs.
+
+**Livewire Reference**
+{{ include("admonition/livewire-reference.md", reference_url="#") }}
+
+Magewire is heavily inspired by Livewire and, in many cases, works identically. As a result, rewriting the same
+documentation would not only require a significant time investment but also create confusion when changes occur in either project.
+
+Therefore, referring to the original Livewire documentation makes more sense.
+
+However, this does not mean that everything in the Livewire documentation applies to Magento.
+Some features are specific to Laravel, some may not make sense in the Magewire context, and others might be in
+development.
+
+**Magewire Experimental**
+{{ include("admonition/magewire-experimental.md") }}
+
+Magewire is an ambitious experiment with serious intentions. Some features should already be documented but require an
+experimental flag to indicate that they are subject to change and should not be used in a production environment.
+
+**Magewire Specific**
+{{ include("admonition/magewire-specific.md", since_version="3.0.0") }}
+
+For Magewire-specific features, we are introducing a "Magewire Specific" block. This serves as a clear indicator that
+the content applies specifically to Magewire and also displays the version in which the feature was introduced.
+
+While version-specific documentation with a version selector could be an option in the future,
+we currently do not see an immediate need for it, and implementing it would be a significantly larger project.
