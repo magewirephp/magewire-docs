@@ -4,6 +4,10 @@
 
 ## Requirements
 
+!!! warning "Alpine JS"
+    AlpineJS must be removed from your instance before using Magewire. Since Magewire's JavaScript library already includes AlpineJS,
+    having multiple instances can cause conflicts and unexpected issues.
+
 - Magento version 2.4.4 or later
 - PHP version 8.1 or later
 
@@ -14,4 +18,5 @@ This meant that some assumptions were made—some of which turned out to be inco
 aligned with Livewire’s changes and to ensure that certain features, or those relying on specific concepts, function as intended. 
 
 ### Array Property Hooks
-TBD...
+
+WIP...

@@ -6,12 +6,12 @@ this is possible on a personal level—depending on the developer and whether th
 
 A huge thank you to all the amazing sponsors! Every contribution is truly appreciated, and those who have given more are featured higher on this list as a special thank-you for their extra support.
 
-| Company    | Description                                                                                                         | Website                                                                                                                 |
-|------------|---------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
-| **Vendic** | Fast, reliable Magento 2 webshops for everyone.                                                                     | [:fontawesome-solid-arrow-up-right-from-square:](https://vendic.nl/?ref=magewire-documentation){:target="_blank"}       |
-| **Zero-1** | Focussed on multi use code (commercial and private extensions), which reduces TCO, and increases ROI for merchants. | [:fontawesome-solid-arrow-up-right-from-square:](https://www.zero1.co.uk/?ref=magewire-documentation){:target="_blank"} |
+| Company    | Description                                                                                                         | Website                                                                                                                                                   |
+|------------|---------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Vendic** | Fast, reliable Magento 2 webshops for everyone.                                                                     | [:fontawesome-solid-arrow-up-right-from-square:](https://vendic.nl/?ref=magewire-documentation&page-uri=getting-started_sponsors){:target="_blank"}       |
+| **Zero-1** | Focussed on multi use code (commercial and private extensions), which reduces TCO, and increases ROI for merchants. | [:fontawesome-solid-arrow-up-right-from-square:](https://www.zero1.co.uk/?ref=magewire-documentation&page-uri=getting-started_sponsors){:target="_blank"} |
 
-[:fontawesome-solid-arrow-up-right-from-square: Start Sponsoring this Project](https://github.com/sponsors/wpoortman){:target="_blank" .md-button .md-button--sponsor-now }
+[:fontawesome-solid-arrow-up-right-from-square: Start Sponsoring](https://github.com/sponsors/wpoortman){:target="_blank" .md-button .md-button--sponsor-now }
 
 ## Growing Together Through Open Source
 
@@ -25,9 +25,9 @@ Already some successful (commercial) projects have been built on MagewirePHP, pr
 Brilliant ideas emerge all the time, but too often, they struggle to reach their full potential due to limited time and financial resources. Thankfully, some companies and individuals recognize the value of open source and actively contribute, understanding that by supporting innovation, they’re also helping themselves stay ahead and deliver better solutions.
 
 ## Looking Ahead
-So far, MagewirePHP has been maintained in our free time, with a few generous sponsors providing small one-time or recurring contributions. We are truly grateful for this support! However, to sustain development at the current pace—or even accelerate it—we need to find a more sustainable approach.
+So far, MagewirePHP has been maintained in free time, with a few generous sponsors providing small one-time or recurring contributions. We are truly grateful for this support! However, to sustain development at the current pace—or even accelerate it—we need to find a more sustainable approach.
 
-To ensure MagewirePHP continues to thrive, we see two possible paths forward:
+To ensure MagewirePHP continues to thrive, we see two possible (combined) paths forward:
 
 - Expanding the team with more volunteers, making sure that development efforts are shared and sustainable.
 - Securing additional financial support through sponsorships, allowing us to dedicate more time to improving and expanding MagewirePHP.

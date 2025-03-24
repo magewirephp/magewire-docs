@@ -26,5 +26,5 @@ Magewire is a comprehensive package packed with powerful features. With version 
 choice for both frontend and backend developers—whether for use within themes or to build admin panel features.
 
 While Magewire’s future depends on love, contributions and financial support, it has the potential to revolutionize backend development.
-Together with cutting-edge frontend capabilities such as [Hyvä](https://hyva.io?ref=magewire-documentation),
+Together with cutting-edge frontend capabilities such as [Hyvä](https://hyva.io?ref=magewire-documentation&ref-uri=getting-started_purpose){:target="_blank"},
 Magento can regain its "sexy" status—it just requires fresh minds open to change.
