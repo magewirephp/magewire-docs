@@ -89,21 +89,23 @@ plugins:
 nav:
   - 'Getting Started':
       - 'index.md'
+      - 'pages/getting-started/alpha.md'
       - 'pages/getting-started/contribute.md'
       - 'pages/getting-started/documentation.md'
       - 'pages/getting-started/examples.md'
       - 'pages/getting-started/license.md'
       - 'pages/getting-started/purpose.md'
-      - 'pages/getting-started/sponsors.md'
-      - 'pages/getting-started/team.md'
+      - 'pages/getting-started/sponsoring.md'
       - 'pages/getting-started/upgrade.md'
       - 'Architecture':
-        - 'pages/getting-started/architecture/directives.md'
         - 'pages/getting-started/architecture/index.md'
         - 'pages/getting-started/architecture/facades.md'
         - 'pages/getting-started/architecture/features.md'
         - 'pages/getting-started/architecture/mechanisms.md'
         - 'pages/getting-started/architecture/portman.md'
+      - 'Releases':
+        - 'pages/getting-started/releases/feature-history.md'
+        - 'pages/getting-started/releases/changelog.md'
   - 'Essentials':
       - 'pages/essentials/components.md'
       - 'pages/essentials/properties.md'
@@ -114,8 +116,28 @@ nav:
       - 'pages/essentials/testing.md'
   - 'Features':
       - 'pages/features/alpine.md'
-      - 'pages/features/navigate.md'
-      - 'pages/features/lazy-loading.md'
-      - 'pages/features/validation.md'
+      - 'pages/features/at-directives.md'
+      - 'pages/features/request-bundling.md'
+      - 'pages/features/offline-states.md'
+  - 'Mechanisms':
+      - 'pages/mechanisms/resolvers.md'
+  - 'Directives':
+      - 'pages/html-directives/wire-click.md'
+      - 'pages/html-directives/wire-submit.md'
+      - 'pages/html-directives/wire-model.md'
+      - 'pages/html-directives/wire-loading.md'
+      - 'pages/html-directives/wire-current.md'
+      - 'pages/html-directives/wire-cloak.md'
+      - 'pages/html-directives/wire-dirty.md'
+      - 'pages/html-directives/wire-confirm.md'
+      - 'pages/html-directives/wire-transition.md'
+      - 'pages/html-directives/wire-init.md'
+      - 'pages/html-directives/wire-poll.md'
+      - 'pages/html-directives/wire-offline.md'
+      - 'pages/html-directives/wire-ignore.md'
+      - 'pages/html-directives/wire-replace.md'
+      - 'pages/html-directives/wire-show.md'
+      - 'pages/html-directives/wire-stream.md'
+      - 'pages/html-directives/wire-text.md'
   - 'Blog':
       - 'blogs/index.md'

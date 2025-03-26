@@ -22,6 +22,23 @@ Some benefits of contributing to an open-source project include:
 - Improving job market opportunities
 - Networking and building connections
 
+## Your Contributions Matter
+
+Every developer has faced that moment—the hesitation, the self-doubt, the feeling of being overwhelmed when stepping
+beyond their comfort zone to contribute. Thoughts like _Am I good enough?_ _What if I make mistakes?_ or
+_Others are smarter than me_ can spiral into inaction, stopping you from making the changes that could improve not only
+your workflow but the project as a whole.
+
+But here’s the truth: **every contribution matters**, **no matter your experience level**. We welcome all contributions,
+big or small, because each one gives us valuable insight into how developers interact with the framework.
+Your perspective helps us identify gaps in the documentation, refine features, and even spark new ideas and innovations.
+
+Not every pull request will be merged instantly, but every submission will be reviewed and acknowledged.
+We’ll provide feedback, guide you where needed, and sometimes even refine your work so you can learn from the process.
+
+So take that step—your contributions make a difference.
+We’re excited to see what you bring to the table!
+
 ## Areas
 
 We welcome all kinds of contributions—it’s not just about writing code!

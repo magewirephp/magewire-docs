@@ -45,6 +45,12 @@ We encourage everyone to contribute and help make the documentation as clear and
 
 The following blocks are included as a preview of what to expect within these docs.
 
+**Livewire Concept**
+
+{{ include('admonition/livewire-concept.md') }}
+
+To indicate that the explanation pertains to Livewire.
+
 **Livewire Reference**
 {{ include("admonition/livewire-reference.md", reference_url="#") }}
 

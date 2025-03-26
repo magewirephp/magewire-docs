@@ -6,6 +6,8 @@
     Using it in a live environment is entirely at your own risk and may lead to unexpected issues, including potential
     security vulnerabilities and system instability.**
 
+    [:fontawesome-solid-arrow-up-right-from-square: More Details](pages/getting-started/alpha.md){ .md-button .md-button--danger }
+
 Welcome to the official documentation for Magewire PHP. This guide provides all the necessary information to get started
 with Magewire V3, understand its core concepts, and build dynamic Magento applications using Livewire-like components.
 
@@ -169,7 +171,7 @@ We've only scratched the surface of what Magewire can do. Continue exploring the
 - [Examples](pages/getting-started/examples.md)
 - [License](pages/getting-started/license.md)
 - [Purpose](pages/getting-started/purpose.md)
-- [Sponsors](pages/getting-started/sponsors.md)
+- [Sponsors](pages/getting-started/sponsoring)
 - [Upgrade](pages/getting-started/upgrade.md)
 - [Architecture](pages/getting-started/architecture/index.md)
 

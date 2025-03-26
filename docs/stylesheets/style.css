@@ -10,23 +10,31 @@
   }
 }
 
-a.md-button.md-button--livewire {
-  padding: 8px 16px !important;
-  font-size: 14px;
-  border-color: rgb(251 112 169);
-  color: white;
-
+a.md-button {
   span.twemoji {
     margin-right: 12px;
   }
 
-  &:hover {
-    background-color: rgb(251 112 169);
-    border-color: rgb(251 112 169);
+  &.md-button--danger {
+    border-color: #a3a3a3;
+    color: #a3a3a3;
   }
-  &:focus {
-    background-color: rgb(251 112 169);
+
+  &.md-button--livewire {
+    padding: 8px 16px !important;
+    font-size: 14px;
     border-color: rgb(251 112 169);
+    color: white;
+
+    &:hover {
+      background-color: rgb(251 112 169);
+      border-color: rgb(251 112 169);
+    }
+
+    &:focus {
+      background-color: rgb(251 112 169);
+      border-color: rgb(251 112 169);
+    }
   }
 }
 
@@ -55,5 +63,29 @@ a.md-button.md-button--sponsor-now {
 
   table {
     display: table !important;
+  }
+}
+
+.admonition.laravel {
+  border-color: rgb(251 112 169);
+
+  .admonition-title {
+    background-color: rgb(66, 0, 26);
+
+    &:before {
+      background-color: rgb(251 112 169);
+    }
+  }
+}
+
+.admonition.magewire {
+  border-color: #f54a00;
+
+  .admonition-title {
+    background-color: #552000;
+
+    &:before {
+      background-color: #f54a00;
+    }
   }
 }
