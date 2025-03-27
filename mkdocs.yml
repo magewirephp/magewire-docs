@@ -139,5 +139,14 @@ nav:
       - 'pages/html-directives/wire-show.md'
       - 'pages/html-directives/wire-stream.md'
       - 'pages/html-directives/wire-text.md'
-  - 'Blog':
-      - 'blogs/index.md'
+  - 'Concepts':
+    - 'pages/concepts/morphing.md'
+    - 'pages/concepts/hydration.md'
+    - 'pages/concepts/nesting.md'
+  - 'Advanced':
+    - 'pages/advanced/troubleshooting.md'
+    - 'pages/advanced/security.md'
+    - 'pages/advanced/javascript.md'
+    - 'pages/advanced/synthesizers.md'
+#  - 'Blog':
+#      - 'blogs/index.md'
