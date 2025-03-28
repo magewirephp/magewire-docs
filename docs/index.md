@@ -74,7 +74,7 @@ To install Magewire in your Magento 2 project, follow these steps:
    bin/magento cache:flush
    ```
 
-## Quickstart Guide
+## Quickstart
 
 !!! info "Details"
     This quickstart guide does not cover all the details behind the "why" and "how" but is intended to provide a concise
@@ -96,6 +96,12 @@ We've only scratched the surface of what Magewire can do. Continue exploring the
     naturally retain the cached state rather than the most recent one. As of now, there is no definitive solution,
     though some experimental approaches are being explored. The most viable option currently is using wire:init to load
     the state on page load, though this requires an XHR request when the component is initialized.
+
+## Support
+
+Magewire is a fully open-source project, meaning support is provided voluntarily by its contributors and the surrounding community.
+
+To request support, you can start a discussion or open an issue on our [GitHub Repository](https://github.com/magewirephp/magewire).
 
 ## Next Steps
 

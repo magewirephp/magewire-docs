@@ -89,7 +89,6 @@ plugins:
 nav:
   - 'Getting Started':
       - 'index.md'
-      - 'pages/getting-started/alpha.md'
       - 'pages/getting-started/contribute.md'
       - 'pages/getting-started/documentation.md'
       - 'pages/getting-started/examples.md'

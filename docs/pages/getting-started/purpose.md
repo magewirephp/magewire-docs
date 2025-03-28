@@ -15,8 +15,7 @@ it also includes a range of enhancements that accelerate Magento feature develop
 ## Shake Things Up
 
 Magewire aims to shake things up by introducing modern, innovative concepts. Yes, this requires a different approach to
-development, but everything within a Magewire component is entirely optional.
-Traditional Magento workflows remain fully supported.
+development, but everything within a Magewire component is entirely optional. Traditional Magento workflows remain fully supported.
 
 By modernizing Magento’s development experience, Magewire seeks to (also) attract a new generation of developers who prefer a
 more streamlined approach. Simplifying certain Magento concepts makes backend development more approachable and enjoyable.
