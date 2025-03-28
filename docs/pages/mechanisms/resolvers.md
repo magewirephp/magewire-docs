@@ -9,8 +9,7 @@ By default, thanks to Layout XML, blocks are automatically generated, and when a
 the block is dynamically transformed. While this appears seamless, behind the scenes, the **Layout Component Resolver**
 is actually handling the process.
 
-However, in many other cases—such as with [Magento Widgets](https://experienceleague.adobe.com/en/docs/commerce-admin/content-design/elements/widgets/widgets)
-—the standard layout approach doesn’t apply. In these scenarios, the block must receive its Magewire argument differently
+However, in many other cases—such as with [Magento Widgets](https://experienceleague.adobe.com/en/docs/commerce-admin/content-design/elements/widgets/widgets)—the standard layout approach doesn’t apply. In these scenarios, the block must receive its Magewire argument differently
 and mount the component in an alternative way.
 
 The Resolver mechanism (or API) provides the flexibility to handle these cases.
@@ -61,10 +60,6 @@ use \Magewirephp\Magewire\Mechanisms\ResolveComponents\ComponentResolver\Compone
 
 class ExampleResolver extends LayoutResolver
 {
-    // A unique accessor name that describes your resolver in a single word.
-    // 
-    // This name is publicly visible and used during subsequent (XHR) requests
-    // to retrieve the correct resolver and reconstruct the Magewire component.
     protected string $accessor = 'example';
 
     public function complies(AbstractBlock $block, mixed $magewire = null): bool
@@ -86,4 +81,18 @@ class ExampleResolver extends LayoutResolver
         return parent::reconstruct($request);
     }
 }
+```
+
+Finally, make the resolver accessible through the **Component Resolver Management** by configuring it in `di.xml`.
+
+```xml
+<type name="Magewirephp\Magewire\Mechanisms\ResolveComponents\ComponentResolverManagement">
+    <arguments>
+        <argument name="resolvers" xsi:type="array">
+            <item name="layout" xsi:type="object" sortOrder="1337">
+                Magewirephp\Magewire\Mechanisms\ResolveComponents\ComponentResolver\LayoutResolver
+            </item>
+        </argument>
+    </arguments>
+</type>
 ```
