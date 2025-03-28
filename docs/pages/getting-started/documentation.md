@@ -9,6 +9,24 @@ and additional explanations that are either missing from the Livewire docs or ar
 If you're looking for a deeper understanding of how Magewire works under the hood, we highly recommend referring to the
 Livewire documentation alongside this guide.
 
+## Tone of Voice
+
+The tone of voice in these documents should always be professional, clear, and inclusive. We write from a "we" perspective
+rather than an "I" perspective to reflect a collaborative effort.
+
+Since these docs are primarily aimed at developers, we use a direct and instructional tone when providing step-by-step guidance.
+Addressing the reader with "you" ensures clarity and engagement.
+
+**Key Principles:**
+
+- Clarity & Precision – Avoid ambiguity and unnecessary complexity. Be concise but thorough.
+- Consistency – Use a uniform tone and terminology throughout the documentation.
+- Respect & Inclusivity – We respect and welcome everyone. Our language should be neutral, inclusive, and non-discriminatory.
+- Empathy – If something is unclear or if our tone ever feels unwelcoming, we encourage feedback. Please let us know, and we will work to improve it.
+- Encouraging & Helpful – When explaining concepts, especially for beginners, be supportive and assume good intent.
+
+By following these guidelines, we aim to create documentation that is helpful, approachable, and professional for all developers.
+
 ## Structure
 
 The Magewire documentation is intentionally structured in a way that closely follows the Livewire documentation.
