@@ -11,7 +11,7 @@ Livewire documentation alongside this guide.
 
 ## Tone of Voice
 
-The tone of voice in these documents should always be professional, clear, and inclusive. We write from a "we" perspective
+The tone of voice should always be professional, clear, and inclusive. We write from a "we" perspective
 rather than an "I" perspective to reflect a collaborative effort.
 
 Since these docs are primarily aimed at developers, we use a direct and instructional tone when providing step-by-step guidance.
@@ -95,3 +95,29 @@ the content applies specifically to Magewire and also displays the version in wh
 
 While version-specific documentation with a version selector could be an option in the future,
 we currently do not see an immediate need for it, and implementing it would be a significantly larger project.
+
+## AI
+
+Writing good documentation is a skill in itself. An explanation can be technically accurate but may not always be clear, concise, or well-structured in terms of vocabulary and readability. To enhance the quality of our documentation, we use AI as an assistant, but with clear boundaries.
+
+**Writing Guidelines:**
+
+- AI as a Writing Aid, Not a Replacement – AI helps refine wording, improve clarity, and enhance readability. However, it does not replace human judgment or expertise.
+- Human Oversight is Essential – Every AI-generated suggestion must be reviewed and approved by a human to ensure it aligns with our documentation standards and intent.
+- No AI-Generated Code – AI should not be used to write the initial code examples. Code should be written by developers first, ensuring correctness, best practices, and relevance. AI may assist in refining or improving existing code, but all changes must be carefully reviewed by a developer.
+- Maintain Consistency – AI should be used to align tone and structure but must follow the established style and technical accuracy of the documentation.
+
+By using AI thoughtfully and responsibly, we ensure that our documentation remains human-centered, high-quality, and reliable while benefiting from AI-driven enhancements.
+
+!!! info "Future Considerations: Automated Tone of Voice Checks"
+    We are exploring the possibility of implementing a GitHub action workflow that periodically reviews all Markdown
+    files within the pages folder. The goal is to ensure a consistent tone of voice throughout the entire documentation.
+
+    While this is not a priority at the moment, it remains a potential future improvement to maintain quality
+    and uniformity in our documentation.
+
+This prompt can be used when requesting AI to refine and enhance a specific section of your writing.
+
+```text
+WIP...
+```

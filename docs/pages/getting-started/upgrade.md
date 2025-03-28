@@ -2,6 +2,12 @@
 
 {{ include("admonition/livewire-reference.md", reference_url="https://livewire.laravel.com/docs/upgrading") }}
 
+## Versioning
+
+It’s important to clarify that Magewire V2 never existed. This decision was made to align major versioning with Livewire and avoid confusion,
+as Magewire V1 was based on Livewire V2, which already raised questions. With Magewire V3, this issue has been resolved,
+and version 2 was skipped entirely.
+
 ## Requirements
 
 !!! warning "Alpine JS"
