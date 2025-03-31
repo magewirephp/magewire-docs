@@ -13,9 +13,10 @@ as this project is independent of any company or organization.
 
 ## Sponsors
 
-| Sponsor    | Description                                                                                                         | Website                                                                                                                                                   |
-|------------|---------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Vendic** | Fast, reliable Magento 2 webshops for everyone.                                                                     | [:fontawesome-solid-arrow-up-right-from-square:](https://vendic.nl/?ref=magewire-documentation&page-uri=getting-started_sponsors){:target="_blank"}       |
+| Sponsor    | Description                                                                                                         | Website                                                                                                                                             |
+|------------|---------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Hyvä**   | Hyvä is a suite of products designed to improve your eCommerce website performance.                                 | [:fontawesome-solid-arrow-up-right-from-square:](https://hyva.io/?ref=magewire-documentation&page-uri=getting-started_sponsors){:target="_blank"}   |
+| **Vendic** | Fast, reliable Magento 2 webshops for everyone.                                                                     | [:fontawesome-solid-arrow-up-right-from-square:](https://vendic.nl/?ref=magewire-documentation&page-uri=getting-started_sponsors){:target="_blank"} |
 
 _Only higher-tier sponsors will be highlighted in the listing above._
 

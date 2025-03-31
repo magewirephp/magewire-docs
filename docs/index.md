@@ -6,8 +6,6 @@
     Using it in a live environment is entirely at your own risk and may lead to unexpected issues, including potential
     security vulnerabilities and system instability.**
 
-    [:fontawesome-solid-arrow-up-right-from-square: More Details](pages/getting-started/alpha.md){ .md-button .md-button--danger }
-
 Welcome to the official documentation for Magewire PHP. This guide provides all the necessary information to get started
 with Magewire V3, understand its core concepts, and build dynamic Magento applications using Livewire-like components.
 
@@ -32,10 +30,6 @@ as this can cause conflicts.
 Each theme should have its own submodule on top of Magewire to ensure compatibility. Theme-specific modifications,
 such as custom events and loading files, are required for proper functionality. By default, Magewire is built on the [Hyvä theme](https://www.hyva.io/),
 but this integration can easily be disabled, as it is a separate compatibility module rather than part of the core architecture.
-
-!!! warning "Security Vulnerabilities"
-    If you discover a security vulnerability within Magewire, please create a [merge request](https://github.com/magewirephp/magewire/pulls)
-    or an [discussion](https://github.com/magewirephp/magewire/discussions). All security vulnerabilities will be promptly addressed.
 
 ## Requirements
 
@@ -98,6 +92,10 @@ We've only scratched the surface of what Magewire can do. Continue exploring the
     the state on page load, though this requires an XHR request when the component is initialized.
 
 ## Support
+
+!!! warning "Security Vulnerabilities"
+    If you discover a security vulnerability within Magewire, please create a [merge request](https://github.com/magewirephp/magewire/pulls)
+    or an [discussion](https://github.com/magewirephp/magewire/discussions). All security vulnerabilities will be promptly addressed.
 
 Magewire is a fully open-source project, meaning support is provided voluntarily by its contributors and the surrounding community.
 
