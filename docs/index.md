@@ -108,7 +108,7 @@ To request support, you can start a discussion or open an issue on our [GitHub R
 - [Examples](pages/getting-started/examples.md)
 - [License](pages/getting-started/license.md)
 - [Purpose](pages/getting-started/purpose.md)
-- [Sponsors](pages/getting-started/sponsoring)
+- [Sponsors](pages/getting-started/sponsoring.md)
 - [Upgrade](pages/getting-started/upgrade.md)
 - [Architecture](pages/getting-started/architecture/index.md)
 
