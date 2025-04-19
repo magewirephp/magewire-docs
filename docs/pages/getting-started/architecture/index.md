@@ -3,7 +3,7 @@
 Considerable research was conducted to devise a practical and comprehensible approach to porting Livewire into a Magento module,
 while maintaining a straightforward architecture to encourage broader contribution.
 
-## Module structure
+## Module
 
 The module structure differs slightly from a typical Magento module.
 
@@ -16,7 +16,7 @@ The module structure differs slightly from a typical Magento module.
 | `./tests`   | Multiple type of tests e.g. Playwright                                                                                                                                            |
 | `./themes`  | Theme support decided into sub-modules                                                                                                                                            |
 
-## Theme Support
+## Themes
 
 Magewire is build to support multiple themes with having the Hyvä theme as its default. A theme needs to be made compatible adding or overwriting
 specific theme related code re-using the javascript which is written in a modular and loosly coupled fashion.
@@ -42,8 +42,16 @@ is pushed into the `dispatches` property.
 ```php title="Magewirephp\Magewire\Features\SupportMagentoFlashMessages\SupportMagentoFlashMessages"
 <?php
 
-$context->pushEffect('dispatches', [
-    'name'   => 'magewire:flash-messages:dispatch',
-    'params' => $messages,
-]);
+class SupportMagentoFlashMessages extends \Magewirephp\Magewire\ComponentHook
+{
+    public function dehydrate(\Magewirephp\Magewire\Mechanisms\HandleComponents\ComponentContext $context): void
+    {
+        ...
+        
+        $context->pushEffect('dispatches', [
+            'name'   => 'magewire:flash-messages:dispatch',
+            'params' => $messages,
+        ]);
+    }
+}
 ```
