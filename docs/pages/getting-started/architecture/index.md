@@ -42,6 +42,8 @@ is pushed into the `dispatches` property.
 ```php title="Magewirephp\Magewire\Features\SupportMagentoFlashMessages\SupportMagentoFlashMessages"
 <?php
 
+...
+
 class SupportMagentoFlashMessages extends \Magewirephp\Magewire\ComponentHook
 {
     public function dehydrate(\Magewirephp\Magewire\Mechanisms\HandleComponents\ComponentContext $context): void
