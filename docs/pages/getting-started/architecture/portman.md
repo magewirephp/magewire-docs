@@ -32,27 +32,27 @@ Before we start, make sure you have the following installed:
 To start contributing to Magewire, follow these steps:
 
 1. Require Portman via Composer:
-   ```sh
+   ```shell
    composer require magewirephp/portman --dev
    ```
 2. CD into the Magewirephp module:
-   ```sh
+   ```shell
    cd vendor/magewirephp/magewire
    ```
 3. Optionally, initialize a configuration when it does not exist:
-   ```sh
+   ```shell
    ../../bin/portman init
    ```
 4. Optionally, download the donor source
-   ```sh
+   ```shell
    ../../bin/portman download-source
    ```
 5. Build a new distribution:
-   ```sh
+   ```shell
    ../../bin/portman build
    ```
 6. Optionally, use a watcher while programming:
-   ```sh
+   ```shell
    ../../bin/portman watch
    ```
    
@@ -61,11 +61,14 @@ To start contributing to Magewire, follow these steps:
 The watcher will automatically trace files and rebuild a new distribution on file changes.
 
 1. Install `chokidar-cli`:
-   ```sh
+   ```shell
    npm install chokidar-cli
+   ```
+2. Optionally, install it globally:
+   ```shell
    npm install chokidar-cli -g
    ```
-2. Run the watcher:
-   ```sh
+3. Run the watcher:
+   ```shell
    ../../bin/portman watch
    ```

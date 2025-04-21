@@ -1,8 +1,8 @@
 # Magewire PHP
 
-!!! danger "Alpha release"
+!!! danger "Beta release"
     **Do not use Magewire V3 in production, as its stability, security, and overall reliability cannot be guaranteed.
-    The framework is still in an alpha phase, and breaking changes may occur without warning.
+    The framework is still in an beta phase, and breaking changes may occur without warning.
     Using it in a live environment is entirely at your own risk and may lead to unexpected issues, including potential
     security vulnerabilities and system instability.**
 
@@ -31,6 +31,21 @@ Each theme should have its own submodule on top of Magewire to ensure compatibil
 such as custom events and loading files, are required for proper functionality. By default, Magewire is built on the [Hyvä theme](https://www.hyva.io/),
 but this integration can easily be disabled, as it is a separate compatibility module rather than part of the core architecture.
 
+### So Much More
+
+Both [Livewire](https://livewire.laravel.com/) and Magewire are known for their dynamic capabilities powered by XHR (AJAX) requests.
+This can sometimes be intimidating, as making a full server round trip just to update a small piece of HTML may seem
+excessive—let alone concerns about potential deadlocks or other pitfalls.
+
+However, Magewire is much more than just a framework that standardizes XHR requests and morphs returned HTML into the existing DOM.
+It's a powerful and feature-rich framework that caters to both backend and frontend developers.
+Its seamless integration with [Alpine JS](https://alpinejs.dev/) makes the two feel like a natural pair.
+
+Magewire isn't limited to dynamic interactivity alone. It offers a wide range of possibilities and use cases—many of
+which you'll only begin to appreciate as you explore its full potential.
+
+You can learn more about the purpose of Magewire [here](pages/getting-started/purpose.md).
+
 ## Requirements
 
 Before we start, make sure you have the following installed:
@@ -43,28 +58,28 @@ Before we start, make sure you have the following installed:
 To install Magewire in your Magento 2 project, follow these steps:
 
 1. Require Magewire via Composer:
-   ```sh
+   ```shell
    composer require magewirephp/magewire
    ```
 2. Enable the module:
-   ```sh
+   ```shell
    bin/magento module:enable Magewirephp_Magewire
    ```
 3. Enable the theme compatibility module (determined per theme, in this case Hyvä):
-   ```sh
+   ```shell
    bin/magento module:enable Magewirephp_MagewireCompatibilityWithHyva
    ```
 
 4. Run the setup upgrade command:
-   ```sh
+   ```shell
    bin/magento setup:upgrade
    ```
 5. Deploy static content (when in production mode):
-   ```sh
+   ```shell
    bin/magento setup:static-content:deploy
    ```
 6. Flush the cache:
-   ```sh
+   ```shell
    bin/magento cache:flush
    ```
 
