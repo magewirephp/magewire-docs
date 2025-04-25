@@ -129,8 +129,8 @@ To request support, you can start a discussion or open an issue on our [GitHub R
 
 With Magewire, there are a few key concepts worth understanding if you want to go beyond the basics—like binding a `magewire` argument to a block via Layout XML.
 
-|                                                                         | Description                                                                                                                                                                                     |
-|-------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|                                                                  | Description                                                                                                                                                                                     |
+|------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | [Resolvers](pages/advanced/architecture/mechanisms/resolvers.md) | While Magewire supports various methods for binding components to blocks, some scenarios require custom handling. For those, an API is available to help you tailor the solution to your needs. |
 | [Portman](pages/advanced/architecture/portman.md)                | To contribute to Magewire, it's important to understand the idea behind Portman. We've provided extensive documentation to guide you and help you get up to speed quickly.                      |
 
