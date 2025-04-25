@@ -62,11 +62,14 @@ class ExampleResolver extends LayoutResolver
 {
     protected string $accessor = 'example';
 
+    // A lightweight check to determine if the given block meets the requirements 
+    // to be resolved using this resolver.
     public function complies(AbstractBlock $block, mixed $magewire = null): bool
     {
         return $block->hasData('foo') && $block->getData('foo') === 'bar';
     }
     
+    // Constructs a block, initializes a Magewire component object, and sets its ID and name.
     public function construct(AbstractBlock $block): AbstractBlock
     {
         $block->setData('magewire') = $myCustomComponentFactory->create($block)
@@ -74,6 +77,7 @@ class ExampleResolver extends LayoutResolver
         return parent::construct($block);
     }
 
+    // Reconstructing the block from the given snapshot during an update request cycle.
     public function reconstruct(\Magewirephp\Magewire\Mechanisms\HandleRequests\ComponentRequestContext $request): AbstractBlock
     {
         $snapshot = $request->getSnapshot();
@@ -85,10 +89,12 @@ class ExampleResolver extends LayoutResolver
 
 Finally, make the resolver accessible through the **Component Resolver Management** by configuring it in `di.xml`.
 
-```xml
+```xml title="File: etc/frontend/di.xml"
 <type name="Magewirephp\Magewire\Mechanisms\ResolveComponents\ComponentResolverManagement">
     <arguments>
         <argument name="resolvers" xsi:type="array">
+            
+            <!-- The sort order defines which resolver is evaluated first and should always be set. -->
             <item name="layout" xsi:type="object" sortOrder="1337">
                 Magewirephp\Magewire\Mechanisms\ResolveComponents\ComponentResolver\LayoutResolver
             </item>

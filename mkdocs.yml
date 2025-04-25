@@ -92,16 +92,11 @@ nav:
       - 'pages/getting-started/contribute.md'
       - 'pages/getting-started/documentation.md'
       - 'pages/getting-started/examples.md'
+      - 'pages/getting-started/faq.md'
       - 'pages/getting-started/license.md'
       - 'pages/getting-started/purpose.md'
       - 'pages/getting-started/sponsoring.md'
       - 'pages/getting-started/upgrade.md'
-      - 'Architecture':
-        - 'pages/getting-started/architecture/index.md'
-        - 'pages/getting-started/architecture/facades.md'
-        - 'pages/getting-started/architecture/features.md'
-        - 'pages/getting-started/architecture/mechanisms.md'
-        - 'pages/getting-started/architecture/portman.md'
       - 'Releases':
         - 'pages/getting-started/releases/feature-history.md'
         - 'pages/getting-started/releases/changelog.md'
@@ -118,8 +113,6 @@ nav:
       - 'pages/features/at-directives.md'
       - 'pages/features/request-bundling.md'
       - 'pages/features/offline-states.md'
-  - 'Mechanisms':
-      - 'pages/mechanisms/resolvers.md'
   - 'Directives':
       - 'pages/html-directives/wire-click.md'
       - 'pages/html-directives/wire-submit.md'
@@ -147,5 +140,14 @@ nav:
     - 'pages/advanced/security.md'
     - 'pages/advanced/javascript.md'
     - 'pages/advanced/synthesizers.md'
+    - 'pages/advanced/best-practices.md'
+    - 'Architecture':
+        - 'pages/advanced/architecture/index.md'
+        - 'pages/advanced/architecture/facades.md'
+        - 'pages/advanced/architecture/features.md'
+        - 'Mechanisms':
+            - 'pages/advanced/architecture/mechanisms/index.md'
+            - 'pages/advanced/architecture/mechanisms/resolvers.md'
+        - 'pages/advanced/architecture/portman.md'
 #  - 'Blog':
 #      - 'blogs/index.md'

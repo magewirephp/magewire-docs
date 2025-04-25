@@ -1,0 +1,1 @@
+!!! warning "These docs are still under active development, with the goal of providing as much useful content as possible. Given that Magewire is a large package with many possibilities, it's challenging to cover everything out of the box. We appreciate your understanding."

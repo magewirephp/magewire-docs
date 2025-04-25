@@ -1,3 +1,5 @@
+# Facades (experimental)
+
 {{ include("admonition/magewire-experimental.md") }}
 
 **Feature and Mechanism facades are currently experimental and may not be included in the final release.

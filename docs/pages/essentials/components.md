@@ -10,6 +10,6 @@ the logic and a template responsible for rendering the HTML on the frontend.
 
 In the following example, we assume you are using layout XML to inject a Magewire component onto a page.
 For more advanced use cases, we recommend exploring the in-depth documentation, where concepts like the
-[resolver](../mechanisms/resolvers.md) mechanism will most likely play a role.
+[resolver](../advanced/architecture/mechanisms/resolvers.md) mechanism will most likely play a role.
 
 {{ include("create-a-component.md") }}

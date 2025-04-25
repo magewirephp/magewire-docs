@@ -72,3 +72,12 @@ The watcher will automatically trace files and rebuild a new distribution on fil
    ```shell
    ../../bin/portman watch
    ```
+
+## Troubleshooting
+
+Some common issues are:
+
+| Issue                                                                                              | Solution                                                                                                                                           |
+|----------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|
+| The `/dist` folder is missing after requiring Magewire via Composer                                | The distribution is only build when a new release is being pushed. When you require Magewire manually, you need to first build a new distribution. |
+| Disctribution build, but shows a warning that one or more files have a augmentation but no source. | Use `../../bin/portman download-source` and rebuild once more.                                                                                     |

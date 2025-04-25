@@ -1,5 +1,7 @@
 # Documentation
 
+{{ include("admonition/documentation-under-construction.md") }}
+
 Magewire is heavily inspired by Livewire, and as a result, most of its core functionality works in the same way.
 For this reason, all essential documentation can be found in the official [Livewire documentation](https://livewire.laravel.com/docs/quickstart).
 
@@ -26,6 +28,11 @@ Addressing the reader with "you" ensures clarity and engagement.
 - Encouraging & Helpful – When explaining concepts, especially for beginners, be supportive and assume good intent.
 
 By following these guidelines, we aim to create documentation that is helpful, approachable, and professional for all developers.
+
+## Navigation
+
+The navigation structure has been mirrored from the Livewire 3 documentation, with a few additions.
+The goal is to keep things in sync, making content easier to navigate and understand.
 
 ## Structure
 

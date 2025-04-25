@@ -26,7 +26,7 @@ effectively transforming them into Magewire components.
 Removing Resolvers would constitute a breaking change, as blocks intended to function as Magewire components would
 no longer be able to do so.
 
-```xml title="File: frontend/di.xml"
+```xml title="File: etc/frontend/di.xml"
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd"

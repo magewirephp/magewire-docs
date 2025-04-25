@@ -6,6 +6,8 @@
     Using it in a live environment is entirely at your own risk and may lead to unexpected issues, including potential
     security vulnerabilities and system instability.**
 
+{{ include("admonition/documentation-under-construction.md") }}
+
 Welcome to the official documentation for Magewire PHP. This guide provides all the necessary information to get started
 with Magewire V3, understand its core concepts, and build dynamic Magento applications using Livewire-like components.
 
@@ -55,6 +57,14 @@ Before we start, make sure you have the following installed:
 
 ## Installation
 
+!!! info "Beta"
+    To participate in the beta program, you must first be added as a contributor to the repository.
+    Additionally, you’ll need to make a small adjustment to your Composer configuration.
+
+    ```shell
+    composer config repositories.magewirephp/magewire-three git git@github.com:magewirephp/magewire-three.git
+    ```
+
 To install Magewire in your Magento 2 project, follow these steps:
 
 1. Require Magewire via Composer:
@@ -69,7 +79,6 @@ To install Magewire in your Magento 2 project, follow these steps:
    ```shell
    bin/magento module:enable Magewirephp_MagewireCompatibilityWithHyva
    ```
-
 4. Run the setup upgrade command:
    ```shell
    bin/magento setup:upgrade
@@ -118,6 +127,15 @@ To request support, you can start a discussion or open an issue on our [GitHub R
 
 ## Next Steps
 
+With Magewire, there are a few key concepts worth understanding if you want to go beyond the basics—like binding a `magewire` argument to a block via Layout XML.
+
+|                                                                         | Description                                                                                                                                                                                     |
+|-------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [Resolvers](pages/advanced/architecture/mechanisms/resolvers.md) | While Magewire supports various methods for binding components to blocks, some scenarios require custom handling. For those, an API is available to help you tailor the solution to your needs. |
+| [Portman](pages/advanced/architecture/portman.md)                | To contribute to Magewire, it's important to understand the idea behind Portman. We've provided extensive documentation to guide you and help you get up to speed quickly.                      |
+
+Some other great resources to get you started are:
+
 - [Contribute](pages/getting-started/contribute.md)
 - [Documentation](pages/getting-started/documentation.md)
 - [Examples](pages/getting-started/examples.md)
@@ -125,6 +143,6 @@ To request support, you can start a discussion or open an issue on our [GitHub R
 - [Purpose](pages/getting-started/purpose.md)
 - [Sponsors](pages/getting-started/sponsoring.md)
 - [Upgrade](pages/getting-started/upgrade.md)
-- [Architecture](pages/getting-started/architecture/index.md)
+- [Architecture](pages/advanced/architecture/index.md)
 
 For further details, visit the [MagewirePHP GitHub Repository](https://github.com/magewirephp/magewire).
