@@ -153,6 +153,7 @@ nav:
         - 'Mechanisms':
             - 'pages/advanced/architecture/mechanisms/index.md'
             - 'pages/advanced/architecture/mechanisms/resolvers.md'
+        - 'pages/advanced/architecture/layout.md'
         - 'pages/advanced/architecture/portman.md'
 #  - 'Blog':
 #      - 'blogs/index.md'
