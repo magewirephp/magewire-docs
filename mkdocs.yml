@@ -94,6 +94,7 @@ nav:
           - 'pages/getting-started/compatibility/hyva-checkout.md'
           - 'pages/getting-started/compatibility/hyva-theme.md'
           - 'pages/getting-started/compatibility/magento-backend.md'
+      - 'pages/getting-started/component.md'
       - 'pages/getting-started/contribute.md'
       - 'pages/getting-started/documentation.md'
       - 'pages/getting-started/examples.md'
