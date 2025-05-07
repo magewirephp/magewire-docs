@@ -168,3 +168,13 @@ The second handles compilation manually, since it only requires a single method.
 
 While this could have been solved by defining a public `json` method, in this case, it was necessary to manually handle
 `$encodingOptions` to apply default flags when none are provided by the developer.
+
+## Roadmap
+
+{{ include("admonition/roadmap.md") }}
+
+| Subject               | Description                                                                                                                               |
+|-----------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
+| Precompilers          | Precompile specific template context into `@` prefixed directives.                                                                        |
+| Component Precompiler | Converts `<x-component name="foo">` tags into `@magewireComponent(name: 'foo')` directives automatically during the precompilation phase. |
+

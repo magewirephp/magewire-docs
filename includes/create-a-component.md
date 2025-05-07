@@ -61,6 +61,8 @@ You can even create a custom resolver to fit specific requirements.
 
 ### 4. Test it out
 
+<img src="./images/counter.gif" alt="Counter" style="border-radius: 15px">
+
 Clear the Magento cache and navigate to the relevant page:
 
 ```sh
