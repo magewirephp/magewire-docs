@@ -3,7 +3,7 @@
 Notables are brief, helpful insights that highlight useful context or nuances. They’re not meant to be buried in the main text,
 nor do they require a full deep-dive explanation — they simply make small but important details clearer at a glance.
 
-## Magewire Block
+## The Magewire Block
 
 We aim to keep JavaScript-related .phtml files as minimal and clean as possible. These templates are architected to live
 within a wrapping `magewire` block, which comes with both benefits and trade-offs. One such trade-off is that many of

@@ -6,7 +6,19 @@ In recent years, alternatives have emerged that offer more modern and streamline
 particularly on the frontend. Magewire takes a similar approach, leveraging its architecture to introduce new features
 and concepts while trying to stay somewhat aligned with Magento's core principles.
 
-## More then a Port
+Magewire tries to further modernize Magento by offering a proven solution, much like Hyvä did with Tailwind CSS and Alpine JS.
+Over the years, we've seen many new technologies emerge—some that borrow ideas from other frameworks and try to do things 
+just that little bit different, or ones that were built by accident but never really took off. This often happens because
+our open-source community tends to focus more on using tools than contributing back to them.
+
+We've seen this cycle before, like when Snow Dog introduced two themes. While they were used, issues often led to
+complaints instead of solutions. As a result, the Snow Dog team ended up managing issues rather than working on improvements.
+
+Magewire aims to change this by offering a framework that's already proven. With Laravel Livewire, we've seen developers
+embrace its simplicity and power. Magewire V3 stays close to Livewire V3’s architecture, making it easy for Magento
+developers to experience the same smooth workflow and productivity.
+
+## More than a Port
 
 Magewire is more than just a [Livewire](https://livewire.laravel.com/){:target="_blank"} port; it draws inspiration from Laravel,
 particularly its simplicity. While Magewire primarily focuses on enabling dynamic component development,

@@ -136,12 +136,10 @@ With Magewire, there are a few key concepts worth understanding if you want to g
 
 Some other great resources to get you started are:
 
-- [Contribute](pages/getting-started/contribute.md)
-- [Documentation](pages/getting-started/documentation.md)
+- [Basics](pages/getting-started/basics.md)
 - [Examples](pages/getting-started/examples.md)
-- [License](pages/getting-started/license.md)
-- [Purpose](pages/getting-started/purpose.md)
-- [Sponsors](pages/getting-started/sponsoring.md)
+- [FAQ](pages/getting-started/faq.md)
+- [Notables](pages/getting-started/notables.md)
 - [Upgrade](pages/getting-started/upgrade.md)
 - [Architecture](pages/advanced/architecture/index.md)
 
