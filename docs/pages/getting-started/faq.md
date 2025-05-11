@@ -62,6 +62,12 @@ we encourage you to troubleshoot them yourself or reach out for support on our D
 
 *If you encounter any issues while upgrading, please report them via GitHub Issues.*
 
+## Can Magewire Be Used with the Luma Theme?
+
+Magewire has been specifically designed to be Hyvä-first, meaning it works seamlessly with the Hyvä theme right out of the box.
+
+That said, thanks to its flexible architecture, Magewire can also be made compatible with other themes. In fact, it has already been made compatible with the admin panel.
+
 ## Will Hyvä Checkout Use Magewire V3?
 
 Magewire is an independent framework, with support from Hyvä through contributions to areas necessary for its product.
