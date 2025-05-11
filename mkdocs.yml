@@ -89,17 +89,13 @@ plugins:
 nav:
   - 'Getting Started':
       - 'index.md'
-      - 'Compatibility':
-          - 'pages/getting-started/compatibility/index.md'
-          - 'pages/getting-started/compatibility/hyva-checkout.md'
-          - 'pages/getting-started/compatibility/hyva-theme.md'
-          - 'pages/getting-started/compatibility/magento-backend.md'
-      - 'pages/getting-started/component.md'
+      - 'pages/getting-started/basics.md'
       - 'pages/getting-started/contribute.md'
       - 'pages/getting-started/documentation.md'
       - 'pages/getting-started/examples.md'
       - 'pages/getting-started/faq.md'
       - 'pages/getting-started/license.md'
+      - 'pages/getting-started/notables.md'
       - 'pages/getting-started/purpose.md'
       - 'pages/getting-started/sponsoring.md'
       - 'pages/getting-started/upgrade.md'

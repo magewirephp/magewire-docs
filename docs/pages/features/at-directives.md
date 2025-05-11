@@ -169,6 +169,39 @@ The second handles compilation manually, since it only requires a single method.
 While this could have been solved by defining a public `json` method, in this case, it was necessary to manually handle
 `$encodingOptions` to apply default flags when none are provided by the developer.
 
+## Actions
+
+Magewire directives are compiled into actual PHP code, which is then placed into real .phtml template files. However, it's important to limit the amount of business logic written directly within these templates.
+
+Ideally, your directive’s compile method should return clean and minimal PHP, such as:
+
+```html
+<span>Firstname: <?= $viewModel->renderCustomerFirstname() ?></span>
+```
+
+As shown above, this relies on a $viewModel object, which must be injected or made available to the template.
+While you can provide this ViewModel specifically for that template, it quickly becomes less reusable when others
+want to use the same `@` directive elsewhere.
+
+To solve this, Magewire introduces a global variable called `$__magewire`, available only within templates rendered
+as part of a Magewire component. This variable acts as a basic ViewModel — referred to as Magewire Underscore.
+
+The `$__magewire` ViewModel provides an `action()` method that accepts a string $class argument. This class can either be:
+
+A mapped alias defined in di.xml, or
+
+A fully qualified class name that extends the ActionManager.
+
+This approach enables your compiled output to remain clean and consistent across templates. For example:
+
+```html
+<span>Firstname: <?= $__magewire->action('mapped.namespace')->execute('method_name') ?></span>
+```
+
+### Example
+
+
+
 ## Roadmap
 
 {{ include("admonition/roadmap.md") }}
