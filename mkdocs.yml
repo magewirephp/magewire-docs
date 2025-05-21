@@ -134,6 +134,7 @@ nav:
       - 'pages/html-directives/wire-stream.md'
       - 'pages/html-directives/wire-text.md'
   - 'Concepts':
+    - 'pages/concepts/fragments.md'
     - 'pages/concepts/morphing.md'
     - 'pages/concepts/hydration.md'
     - 'pages/concepts/nesting.md'
