@@ -90,3 +90,25 @@ $bar = $magewireViewModel->utils()->myCustomTechnology()->bar();
 ```
 
 *Note: Providing a custom View Model directly is still perfectly valid.*
+
+## Magewire View Fragments
+
+!!! tip "View Fragments can also be used outside Magewire components!"
+
+View Fragments—or simply fragments—are self-contained sections of code, typically HTML, that can be both validated and
+programmatically modified. The concept was originally introduced to provide a clean and reliable solution for making
+`<script>` tags within template files CSP-compliant.
+
+Since then, the idea has evolved and proven useful in many other areas where dynamic and secure rendering is required.
+
+```html title="Example_Module::view/frontend/templates/example.phtml"
+<?php $fragment = $magewireViewModel->utils()->template()->fragment() ?>
+
+<?php $script = $fragment->script()->start() ?>
+<script>
+    // JS code goes here...
+</script>
+<?php $script->end() ?>
+```
+
+For a deeper dive, refer to the [Fragments](../concepts/fragments.md) page.

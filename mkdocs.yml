@@ -90,6 +90,7 @@ nav:
   - 'Getting Started':
       - 'index.md'
       - 'pages/getting-started/basics.md'
+      - 'pages/getting-started/beta.md'
       - 'pages/getting-started/contribute.md'
       - 'pages/getting-started/documentation.md'
       - 'pages/getting-started/examples.md'
@@ -154,5 +155,5 @@ nav:
             - 'pages/advanced/architecture/mechanisms/resolvers.md'
         - 'pages/advanced/architecture/layout.md'
         - 'pages/advanced/architecture/portman.md'
-#  - 'Blog':
-#      - 'blogs/index.md'
+  - 'Blog':
+      - 'blogs/index.md'

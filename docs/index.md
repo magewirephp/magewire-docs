@@ -6,6 +6,8 @@
     Using it in a live environment is entirely at your own risk and may lead to unexpected issues, including potential
     security vulnerabilities and system instability.**
 
+    Please refer to the [beta](pages/getting-started/beta.md) page for more details.
+
 {{ include("admonition/documentation-under-construction.md") }}
 
 Welcome to the official documentation for Magewire PHP. This guide provides all the necessary information to get started
