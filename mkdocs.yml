@@ -140,12 +140,13 @@ nav:
     - 'pages/concepts/hydration.md'
     - 'pages/concepts/nesting.md'
   - 'Advanced':
-    - 'pages/advanced/troubleshooting.md'
-    - 'pages/advanced/security.md'
+    - 'pages/advanced/best-practices.md'
     - 'pages/advanced/javascript.md'
     - 'pages/advanced/patterns.md'
+    - 'pages/advanced/security.md'
     - 'pages/advanced/synthesizers.md'
-    - 'pages/advanced/best-practices.md'
+    - 'pages/advanced/themes.md'
+    - 'pages/advanced/troubleshooting.md'
     - 'Architecture':
         - 'pages/advanced/architecture/component-hooks.md'
         - 'pages/advanced/architecture/index.md'

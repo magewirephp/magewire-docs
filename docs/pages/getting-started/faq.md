@@ -74,7 +74,7 @@ Magewire is an independent framework, with support from Hyvä through contributi
 
 Whether it will be officially supported is beyond our control, so we cannot make any guarantees or statements about that.
 
-## Can V1 and V3 run simultaneous?
+## Can V1 and V3 run simultaneously?
 
 No, this is not possible. Magewire V3 is a complete rewrite, though it maintains backward compatibility where feasible.
 

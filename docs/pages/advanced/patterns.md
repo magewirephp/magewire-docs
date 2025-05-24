@@ -51,15 +51,15 @@ The templates could look like the following:
 <script>
     function magewireNotifier() {
         return {
-            create() {
-                ...
-            }
+            create() {...},
+            update() {...},
+            delete() {...},
         }
     }
     
     document.addEventListener('alpine:init', () => {
         Alpine.data('magewireNotifier', magewireNotifier);
-    }, { once: true }))
+    }, { once: true })
 </script>
 ```
 
@@ -71,16 +71,26 @@ And:
 <script>
     function magewireNotifierBindings() {
         return {
+            
+            <!-- Binds the "magewire-notifications" class to the root element of the component. -->
             'x-bind:class'() {
                 return 'magewire-notifications';
-            };
+            }
         };
     }
 
     document.addEventListener('alpine:init', () => {
         Alpine.bind('magewireNotifierBindings', magewireNotifierBindings);
-    }, { once: true }))
+    }, { once: true })
 </script>
 ```
 
 !!! info "By assigning bindings through a function, you gain flexibility to adjust or proxy the logic elsewhere—outside the template file. This approach keeps your templates clean and makes it easier to maintain or override behavior without directly modifying the view."
+
+Finally, these can be used within your UI component:
+
+```html title="magewire/ui-components/notifier.phtml"
+<div x-data="magewireNotifier" x-bind="magewireNotifierBindings">
+    
+</div>
+```
