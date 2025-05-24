@@ -43,7 +43,7 @@ a compatibility layer needs to be added.
 
 In the case of the Hyvä Theme, the following approach can be used:
 
-```xml
+```xml title="src/view/frontend/layout/default_hyva.xml"
 <body>
     <referenceContainer name="magewire.features">
         <block name="magewire.features.support-magento-flash-messages"
@@ -55,7 +55,7 @@ In the case of the Hyvä Theme, the following approach can be used:
 
 Here’s the template content used to achieve this:
 
-```html
+```html title="Magewirephp_MagewireCompatibilityWithHyva::js/magewire/features/support-magento-flash-messages/support-magento-flash-messages.phtml"
 <script>
     (() => {
         window.addEventListener('magewire:flash-messages:dispatch', event => dispatchMessages(event.detail));
@@ -75,3 +75,5 @@ The `magewire:flash-messages:dispatch` event includes the following data:
     }
 }
 ```
+
+So, in theory, it only takes eight lines of code to make flash messages work with the Hyvä Theme.
