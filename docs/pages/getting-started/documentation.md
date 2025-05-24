@@ -11,6 +11,13 @@ and additional explanations that are either missing from the Livewire docs or ar
 If you're looking for a deeper understanding of how Magewire works under the hood, we highly recommend referring to the
 Livewire documentation alongside this guide.
 
+## Disclaimer
+
+These docs are written based on the knowledge and experience we had at the time of writing.
+
+If you notice anything incorrect, unclear, in need of expansion, or outdated, feel free to open a pull request.
+We’ll review it as soon as possible.
+
 ## Tone of Voice
 
 The tone of voice should always be professional, clear, and inclusive. We write from a "we" perspective

@@ -70,6 +70,19 @@ That said, thanks to its flexible architecture, Magewire can also be made compat
 
 ## Will Hyvä Checkout Use Magewire V3?
 
-Magewire is an independent framework, with support from Hyvä through contributions to areas necessary for its product.
+Magewire is an independent framework, with support from Hyvä through contributions to areas necessary for its products.
 
 Whether it will be officially supported is beyond our control, so we cannot make any guarantees or statements about that.
+
+## Can V1 and V3 run simultaneous?
+
+No, this is not possible. Magewire V3 is a complete rewrite, though it maintains backward compatibility where feasible.
+
+However, features that were specifically built for Magewire V1 will need to be updated to work with V3.
+
+The upgrade process shouldn't be difficult—just follow the steps outlined in the [Upgrade Guide](upgrade.md),
+which will help you migrate your code smoothly.
+
+## Where can I find the V1 Documentation?
+
+V1 documentation can be found [here](https://github.com/magewirephp/magewire/tree/1.13.1/docs)

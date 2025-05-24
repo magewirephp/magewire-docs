@@ -13,6 +13,18 @@ required to ensure compatibility with their existing implementations.
 
 We encourage you to try out the beta, provide feedback, and report any issues you encounter. Your input helps shape a stable and reliable final release.
 
+## Rough State
+
+Magewire V3 is still in a rough beta state, meaning that while the core architecture is in place, many features still
+need to be fine-tuned and battle-tested before the package can be considered stable.
+
+One of the key goals during this phase is to increase test coverage to ensure that no bugs slip through when new
+releases are published.
+
+That said, the beta tag also signals that the overall architecture is solid and unlikely to undergo major changes,
+as it largely follows the structure of Livewire. The foundation is there—but it still needs polish and real-world
+feedback before it's production-ready.
+
 ## Work In Progress
 
 Some pages or sections are marked with `WIP...`, indicating that they are important areas requiring further attention

@@ -1,4 +1,4 @@
-# Magewire PHP
+# Magewire PHP - V3
 
 !!! danger "Beta release"
     **Do not use Magewire V3 in production, as its stability, security, and overall reliability cannot be guaranteed.

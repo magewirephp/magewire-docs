@@ -112,3 +112,33 @@ Since then, the idea has evolved and proven useful in many other areas where dyn
 ```
 
 For a deeper dive, refer to the [Fragments](../concepts/fragments.md) page.
+
+## Component Reusability
+
+A Magewire component class can be bound to a layout block—for example, via layout XML. If you're using this method and
+want to reuse the same component class across multiple blocks, you must set the `shared` flag to `false`.
+
+This ensures each block gets its own instance of the component rather than sharing a single one leading into conflicts.
+
+If you're resolving a Magewire component in a different way (outside of layout XML), we recommend using a [Factory](https://developer.adobe.com/commerce/php/development/components/factories/)
+to create new instances as needed.
+
+```xml
+<block name="foo" template="Example_Module::magewire/foo.phtml">
+    <arguments>
+        <argument name="magewire" xsi:type="object" shared="false">
+            Example\Module\Magewire\Foo
+        </argument>
+    </arguments>
+</block>
+
+<block name="bar" template="Example_Module::magewire/bar.phtml">
+    <arguments>
+        <argument name="magewire" xsi:type="object" shared="false">
+            Example\Module\Magewire\Foo
+        </argument>
+    </arguments>
+</block>
+```
+
+!!! info "For more details on how to bind a Magewire component to a layout block, please refer to the [Resolver](../advanced/architecture/mechanisms/resolvers.md) section."

@@ -143,6 +143,7 @@ nav:
     - 'pages/advanced/troubleshooting.md'
     - 'pages/advanced/security.md'
     - 'pages/advanced/javascript.md'
+    - 'pages/advanced/patterns.md'
     - 'pages/advanced/synthesizers.md'
     - 'pages/advanced/best-practices.md'
     - 'Architecture':

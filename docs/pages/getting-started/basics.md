@@ -2,6 +2,8 @@
 
 Just getting started with Magewire and want to learn the basics? This page will help you kickstart your development journey!
 
+!!! tip "Don’t miss our Notables—a collection of helpful, nice-to-know examples that go beyond the basics."
+
 ## Layout XML
 
 The primary method for converting a block into a dynamic Magewire component is by defining the `magewire` block argument
@@ -57,19 +59,4 @@ class Counter extends \Magewirephp\Magewire\Component
         $this->count = $start;
     }
 }
-```
-
-### Object Reusability
-
-Magento natively supports object reusability through the `shared="false"` argument attribute,
-which allows you to control whether a new instance is created each time.
-
-```xml
-<block name="counter" template="Example_Module::magewire/counter.phtml">
-    <arguments>
-        <argument name="magewire" xsi:type="object" shared="false">
-            ...
-        </argument>
-    </arguments>
-</block>
 ```
