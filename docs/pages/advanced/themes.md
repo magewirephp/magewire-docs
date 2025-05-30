@@ -16,7 +16,7 @@ Many components can be moved, extended, or overridden as needed to support diffe
 ## Compatibility
 
 Making a theme compatible with Magewire requires a solid understanding of Magewire’s frontend architecture,
-including its folder and file structure, dispatched events, available features, utilities, and custom directives.
+including its folder and file structure, dispatched events, available features, utilities, addons, and custom directives.
 
 Additionally, Magewire relies heavily on AlpineJS as its core frontend engine. If your theme already includes AlpineJS,
 you’ll need to either remove your version in favor of the one bundled with Magewire or disable it on pages where

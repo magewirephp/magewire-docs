@@ -27,6 +27,7 @@ or adding custom directives.
 | magewire.alpinejs.directives | Contains custom AlpineJS directives                                                                                       |
 | magewire.ui-components       | Contains custom AlpineJS UI components                                                                                    |
 | magewire.utilities           | Contains Magewire utilities                                                                                               |
+| magewire.addons              | Contains Magewire addons                                                                                                  |
 | magewire.directives          | Contains Magewire directives                                                                                              |
 | magewire.features            | Contains Magewire features                                                                                                |
 | magewire.disabled            | Container for rendering elements only when Magewire is not active on the page                                             |
@@ -59,6 +60,7 @@ One example of this can be found at:
 | js/alpinejs/directives/**/* | Contains AlpineJS directives only                                                                    |
 | js/magewire/**/*            | Contains templates with Magewire-related JavaScript                                                  |
 | js/magewire/utils/**/*      | Contains Magewire utilities only                                                                     |
+| js/magewire/addons/**/*     | Contains Magewire addons only                                                                        |
 | js/magewire/directives/**/* | Contains Magewire directives only                                                                    |
 | js/magewire/features/**/*   | Contains JavaScript for Magewire Feature support, always divided with a lower-kebab-cased subfolder. |
 
