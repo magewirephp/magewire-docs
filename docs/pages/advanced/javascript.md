@@ -2,27 +2,27 @@
 
 {{ include("admonition/livewire-reference.md", reference_url="https://livewire.laravel.com/docs/javascript") }}
 
-## Magewire Addons
+## Magewire Utilities
 
-In addition to the core library, Magewire provides an `addons` object as a centralized place to store custom
+In addition to the core library, Magewire provides an `utilities` object as a centralized place to store custom
 functionality—avoiding the need to attach them to the global (and often cluttered) `window` object.
 
 You can register an addon like this:
 
 ```xml title="view/frontend/layout/default.xml"
-<referenceContainer name="magewire.addons">
-    <block name="magewire.addons.notifier"
-           template="Example_Module::view/frontend/templates/js/magewire/addons/notifier.phtml"
+<referenceContainer name="magewire.utilities">
+    <block name="magewire.utilities.notifier"
+           template="Example_Module::view/frontend/templates/js/magewire/utils/notifier.phtml"
     />
 </referenceContainer>
 ```
 
-And define the addon itself with the following code:
+And define the utility itself with the following code:
 
 ```html
 <script>
     document.addEventListener('magewire:init', () => {
-        Magewire.addon('notifier', () => ({
+        Magewire.utility('notifier', () => ({
             notifications: [],
             
             create(text) {
@@ -35,7 +35,7 @@ And define the addon itself with the following code:
 
 !!! tip "Reactivity"
     The third argument, `reactive`, allows developers to make the addon reactive using `Alpine.reactive()`.
-    This is useful if you want to expose your addon as an Alpine component with a globally accessible `notifications` array,
+    This is useful if you want to expose your utility as an Alpine component with a globally accessible `notifications` array,
     while still being able to leverage features like `this.$watch('notifications', (current, previous) => {})` change tracking.
 
 ## Alpine components
@@ -60,9 +60,9 @@ And then define the corresponding Alpine component as follows:
 <script>
     document.addEventListener('alpine:init', () => {
         Alpine.data('magewireNotifier', () => ({
-            ...Magewire.addons.notifier, ...{
+            ...Magewire.utilities.notifier, ...{
                 get notifications() {
-                    return Magewire.addons.notifier.notifications;
+                    return Magewire.utilities.notifier.notifications;
                 },
             }
         }));
@@ -92,9 +92,9 @@ Using the previous example, you can easily adapt a non-compliant component into 
 <script>
     document.addEventListener('alpine:init', () => {
         Alpine.data('magewireNotifier', () => ({
-            ...Magewire.addons.notifier.csp(), ...{
+            ...Magewire.utilities.notifier.csp(), ...{
                 get notifications() {
-                    return Magewire.addons.notifier.notifications;
+                    return Magewire.utilities.notifier.notifications;
                 }
             }
         }));
@@ -102,7 +102,7 @@ Using the previous example, you can easily adapt a non-compliant component into 
 </script>
 ```
 
-As you may notice, the change involves switching from `...Magewire.addons.notifier` to `...Magewire.addons.notifier.csp()`.
+As you may notice, the change involves switching from `...Magewire.utilities.notifier` to `...Magewire.addons.notifier.csp()`.
 This returns a CSP-compliant version in which methods no longer accept arguments.
 
 Here's what that might look like in practice:

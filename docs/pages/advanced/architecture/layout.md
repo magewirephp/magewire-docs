@@ -26,7 +26,7 @@ or adding custom directives.
 | magewire.alpinejs.components | Contains AlpineJS components specific to Magewire functionality                                                           |
 | magewire.alpinejs.directives | Contains custom AlpineJS directives                                                                                       |
 | magewire.ui-components       | Contains custom AlpineJS UI components                                                                                    |
-| magewire.addons              | Contains Magewire addons                                                                                                  |
+| magewire.utilities           | Contains Magewire utilities                                                                                               |
 | magewire.directives          | Contains Magewire directives                                                                                              |
 | magewire.features            | Contains Magewire features                                                                                                |
 | magewire.disabled            | Container for rendering elements only when Magewire is not active on the page                                             |
@@ -51,15 +51,15 @@ One example of this can be found at:
 
 ### Directories
 
-| Directory                                      | Description                                                                                          |
-|------------------------------------------------|------------------------------------------------------------------------------------------------------|
-| js/**/*`                                       | Contains templates with primarily JavaScript content                                                 |
-| js/alpinejs/**/*                               | Contains templates with AlpineJS-related JavaScript                                                  |
-| js/alpinejs/components/**/*                    | Contains AlpineJS components only                                                                    |
-| js/alpinejs/directives/**/*                    | Contains AlpineJS directives only                                                                    |
-| js/magewire/**/*                               | Contains templates with Magewire-related JavaScript                                                  |
-| js/magewire/addons/**/*                        | Contains Magewire addons only                                                                        |
-| js/magewire/directives/**/*                    | Contains Magewire directives only                                                                    |
-| js/magewire/features/**/*                      | Contains JavaScript for Magewire Feature support, always divided with a lower-kebab-cased subfolder. |
+| Directory                   | Description                                                                                          |
+|-----------------------------|------------------------------------------------------------------------------------------------------|
+| js/**/*`                    | Contains templates with primarily JavaScript content                                                 |
+| js/alpinejs/**/*            | Contains templates with AlpineJS-related JavaScript                                                  |
+| js/alpinejs/components/**/* | Contains AlpineJS components only                                                                    |
+| js/alpinejs/directives/**/* | Contains AlpineJS directives only                                                                    |
+| js/magewire/**/*            | Contains templates with Magewire-related JavaScript                                                  |
+| js/magewire/utils/**/*      | Contains Magewire utilities only                                                                     |
+| js/magewire/directives/**/* | Contains Magewire directives only                                                                    |
+| js/magewire/features/**/*   | Contains JavaScript for Magewire Feature support, always divided with a lower-kebab-cased subfolder. |
 
 !!! tip "Building something custom or making a contribution? Always examine the folder and file structure closely to ensure you're in the right location."
