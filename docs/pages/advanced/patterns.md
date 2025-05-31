@@ -100,6 +100,10 @@ Finally, these can be used within your UI component:
 </div>
 ```
 
+!!! tip "Additional information can be found in the [JavaScript](javascript.md#alpine-components) section."
+
+### Child Element Bindings
+
 Sub-elements within a component can also have their own bindings by using the bindings object, which each component is
 typically expected to provide. This object contains named sub-objects for specific purposes.
 

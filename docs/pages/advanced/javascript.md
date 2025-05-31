@@ -2,7 +2,45 @@
 
 {{ include("admonition/livewire-reference.md", reference_url="https://livewire.laravel.com/docs/javascript") }}
 
-## Magewire Addons
+## Utilities
+
+In addition to the core library, Magewire provides a `utilities` object as a centralized place to store custom support
+functionality that can be useful throughout the framework — such as splitting strings, validating objects,
+extracting attributes from DOM elements, and more.
+
+These utilities serve as general-purpose helpers, whereas addons are more specialized and should be thought of as APIs.
+
+You can register a utility like this:
+
+```xml title="view/frontend/layout/default.xml"
+<referenceContainer name="magewire.addons">
+    <block name="magewire.utilities.notifier"
+           template="Example_Module::view/frontend/templates/js/magewire/utils/dom.phtml"
+    />
+</referenceContainer>
+```
+
+And you can define the utility itself using the following code:
+
+```html
+<script>
+    function magewireDomUtility() {
+        'use strict';
+
+        return {
+            filterDataAttributes: function (element, prefix = '') {
+                return {};
+            }
+        }
+    }
+    
+    document.addEventListener('magewire:init', () => Magewire.utility('dom', magewireDomUtility));
+</script>
+```
+
+!!! warning "Magewire utilities are stored in the `/utils` directory, rather than in a folder named `/utilities`."
+
+## Addons
 
 In addition to the core library, Magewire provides an `addons` object as a centralized place to store custom
 functionality—avoiding the need to attach them to the global (and often cluttered) `window` object.
@@ -17,19 +55,23 @@ You can register an addon like this:
 </referenceContainer>
 ```
 
-And define the addons itself with the following code:
+And define the addon itself with the following code:
 
 ```html
 <script>
-    document.addEventListener('magewire:init', () => {
-        Magewire.addons('notifier', () => ({
+    function magewireNotifierAddon() {
+        'use strict';
+
+        return {
             notifications: [],
-            
+
             create(text) {
-                this.notifications.push({ text: text });
+                this.notifications.push({text: text});
             }
-        }), true);
-    });
+        }
+    }
+
+    document.addEventListener('magewire:init', () => Magewire.addon('notifier', magewireNotifierAddon, true), { once: true });
 </script>
 ```
 
