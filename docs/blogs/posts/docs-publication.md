@@ -3,12 +3,12 @@ title: Magewire 3 - Docs Publication #1
 authors:
     - willem
 date: 2025-05-24
-tags: [documentation, V3]
+tags: [documentation, V3, release]
 ---
 
 ## Kicking Off a New Chapter for Magewire
 
-First of all, I’m excited to share that starting today, all future updates about Magewire will be posted right here in
+First, I’m excited to share that starting today, all future updates about Magewire will be posted right here in
 the blog section of the documentation.
 
 This shift is all about keeping things simple and centralized. No more jumping between websites to find the latest news
