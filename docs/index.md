@@ -59,14 +59,6 @@ Before we start, make sure you have the following installed:
 
 ## Installation
 
-!!! info "Beta"
-    To participate in the beta program, you must first be added as a contributor to the repository.
-    Additionally, you’ll need to make a small adjustment to your Composer configuration.
-
-    ```shell
-    composer config repositories.magewirephp/magewire-three git git@github.com:magewirephp/magewire-three.git
-    ```
-
 To install Magewire in your Magento 2 project, follow these steps:
 
 1. Require Magewire via Composer:
