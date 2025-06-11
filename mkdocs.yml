@@ -141,12 +141,19 @@ nav:
     - 'pages/concepts/nesting.md'
   - 'Advanced':
     - 'pages/advanced/best-practices.md'
-    - 'pages/advanced/javascript.md'
     - 'pages/advanced/patterns.md'
     - 'pages/advanced/security.md'
     - 'pages/advanced/synthesizers.md'
     - 'pages/advanced/themes.md'
     - 'pages/advanced/troubleshooting.md'
+    - 'Javascript':
+        - 'pages/advanced/javascript/index.md'
+        - 'Addons':
+            - 'pages/advanced/javascript/addons/magewire-notifier.md'
+        - 'Utilities':
+            - 'pages/advanced/javascript/utilities/dom.md'
+            - 'pages/advanced/javascript/utilities/loader.md'
+            - 'pages/advanced/javascript/utilities/str.md'
     - 'Architecture':
         - 'pages/advanced/architecture/component-hooks.md'
         - 'pages/advanced/architecture/index.md'
