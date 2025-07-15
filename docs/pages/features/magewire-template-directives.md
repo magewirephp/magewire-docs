@@ -34,12 +34,20 @@ making the development experience more streamlined and efficient.
 
 ## Directives
 
-| Name    | Type  | Area | Description                  | Arguments                    | Since |
-|---------|-------|------|------------------------------|------------------------------|-------|
-| `@json` | -     | Base | Json encodes the given value | value, default, flags, depth | 3.0.0 |
-| `@if`   | Scope | Base | Execute on given condition   | expression                   | 3.0.0 |
+| Name         | Type  | Area | Description                                | Arguments                    | Since |
+|--------------|-------|------|--------------------------------------------|------------------------------|-------|
+| `@json`      | -     | Base | Json encodes the given value               | value, default, flags, depth | 3.0.0 |
+| `@if`        | Scope | Base | Execute on given condition                 | expression                   | 3.0.0 |
+| `@elseif`    | Scope | Base | Execute on given condition, after an `@if` | expression                   | 3.0.0 |
+| `@else`      | Scope | Base |                                            | N/A                          | 3.0.0 |
+| `@auth`      | Scope | Base |                                            | N/A                          | 3.0.0 |
+| `@guest`     | Scope | Base |                                            | N/A                          | 3.0.0 |
+| `@foreach`   | Scope | Base |                                            | expression                   | 3.0.0 |
+| `@translate` | Scope | Base | Translate a string                         | value, escape                | 3.0.0 |
+| `@script`    | Scope | Base | Mark a `<script>` element                  | N/A                          | 3.0.0 |
+| `@fragment`  | Scope | Base | Mark a DOM element as a fragment           | type                         | 3.0.0 |
 
-1. Scoped directives always require a corresponding `@end` directive, such as `@if` ... `@endif`.
+1. Scoped directives always require a corresponding `@end` directive, such as `@if` ... `@endif` or `@auth` ... `@endauth`.
 2. Named arguments are used by default, allowing you to pass arguments in any order.
 3. Areas can be custom-defined and act as directive prefixes. For example, the directive escapeHtml belongs to the escape area, indicating it was registered within that namespace.
 
@@ -130,12 +138,22 @@ In this example, the directive class was injected into the **escape** area, wher
 
 class Escape extends \Magewirephp\Magewire\Features\SupportMagewireCompiling\View\Directive
 {
+    #[\Magewirephp\Magewire\Features\SupportMagewireCompiling\View\Directive\Parser\ScopeDirectiveParser(ExpressionParserType::FUNCTION_ARGUMENTS)]
     public function url(string $url): string
     {
         return "<?= \$escaper->escapeUrl({$url}) ?>";
     }
 }
 ```
+
+As shown in the example, the method is marked with the `FUNCTION_ARGUMENTS` attribute, which indicates that the method
+accepts named function arguments that will be automatically passed to it.
+
+| Expression Type      | Description                                              |
+|----------------------|----------------------------------------------------------|
+| `CONDITION`          | Used for conditional expressions and boolean evaluations |
+| `ITERATION_CLAUSE`   | Used for loop constructs and iterative operations        |
+| `FUNCTION_ARGUMENTS` | Used for methods that accept named function arguments    |
 
 **Example for: `@json(value: ['foo' => 'bar'])`**
 
@@ -179,35 +197,21 @@ Ideally, your directive’s compile method should return clean and minimal PHP, 
 <span>Firstname: <?= $viewModel->renderCustomerFirstname() ?></span>
 ```
 
-As shown above, this relies on a $viewModel object, which must be injected or made available to the template.
+As shown above, this relies on a `$viewModel` object, which must be injected or made available to the template.
 While you can provide this ViewModel specifically for that template, it quickly becomes less reusable when others
 want to use the same `@` directive elsewhere.
 
 To solve this, Magewire introduces a global variable called `$__magewire`, available only within templates rendered
 as part of a Magewire component. This variable acts as a basic ViewModel — referred to as Magewire Underscore.
 
-The `$__magewire` ViewModel provides an `action()` method that accepts a string $class argument. This class can either be:
+The `$__magewire` ViewModel provides an `action()` method that accepts a string `$class` argument. This class can either be:
 
-A mapped alias defined in di.xml, or
+A mapped alias defined in `di.xml`, or
 
-A fully qualified class name that extends the ActionManager.
+A fully qualified class name that extends the `\Magewirephp\Magewire\Features\SupportMagewireCompiling\View\Management\ActionManager`.
 
 This approach enables your compiled output to remain clean and consistent across templates. For example:
 
 ```html
-<span>Firstname: <?= $__magewire->action('mapped.namespace')->execute('method_name') ?></span>
+<span>Firstname: <?= $__magewire->action('mapped.namespace')->execute('method_name', ...arguments) ?></span>
 ```
-
-### Example
-
-
-
-## Roadmap
-
-{{ include("admonition/roadmap.md") }}
-
-| Subject               | Description                                                                                                                               |
-|-----------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
-| Precompilers          | Precompile specific template context into `@` prefixed directives.                                                                        |
-| Component Precompiler | Converts `<x-component name="foo">` tags into `@magewireComponent(name: 'foo')` directives automatically during the precompilation phase. |
-
