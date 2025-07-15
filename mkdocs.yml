@@ -113,7 +113,8 @@ nav:
       - 'pages/essentials/testing.md'
   - 'Features':
       - 'pages/features/alpine.md'
-      - 'pages/features/template-directives.md'
+      - 'pages/features/magewire-flakes.md'
+      - 'pages/features/magewire-template-directives.md'
       - 'pages/features/request-bundling.md'
       - 'pages/features/offline-states.md'
   - 'Directives':
