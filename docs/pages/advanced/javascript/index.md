@@ -4,8 +4,6 @@
 
 ## Utilities
 
-!!! info "View all available utilities [here](utilities.md)."
-
 In addition to the core library, Magewire provides a `utilities` object as a centralized place to store custom support
 functionality that can be useful throughout the framework — such as splitting strings, validating objects,
 extracting attributes from DOM elements, and more.
@@ -43,8 +41,6 @@ And you can define the utility itself using the following code:
 !!! warning "Magewire utilities are stored in the `/utils` directory, rather than in a folder named `/utilities`."
 
 ## Addons
-
-!!! info "View all available addons [here](addons.md)."
 
 In addition to the core library, Magewire provides an `addons` object as a centralized place to store custom
 functionality—avoiding the need to attach them to the global (and often cluttered) `window` object.
