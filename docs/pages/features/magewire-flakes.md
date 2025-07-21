@@ -12,7 +12,7 @@ consistent approach to component composition.
 
 ## Example
 
-Flakes use an `x-` prefix (similar to Alpine.js or Vue.js custom elements) combined with `mw:` and `:` prefixed attributes to
+Flakes use an `magewire:` prefix (similar to Alpine.js or Vue.js custom elements) combined with `mw:` and `:` prefixed attributes to
 bind Magewire-specific data and pass parameters to the component during mounting. This syntax makes them intuitive to
 use while maintaining the full power of Magewire's reactive capabilities.
 
@@ -20,9 +20,9 @@ use while maintaining the full power of Magewire's reactive capabilities.
 <div>
     Foo!
     
-    <x-message mw:name="custom-alert" :type="error">
+    <magewire:message mw:name="custom-alert" :type="error">
         This is an error message!
-    </x-message>
+    </magewire:message>
 </div>
 ```
 
