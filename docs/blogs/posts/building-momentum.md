@@ -53,8 +53,8 @@ specific section within your template so others can modify it without necessaril
 ## Proving Its Worth
 
 Magewire is gradually proving itself in more and more commercial products. Magewire V1 already powers a huge chunk of
-the functionality behind Hyvä CMS and Hyvä Checkout, and it's proving itself in the OpenPOS system built by loyal
-sponsor [Zero1](https://www.zero1.co.uk/) and used by our other sponsor [Vendic](https://vendic.nl).
+the functionality behind [Hyvä CMS](https://www.hyva.io/hyva-commerce.html) and [Hyvä Checkout](https://www.hyva.io/hyva-checkout.html), and it's proving itself in the OpenPOS system built by loyal
+sponsor [Zero1](https://www.zero1.co.uk/) and used by our other sponsor [Vendic](https://vendic.nl/).
 
 We're also getting more social media mentions from folks like Mark Shust and Jakub Winkler.
 
