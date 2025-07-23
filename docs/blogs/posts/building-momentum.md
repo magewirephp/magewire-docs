@@ -1,9 +1,9 @@
 ---
-title: Magewire 3 - July Update #1
+title: Magewire 3 - July Update #3
 authors:
     - willem
 date: 2025-07-23
-tags: [V3, update, July]
+tags: [V3, update]
 ---
 
 # Building Momentum Behind the Scenes
@@ -47,8 +47,8 @@ and close it whenever you want using the `start()` and `end()` methods. You can 
 ```
 
 Fragments get registered based on modifiers when we're dealing with `<script>` fragments. Again, I've focused heavily
-on developer experience, and Fragments are incredibly versatile for tons of other use cases where you want to mark a
-specific section within your template so others can modify it without necessarily having to override the entire template.
+on developer experience. Fragments are incredibly versatile for tons of other use cases where you want to mark a
+specific section within your template, so others can modify it without necessarily having to override the entire template.
 
 ## Proving Its Worth
 
@@ -56,7 +56,7 @@ Magewire is gradually proving itself in more and more commercial products. Magew
 the functionality behind [Hyvä CMS](https://www.hyva.io/hyva-commerce.html) and [Hyvä Checkout](https://www.hyva.io/hyva-checkout.html), and it's proving itself in the OpenPOS system built by loyal
 sponsor [Zero1](https://www.zero1.co.uk/) and used by our other sponsor [Vendic](https://vendic.nl/).
 
-We're also getting more social media mentions from folks like Mark Shust and Jakub Winkler.
+We're also getting more social media mentions from folks like [Mark Shust](https://www.linkedin.com/in/markshust) and [Jakub Winkler](https://www.linkedin.com/in/winklerjakub/).
 
 This combination of exposure and real-world usage has pushed our download numbers past 700,000 this month—we're heading toward the 1 million mark!
 
