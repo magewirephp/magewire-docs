@@ -22,9 +22,9 @@ better to say Laravel features) that will let you use what I'm calling "Flakes" 
 but with a name I made up because why not?
 
 This means you'll soon be able to easily add reusable building blocks within your Magewire components in a developer-friendly way,
-like `<magewire:dialog mw:name="example-dialog" :title="Example Dialog"/>`. Don't panic—this isn't compiled on-the-fly.
+like `<magewire:dialog mw:name="example-dialog" :title="Example Dialog"/>`.
 
-No worries about performance, it's all precompiled thanks to a new PHTML compiler that's coming to Magewire.
+Don't panic—this isn't compiled on-the-fly. It's all precompiled thanks to a new PHTML compiler that's coming to Magewire.
 
 ```html title="Example_Module::example.phtml"
 <div>
