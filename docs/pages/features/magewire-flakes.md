@@ -12,18 +12,46 @@ consistent approach to component composition.
 
 ## Example
 
-Flakes use an `magewire:` prefix (similar to Alpine.js or Vue.js custom elements) combined with `mw:` and `:` prefixed attributes to
-bind Magewire-specific data and pass parameters to the component during mounting. This syntax makes them intuitive to
-use while maintaining the full power of Magewire's reactive capabilities.
+Flakes use the `magewire:` prefix (similar to custom elements in Alpine.js or Vue.js) combined with special attributes to
+bind Magewire-specific data and pass parameters to the component during mounting. You can also bind property values
+directly using the `prop:` prefix followed by the property name. This syntax keeps usage intuitive while preserving the
+full power of Magewire’s reactive capabilities.
 
 ```html title="view/{area}/templates/magewire/foo.phtml"
 <div>
     Foo!
     
-    <magewire:message mw:name="custom-alert" :type="error">
-        This is an error message!
-    </magewire:message>
+    <?php $title = 'Hello World' ?>
+    <magewire:message name="custom-alert" prop:type="error" mount:title="$title" />
 </div>
+```
+
+As you can see, any variables defined within the template will automatically be bound as arguments to either a `mount` method
+or can be used as component public property values.
+
+Let's imagine you need the escaper within the `mount` method that sits within your Magewire component.
+You could inject it via the `__construct` method, but since it already exists within the template, you can do the following:
+
+```html title="view/{area}/templates/magewire/foo.phtml"
+<div>
+    <magewire:message name="custom-alert" mount:escaper="$escaper" />
+</div>
+```
+
+_Since `$escaper` is a global variable, you don't need to define it explicitly._
+
+The component might look something like this:
+
+```php title="Vendor\Module\Magewire\Flake\Message"
+<?php
+
+class Message extends \Magewirephp\Magewire\Component
+{
+    public function mount(\Magento\Framework\Escaper $escaper)
+    {
+        $this->title = $title;
+    }
+}
 ```
 
 ### Registration
@@ -55,10 +83,11 @@ Attributes prefixed with `:` are automatically passed to the component's `mount(
 class Message extends \Magewirephp\Magewire\Component
 {
     public string $type = 'error';
+    public string $title = 'No Title';
 
-    public function mount(string $type = 'info')
+    public function mount(string $title)
     {
-        $this->type = $type;
+        $this->title = $title;
     }
 }
 ```
@@ -69,6 +98,8 @@ Finally, create the flake template:
 
 ```html title="view/{area}/templates/magewire/flakes/message.phtml"
 <div role="alert" class="message <?= $magewire->type ?>">
-    ...
+    <div class="title text-lg">
+        <?= $magewire->title ?>
+    </div>
 </div>
 ```
