@@ -107,3 +107,30 @@ class Csp extends \Magewirephp\Magewire\Model\View\Fragment\Modifier
     }
 }
 ```
+
+## Wrapping a Fragment
+
+Imagine a situation in your PHP code where you already have HTML stored in a variable.
+
+In this case, using `start` and `stop` wouldn’t make sense—unless that HTML already contains or is a fragment.
+
+If it’s not a fragment, you can simply use the wrap method instead. This method works like starting and stopping combined,
+and it supports all the same features such as modifiers and validators, but in a single call.
+
+```php title="Vendor\Module\Model\View\Renderer"
+<?php
+
+class Renderer
+{
+    public function __construct(
+        \Magewirephp\Magewire\Model\View\FragmentFactory $fragmentFactory
+    ) {
+        //
+    }
+
+    public function render(string $html): string
+    { 
+        return $this->fragmentFactory->html()->wrap($html); 
+    }
+}
+```
