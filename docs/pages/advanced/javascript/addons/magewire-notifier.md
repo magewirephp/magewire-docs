@@ -8,7 +8,7 @@ document.addEventListener('magewire:init', event => {
     const message = 'Foo';
     
     addons.notifier.create(message, { duration: 50000 }, {
-        onActivation: notification => console.log('Notification activated.')
+        onActivate: notification => console.log('Notification activated.')
     }).then(notification => {
         console.log('Notification created.')
     }).catch(exception => {
@@ -38,12 +38,14 @@ Create a new notification and optionally activate it immediately.
     - `type` (string, optional) - Notification type: `'success'`, `'error'`, `'warning'`, `'info'`. Default: `'info'`.
     - `title` (string, optional) - Notification title. Default: `'Message Unknown'` (i18n).
     - `duration` (number, optional) - Display duration in milliseconds. Default: `3600`.
+    - `recoverable` (bool, optional) - Can be recovered and will trigger the `onRecover` hook.
 - `hooks` (object, optional) - Event callback functions that will be triggered during the notification lifecycle:
-    - `onTermination(notification)` (function, optional) - Called when notification is terminated.
-    - `onActivation(notification)` (function, optional) - Called when notification is activated.
-    - `onFailure(notification, reason)` (function, optional) - Called when notification encounters an error.
-    - `onCleanup(notification)` (function, optional) - Called during cleanup process.
-    - `onFinish(notification)` (function, optional) - Called when notification completes successfully.
+    - `onActivate({ notification })` (function, optional) - Called when notification is activated.
+    - `onCleanup({ notification })` (function, optional) - Called during cleanup process.
+    - `onTermination({ notification })` (function, optional) - Called when notification is terminated.
+    - `onRecover({ notification })` (function, optional) - Called when notification encounters an error.
+    - `onStateChange({ notification })` (function, optional) - Called when notification encounters an error.
+    - `onFailure({ notification, reason })` (function, optional) - Called when notification encounters an error.
 - `activate` (boolean, optional) - Whether to automatically activate the notification upon creation. Default: `true`.
 
 **Returns:** `Promise<Notification>`
@@ -51,15 +53,22 @@ Create a new notification and optionally activate it immediately.
 ```js
 document.addEventListener('magewire:init', async event => {
     const notification = await create(
+        // Message
         'Task completed successfully',
+        
+        // Options
         { type: 'success', duration: 5000 },
+        
+        // Hooks
         { onFinish: notification => console.log('Done!') },
+        
+        // Activate
         true
     );
 })
 ```
 
-## `get`
+### `get`
 
 Returns a notification.
 
@@ -75,7 +84,7 @@ document.addEventListener('magewire:init', event => {
 })
 ```
 
-## `async activate`
+### `async activate`
 
 Activates a notification.
 
@@ -91,7 +100,7 @@ document.addEventListener('magewire:init', event => {
 })
 ```
 
-## `async finish`
+### `async finish`
 
 Flags a notification as finished.
 
@@ -109,7 +118,7 @@ document.addEventListener('magewire:init', event => {
 })
 ```
 
-## `async terminate`
+### `async terminate`
 
 Flags a notification as terminated, making it inactive.
 
@@ -125,7 +134,7 @@ document.addEventListener('magewire:init', event => {
 })
 ```
 
-## `async fail`
+### `async fail`
 
 Flags a notification as failed.
 
@@ -142,7 +151,7 @@ document.addEventListener('magewire:init', event => {
 })
 ```
 
-## `sync hold`
+### `async hold`
 
 Clears the active notification timeout.
 
@@ -158,7 +167,7 @@ document.addEventListener('magewire:init', event => {
 })
 ```
 
-## `fetch`
+### `async fetch`
 
 Returns all notifications.
 
@@ -166,6 +175,46 @@ Returns all notifications.
 
 ```js
 document.addEventListener('magewire:init', event => {
-    Magewire.addons.notifier.hold(1);
+    const notifications = Magewire.addons.notifier.fetch();
 })
 ```
+
+### `async trigger`
+
+Triggers hooks on a global and an item level when available.
+
+**Arguments:**
+
+- `hook` (string) - Hook name
+- `args` (object, optional) - Hook arguments. Default: `{}`
+- `notification` (object, optional) - Existing notification object. Default: `null`
+
+```js
+document.addEventListener('magewire:init', event => {
+    Magewire.addons.notifier.trigger('foo', { bar: 'baz' }, null);
+})
+```
+
+## Events
+
+Hooking into several notifier events can be achieved like so:
+
+```js
+document.addEventListener('magewire:init', () => {
+    Magewire.hook('addons.notifier.state-change', ({ state, previous, notification }) => {
+        console.log(`Notification state changed from ${state} to ${previous}`, notification);
+    });
+});
+```
+
+### Available Events
+| Event                        | Arguments                           |
+|------------------------------|-------------------------------------|
+| addons.notifier.activate     | `{ notification }`                  |
+| addons.notifier.cleanup      | `{ notification }`                  |
+| addons.notifier.terminate    | `{ notification }`                  |
+| addons.notifier.recover      | `{ notification }`                  |
+| addons.notifier.state-change | `{ state, previous, notification }` |
+| addons.notifier.failure      | `{ notification, reason }`          |
+
+!!! tip "Use `Magewire.addons.notifier.create()` to define notification-specific hooks for individual notifications. Use global hooks to respond to lifecycle events across all notifications."
