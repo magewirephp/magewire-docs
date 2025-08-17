@@ -76,6 +76,12 @@ As a general rule within the core, feature naming follows a prefix convention:
 
 This isn't a strict requirement, but it’s considered a best practice for consistency.
 
+### JavaScript
+You can extend your feature to the frontend by adding JavaScript functionality when required.
+
+This JavaScript code doesn't live within the feature folder itself, but must be organized within the `/view` subfolder structure.
+For complete details on implementing JavaScript features, refer to the [Features JavaScript](../javascript/index.md#features) paragraph.
+
 ### Hooks
 
 The Livewire (and by extension, Magewire) architecture was designed with extensibility in mind, allowing developers to hook into certain processes before or after they occur.
@@ -117,4 +123,4 @@ The above example is triggered in the core using `$construct = trigger('magewire
 is assigned to a variable. The event listener receives the $block, but instead of directly returning it,
 it returns a callback that also accepts the `$block` argument. This callback is then triggered later in the code with `$construct()`.
 
-WIP...
+

@@ -149,6 +149,8 @@ nav:
     - 'pages/advanced/troubleshooting.md'
     - 'Javascript':
         - 'pages/advanced/javascript/index.md'
+        - 'Features':
+            - 'pages/advanced/javascript/features/magewire-loaders.md'
         - 'Addons':
             - 'pages/advanced/javascript/addons/magewire-notifier.md'
         - 'Utilities':
