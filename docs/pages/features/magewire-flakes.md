@@ -34,7 +34,7 @@ You could inject it via the `__construct` method, but since it already exists wi
 
 ```html title="view/{area}/templates/magewire/foo.phtml"
 <div>
-    <magewire:message name="custom-alert" mount:escaper="$escaper" />
+    <magewire:message name="custom-alert" mount:escaper="$escaper" prop:view-model="$block" />
 </div>
 ```
 
@@ -75,7 +75,8 @@ To use flakes, you must first register them in the `magewire_flakes.xml` layout 
 
 ### Component Class
 
-Attributes prefixed with `:` are automatically passed to the component's `mount()` method:
+Attributes prefixed with `mount:` are automatically passed to the component’s `mount()` method. Template variables can be
+defined directly using the `$foo` syntax. This makes passing full objects from your template to your Magewire component easier than ever.
 
 ```php title="Vendor\Module\Magewire\Flake\Message"
 <?php
