@@ -37,8 +37,8 @@ business logic whenever an XHR commit is triggered:
         
         Magewire.hook('commit', ({ component, commit, respond, succeed, fail }) => {
             ...
-        })
-    })
+        });
+    });
 </script>
 ```
 
