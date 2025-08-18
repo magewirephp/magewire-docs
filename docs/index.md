@@ -54,8 +54,8 @@ You can learn more about the purpose of Magewire [here](pages/getting-started/pu
 
 Before we start, make sure you have the following installed:
 
-- Magento version 2.4.4 or later
-- PHP version 8.1 or later
+- Magento 2.4.4 or later
+- PHP 8.1 or later
 
 ## Installation
 
