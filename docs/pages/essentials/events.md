@@ -141,6 +141,7 @@ Core component lifecycle events:
 
 - request
 - response
+- magewire:response.render
 
 #### Checksum operations
 
