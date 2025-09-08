@@ -2,7 +2,7 @@
 title: Magewire 3 - Beta Release #3
 authors:
     - willem
-date: 2025-09-06
+date: 2025-09-08
 tags: [V3, release, beta]
 ---
 
