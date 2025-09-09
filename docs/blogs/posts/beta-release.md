@@ -70,7 +70,7 @@ Simply put: if you want to display something inside your component only to a log
 The nice part is that this system is built in such a way that you can extend it with your own prefixes.
 
 For example, you could create a `@{agencyNameGoesHere}CustomerGroup(1)` directive, which ensures content is only shown when the
-customer is logged in and belongs to customer group 1. This directive would then belong to the magento group.
+customer is logged in and belongs to customer group 1. This directive would then belong to the `agencyNameGoesHere` group (area to be specific).
 
 And don’t worry: thanks to the built pre-compiler, everything is precompiled into actual PHP in advance, so nothing happens on the fly.
 
@@ -105,10 +105,14 @@ class Dialog extends Component
 
 Where your template simply looks like this:
 
-```php
+```html
 <?php $title = 'Hello World'; ?>
 
-<magewire:dialog name="my-component" prop:title="$title" mount:block="$block" mount:foo-bar="baz" />
+<magewire:dialog name="my-component"
+                 prop:title="$title"
+                 mount:block="$block"
+                 mount:foo-bar="baz"
+/>
 ```
 
 As you can see, you can easily inject public properties, pass mount method arguments, and use template variables as an attribute value.
@@ -135,7 +139,7 @@ where most of the handling happens on the client side. This is not bulletproof, 
 That’s why server-side rate limiting has also been added. Based on system configuration, you can now limit the number of
 subsequent requests within a specific time window.
 
-Cool thing, by default its cache driven, but you can build your own adapter if you'd like.
+Cool thing, by default, its cache driven, but you can build your own adapter if you'd like.
 
 ### Observer Events
 
