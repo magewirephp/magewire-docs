@@ -53,6 +53,20 @@ But then, out of the blue, two developers walked up to me and told me how much t
 
 On top of that, they mentioned they’ve been using another small side project of mine called Portman, which actually played a big role in making Magewire V3 possible. They showed me what they’ve built with it, which honestly amazed me... especially since Portman isn’t something I’ve talked about much. It’s so fun to see people recognize its potential.
 
+## Proud of Open Source
+
+I couldn't leave out a word of pride and acknowledgment for Hyvä open sourcing their theme product.
+
+As I said, it makes me proud knowing I work for a company that sees the value of open source and really tries to grow the movement, inviting all those small and starting merchants into our ecosystem.
+
+Not to forget the new pool of developers we can potentially reach. My mission with Magewire has been from the start to reach a new and young pool of developers, creating a package that is maybe different, but aims to make Magento refreshing.
+
+Hyvä has been doing something similar and has become very successful doing so. Agencies can now onboard less experienced developers and get them up to speed with Magento without endlessly sending them to costly training days, which already tells me that Magento is too complex.
+
+Magento should embrace open source even more and focus, in my opinion, less on committees, groups, and boards, and more on code, repositories, and contributions in whatever form. Every time I see a presentation at a Magento-driven event, it’s mostly about who joined the board and when the next election takes place.
+
+Don’t get me wrong, these things are very much needed, but I really miss those diamonds on GitHub being exposed. Please, try to see the value in those efforts.
+
 ## A Final Thought
 
 In the end, I just hope Magewire inspires others to build, to explore, and to contribute in their own way. Open source thrives on shared passion, not competition.  
