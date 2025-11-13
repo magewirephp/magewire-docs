@@ -10,7 +10,7 @@ This time, a slightly different kind of blog than what you might be used to from
 
 ## Picking Up Magewire V3 Again
 
-Recently, I finally picked up **Magewire V3** again. I had set it aside for a couple of weeks to focus on other things. But now that I’m back at it, I immediately remember how great it feels to work with Magewire V3. It gives me so much energy to build things in a way that feels closer to frameworks like Laravel. It’s not overcomplicated, it’s refreshing, and above all, it’s just fun to build with.
+Recently, I finally picked up Magewire V3 again. I had set it aside for a couple of weeks to focus on other things. But now that I’m back at it, I immediately remember how great it feels to work with Magewire V3. It gives me so much energy to build things in a way that feels closer to frameworks like Laravel. It’s not overcomplicated, it’s refreshing, and above all, it’s just fun to build with.
 
 ## The Challenge of Building in Open Source
 
@@ -19,7 +19,9 @@ I’ve said this before, especially when people ask me why I spend so much time 
 Sometimes I wonder if I should just start charging money for it; maybe then people would take it more seriously.  
 The skepticism often seems to outweigh the curiosity and passion.
 
-But that’s okay. Let this project fail, or maybe, who knows, become a success. The truth is, Magewire has already helped make several major commercial products successful, even if that’s not widely known or mentioned. And knowing that others benefit from it, in whatever way, genuinely makes me happy. It’s not about money for me. **Magewire is my passion project**, a space where I’m completely free to create and share my vision on programming.
+But that’s okay. Let this project fail, or maybe, who knows, become a success. The truth is, Magewire has already helped make several major commercial products successful, even if that’s not widely known or mentioned. And knowing that others benefit from it, in whatever way, genuinely makes me happy.
+
+It’s not about money for me. Magewire is my passion project, a space where I’m completely free to create and share my vision on programming.
 
 ## Not Perfect, But Honest Work
 
@@ -41,15 +43,15 @@ If you really want to see it released, then help. I truly believe that, even bey
 No, I’m not shouting for help. I’m already incredibly grateful to the sponsors who make this even remotely possible. The cost-benefit ratio doesn’t really make sense, but as I’ve said before, that doesn’t matter.  
 
 I find happiness in working on Magewire. It helps me clear my head and spend a few enjoyable hours building something I’ve been turning over in my mind during a nice walk with my family.  
-**Happiness lies in the small things.** That’s what matters to me, not competing, not forcing people to use Magewire, not yelling that what I do is better than everything else.
+Happiness lies in the small things. That’s what matters to me, not competing, not forcing people to use Magewire, not yelling that what I do is better than everything else.
 
 ## Meet Magento Netherlands
 
-One side story that perfectly fits these thoughts came out of nowhere during **Meet Magento Netherlands**. Working at and witnessing a company visionary enough to take the bold step of open sourcing one of their core products was already a highlight for me on its own.  
+One side story that perfectly fits these thoughts came out of nowhere during Meet Magento Netherlands. Working at and witnessing a company visionary enough to take the bold step of open sourcing one of their core products was already a highlight for me on its own.  
 
-But then, out of the blue, two developers walked up to me and told me how much they already love **Magewire V3**. That simple moment was another highlight. It reminded me how much just a few kind words can mean to someone.
+But then, out of the blue, two developers walked up to me and told me how much they already love Magewire V3. That simple moment was another highlight. It reminded me how much just a few kind words can mean to someone.
 
-On top of that, they mentioned they’ve been using another small side project of mine called **Portman**, which actually played a big role in making Magewire V3 possible. They showed me what they’ve built with it, which honestly amazed me... especially since Portman isn’t something I’ve talked about much. It’s so fun to see people recognize its potential.
+On top of that, they mentioned they’ve been using another small side project of mine called Portman, which actually played a big role in making Magewire V3 possible. They showed me what they’ve built with it, which honestly amazed me... especially since Portman isn’t something I’ve talked about much. It’s so fun to see people recognize its potential.
 
 ## A Final Thought
 
