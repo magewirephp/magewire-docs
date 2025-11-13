@@ -17,7 +17,7 @@ Recently, I finally picked up **Magewire V3** again. I had set it aside for a co
 I’ve said this before, especially when people ask me why I spend so much time on something that, for all sorts of reasons, might never really take off. And honestly, they might be right. In our community, it’s tough to get an open source project off the ground. Sometimes I wonder if I should just start charging money for it; maybe then people would take it more seriously.  
 The skepticism often seems to outweigh the curiosity and passion.
 
-But that’s okay. Let this project fail, or maybe, who knows, become a success. The truth is, Magewire has already helped make several major commercial products successful, even if that’s not widely known or mentioned. And knowing that others benefit from it, in whatever way, genuinely makes me happy. It’s not about money for me. **Magewire is my passion project**, a space where I’m completely free to create and share my vision of how Magento modules should be built.
+But that’s okay. Let this project fail, or maybe, who knows, become a success. The truth is, Magewire has already helped make several major commercial products successful, even if that’s not widely known or mentioned. And knowing that others benefit from it, in whatever way, genuinely makes me happy. It’s not about money for me. **Magewire is my passion project**, a space where I’m completely free to create and share my vision on programming.
 
 ## Not Perfect, But Honest Work
 
