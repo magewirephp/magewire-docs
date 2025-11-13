@@ -63,7 +63,7 @@ Not to forget the new pool of developers we can potentially reach. My mission wi
 
 Hyvä has been doing something similar and has become very successful doing so. Agencies can now onboard less experienced developers and get them up to speed with Magento without endlessly sending them to costly training days, which already tells me that Magento is too complex.
 
-Magento should embrace open source even more and focus, in my opinion, less on committees, groups, and boards, and more on code, repositories, and contributions in whatever form. Every time I see a presentation at a Magento-driven event, it’s mostly about who joined the board and when the next election takes place.
+Magento should embrace open source even more and focus, in my opinion, less on committees, groups, and boards, and more on code, repositories, and contributions in whatever form. Every time I see a Association presentation at a Magento-driven event, it’s mostly about who joined the board and when the next election takes place.
 
 Don’t get me wrong, these things are very much needed, but I really miss those diamonds on GitHub being exposed. Please, try to see the value in those efforts.
 
