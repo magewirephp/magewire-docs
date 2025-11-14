@@ -1,0 +1,91 @@
+.md-header {
+  background-color: #f54a00;
+}
+.md-tabs {
+  background-color: #f54a00;
+
+  a.md-tabs__link {
+    color: #fff;
+    font-weight: bold;
+  }
+}
+
+a.md-button {
+  span.twemoji {
+    margin-right: 12px;
+  }
+
+  &.md-button--danger {
+    border-color: #a3a3a3;
+    color: #a3a3a3;
+  }
+
+  &.md-button--livewire {
+    padding: 8px 16px !important;
+    font-size: 14px;
+    border-color: rgb(251 112 169);
+    color: white;
+
+    &:hover {
+      background-color: rgb(251 112 169);
+      border-color: rgb(251 112 169);
+    }
+
+    &:focus {
+      background-color: rgb(251 112 169);
+      border-color: rgb(251 112 169);
+    }
+  }
+}
+
+a.md-button.md-button--sponsor-now {
+  padding: 8px 16px !important;
+  font-size: 14px;
+  border-color: #f54a00;
+  color: white;
+
+  span.twemoji {
+    margin-right: 12px;
+  }
+
+  &:hover {
+    background-color: #f54a00;
+    border-color: #f54a00;
+  }
+  &:focus {
+    background-color: #f54a00;
+    border-color: #f54a00;
+  }
+}
+
+.md-typeset__table {
+  min-width: 100%;
+
+  table {
+    display: table !important;
+  }
+}
+
+.admonition.laravel {
+  border-color: rgb(251 112 169);
+
+  .admonition-title {
+    background-color: rgb(66, 0, 26);
+
+    &:before {
+      background-color: rgb(251 112 169);
+    }
+  }
+}
+
+.admonition.magewire {
+  border-color: #f54a00;
+
+  .admonition-title {
+    background-color: #552000;
+
+    &:before {
+      background-color: #f54a00;
+    }
+  }
+}

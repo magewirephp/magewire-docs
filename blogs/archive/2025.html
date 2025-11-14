@@ -1,0 +1,1499 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Magewire PHP Documentation">
+      
+      
+      
+        <link rel="canonical" href="https://magewirephp.github.io/magewire-docs/blogs/archive/2025.html">
+      
+      
+        <link rel="prev" href="../index.html">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>2025 - Magewire PHP (Beta)</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        
+        <link rel="stylesheet" href="../../assets/external/fonts.googleapis.com/css.49ea35f2.css">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/style.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#2025" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Magewire PHP (Beta)" class="md-header__button md-logo" aria-label="Magewire PHP (Beta)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Magewire PHP (Beta)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              2025
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../pages/essentials/components.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Essentials
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../pages/features/alpine.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Features
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../pages/html-directives/wire-click.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Directives
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../pages/concepts/fragments.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Concepts
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../pages/advanced/best-practices.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Advanced
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Blog
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Magewire PHP (Beta)" class="md-nav__button md-logo" aria-label="Magewire PHP (Beta)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Magewire PHP (Beta)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../pages/essentials/components.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Essentials
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../pages/features/alpine.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Features
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../pages/html-directives/wire-click.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Directives
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../pages/concepts/fragments.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concepts
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../pages/advanced/best-practices.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Blog
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Blog
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_7_2" id="__nav_7_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Archive
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Archive
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+    
+      
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="2025.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2025
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+  <div class="md-content" data-md-component="content">
+    <div class="md-content__inner">
+      <header class="md-typeset">
+        <h1 id="2025">2025</h1>
+      </header>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+      <nav class="md-post__authors md-typeset">
+        
+          <span class="md-author">
+            <img src="../../images/users/avatars/willem.jpg" alt="Willem Poortman">
+          </span>
+        
+      </nav>
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2025-11-13 00:00:00+00:00">November 13, 2025</time></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              5 min read
+            
+          </li>
+        
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="magewire-3-a-different-kind-of-blog"><a class="toclink" href="../2025/11/13/magewire-3---a-different-kind-of-blog.html">Magewire 3 - A Different Kind of Blog</a></h2>
+<p>This time, a slightly different kind of blog than what you might be used to from me. No deeply detailed code snippets, no breakdowns of new features, just a few thoughts I wanted to put into words. Maybe you’ll find it interesting, maybe you couldn’t care less. Either way, that’s fine by me.</p>
+<h3 id="picking-up-magewire-v3-again"><a class="toclink" href="../2025/11/13/magewire-3---a-different-kind-of-blog.html#picking-up-magewire-v3-again">Picking Up Magewire V3 Again</a></h3>
+<p>Recently, I finally picked up Magewire V3 again. I had set it aside for a couple of weeks to focus on other things. But now that I’m back at it, I immediately remember how great it feels to work with Magewire V3. It gives me so much energy to build things in a way that feels closer to frameworks like Laravel. It’s not overcomplicated, it’s refreshing, and above all, it’s just fun to build with.</p>
+<h3 id="the-challenge-of-building-in-open-source"><a class="toclink" href="../2025/11/13/magewire-3---a-different-kind-of-blog.html#the-challenge-of-building-in-open-source">The Challenge of Building in Open Source</a></h3>
+<p>I’ve said this before, especially when people ask me why I spend so much time on something that, for all sorts of reasons, might never really take off. And honestly, they might be right. In our community, it’s tough to get an open source project off the ground.</p>
+<p>Sometimes I wonder if I should just start charging money for it; maybe then people would take it more seriously.<br />
+The skepticism often seems to outweigh the curiosity and passion.</p>
+<p>But that’s okay. Let this project fail, or maybe, who knows, become a success. The truth is, Magewire has already helped make several major commercial products successful, even if that’s not widely known or mentioned. And knowing that others benefit from it, in whatever way, genuinely makes me happy.</p>
+<p>It’s not about money for me. Magewire is my passion project, a space where I’m completely free to create and share my vision on programming.</p>
+<h3 id="not-perfect-but-honest-work"><a class="toclink" href="../2025/11/13/magewire-3---a-different-kind-of-blog.html#not-perfect-but-honest-work">Not Perfect, But Honest Work</a></h3>
+<p>Of course, it’s not perfect. Many of the things people expect from a “good” package are still missing. I’ve repeatedly asked for help on that.<br />
+If you think you know better, and especially if you spend your time criticizing others, then stand up and show us something useful instead of recording endless podcasts and screencasts talking about what’s right and wrong. Roll up your sleeves and build something.</p>
+<p>It’s such a waste of time to compete in an already small and fragmented community like ours. Let’s, for once, actually pull in the same direction. Stop reinventing the wheel over and over again and trying to sell every little thing as <em>the next big thing.</em></p>
+<h3 id="why-it-takes-time"><a class="toclink" href="../2025/11/13/magewire-3---a-different-kind-of-blog.html#why-it-takes-time">Why It Takes Time</a></h3>
+<p>That’s never been what Magewire is about. And yes, I know, V3 is taking a long time. Maybe that’s because I’m never satisfied. Or maybe it’s because I just enjoy building new things too much. I don’t know.  </p>
+<p>What I do know is that I’m genuinely doing everything I can to get it out of beta. But working on something mostly alone, while constantly hearing people ask when it will be ready, can be discouraging at times.</p>
+<p>If you really want to see it released, then help. I truly believe that, even beyond the successful products already built with Magewire, we’re still at the very beginning of what Magewire could mean for Magento. Especially now that <strong>Hyvä</strong> has gone open source and Magewire fits it perfectly.</p>
+<h3 id="finding-joy-in-the-process"><a class="toclink" href="../2025/11/13/magewire-3---a-different-kind-of-blog.html#finding-joy-in-the-process">Finding Joy in the Process</a></h3>
+<p>No, I’m not shouting for help. I’m already incredibly grateful to the sponsors who make this even remotely possible. The cost-benefit ratio doesn’t really make sense, but as I’ve said before, that doesn’t matter.  </p>
+<p>I find happiness in working on Magewire. It helps me clear my head and spend a few enjoyable hours building something I’ve been turning over in my mind during a nice walk with my family.<br />
+Happiness lies in the small things. That’s what matters to me, not competing, not forcing people to use Magewire, not yelling that what I do is better than everything else.</p>
+<h3 id="meet-magento-netherlands"><a class="toclink" href="../2025/11/13/magewire-3---a-different-kind-of-blog.html#meet-magento-netherlands">Meet Magento Netherlands</a></h3>
+<p>One side story that perfectly fits these thoughts came out of nowhere during Meet Magento Netherlands. Working at and witnessing a company visionary enough to take the bold step of open sourcing one of their core products was already a highlight for me on its own.  </p>
+<p>But then, out of the blue, two developers walked up to me and told me how much they already love Magewire V3. That simple moment was another highlight. It reminded me how much just a few kind words can mean to someone.</p>
+<p>On top of that, they mentioned they’ve been using another small side project of mine called Portman, which actually played a big role in making Magewire V3 possible. They showed me what they’ve built with it, which honestly amazed me... especially since Portman isn’t something I’ve talked about much. It’s so fun to see people recognize its potential.</p>
+<h3 id="proud-of-open-source"><a class="toclink" href="../2025/11/13/magewire-3---a-different-kind-of-blog.html#proud-of-open-source">Proud of Open Source</a></h3>
+<p>I couldn't leave out a word of pride and acknowledgment for Hyvä open sourcing their theme product.</p>
+<p>As I said, it makes me proud knowing I work for a company that sees the value of open source and really tries to grow the movement, inviting all those small and starting merchants into our ecosystem.</p>
+<p>Not to forget the new pool of developers we can potentially reach. My mission with Magewire has been from the start to reach a new and young pool of developers, creating a package that is maybe different, but aims to make Magento refreshing.</p>
+<p>Hyvä has been doing something similar and has become very successful doing so. Agencies can now onboard less experienced developers and get them up to speed with Magento without endlessly sending them to costly training days, which already tells me that Magento is too complex.</p>
+<p>Magento should embrace open source even more and focus, in my opinion, less on committees, groups, and boards, and more on code, repositories, and contributions in whatever form. Every time I see a Association presentation at a Magento-driven event, it’s mostly about who joined the board and when the next election takes place.</p>
+<p>Don’t get me wrong, these things are very much needed, but I really miss those diamonds on GitHub being exposed. Please, try to see the value in those efforts.</p>
+<h3 id="a-final-thought"><a class="toclink" href="../2025/11/13/magewire-3---a-different-kind-of-blog.html#a-final-thought">A Final Thought</a></h3>
+<p>In the end, I just hope Magewire inspires others to build, to explore, and to contribute in their own way. Open source thrives on shared passion, not competition.  </p>
+<p>If we can create more by working together than by standing apart, then every line of code, every late night, and every small step forward will have been worth it.</p>
+    
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+      <nav class="md-post__authors md-typeset">
+        
+          <span class="md-author">
+            <img src="../../images/users/avatars/willem.jpg" alt="Willem Poortman">
+          </span>
+        
+      </nav>
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2025-09-08 00:00:00+00:00">September 8, 2025</time></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              4 min read
+            
+          </li>
+        
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="magewire-3-beta-release"><a class="toclink" href="../2025/09/08/magewire-3---beta-release.html">Magewire 3 - Beta Release</a></h2>
+<h3 id="yes-its-been-a-while"><a class="toclink" href="../2025/09/08/magewire-3---beta-release.html#yes-its-been-a-while">Yes, it’s been a while</a></h3>
+<p>The months have flown by. On the surface the repo may have seemed quiet, but nothing could be further from the truth.</p>
+<p>Behind the scenes, I’ve been working in a separate branch on a hefty list of additions that I absolutely wanted to
+include in the upcoming beta release.</p>
+<h3 id="critical-security-vulnerability"><a class="toclink" href="../2025/09/08/magewire-3---beta-release.html#critical-security-vulnerability">Critical Security Vulnerability</a></h3>
+<p>The biggest strength of Magewire, and one of the main reasons I took on this challenge, is the incredible community already behind Livewire.
+Livewire has already proven itself as one of the two biggest game changers in the Laravel community.</p>
+<p>This means Magewire is not just another new brew of technology in the Magento ecosystem, it’s already a proven solution similar to e.g. AlpineJS.</p>
+<p>A good example is security: on July 17th, a critical security issue was fixed in the <a href="https://github.com/livewire/livewire/security/advisories/GHSA-29cq-5w36-x7w3">Livewire repository</a>, and within just 10 minutes,
+the same fix was applied to Magewire thanks to the way it has been built (ported).</p>
+<h3 id="so-whats-next"><a class="toclink" href="../2025/09/08/magewire-3---beta-release.html#so-whats-next">So What's Next?</a></h3>
+<p>Feature building has stopped for now. It’s time to focus on improving testing across the board, ensuring everything remains backwards compatible, and writing documentation on how to migrate.</p>
+<p>In the meantime, I’m trying to establish a small team to speed things up. But I’ve found that asking for help and getting
+valuable input is really a struggle—which I totally understand.</p>
+<p>Open source in our money-driven community is incredibly difficult, with most people either waiting until something gets released,
+or creating a clone of what Magewire already is and ending up in the same rabbit hole.</p>
+<p>It’s somewhat discouraging, but I suppose that’s the reality :D</p>
+<h3 id="so-whats-new"><a class="toclink" href="../2025/09/08/magewire-3---beta-release.html#so-whats-new">So What's New?</a></h3>
+<p>I’d like to take you along for a look at what’s been happening, and honestly, these additions are features I’m incredibly excited about.</p>
+<h4 id="fragments"><a class="toclink" href="../2025/09/08/magewire-3---beta-release.html#fragments">Fragments</a></h4>
+<p>Fragments are a way to convert HTML into what we call a <strong>fragment</strong>, both inside your template files and even within PHP files.
+At its core, it’s nothing more than wrapping a piece of HTML so you can give it a name.</p>
+<p>The real benefit, however, lies in what you can do with it afterwards.
+For example, you can treat a fragment directly as a CSP block whenever it involves a <code>&lt;script&gt;&lt;/script&gt;</code>.
+And thanks to modifiers, you can centrally manage your fragments without touching a single template.</p>
+<p>Fragments were initially intended as a better solution to make scripts CSP-compliant.
+However, they eventually grew into much more, where they are no longer only needed for CSP or for wrapping <code>&lt;script&gt;</code> elements.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="cp">&lt;?php $script = $magewireFragment-&gt;make()-&gt;script()-&gt;start() ?&gt;</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="p">...</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="cp">&lt;?php $script-&gt;end() ?&gt;</span>
+</code></pre></div>
+<p>Please refer to the <a href="../../pages/concepts/fragments.html">documentation</a> for more details.</p>
+<h4 id="template-directives"><a class="toclink" href="../2025/09/08/magewire-3---beta-release.html#template-directives">Template Directives</a></h4>
+<p>As you might know from Laravel, Magewire now also supports the use of <code>@</code> directives inside your Magewire component templates.</p>
+<p>Simply put: if you want to display something inside your component only to a logged-in user, you can just wrap it with <code>@auth</code> and <code>@endauth</code>.</p>
+<p>The nice part is that this system is built in such a way that you can extend it with your own prefixes.</p>
+<p>For example, you could create a <code>@{agencyNameGoesHere}CustomerGroup(1)</code> directive, which ensures content is only shown when the
+customer is logged in and belongs to customer group 1. This directive would then belong to the <code>agencyNameGoesHere</code> group (area to be specific).</p>
+<p>And don’t worry: thanks to the built pre-compiler, everything is precompiled into actual PHP in advance, so nothing happens on the fly.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    @guest
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>        <span class="cm">&lt;!-- Will only be shown to guests. --&gt;</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>        <span class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;</span>Hi guest<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    @endguest
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>Please refer to the <a href="../../pages/features/magewire-template-directives.html">documentation</a> for more details.</p>
+<h4 id="flakes"><a class="toclink" href="../2025/09/08/magewire-3---beta-release.html#flakes">Flakes</a></h4>
+<p>I really wanted to create a “good” system that lets you easily add re-usable components inside your Magewire components
+using nothing more than simple HTML syntax. No complicated stuff, no need for additional ViewModels or other workarounds,
+just like in the following example.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="x">class Dialog extends Component</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="x">{</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="x">    public string $title = &#39;&#39;;</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="x">    public function mount(string $fooBar, AbstractBlock $block)</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="x">    {</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="x">        //</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="x">    }</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="x">}</span>
+</code></pre></div>
+<p>Where your template simply looks like this:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="cp">&lt;?php $title = &#39;Hello World&#39;; ?&gt;</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="p">&lt;</span><span class="nt">magewire:dialog</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;my-component&quot;</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>                 <span class="na">prop:title</span><span class="o">=</span><span class="s">&quot;$title&quot;</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>                 <span class="na">mount:block</span><span class="o">=</span><span class="s">&quot;$block&quot;</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>                 <span class="na">mount:foo-bar</span><span class="o">=</span><span class="s">&quot;baz&quot;</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="p">/&gt;</span>
+</code></pre></div>
+<p>As you can see, you can easily inject public properties, pass mount method arguments, and use template variables as an attribute value.</p>
+<p>Please refer to the <a href="../../pages/features/magewire-flakes.html">documentation</a> for more details.</p>
+<h4 id="stream-directive"><a class="toclink" href="../2025/09/08/magewire-3---beta-release.html#stream-directive">Stream Directive</a></h4>
+<p>The Streaming feature has been made compatible and now works within Magewire.</p>
+<p>Thanks to the <strong>Portman</strong> tool we built, it only took about 15 minutes to get it running.</p>
+<p>Fortunately, this feature isn’t too complicated, but it does provide you with some cool new options.</p>
+<p>Please refer to the <a href="../../pages/html-directives/wire-stream.html">documentation</a> for more details.</p>
+<h4 id="rate-limiting"><a class="toclink" href="../2025/09/08/magewire-3---beta-release.html#rate-limiting">Rate Limiting</a></h4>
+<p>Livewire does not officially support this, but for many reasons I felt it was needed, so I went ahead and built it.</p>
+<p>Rate limiting can now be applied in multiple ways. One option is via the frontend using <code>wire:mage:throttle</code>,
+where most of the handling happens on the client side. This is not bulletproof, though, since a smart user could easily work around it.</p>
+<p>That’s why server-side rate limiting has also been added. Based on system configuration, you can now limit the number of
+subsequent requests within a specific time window.</p>
+<p>Cool thing, by default, its cache driven, but you can build your own adapter if you'd like.</p>
+<h4 id="observer-events"><a class="toclink" href="../2025/09/08/magewire-3---beta-release.html#observer-events">Observer Events</a></h4>
+<p>It’s not always easy to learn a new framework, I know that. That’s why, wherever possible, we should provide an approach
+that already feels familiar to you as a Magento developer.</p>
+<p>For every hook you can tap into, an observer event is automatically dispatched. This means you don’t have to create a
+separate <strong>Feature</strong> for just a small tweak. Instead, you can simply add an event in your <code>events.xml</code> and use the provided
+Data Transfer Object (DTO) to pass data along to the hook.</p>
+<p>Please refer to the <a href="../../pages/essentials/events.html">documentation</a> for more details.</p>
+<h4 id="backend-compatibility"><a class="toclink" href="../2025/09/08/magewire-3---beta-release.html#backend-compatibility">Backend Compatibility</a></h4>
+<p>Yes, Magewire is coming to the backend. All you need to do is require the new module <code>magewirephp/magewire-admin</code>.</p>
+<p>I’m currently wrapping up the final details, and then nothing will hold us back from using this powerhouse of a framework in the backend as well.</p>
+    
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+      <nav class="md-post__authors md-typeset">
+        
+          <span class="md-author">
+            <img src="../../images/users/avatars/willem.jpg" alt="Willem Poortman">
+          </span>
+        
+      </nav>
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2025-06-02 00:00:00+00:00">June 2, 2025</time></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              4 min read
+            
+          </li>
+        
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="magewire-3-hello-world"><a class="toclink" href="../2025/06/02/magewire-3---hello-world.html">Magewire 3 - Hello World</a></h2>
+<h3 id="here-we-go"><a class="toclink" href="../2025/06/02/magewire-3---hello-world.html#here-we-go">Here We Go!</a></h3>
+<p>A promise is a promise. I said Magewire V3 would be released a week after the docs went live,
+and I'm a man who sticks to his word—even if V3 isn't quite where I'd like it to be yet.</p>
+<p>From this point forward, we're going to build this airplane while it's getting ready to take off.
+Luckily, we're still taxiing on the runway, and as long as that <code>beta</code> tag stays on,
+we'll keep it grounded until it's ready to fly.</p>
+<h3 id="the-journey-is-what-matters-most"><a class="toclink" href="../2025/06/02/magewire-3---hello-world.html#the-journey-is-what-matters-most">The Journey Is What Matters Most</a></h3>
+<p>They say it all the time—the journey itself is more important than the destination, and that's no different with Magewire.
+I've learned an incredible amount as a professional, but also as a person, during this development process.
+For me, it's been such a beautiful experience to work on something where I could completely let loose on how I wanted the architecture to be.</p>
+<p>Through all the years working with Magento 1 and Magento 2, I've always had an extreme interest in architecture and
+kept challenging myself to improve, try new things, and sometimes go a bit outside the lines of old-school Magento standards.
+Not everyone always appreciates that, but I figure—if I don't try it and make mistakes, how are we ever going to make
+Magento attractive to the new generation of developers who really do think differently?</p>
+<p>The road has been pretty long, and fortunately, the endpoint isn't in sight yet. Even though many people ask me why I
+invest so much free time in something that doesn't pay back in a community like ours.
+I can't say anything other than—this is completely true. The investment is ridiculous, and sometimes I ask myself
+that same question: what am I doing all this for?</p>
+<p>For me, the answer is simple: it makes me incredibly happy. Working on my own thing, not constantly having to worry
+about what someone thinks of it, and just being able to pour all my knowledge into an ultimate project that I couldn't
+imagine working without in my daily work anymore.</p>
+<h3 id="now-for-the-serious-stuff"><a class="toclink" href="../2025/06/02/magewire-3---hello-world.html#now-for-the-serious-stuff">Now for the Serious Stuff</a></h3>
+<p>V3—a lot of the same, plus some innovations that came about partly through necessary things like CSP and other things
+I've had on my wishlist for a long time but could never really make happen in Magewire V1.</p>
+<p>The architecture is solid now, but not everything that's standard in V1 is in V3 yet. There's still plenty that needs to be ported over,
+but I expect this will go much faster now that all the tools are available. So over the coming months, that's roughly
+the plan for the beta—to work (hopefully together) toward a version that at least contains everything V1 has.</p>
+<h3 id="whats-new"><a class="toclink" href="../2025/06/02/magewire-3---hello-world.html#whats-new">What's New?</a></h3>
+<p>Good question. There are many new features like Fragments, which let you mark sections in your PHTML and tweak them using modifiers.
+Fragments came about because of CSP—I wanted a tool I could wrap around a <code>script</code> block and then optionally modify based on different variables,
+like adding a <code>nonce</code> attribute or creating a hash of the content and passing it to Magento's CSP collection.
+I've expanded this concept to offer other fragments in the future. You could think of feature flags, for example
+where you can show part of your PHTML only based on a specific version of another package.</p>
+<p>There's also a new <code>@</code> compiler that allows you to use so-called <code>@</code>-directives in your PHTML that
+automatically get converted to valid PHP during compilation. This creates cleaner, more readable PHTML,
+but also means less actual PHP code in the PHTML files. There's much less need for all kinds of View Models and Helpers to get things done.
+I have some really exciting ideas in the pipeline for this feature that I hope to add soon. The groundwork is already laid.</p>
+<p>Of course, the completely new documentation shouldn't be forgotten either. I'm glad I set this up because I can now
+write about things much more specifically compared to the previous approach where everything was buried on a single
+page in the Magewire repository itself. The domain name might still change to make it easier to find,
+but the first steps have been taken.</p>
+<p>There's so much innovation that I could write endlessly about it, but I think it's smarter for you to take a look at
+the documentation to get a good picture of what might be relevant for you.</p>
+<h3 id="finally"><a class="toclink" href="../2025/06/02/magewire-3---hello-world.html#finally">Finally</a></h3>
+<p>I'll try to write a blog post every month about Magewire's progress, but I won't make a LinkedIn post about it every time.
+So definitely keep an eye on this blog page if you're interested in more reading material about this project!</p>
+<p>And if you feel the urge to contribute, whether through code or financially, I invite you to get in touch!</p>
+    
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+      <nav class="md-post__authors md-typeset">
+        
+          <span class="md-author">
+            <img src="../../images/users/avatars/willem.jpg" alt="Willem Poortman">
+          </span>
+        
+      </nav>
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2025-05-24 00:00:00+00:00">May 24, 2025</time></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              2 min read
+            
+          </li>
+        
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="magewire-3-docs-publication"><a class="toclink" href="../2025/05/24/magewire-3---docs-publication.html">Magewire 3 - Docs Publication</a></h2>
+<h3 id="kicking-off-a-new-chapter-for-magewire"><a class="toclink" href="../2025/05/24/magewire-3---docs-publication.html#kicking-off-a-new-chapter-for-magewire">Kicking Off a New Chapter for Magewire</a></h3>
+<p>First, I’m excited to share that starting today, all future updates about Magewire will be posted right here in
+the blog section of the documentation.</p>
+<p>This shift is all about keeping things simple and centralized. No more jumping between websites to find the latest news
+or resources—everything you need will now live alongside the docs.</p>
+<h3 id="the-wait-is-kind-of-over"><a class="toclink" href="../2025/05/24/magewire-3---docs-publication.html#the-wait-is-kind-of-over">The Wait Is (Kind of) Over!</a></h3>
+<p>For those who’ve been patiently waiting: the long silence is finally breaking—at least in terms of documentation.</p>
+<p>I’ve spent months putting together the foundation, and while there’s still some work to be done,
+I’ve decided to release the docs ahead of the actual beta launch.</p>
+<p>My goal is to give you a head start—to inspire, to motivate, and to let you explore what's coming in Magewire V3.</p>
+<p>The beta code itself is planned for release by June 1st. I just need a few more evening sessions to get it over the finish line.</p>
+<h3 id="a-work-in-progress-literally"><a class="toclink" href="../2025/05/24/magewire-3---docs-publication.html#a-work-in-progress-literally">A Work in Progress (Literally)</a></h3>
+<p>Let me be upfront: the documentation is still very much a work in progress.</p>
+<p>You’ll see a few <code>WIP...</code> tags sprinkled throughout. These are simply placeholders and reminders for myself—sections that still need attention.</p>
+<h3 id="why-this-release-matters"><a class="toclink" href="../2025/05/24/magewire-3---docs-publication.html#why-this-release-matters">Why This Release Matters</a></h3>
+<p>The main goal right now is to help developers get started with V3 as early as possible. By putting the documentation out there,
+I’m hoping to lay the groundwork for the community to join in and help shape its future.</p>
+<p>That said, this is still a passion project—one I mostly work on during evenings and weekends—so progress might not always be rapid.
+Thanks in advance for your patience and understanding.</p>
+<h3 id="whats-next"><a class="toclink" href="../2025/05/24/magewire-3---docs-publication.html#whats-next">What’s Next?</a></h3>
+<p>In about a week, I’ll push the V3 beta under a new beta tag in the Magewire GitHub repository (which you probably already know your way around).</p>
+<p>From there, things become a little less predictable. The pace of development will depend on a lot of factors,
+including time, feedback, and community involvement.</p>
+<p>Thanks for being part of this journey. Let’s make something awesome together.</p>
+    
+    
+  </div>
+</article>
+      
+      
+        
+          
+
+
+
+<nav class="md-pagination">
+  
+</nav>
+        
+      
+    </div>
+  </div>
+
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../index.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Blog">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Blog
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://x.com/magewirephp" target="_blank" rel="noopener" title="x.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M459.4 151.7c.3 4.5.3 9.1.3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.3 25.3 1.3 49.1 0 94.2-16.6 130.3-44.8-46.1-1-84.8-31.2-98.1-72.8 6.5 1 13 1.6 19.8 1.6 9.4 0 18.8-1.3 27.6-3.6-48.1-9.7-84.1-52-84.1-103v-1.3c14 7.8 30.2 12.7 47.4 13.3-28.3-18.8-46.8-51-46.8-87.4 0-19.5 5.2-37.4 14.3-53C87.4 130.8 165 172.4 252.1 176.9c-1.6-7.8-2.6-15.9-2.6-24C249.5 95.1 296.3 48 354.4 48c30.2 0 57.5 12.7 76.7 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.4-24.4 44.8-46.1 57.8 21.1-2.3 41.6-8.1 60.4-16.2-14.3 20.8-32.2 39.3-52.6 54.3"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.path", "navigation.tabs", "navigation.footer", "navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.prune", "navigation.top", "navigation.indexes", "content.code.copy", "content.code.annotate", "content.code.select", "header.autohide"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>
