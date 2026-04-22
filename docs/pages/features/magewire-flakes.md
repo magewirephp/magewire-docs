@@ -109,5 +109,4 @@ Finally, create the flake template:
 
 ### Nesting
 
-At the moment, it is not possible to use a flake within another flake.
-This functionality may be revisited in the future to assess whether it can be implemented.
+At the moment, it is not possible to use a flake within another flake. This functionality may be revisited in the future to assess whether it can be implemented.

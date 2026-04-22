@@ -90,7 +90,6 @@ nav:
   - 'Getting Started':
       - 'index.md'
       - 'pages/getting-started/basics.md'
-      - 'pages/getting-started/beta.md'
       - 'pages/getting-started/contribute.md'
       - 'pages/getting-started/documentation.md'
       - 'pages/getting-started/examples.md'
@@ -116,6 +115,8 @@ nav:
       - 'pages/features/alpine.md'
       - 'pages/features/magewire-flakes.md'
       - 'pages/features/magewire-template-directives.md'
+      - 'pages/features/notifications.md'
+      - 'pages/features/rate-limiting.md'
       - 'pages/features/request-bundling.md'
       - 'pages/features/offline-states.md'
   - 'Directives':
@@ -141,12 +142,26 @@ nav:
     - 'pages/concepts/morphing.md'
     - 'pages/concepts/hydration.md'
     - 'pages/concepts/nesting.md'
+  - 'Theming':
+    - 'pages/theming/index.md'
+    - 'pages/theming/compatibility-module.md'
+    - 'pages/theming/layout-containers.md'
+    - 'pages/theming/alpine-loading.md'
+    - 'pages/theming/tailwind.md'
+    - 'pages/theming/backwards-compatibility.md'
+    - 'pages/theming/hyva-checkout-bc.md'
+  - 'Admin':
+    - 'pages/admin/index.md'
+    - 'pages/admin/installation.md'
+    - 'pages/admin/how-it-works.md'
+    - 'pages/admin/building-admin-components.md'
+    - 'pages/admin/rate-limiting.md'
   - 'Advanced':
     - 'pages/advanced/best-practices.md'
     - 'pages/advanced/patterns.md'
+    - 'pages/advanced/performance.md'
     - 'pages/advanced/security.md'
     - 'pages/advanced/synthesizers.md'
-    - 'pages/advanced/themes.md'
     - 'pages/advanced/troubleshooting.md'
     - 'Javascript':
         - 'pages/advanced/javascript/index.md'

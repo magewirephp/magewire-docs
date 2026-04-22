@@ -2,74 +2,92 @@
 
 {{ include('admonition/livewire-concept.md') }}
 
-Magewire is divided into three aspects. First, there is the architecture itself, which includes the module responsible
-for loading everything within Magento, as well as specific Livewire concepts. Those other two aspects within this architecture
-are **Features** and **Mechanisms**.
+Magewire is composed of three layers: the Magento module that loads everything, **Mechanisms** (required core steps), and **Features** (optional extensions). This page covers Mechanisms.
 
-In this documentation, we will focus specifically on **Mechanisms**.
+## Mechanism vs. Feature
 
-## Concept
+| | Mechanism | Feature |
+|---|---|---|
+| Optional | No | Yes |
+| Can be disabled | No | Yes — or replaced via DI |
+| Runs per request | Every request | Only when registered |
+| Examples | ResolveComponents, HandleRequests | SupportMagewireNotifications, SupportMagewireRateLimiting |
 
-The idea behind Mechanisms is that they are essential components required for Magewire to function.
-They form a foundational part of the architecture and cannot be removed or treated as optional.
+Mechanisms form the non-negotiable core pipeline. Removing any of them breaks the framework.
 
-As such, Mechanisms are typically core elements of Magewire, rather than being designed for injection or replacement
-through third-party extensions.
+## The pipeline
 
-## Example
+Every Magewire request passes through the mechanisms in sort-order sequence:
 
-We use **Resolvers** as an example.
-
-Magewire Resolvers are critical components responsible for binding Magewire objects to blocks,
-effectively transforming them into Magewire components.
-
-Removing Resolvers would constitute a breaking change, as blocks intended to function as Magewire components would
-no longer be able to do so.
-
-```xml title="File: etc/frontend/di.xml"
-<?xml version="1.0"?>
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd"
->
-    <type name="Magewirephp\Magewire\Mechanisms">
-        <arguments>
-            <!-- Option #1. -->
-            <argument name="items" xsi:type="array">
-                <item name="resolve_components" xsi:type="array">
-                    <item name="type" xsi:type="string">
-                        Magewirephp\Magewire\Mechanisms\ResolveComponents\ResolveComponents
-                    </item>
-                    
-                    <!-- Optional. -->
-                    <item name="sort_order" xsi:type="number">
-                        1000
-                    </item>
-                    <item name="view_model" xsi:type="object">
-                        Magewirephp\Magewire\Mechanisms\ResolveComponents\ResolveComponentsViewModel
-                    </item>
-                </item>
-            </argument>
-            
-            <!-- Option #2. -->
-            <item name="resolve_components" xsi:type="string" sortOrder="1000">
-                Magewirephp\Magewire\Mechanisms\ResolveComponents\ResolveComponents
-            </item>
-        </arguments>
-    </type>
-</config>
+```
+ResolveComponents (1000)
+   ↓
+PersistentMiddleware (1050)
+   ↓
+HandleComponents (1100)
+   ↓
+HandleRequests (1200)
+   ↓
+DataStore (1250)
+   ↓
+FrontendAssets (1400)
 ```
 
-## Mechanisms
+## Built-in mechanisms
 
-The following mechanisms form the backbone of Magewire and are essential to its operation.
+| Name | Sort order | Responsibility |
+|---|---|---|
+| **ResolveComponents** | 1000 | Discover components attached to Magento blocks. Runs component resolvers until one matches; binds the resolved component to the block. |
+| **PersistentMiddleware** | 1050 | Keeps state needed across the page render (layout handles, resolver metadata) available for later mechanisms. |
+| **HandleComponents** | 1100 | Runs the lifecycle pipeline for each component — boot, mount/hydrate, updates, render, dehydrate. Applies synthesizers for each public property. |
+| **HandleRequests** | 1200 | On AJAX updates: receives the POST to `/magewire/update`, validates the snapshot checksum, invokes HandleComponents, assembles the response. |
+| **DataStore** | 1250 | Per-component request-scoped key/value store used by features (BC flag, rate-limit counters, feature-owned state). Accessed via `store($component)->get/set(…)`. |
+| **FrontendAssets** | 1400 | Emits the JS/CSS assets — the Magewire bundle, inline setup scripts, CSP fragments, nonces. |
 
-| Name                    | Description | Sort Order |
-|-------------------------|-------------|------------|
-| **Frontend Assets**     | WIP         | 1400       |
-| **Handle Components**   | WIP         | 1100       |
-| **Handle Requests**     | WIP         | 1200       |
-| **Resolver Components** | WIP         | 1000       |
-| **Persist Middleware**  | WIP         | 1050       |
-| **Data Store**          | WIP         | 1250       |
+## Registering / overriding
 
-!!! info "While Livewire contains various Laravel-specific mechanisms, these are present in the source code but remain unused in the context of Magewire."
+Mechanisms are declared on `Magewirephp\Magewire\Mechanisms` via DI. The two supported shapes:
+
+```xml title="etc/frontend/di.xml"
+<type name="Magewirephp\Magewire\Mechanisms">
+    <arguments>
+        <argument name="items" xsi:type="array">
+
+            <!-- Long form — with optional metadata -->
+            <item name="resolve_components" xsi:type="array">
+                <item name="type" xsi:type="string">
+                    Magewirephp\Magewire\Mechanisms\ResolveComponents\ResolveComponents
+                </item>
+                <item name="sort_order" xsi:type="number">1000</item>
+                <item name="view_model" xsi:type="object">
+                    Magewirephp\Magewire\Mechanisms\ResolveComponents\ResolveComponentsViewModel
+                </item>
+            </item>
+
+            <!-- Short form -->
+            <item name="frontend_assets" xsi:type="string" sortOrder="1400">
+                Magewirephp\Magewire\Mechanisms\FrontendAssets\FrontendAssets
+            </item>
+        </argument>
+    </arguments>
+</type>
+```
+
+To override a mechanism in a specific area, declare the replacement class in `etc/frontend/di.xml` or `etc/adminhtml/di.xml` with the same item name. Replacing is what `magewire-admin` does to patch the admin-specific update route and component resolver — see [Admin → How it works](../../../admin/how-it-works.md).
+
+## Adding a custom mechanism
+
+Rare. Only reach for a custom mechanism when a behaviour must run on **every** request and cannot be expressed as a [Component Hook](../component-hooks.md). In practice: custom authentication on the update controller, custom asset pipelines, or replacing the snapshot transport entirely.
+
+For everything else, a Feature backed by a Component Hook is lighter and safer.
+
+## Laravel leftovers
+
+Livewire ships a handful of Laravel-specific mechanisms (routing macros, session bridging). They live in the source tree so Magewire can keep Livewire upstream in sync via [Portman](../portman.md), but they are unregistered in Magewire's container and do nothing at runtime.
+
+## Related
+
+- [Component Hooks](../component-hooks.md)
+- [Features](../features.md)
+- [Resolvers](resolvers.md) — the ResolveComponents mechanism in depth.
+- [Layout](../layout.md) — how FrontendAssets surfaces layout containers.
