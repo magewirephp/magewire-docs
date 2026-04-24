@@ -1,13 +1,5 @@
 # Magewire PHP - V3
 
-!!! danger "Beta release"
-    **Do not use Magewire V3 in production, as its stability, security, and overall reliability cannot be guaranteed.
-    The framework is still in an beta phase, and breaking changes may occur without warning.
-    Using it in a live environment is entirely at your own risk and may lead to unexpected issues, including potential
-    security vulnerabilities and system instability.**
-
-    Please refer to the [beta](pages/getting-started/beta.md) page for more details.
-
 {{ include("admonition/documentation-under-construction.md") }}
 
 Welcome to the official documentation for Magewire PHP. This guide provides all the necessary information to get started
