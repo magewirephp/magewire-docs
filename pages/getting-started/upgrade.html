@@ -1,0 +1,3187 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Magewire PHP Documentation">
+      
+      
+      
+        <link rel="canonical" href="https://magewirephp.github.io/magewire-docs/pages/getting-started/upgrade.html">
+      
+      
+        <link rel="prev" href="sponsoring.html">
+      
+      
+        <link rel="next" href="releases/feature-history.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Upgrade - Magewire PHP</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        
+        <link rel="stylesheet" href="../../assets/external/fonts.googleapis.com/css.49ea35f2.css">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/style.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#upgrade" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Magewire PHP" class="md-header__button md-logo" aria-label="Magewire PHP" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Magewire PHP
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Upgrade
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../essentials/components.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Essentials
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../features/alpine.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Features
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../html-directives/wire-click.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Directives
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../concepts/fragments.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Concepts
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../theming/index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Theming
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../admin/index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Admin
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../advanced/best-practices.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Advanced
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../blogs/index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Blog
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Magewire PHP" class="md-nav__button md-logo" aria-label="Magewire PHP" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Magewire PHP
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="basics.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Basics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="contribute.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contribute
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="documentation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documentation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="faq.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="license.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    License
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="notables.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Notables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="purpose.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Purpose
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="roadmap.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="sponsoring.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sponsoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Upgrade
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="upgrade.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Upgrade
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tldr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TL;DR
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#versioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Versioning
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requirements
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#install-the-new-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install the new version
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enable-the-backwards-compatibility-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enable the backwards-compatibility layer
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Enable the backwards-compatibility layer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-the-bc-layer-does-automatically" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What the BC layer does automatically
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-the-bc-layer-does-not-do" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What the BC layer does not do
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-memobcenabled-flag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The memo.bc.enabled flag
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#breaking-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Breaking changes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Breaking changes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#wiremodel-is-deferred-by-default" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        wire:model is deferred by default
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#entangle-is-deferred-by-default" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entangle is deferred by default
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#event-listeners-use-the-on-attribute" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Event listeners use the #[On] attribute
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hook-event-renames-js" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hook / event renames (JS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#component-property-aliases-js" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Component property aliases (JS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#php-component-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PHP component API
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lifecycle-hooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lifecycle hooks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#updating-updated-argument-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        updating / updated argument order
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#there-is-no-render-method-on-component" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        There is no render() method on Component
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#area-scoped-di-is-required" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Area-scoped DI is required
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#features-are-component-hooks-now" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Features are Component Hooks now
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#synthesizers-replace-v1s-hydrators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Synthesizers replace V1's hydrators
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alpinejs-is-bundled-and-csp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alpine.js is bundled and CSP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#csp-fragments-replace-hand-rolled-nonces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CSP fragments replace hand-rolled nonces
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#namespace-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Namespace changes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#migration-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Migration workflow
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Migration workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-install-v3-with-bc-on-everything" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Install V3 with BC on everything
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-migrate-wire-directives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Migrate wire directives
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-migrate-entangle-calls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Migrate entangle calls
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-migrate-listeners-arrays-to-on" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Migrate $listeners arrays to #[On]
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-migrate-js-hook-names" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Migrate JS hook names
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-migrate-php-component-calls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Migrate PHP component calls
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-move-di-registrations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Move DI registrations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-drop-the-bc-attribute-per-component" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Drop the BC attribute per component
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-remove-the-bc-feature-registration-whole-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Remove the BC feature registration (whole-module)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hyva-checkout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hyvä Checkout
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#admin-new-in-v3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Admin (new in V3)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-upgrade-gotchas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common upgrade gotchas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verifying-the-upgrade" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verifying the upgrade
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rolling-back" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rolling back
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#migration-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Migration checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="releases/feature-history.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Releases
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../essentials/components.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Essentials
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../features/alpine.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Features
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../html-directives/wire-click.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Directives
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../concepts/fragments.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concepts
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../theming/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Theming
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../admin/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Admin
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../advanced/best-practices.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../blogs/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Blog
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tldr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TL;DR
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#versioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Versioning
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requirements
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#install-the-new-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install the new version
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enable-the-backwards-compatibility-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enable the backwards-compatibility layer
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Enable the backwards-compatibility layer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-the-bc-layer-does-automatically" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What the BC layer does automatically
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-the-bc-layer-does-not-do" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What the BC layer does not do
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-memobcenabled-flag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The memo.bc.enabled flag
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#breaking-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Breaking changes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Breaking changes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#wiremodel-is-deferred-by-default" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        wire:model is deferred by default
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#entangle-is-deferred-by-default" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entangle is deferred by default
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#event-listeners-use-the-on-attribute" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Event listeners use the #[On] attribute
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hook-event-renames-js" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hook / event renames (JS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#component-property-aliases-js" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Component property aliases (JS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#php-component-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PHP component API
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lifecycle-hooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lifecycle hooks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#updating-updated-argument-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        updating / updated argument order
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#there-is-no-render-method-on-component" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        There is no render() method on Component
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#area-scoped-di-is-required" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Area-scoped DI is required
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#features-are-component-hooks-now" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Features are Component Hooks now
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#synthesizers-replace-v1s-hydrators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Synthesizers replace V1's hydrators
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alpinejs-is-bundled-and-csp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alpine.js is bundled and CSP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#csp-fragments-replace-hand-rolled-nonces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CSP fragments replace hand-rolled nonces
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#namespace-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Namespace changes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#migration-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Migration workflow
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Migration workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-install-v3-with-bc-on-everything" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Install V3 with BC on everything
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-migrate-wire-directives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Migrate wire directives
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-migrate-entangle-calls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Migrate entangle calls
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-migrate-listeners-arrays-to-on" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Migrate $listeners arrays to #[On]
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-migrate-js-hook-names" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Migrate JS hook names
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-migrate-php-component-calls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Migrate PHP component calls
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-move-di-registrations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Move DI registrations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-drop-the-bc-attribute-per-component" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Drop the BC attribute per component
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-remove-the-bc-feature-registration-whole-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Remove the BC feature registration (whole-module)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hyva-checkout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hyvä Checkout
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#admin-new-in-v3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Admin (new in V3)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-upgrade-gotchas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common upgrade gotchas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verifying-the-upgrade" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verifying the upgrade
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rolling-back" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rolling back
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#migration-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Migration checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="upgrade">Upgrade</h1>
+<div class="admonition tip">
+<p class="admonition-title">Laravel Livewire Documentation Reference</p>
+<p>Since Magewire is heavily inspired by Laravel Livewire, many concepts are either identical or very similar. To avoid duplicating documentation, this page only covers Magewire-specific and platform-specific details. For all general concepts and in-depth explanations, you can refer to the corresponding Laravel Livewire documentation.</p>
+<p><a class="md-button md-button--livewire" href="https://livewire.laravel.com/docs/upgrading" target="_blank" rel="noopener"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M320 0c-17.7 0-32 14.3-32 32s14.3 32 32 32h82.7L201.3 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L448 109.3V192c0 17.7 14.3 32 32 32s32-14.3 32-32V32c0-17.7-14.3-32-32-32zM80 96c-44.2 0-80 35.8-80 80v256c0 44.2 35.8 80 80 80h256c44.2 0 80-35.8 80-80v-80c0-17.7-14.3-32-32-32s-32 14.3-32 32v80c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V176c0-8.8 7.2-16 16-16h80c17.7 0 32-14.3 32-32s-14.3-32-32-32z"/></svg></span> Livewire Reference</a></p>
+</div>
+<p>This page covers upgrading from Magewire V1 to V3. It is meant to be read top-to-bottom the first time and used as a reference afterwards — copy the checklist at the end into a ticket or PR description when you start the work.</p>
+<h2 id="tldr">TL;DR</h2>
+<ol>
+<li>Upgrade PHP, Magento, and Composer requirements.</li>
+<li>Install V3: <code>composer require magewirephp/magewire:^3.0</code>.</li>
+<li>Remove any separately-loaded Alpine.js from your theme.</li>
+<li>Add <code>#[HandleBackwardsCompatibility]</code> to every existing component. The site should run as-is.</li>
+<li>Migrate one component at a time using the checklist below.</li>
+<li>Drop the BC attribute per component once it is fully V3-native.</li>
+<li>Remove the BC feature registration when the whole module is migrated.</li>
+</ol>
+<p>The BC layer is the key insight: V3 does not force you to migrate on day one. You can upgrade, keep shipping, and migrate at your own pace.</p>
+<h2 id="versioning">Versioning</h2>
+<p>Magewire V2 never existed. Magewire V1 was built on Livewire V2, which created persistent version confusion — a "Magewire 1" that was effectively at Livewire's v2 feature line. V3 aligns Magewire's major version with Livewire's, so V2 was skipped entirely. Going forward, Magewire's major version tracks Livewire's.</p>
+<h2 id="requirements">Requirements</h2>
+<p>Before running <code>composer update</code>, bring the surrounding environment up to spec.</p>
+<ul>
+<li><strong>Magento</strong> <code>2.4.4</code> or later.</li>
+<li><strong>PHP</strong> <code>8.2</code> or later.</li>
+<li><strong>Composer 2</strong>.</li>
+<li><strong>No separately-loaded Alpine.js.</strong> Magewire bundles the CSP build of Alpine inside its own JS bundle. Loading Alpine a second time clashes on directive registration and <code>$store</code> identity.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Remove Alpine from your theme first</p>
+<p>Strip out any <code>&lt;script src="…alpine.min.js"&gt;</code> tags from theme templates, layout XML, and bundle configs before installing V3. A double-Alpine page fails in confusing ways — silent Alpine expressions, lost reactivity, and console errors that do not obviously point at the root cause.</p>
+</div>
+<h2 id="install-the-new-version">Install the new version</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>composer<span class="w"> </span>require<span class="w"> </span>magewirephp/magewire:^3.0
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>bin/magento<span class="w"> </span>setup:upgrade
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>bin/magento<span class="w"> </span>setup:di:compile<span class="w">          </span><span class="c1"># production mode only</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>bin/magento<span class="w"> </span>setup:static-content:deploy<span class="w">   </span><span class="c1"># production mode only</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>bin/magento<span class="w"> </span>cache:flush
+</code></pre></div>
+<p>If you use the admin integration (new in V3), also install:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>composer<span class="w"> </span>require<span class="w"> </span>magewirephp/magewire-admin
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>bin/magento<span class="w"> </span>module:enable<span class="w"> </span>Magewirephp_MagewireAdmin
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>bin/magento<span class="w"> </span>setup:upgrade
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>bin/magento<span class="w"> </span>cache:flush
+</code></pre></div>
+<p>In developer mode, skip the <code>di:compile</code> and <code>static-content:deploy</code> steps — Magento picks up the changes on the next request.</p>
+<h2 id="enable-the-backwards-compatibility-layer">Enable the backwards-compatibility layer</h2>
+<p>Magewire V3 ships a BC layer that lets V1 components keep running with minimal changes. Turn it on per component with the <code>#[HandleBackwardsCompatibility]</code> attribute:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="x">use Magewirephp\Magewire\Features\SupportMagewireBackwardsCompatibility\HandleBackwardsCompatibility;</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="x">#[HandleBackwardsCompatibility]</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="x">class LegacyCart extends \Magewirephp\Magewire\Component</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="x">{</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="x">    // Component code — no other changes required to keep V1 behaviour.</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="x">}</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="x">// Explicitly opt out — useful to override a theme-level auto-enable rule:</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="x">#[HandleBackwardsCompatibility(enabled: false)]</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="x">class ModernCart extends \Magewirephp\Magewire\Component { /* … */ }</span>
+</code></pre></div>
+<p>The attribute lives in <code>Magewirephp\Magewire\Features\SupportMagewireBackwardsCompatibility</code> — <strong>not</strong> under <code>Attributes\</code>. Getting the namespace right matters; a wrong <code>use</code> statement silently leaves the component on V3 defaults.</p>
+<h3 id="what-the-bc-layer-does-automatically">What the BC layer does automatically</h3>
+<p>When BC is enabled for a component, at runtime Magewire:</p>
+<ul>
+<li>Rewrites <code>wire:model</code> → <code>wire:model.live</code>, <code>wire:model.defer</code> → <code>wire:model</code>, <code>wire:model.lazy</code> → <code>wire:model.blur</code>, <code>wire:model.delay.Xms</code> → <code>wire:model.live.debounce.Xms</code>.</li>
+<li>Returns a live-by-default proxy from <code>$wire.entangle('…')</code>.</li>
+<li>Re-triggers deprecated JS hook names (<code>component.initialized</code>, <code>element.updating</code>, <code>message.sent</code>, …) alongside their V3 replacements.</li>
+<li>Proxies <code>component.data</code> → <code>component.$wire</code> and <code>component.deferredActions</code> → <code>component.queuedUpdates</code>.</li>
+<li>Keeps <code>$this-&gt;id</code>, <code>$this-&gt;getPublicProperties()</code>, and the V1 <code>emit*()</code> family available on the base <code>Component</code> class via the <code>HandlesComponentBackwardsCompatibility</code> trait.</li>
+</ul>
+<h3 id="what-the-bc-layer-does-not-do">What the BC layer does <strong>not</strong> do</h3>
+<p>You still have to manually handle:</p>
+<ul>
+<li>Component method signature changes (e.g. <code>updating($prop, $value)</code> parameter order).</li>
+<li>Public property type mismatches.</li>
+<li>Validation rule format changes.</li>
+<li>Behavioural changes in Magento or Hyvä that Magewire wraps.</li>
+<li>Any custom JS that listens directly on internal APIs that moved.</li>
+</ul>
+<p>BC buys time; it does not eliminate migration work.</p>
+<h3 id="the-memobcenabled-flag">The <code>memo.bc.enabled</code> flag</h3>
+<p>BC pivots on a single flag in the snapshot memo: <code>memo.bc.enabled</code>. When present and truthy, the BC shims activate for that component's DOM subtree. Otherwise they stay dormant — so unaffected components pay no runtime cost.</p>
+<p>Resolution priority for the flag:</p>
+<ol>
+<li><code>#[HandleBackwardsCompatibility]</code> attribute (either <code>enabled: true</code> or <code>enabled: false</code>) — wins in all cases.</li>
+<li>Programmatic assignment: <code>store($component)-&gt;set('magewire:bc', true)</code> from a Component Hook or Feature.</li>
+<li>Theme default. Hyvä Checkout auto-enables BC for every component rendered inside the <code>hyva-checkout-main</code> container — see <a href="../theming/hyva-checkout-bc.html">Theming → Hyvä Checkout BC</a>.</li>
+</ol>
+<h2 id="breaking-changes">Breaking changes</h2>
+<p>Below is the exhaustive list. Each section identifies the V1 shape, the V3 shape, and what the BC layer does for you automatically.</p>
+<h3 id="wiremodel-is-deferred-by-default"><code>wire:model</code> is deferred by default</h3>
+<table>
+<thead>
+<tr>
+<th>V1</th>
+<th>V3</th>
+<th>BC auto-handled?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>wire:model</code></td>
+<td><code>wire:model.live</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>wire:model.defer</code></td>
+<td><code>wire:model</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>wire:model.lazy</code></td>
+<td><code>wire:model.blur</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>wire:model.delay.500ms</code></td>
+<td><code>wire:model.live.debounce.500ms</code></td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+<p>V1's default was "sync on every keystroke", V3's default is "sync on form submit / next request". If you want instant sync in a V3 component, you must opt in with <code>.live</code>. The <code>.defer</code> / <code>.lazy</code> / <code>.delay</code> modifiers no longer exist in V3.</p>
+<h3 id="entangle-is-deferred-by-default">Entangle is deferred by default</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="cm">&lt;!-- V1: live by default --&gt;</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="p">&lt;</span><span class="nt">div</span> <span class="na">x-data</span><span class="o">=</span><span class="s">&quot;{ open: $wire.entangle(&#39;open&#39;) }&quot;</span><span class="p">&gt;</span>…<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="cm">&lt;!-- V3: deferred by default. Add .live for instant sync. --&gt;</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="p">&lt;</span><span class="nt">div</span> <span class="na">x-data</span><span class="o">=</span><span class="s">&quot;{ open: $wire.entangle(&#39;open&#39;).live }&quot;</span><span class="p">&gt;</span>…<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>BC auto-restores the V1 live-by-default proxy. Once the component is migrated, decide per <code>entangle</code> call whether you want live or deferred — each call site may want a different answer.</p>
+<h3 id="event-listeners-use-the-on-attribute">Event listeners use the <code>#[On]</code> attribute</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="x">use Magewirephp\Magewire\Attributes\On;</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="x">// V1</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="x">protected $listeners = [&#39;cart-updated&#39; =&gt; &#39;refresh&#39;];</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="x">public function refresh(): void { /* … */ }</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="x">// V3</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="x">#[On(&#39;cart-updated&#39;)]</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="x">public function refresh(): void { /* … */ }</span>
+</code></pre></div>
+<p><code>$listeners</code> still works (the base <code>Component</code> class still reads it) but is discouraged. <code>#[On]</code> gives better IDE support and lets a single method respond to multiple events via multiple attributes.</p>
+<p>Dispatch from PHP: <code>$this-&gt;dispatch('event-name', foo: 'bar')</code> — replaces V1's <code>$this-&gt;emit('event-name', ['foo' =&gt; 'bar'])</code>. The BC trait keeps <code>emit</code>, <code>emitUp</code>, <code>emitSelf</code>, and <code>emitTo</code> available, but they are thin wrappers around <code>dispatch()</code> now.</p>
+<h3 id="hook-event-renames-js">Hook / event renames (JS)</h3>
+<table>
+<thead>
+<tr>
+<th>V1 name</th>
+<th>V3 name</th>
+<th>BC auto-handled?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>component.initialized</code></td>
+<td><code>component.init</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>element.initialized</code></td>
+<td><code>element.init</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>element.updating</code></td>
+<td><code>morph.updating</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>element.removed</code></td>
+<td><code>morph.removed</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>message.sent</code></td>
+<td><code>commit</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>message.failed</code></td>
+<td><code>commit</code> → <code>fail()</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>message.received</code></td>
+<td><code>commit</code> → <code>succeed()</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>message.processed</code></td>
+<td><code>commit</code> → <code>succeed()</code> → <code>queueMicrotask</code></td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+<p>The V3 <code>commit</code> hook is callback-based — the before half runs synchronously; the returned closure receives <code>succeed</code> / <code>fail</code> / <code>respond</code> continuations you can hook into. See <a href="../advanced/architecture/component-hooks.html">Component Hooks</a> for the full signature.</p>
+<h3 id="component-property-aliases-js">Component property aliases (JS)</h3>
+<table>
+<thead>
+<tr>
+<th>V1</th>
+<th>V3</th>
+<th>BC auto-handled?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>component.data</code></td>
+<td><code>component.$wire</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>component.deferredActions</code></td>
+<td><code>component.queuedUpdates</code></td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="php-component-api">PHP component API</h3>
+<table>
+<thead>
+<tr>
+<th>V1</th>
+<th>V3</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$this-&gt;emit('e', [...])</code></td>
+<td><code>$this-&gt;dispatch('e', ...)</code></td>
+<td>V1 call kept under the BC trait; prefer <code>dispatch()</code>.</td>
+</tr>
+<tr>
+<td><code>$this-&gt;emitUp('e', ...)</code></td>
+<td><code>$this-&gt;dispatch('e', ...)-&gt;up()</code></td>
+<td>V1 kept; prefer <code>-&gt;up()</code> chain.</td>
+</tr>
+<tr>
+<td><code>$this-&gt;emitSelf('e', ...)</code></td>
+<td><code>$this-&gt;dispatch('e', ...)-&gt;self()</code></td>
+<td>V1 kept; prefer <code>-&gt;self()</code> chain.</td>
+</tr>
+<tr>
+<td><code>$this-&gt;emitTo('other', 'e', …)</code></td>
+<td><code>$this-&gt;dispatch('e', ...)-&gt;to('other')</code></td>
+<td>V1 kept; prefer <code>-&gt;to()</code> chain.</td>
+</tr>
+<tr>
+<td><code>$this-&gt;dispatchBrowserEvent('e', …)</code></td>
+<td><code>$this-&gt;js("window.dispatchEvent(new CustomEvent('e', { detail: … }))")</code> or a frontend <code>#[On]</code> handler</td>
+<td>V1 kept under BC trait.</td>
+</tr>
+<tr>
+<td><code>$this-&gt;getPublicProperties()</code></td>
+<td><code>$this-&gt;all()</code></td>
+<td>V1 kept under BC trait.</td>
+</tr>
+<tr>
+<td><code>public $this-&gt;id</code></td>
+<td><code>$this-&gt;id()</code> / <code>$this-&gt;getId()</code></td>
+<td>Public property only exists in BC trait; removed from non-BC components.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="lifecycle-hooks">Lifecycle hooks</h3>
+<p>V3 adds more lifecycle hooks than V1 exposed. All are optional:</p>
+<table>
+<thead>
+<tr>
+<th>Hook</th>
+<th>When it fires</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>boot()</code></td>
+<td>Every request, before mount/hydrate.</td>
+</tr>
+<tr>
+<td><code>booted()</code></td>
+<td>Every request, after boot/hydrate sequence.</td>
+</tr>
+<tr>
+<td><code>initialize()</code></td>
+<td>Every request, before mount/hydrate.</td>
+</tr>
+<tr>
+<td><code>mount(array $params)</code></td>
+<td>Initial render only.</td>
+</tr>
+<tr>
+<td><code>hydrate()</code></td>
+<td>Every subsequent request.</td>
+</tr>
+<tr>
+<td><code>hydrateXxx()</code></td>
+<td>Hydrate for a specific property.</td>
+</tr>
+<tr>
+<td><code>updating($prop, $value)</code></td>
+<td>Before any property update.</td>
+</tr>
+<tr>
+<td><code>updatingXxx($value)</code></td>
+<td>Before a specific property updates.</td>
+</tr>
+<tr>
+<td><code>updated($prop, $value)</code></td>
+<td>After any property update.</td>
+</tr>
+<tr>
+<td><code>updatedXxx($value)</code></td>
+<td>After a specific property updates.</td>
+</tr>
+<tr>
+<td><code>rendering($view, $data)</code></td>
+<td>Before the template renders.</td>
+</tr>
+<tr>
+<td><code>rendered($view, $html)</code></td>
+<td>After the template renders.</td>
+</tr>
+<tr>
+<td><code>dehydrate()</code></td>
+<td>Before state is serialized back to snapshot.</td>
+</tr>
+<tr>
+<td><code>dehydrateXxx()</code></td>
+<td>Dehydrate for a specific property.</td>
+</tr>
+<tr>
+<td><code>exception(\Throwable $e, callable $stopPropagation)</code></td>
+<td>On exception.</td>
+</tr>
+</tbody>
+</table>
+<p>V1's <code>hydrate()</code> / <code>dehydrate()</code> signatures survive but V3 adds per-property variants and a <code>booted()</code> / <code>initialize()</code> pair — useful for DI wiring or authorisation guards.</p>
+<h3 id="updating-updated-argument-order"><code>updating</code> / <code>updated</code> argument order</h3>
+<p>V1 called <code>updatingFooBar($value)</code> with the new value as the only argument. V3 passes <code>updatingFooBar($value, $oldValue, ...)</code> in some cases. Check the <code>UpdatingUpdatedArgumentSwapResolver</code> BC rule if a V1 hook starts receiving the wrong arguments — it sits in <code>lib/MagewireBc/Features/SupportMagewireBackwardsCompatibility/Resolver/</code>.</p>
+<h3 id="there-is-no-render-method-on-component">There is no <code>render()</code> method on <code>Component</code></h3>
+<p>V1 examples occasionally showed a custom <code>render(): string</code> method to pick a template per state. V3 has no such method. The block's template renders automatically; to swap templates per state, use the <code>rendering</code> hook:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="x">public function rendering(): void</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="x">{</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="x">    $this-&gt;magewireBlock()-&gt;setTemplate(</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="x">        $this-&gt;state === &#39;review&#39;</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="x">            ? &#39;Vendor_Module::magewire/review.phtml&#39;</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="x">            : &#39;Vendor_Module::magewire/default.phtml&#39;</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="x">    );</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="x">}</span>
+</code></pre></div>
+<h3 id="area-scoped-di-is-required">Area-scoped DI is required</h3>
+<p>V1 registered Features, Mechanisms, and Hooks in the global <code>etc/di.xml</code>. V3's service provider reads area-scoped DI only — registrations in global DI are ignored.</p>
+<p>Move every Magewire-related <code>&lt;type&gt;</code> block into <code>etc/frontend/di.xml</code> (and/or <code>etc/adminhtml/di.xml</code> if the registration should also apply in admin).</p>
+<p>Registration targets:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="cm">&lt;!-- Features / custom Component Hooks --&gt;</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="nt">&lt;type</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;Magewirephp\Magewire\Features&quot;</span><span class="nt">&gt;</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="nt">&lt;arguments&gt;</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">        </span><span class="nt">&lt;argument</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;items&quot;</span><span class="w"> </span><span class="na">xsi:type=</span><span class="s">&quot;array&quot;</span><span class="nt">&gt;</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">            </span><span class="nt">&lt;item</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;my_feature&quot;</span><span class="w"> </span><span class="na">xsi:type=</span><span class="s">&quot;array&quot;</span><span class="nt">&gt;</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">                </span><span class="nt">&lt;item</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;type&quot;</span><span class="w"> </span><span class="na">xsi:type=</span><span class="s">&quot;string&quot;</span><span class="nt">&gt;</span>Vendor\Module\Magewire\Features\MyFeature<span class="nt">&lt;/item&gt;</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">                </span><span class="nt">&lt;item</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;sort_order&quot;</span><span class="w"> </span><span class="na">xsi:type=</span><span class="s">&quot;number&quot;</span><span class="nt">&gt;</span>50000<span class="nt">&lt;/item&gt;</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">                </span><span class="nt">&lt;item</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;boot_mode&quot;</span><span class="w"> </span><span class="na">xsi:type=</span><span class="s">&quot;number&quot;</span><span class="nt">&gt;</span>30<span class="nt">&lt;/item&gt;</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">            </span><span class="nt">&lt;/item&gt;</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="w">        </span><span class="nt">&lt;/argument&gt;</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="w">    </span><span class="nt">&lt;/arguments&gt;</span>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="nt">&lt;/type&gt;</span>
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="cm">&lt;!-- Synthesizers (HandleComponents mechanism) --&gt;</span>
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="nt">&lt;type</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;Magewirephp\Magewire\Mechanisms\HandleComponents\HandleComponents&quot;</span><span class="nt">&gt;</span>
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="w">    </span><span class="nt">&lt;arguments&gt;</span>
+<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a><span class="w">        </span><span class="nt">&lt;argument</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;synthesizers&quot;</span><span class="w"> </span><span class="na">xsi:type=</span><span class="s">&quot;array&quot;</span><span class="nt">&gt;</span>
+<a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a><span class="w">            </span><span class="nt">&lt;item</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;money&quot;</span><span class="w"> </span><span class="na">xsi:type=</span><span class="s">&quot;string&quot;</span><span class="nt">&gt;</span>Vendor\Module\Magewire\Synthesizers\MoneySynth<span class="nt">&lt;/item&gt;</span>
+<a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a><span class="w">        </span><span class="nt">&lt;/argument&gt;</span>
+<a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a><span class="w">    </span><span class="nt">&lt;/arguments&gt;</span>
+<a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a><span class="nt">&lt;/type&gt;</span>
+<a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a>
+<a id="__codelineno-6-23" name="__codelineno-6-23" href="#__codelineno-6-23"></a><span class="cm">&lt;!-- Component resolvers --&gt;</span>
+<a id="__codelineno-6-24" name="__codelineno-6-24" href="#__codelineno-6-24"></a><span class="nt">&lt;type</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;Magewirephp\Magewire\Mechanisms\ResolveComponents\Management\ComponentResolverManager&quot;</span><span class="nt">&gt;</span>
+<a id="__codelineno-6-25" name="__codelineno-6-25" href="#__codelineno-6-25"></a><span class="w">    </span><span class="nt">&lt;arguments&gt;</span>
+<a id="__codelineno-6-26" name="__codelineno-6-26" href="#__codelineno-6-26"></a><span class="w">        </span><span class="nt">&lt;argument</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;resolvers&quot;</span><span class="w"> </span><span class="na">xsi:type=</span><span class="s">&quot;array&quot;</span><span class="nt">&gt;</span>
+<a id="__codelineno-6-27" name="__codelineno-6-27" href="#__codelineno-6-27"></a><span class="w">            </span><span class="nt">&lt;item</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;my_resolver&quot;</span><span class="w"> </span><span class="na">xsi:type=</span><span class="s">&quot;object&quot;</span><span class="w"> </span><span class="na">sortOrder=</span><span class="s">&quot;90000&quot;</span><span class="nt">&gt;</span>
+<a id="__codelineno-6-28" name="__codelineno-6-28" href="#__codelineno-6-28"></a><span class="w">                </span>Vendor\Module\Mechanisms\ResolveComponents\ComponentResolver\MyResolver
+<a id="__codelineno-6-29" name="__codelineno-6-29" href="#__codelineno-6-29"></a><span class="w">            </span><span class="nt">&lt;/item&gt;</span>
+<a id="__codelineno-6-30" name="__codelineno-6-30" href="#__codelineno-6-30"></a><span class="w">        </span><span class="nt">&lt;/argument&gt;</span>
+<a id="__codelineno-6-31" name="__codelineno-6-31" href="#__codelineno-6-31"></a><span class="w">    </span><span class="nt">&lt;/arguments&gt;</span>
+<a id="__codelineno-6-32" name="__codelineno-6-32" href="#__codelineno-6-32"></a><span class="nt">&lt;/type&gt;</span>
+</code></pre></div>
+<h3 id="features-are-component-hooks-now">Features are Component Hooks now</h3>
+<p>V1's "Feature" convention was informal. V3 Features extend <code>Magewirephp\Magewire\ComponentHook</code> and expose a <code>provide()</code> method that subscribes to lifecycle events:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="x">use Magewirephp\Magewire\ComponentHook;</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="x">use Magewirephp\Magewire\Component;</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="x">use function Magewirephp\Magewire\on;</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="x">class SupportMyFeature extends ComponentHook</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="x">{</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="x">    public function provide(): void</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="x">    {</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="x">        on(&#39;render&#39;, function (Component $component) {</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="x">            return function (string $html) {</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="x">                // After-render transformation.</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="x">                return $html;</span>
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="x">            };</span>
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="x">        });</span>
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="x">    }</span>
+<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="x">}</span>
+</code></pre></div>
+<p>If you registered a V1 "feature" as a plugin or observer, consider whether it should become a real Component Hook — the middleware semantics are usually cleaner.</p>
+<h3 id="synthesizers-replace-v1s-hydrators">Synthesizers replace V1's hydrators</h3>
+<p>V1 had a <code>HydratorInterface</code>. V3 uses <strong>Synthesizers</strong> — classes that explain how to serialise and deserialise a given type across the snapshot boundary.</p>
+<p>Magewire ships synthesizers for scalars, arrays, <code>\stdClass</code>, backed enums, and <code>\Magento\Framework\DataObject</code>. For custom value objects, write a <code>Synth</code> and register it:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="x">class MoneySynth extends \Magewirephp\Magewire\Mechanisms\HandleComponents\Synthesizers\Synth</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="x">{</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="x">    public static $key = &#39;mny&#39;;</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="x">    public static function match($target): bool</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="x">    {</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="x">        return $target instanceof \Vendor\Module\Model\Money;</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="x">    }</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="x">    public function dehydrate(Money $target, $dehydrateChild): array</span>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="x">    {</span>
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="x">        return [[&#39;amount&#39; =&gt; $target-&gt;amount(), &#39;currency&#39; =&gt; $target-&gt;currency()], []];</span>
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="x">    }</span>
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>
+<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a><span class="x">    public function hydrate($value, $meta, $hydrateChild): Money</span>
+<a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a><span class="x">    {</span>
+<a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a><span class="x">        return new Money($value[&#39;amount&#39;], $value[&#39;currency&#39;]);</span>
+<a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a><span class="x">    }</span>
+<a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a><span class="x">}</span>
+</code></pre></div>
+<p>Old <code>HydratorInterface</code> implementations survive under <code>lib/MagewireBc/Model/HydratorInterface.php</code> but are wrapped — convert to Synthesizers when you can.</p>
+<h3 id="alpinejs-is-bundled-and-csp">Alpine.js is bundled and CSP</h3>
+<p>V3 ships the CSP build of Alpine inside its JavaScript bundle. Two consequences:</p>
+<ul>
+<li>No second Alpine. Any <code>&lt;script src="alpine.min.js"&gt;</code> in your theme must go.</li>
+<li>CSP-mode Alpine does not evaluate JavaScript expressions with <code>eval</code> / <code>new Function</code>. Arrow functions, template literals, destructuring, spread, and nested assignments inside Alpine <em>directive expressions</em> (<code>x-on:click="…"</code>, <code>x-init="…"</code>, etc.) are unavailable. Move complex logic into <code>Alpine.data()</code> registrations or a utility on <code>window.MagewireUtilities</code>.</li>
+</ul>
+<p>Plain <code>&lt;script&gt;</code> tags in your PHTML still use normal JS — only the expressions that Alpine itself evaluates are affected.</p>
+<h3 id="csp-fragments-replace-hand-rolled-nonces">CSP fragments replace hand-rolled nonces</h3>
+<p>V1 templates sometimes carried hand-rolled CSP nonces or hashes on inline <code>&lt;script&gt;</code> tags. V3 offers <strong>Fragments</strong> — wrap any inline <code>&lt;script&gt;</code> in a fragment and Magewire injects the right nonce or hash automatically:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="cp">&lt;?php</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="nv">$fragment</span> <span class="o">=</span> <span class="nv">$block</span><span class="o">-&gt;</span><span class="na">getData</span><span class="p">(</span><span class="s1">&#39;view_model&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">utils</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">fragment</span><span class="p">();</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="nv">$script</span> <span class="o">=</span> <span class="nv">$fragment</span><span class="o">-&gt;</span><span class="na">make</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">script</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">start</span><span class="p">();</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="cp">?&gt;</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="x">&lt;script&gt;console.log(&#39;Hello&#39;);&lt;/script&gt;</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="cp">&lt;?php</span> <span class="nv">$script</span><span class="o">-&gt;</span><span class="na">end</span><span class="p">();</span> <span class="cp">?&gt;</span>
+</code></pre></div>
+<p>Strip your hand-rolled nonces when you migrate the template. See <a href="../concepts/fragments.html">Fragments</a>.</p>
+<h3 id="namespace-changes">Namespace changes</h3>
+<table>
+<thead>
+<tr>
+<th>V1</th>
+<th>V3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Magewirephp\Magewire\Attributes\HandleBackwardsCompatibility</code> <em>(never existed, common mis-import)</em></td>
+<td><code>Magewirephp\Magewire\Features\SupportMagewireBackwardsCompatibility\HandleBackwardsCompatibility</code></td>
+</tr>
+<tr>
+<td><code>Livewire\Mechanisms\HandleComponents\Synthesizers\Synth</code></td>
+<td><code>Magewirephp\Magewire\Mechanisms\HandleComponents\Synthesizers\Synth</code></td>
+</tr>
+</tbody>
+</table>
+<p>The <code>On</code> attribute namespace did <strong>not</strong> change: <code>Magewirephp\Magewire\Attributes\On</code>.</p>
+<h2 id="migration-workflow">Migration workflow</h2>
+<p>Recommended sequence for a module that has more than a handful of V1 components. Treat each numbered step as a separate PR or commit — they are cleanest in isolation.</p>
+<h3 id="1-install-v3-with-bc-on-everything">1. Install V3 with BC on everything</h3>
+<p>Add <code>#[HandleBackwardsCompatibility]</code> to every V1 component in the module. Run the test suite; visit the site. The goal here is not to change behaviour — the goal is to prove that BC alone keeps the site green.</p>
+<h3 id="2-migrate-wire-directives">2. Migrate wire directives</h3>
+<p>Find every <code>wire:model*</code> in templates and rewrite against the table above. Remove <code>.defer</code>, <code>.lazy</code>, <code>.delay</code>. Add <code>.live</code> where you need instant sync, <code>.blur</code> where you need on-blur, <code>.live.debounce.Xms</code> for debounced live.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>grep<span class="w"> </span>-rn<span class="w"> </span><span class="s2">&quot;wire:model&quot;</span><span class="w"> </span>app/code<span class="w"> </span>your-theme/
+</code></pre></div>
+<h3 id="3-migrate-entangle-calls">3. Migrate entangle calls</h3>
+<p>Grep for <code>$wire.entangle(</code> and decide per call site whether you want <code>.live</code> (instant sync) or deferred (the V3 default).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>grep<span class="w"> </span>-rn<span class="w"> </span><span class="s2">&quot;entangle(&quot;</span><span class="w"> </span>app/code<span class="w"> </span>your-theme/
+</code></pre></div>
+<h3 id="4-migrate-listeners-arrays-to-on">4. Migrate <code>$listeners</code> arrays to <code>#[On]</code></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>grep<span class="w"> </span>-rn<span class="w"> </span><span class="s2">&quot;protected \$listeners&quot;</span><span class="w"> </span>app/code
+</code></pre></div>
+<p>Each entry becomes an <code>#[On('event-name')]</code> attribute on the target method.</p>
+<h3 id="5-migrate-js-hook-names">5. Migrate JS hook names</h3>
+<p>If your theme or custom JS listens on <code>message.sent</code>, <code>element.updating</code>, <code>component.initialized</code>, or friends, move those listeners to the V3 names (see the rename table above). The BC layer re-triggers the old names for BC-enabled components, but removing your dependency on the old names is the cleaner end state.</p>
+<h3 id="6-migrate-php-component-calls">6. Migrate PHP component calls</h3>
+<ul>
+<li><code>$this-&gt;emit(…)</code> → <code>$this-&gt;dispatch(…)</code>.</li>
+<li><code>$this-&gt;emitUp(…)</code> → <code>$this-&gt;dispatch(…)-&gt;up()</code>.</li>
+<li><code>$this-&gt;emitTo('other', …)</code> → <code>$this-&gt;dispatch(…)-&gt;to('other')</code>.</li>
+<li><code>$this-&gt;getPublicProperties()</code> → <code>$this-&gt;all()</code>.</li>
+<li><code>$this-&gt;id</code> → <code>$this-&gt;id()</code> or <code>$this-&gt;getId()</code>.</li>
+</ul>
+<h3 id="7-move-di-registrations">7. Move DI registrations</h3>
+<p>Walk <code>etc/di.xml</code> for any <code>&lt;type name="Magewirephp\Magewire\…"&gt;</code> blocks. Move them into <code>etc/frontend/di.xml</code> (and <code>etc/adminhtml/di.xml</code> if they should also run in admin). Anything Magewire-related in global <code>etc/di.xml</code> is ignored.</p>
+<h3 id="8-drop-the-bc-attribute-per-component">8. Drop the BC attribute per component</h3>
+<p>As each component becomes fully V3-native, switch its attribute to <code>#[HandleBackwardsCompatibility(enabled: false)]</code>. That component no longer pays the BC-shim runtime cost. When every component in the module is V3-native, remove the attribute entirely.</p>
+<h3 id="9-remove-the-bc-feature-registration-whole-module">9. Remove the BC feature registration (whole-module)</h3>
+<p>When every component on the site is migrated (not just the ones in your module — any V1 component left on the site will break), remove the BC feature registration from your theme compatibility module's DI. The JS shim bundle stops loading.</p>
+<h2 id="hyva-checkout">Hyvä Checkout</h2>
+<p>Hyvä Checkout V1 is wired for Livewire V2 semantics. Good news: the Hyvä theme module ships a BC layer that auto-enables <code>#[HandleBackwardsCompatibility]</code> for every component rendered inside the <code>hyva-checkout-main</code> layout container.</p>
+<p>In practice that means an unchanged Hyvä Checkout V1 site runs on Magewire V3 without any manual BC opt-in. For most merchants, the checkout just keeps working after the upgrade.</p>
+<p>If you customise Hyvä Checkout components, plan their migration with the main workflow above — the auto-enable rule only covers BC at runtime, not long-term migration.</p>
+<p>See <a href="../theming/hyva-checkout-bc.html">Theming → Hyvä Checkout BC</a> for the full detail.</p>
+<h2 id="admin-new-in-v3">Admin (new in V3)</h2>
+<p>Magewire V1 was storefront-only. V3 supports admin components through the companion package <code>magewirephp/magewire-admin</code>. If the site has admin Magewire use cases — reactive grids, inline editors, wizards — install it alongside core. See <a href="../admin/installation.html">Admin → Installation</a> and <a href="../admin/how-it-works.html">Admin → How it works</a>.</p>
+<p>Admin components use the exact same layout-XML / PHTML / <code>$wire</code> conventions as storefront. The argument name in layout XML stays <code>magewire</code> (same as storefront). The <code>LayoutAdminResolver</code> picks up admin-area blocks automatically; you never reference <code>layout_admin</code> in your own XML.</p>
+<h2 id="common-upgrade-gotchas">Common upgrade gotchas</h2>
+<p>A grab-bag of issues seen during real upgrades — hit this list before opening an issue.</p>
+<ul>
+<li><strong>"<code>wire:click</code> stopped working after upgrade"</strong> — you probably still have a second Alpine loaded. Check the theme bundle and any layout XML that adds Alpine's script.</li>
+<li><strong>"Half my snapshots fail checksum validation"</strong> — the Magento crypt key changed between the snapshot being issued and the request arriving. Flush FPC; force one page reload.</li>
+<li><strong>"CSP violations on every inline script"</strong> — wrap inline scripts in a Script fragment. See the <a href="#csp-fragments-replace-hand-rolled-nonces">CSP fragments</a> section.</li>
+<li><strong>"A V1 component I added <code>#[HandleBackwardsCompatibility]</code> to still behaves V3"</strong> — the attribute import is most likely wrong. The correct namespace is <code>Magewirephp\Magewire\Features\SupportMagewireBackwardsCompatibility\HandleBackwardsCompatibility</code>.</li>
+<li><strong>"<code>$this-&gt;emit</code> throws <code>BadMethodCallException</code>"</strong> — the component does not use the BC trait (or it extends a class that removed it). Switch to <code>$this-&gt;dispatch()</code>.</li>
+<li><strong>"My observer listening on <code>message.sent</code> stopped firing"</strong> — the JS-side hook is now <code>commit</code>. For server-side observer events see the table in <a href="../advanced/architecture/features.html#faq">Features</a>.</li>
+<li><strong>"My Feature's <code>provide()</code> is never called"</strong> — the Feature is registered in the global <code>etc/di.xml</code>. Move it into <code>etc/frontend/di.xml</code> and/or <code>etc/adminhtml/di.xml</code>.</li>
+<li><strong>"Entangle spams the network tab"</strong> — the call is still live-by-default from BC. Remove the <code>#[HandleBackwardsCompatibility]</code> attribute once the component is migrated, then audit every <code>entangle</code> on that component.</li>
+</ul>
+<h2 id="verifying-the-upgrade">Verifying the upgrade</h2>
+<p>After migrating, confirm the end state:</p>
+<ol>
+<li><strong>No V1 directive lingers.</strong>
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>grep<span class="w"> </span>-rEn<span class="w"> </span><span class="s2">&quot;wire:model(\.defer|\.lazy|\.delay)&quot;</span><span class="w"> </span>app/code<span class="w"> </span>your-theme/
+</code></pre></div></li>
+<li><strong>No V1 hook name lingers.</strong> Search JS for <code>message.sent</code>, <code>component.initialized</code>, <code>element.updating</code>, <code>element.removed</code>.</li>
+<li><strong>No V1 PHP helper lingers.</strong> Search for <code>-&gt;emit(</code>, <code>-&gt;emitUp(</code>, <code>-&gt;emitSelf(</code>, <code>-&gt;emitTo(</code>, <code>-&gt;dispatchBrowserEvent(</code>, <code>-&gt;getPublicProperties(</code>, <code>$this-&gt;id</code> accesses.</li>
+<li><strong>No global Magewire DI remains.</strong>
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>grep<span class="w"> </span>-lrn<span class="w"> </span><span class="s2">&quot;Magewirephp\\\\Magewire&quot;</span><span class="w"> </span>app/code/**/etc/di.xml
+</code></pre></div>
+   Anything matching must move to <code>etc/frontend/di.xml</code> or <code>etc/adminhtml/di.xml</code>.</li>
+<li><strong>No component still carries <code>#[HandleBackwardsCompatibility]</code></strong> — once fully migrated. A repo-wide grep proves the migration is complete.</li>
+<li><strong>Site health.</strong> Click through the top ten most-trafficked Magewire components, watching the browser devtools Network tab for 4xx/5xx on <code>/magewire/update</code> and the console for CSP violations or Alpine warnings.</li>
+</ol>
+<h2 id="rolling-back">Rolling back</h2>
+<p>If the upgrade surfaces a showstopper bug, you can roll back to V1 by restoring the previous <code>composer.lock</code>, running <code>composer install</code>, and flushing caches. Any V3-specific code (the <code>#[HandleBackwardsCompatibility]</code> attribute, <code>-&gt;dispatch()-&gt;to()</code> chains, <code>#[On]</code> attributes) will need to be reverted first — V1 will not understand them. Keep the migration PR small enough that the revert is reasonable.</p>
+<h2 id="migration-checklist">Migration checklist</h2>
+<p>Copy this into a PR description.</p>
+<ul>
+<li>[ ] PHP is on 8.2+, Magento on 2.4.4+.</li>
+<li>[ ] Composer updated to <code>magewirephp/magewire:^3.0</code>.</li>
+<li>[ ] <code>magewirephp/magewire-admin</code> installed if the site uses Magewire in admin.</li>
+<li>[ ] Every separately-loaded Alpine.js removed from theme templates and bundle configs.</li>
+<li>[ ] Every existing component carries <code>#[HandleBackwardsCompatibility]</code> (imported from <code>Magewirephp\Magewire\Features\SupportMagewireBackwardsCompatibility\</code>).</li>
+<li>[ ] <code>wire:model.defer</code> → <code>wire:model</code>.</li>
+<li>[ ] <code>wire:model.lazy</code> → <code>wire:model.blur</code>.</li>
+<li>[ ] Bare <code>wire:model</code> → <code>wire:model.live</code> where instant sync is required.</li>
+<li>[ ] <code>wire:model.delay.Xms</code> → <code>wire:model.live.debounce.Xms</code>.</li>
+<li>[ ] Every <code>$wire.entangle('…')</code> audited — <code>.live</code> added where needed.</li>
+<li>[ ] Every <code>protected $listeners = […]</code> replaced with <code>#[On('event-name')]</code> attributes.</li>
+<li>[ ] Every <code>$this-&gt;emit*()</code> migrated to <code>$this-&gt;dispatch()</code> (with <code>-&gt;up()</code>, <code>-&gt;self()</code>, <code>-&gt;to()</code> as appropriate).</li>
+<li>[ ] Every <code>$this-&gt;getPublicProperties()</code> migrated to <code>$this-&gt;all()</code>.</li>
+<li>[ ] Every <code>$this-&gt;id</code> access migrated to <code>$this-&gt;id()</code> / <code>$this-&gt;getId()</code>.</li>
+<li>[ ] Every deprecated JS hook name (<code>message.sent</code>, <code>component.initialized</code>, <code>element.updating</code>, <code>element.removed</code>) migrated to the V3 name.</li>
+<li>[ ] Every <code>component.data</code> / <code>component.deferredActions</code> JS access migrated to <code>component.$wire</code> / <code>component.queuedUpdates</code>.</li>
+<li>[ ] Every Feature / Mechanism / Hook / Synthesizer / Resolver registration moved from global <code>etc/di.xml</code> to <code>etc/frontend/di.xml</code> (and <code>etc/adminhtml/di.xml</code> as needed).</li>
+<li>[ ] Inline <code>&lt;script&gt;</code> tags wrapped in Script fragments where CSP compliance matters.</li>
+<li>[ ] Custom <code>HydratorInterface</code> implementations rewritten as Synthesizers.</li>
+<li>[ ] <code>render(): string</code> methods replaced by <code>rendering()</code> hooks that call <code>magewireBlock()-&gt;setTemplate(...)</code>.</li>
+<li>[ ] BC attribute set to <code>enabled: false</code> (or removed) on fully migrated components.</li>
+<li>[ ] Smoke-tested against the top-trafficked components (devtools Network + console).</li>
+</ul>
+<p>Migration done. You can now remove the theme BC feature registration when every module on the site has reached this state.</p>
+<h2 id="related">Related</h2>
+<ul>
+<li><a href="../theming/backwards-compatibility.html">Backwards compatibility</a> — the BC system in depth.</li>
+<li><a href="../theming/hyva-checkout-bc.html">Hyvä Checkout BC</a> — the auto-enable rule.</li>
+<li><a href="../admin/installation.html">Admin → Installation</a> — install the admin companion package.</li>
+<li><a href="../advanced/architecture/features.html">Features</a> — how to rewrite V1 Features as V3 Component Hooks.</li>
+<li><a href="../advanced/synthesizers.html">Synthesizers</a> — replacement for V1 hydrators.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="sponsoring.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Sponsoring">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Sponsoring
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="releases/feature-history.html" class="md-footer__link md-footer__link--next" aria-label="Next: Feature History">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Feature History
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://x.com/magewirephp" target="_blank" rel="noopener" title="x.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M459.4 151.7c.3 4.5.3 9.1.3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.3 25.3 1.3 49.1 0 94.2-16.6 130.3-44.8-46.1-1-84.8-31.2-98.1-72.8 6.5 1 13 1.6 19.8 1.6 9.4 0 18.8-1.3 27.6-3.6-48.1-9.7-84.1-52-84.1-103v-1.3c14 7.8 30.2 12.7 47.4 13.3-28.3-18.8-46.8-51-46.8-87.4 0-19.5 5.2-37.4 14.3-53C87.4 130.8 165 172.4 252.1 176.9c-1.6-7.8-2.6-15.9-2.6-24C249.5 95.1 296.3 48 354.4 48c30.2 0 57.5 12.7 76.7 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.4-24.4 44.8-46.1 57.8 21.1-2.3 41.6-8.1 60.4-16.2-14.3 20.8-32.2 39.3-52.6 54.3"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.path", "navigation.tabs", "navigation.footer", "navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.prune", "navigation.top", "navigation.indexes", "content.code.copy", "content.code.annotate", "content.code.select", "header.autohide"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

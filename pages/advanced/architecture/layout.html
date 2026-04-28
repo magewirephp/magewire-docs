@@ -1,0 +1,2524 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Magewire PHP Documentation">
+      
+      
+      
+        <link rel="canonical" href="https://magewirephp.github.io/magewire-docs/pages/advanced/architecture/layout.html">
+      
+      
+        <link rel="prev" href="mechanisms/resolvers.html">
+      
+      
+        <link rel="next" href="portman.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Layout - Magewire PHP</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        
+        <link rel="stylesheet" href="../../../assets/external/fonts.googleapis.com/css.49ea35f2.css">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/style.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#layout" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Magewire PHP" class="md-header__button md-logo" aria-label="Magewire PHP" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Magewire PHP
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Layout
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../essentials/components.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Essentials
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../features/alpine.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Features
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../html-directives/wire-click.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Directives
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../concepts/fragments.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Concepts
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../theming/index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Theming
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../admin/index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Admin
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../best-practices.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Advanced
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../blogs/index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Blog
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Magewire PHP" class="md-nav__button md-logo" aria-label="Magewire PHP" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Magewire PHP
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../essentials/components.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Essentials
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../features/alpine.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Features
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../html-directives/wire-click.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Directives
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../concepts/fragments.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concepts
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../theming/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Theming
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../admin/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Admin
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Advanced
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../best-practices.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Best Practices
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../patterns.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../performance.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../synthesizers.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Synthesizers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../javascript/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Javascript
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_8" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_8_8" id="__nav_8_8_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_8_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_8_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="component-hooks.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Component Hooks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="facades.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Facades (experimental)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="features.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Features
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="mechanisms/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mechanisms
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Layout
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="layout.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Layout
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#container-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Container tree
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#containers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Containers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencecontainer-vs-referenceblock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        &lt;referenceContainer&gt; vs &lt;referenceBlock&gt;
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ordering-within-a-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ordering within a container
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#which-container-to-target" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Which container to target
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#directories-templates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Directories &amp; Templates
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Directories &amp; Templates">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#top-level-directories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Top-level directories
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#under-js" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Under js/
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#under-magewire" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Under magewire/
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#under-magewire-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Under magewire-features/
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#blocks-that-look-like-containers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Blocks that look like containers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#off-limits-from-a-theme" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Off-limits from a theme
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#page-specific-vs-global-overrides" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Page-specific vs global overrides
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="portman.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Portman
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../blogs/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Blog
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#container-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Container tree
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#containers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Containers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencecontainer-vs-referenceblock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        &lt;referenceContainer&gt; vs &lt;referenceBlock&gt;
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ordering-within-a-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ordering within a container
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#which-container-to-target" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Which container to target
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#directories-templates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Directories &amp; Templates
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Directories &amp; Templates">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#top-level-directories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Top-level directories
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#under-js" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Under js/
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#under-magewire" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Under magewire/
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#under-magewire-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Under magewire-features/
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#blocks-that-look-like-containers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Blocks that look like containers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#off-limits-from-a-theme" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Off-limits from a theme
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#page-specific-vs-global-overrides" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Page-specific vs global overrides
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../best-practices.html" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Advanced
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="component-hooks.html" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="layout">Layout</h1>
+<p>Magewire is a large framework with many options and features. Still, the layout stays flexible — there is a documented extension point for injecting JavaScript, UI components, Alpine data, and every other piece of frontend wiring Magewire ships.</p>
+<p>It's impossible to explain everything, and many parts are self-explanatory or include clear comments in the layout files. The sections below cover the containers and blocks you are most likely to target from a theme or a feature module.</p>
+<p>The canonical source is <code>src/view/base/layout/default.xml</code> — the tree below mirrors it. Frontend and admin layouts add a small number of page-level moves on top (documented at the end).</p>
+<h2 id="container-tree">Container tree</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>magewire (root block — Magewirephp_Magewire::root.phtml)
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>├── magewire.global (block)
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>│   ├── magewire.global.before (container)
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│   │   ├── magewire.alpinejs.load            ← Alpine JS &lt;script&gt; tag goes here
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>│   │   ├── magewire.alpinejs                 ← Alpine global functions, $wire
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>│   │   └── magewire.alpinejs.components      ← Alpine.data(...) registrations
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>│   ├── magewire.utilities (block)            ← MagewireUtilities.register(...)
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>│   │   └── magewire.utilities.after          ← custom utilities render after core
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>│   ├── magewire.addons (block)               ← MagewireAddons.register(...)
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>│   │   └── magewire.addons.after             ← custom addons render after core
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>│   └── magewire.global.after
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>├── magewire.before (container)               ← theme-owned directives / UI components
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>│   ├── magewire.alpinejs.directives          ← custom Alpine directives
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>│   ├── magewire.ui-components                ← notifier, dialogs, drawers, etc.
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>│   └── magewire.alpinejs.after               ← Alpine code rendered AFTER Magewire&#39;s
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>├── magewire.before.internal                  ← runs before core internal blocks (rare)
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>├── magewire.internal (block)                 ← non-overridable framework internals
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>│   └── magewire.internal.backwards-compatibility   ← v1 BC shims only
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>├── magewire.directives (block)               ← wire:* directives (select, mage-notify, mage-throttle)
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>├── magewire.features (block)                 ← Feature bridge scripts
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>├── magewire.after.internal                   ← runs after core internal blocks (rare)
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>├── magewire.disabled (container)             ← ONLY rendered when Magewire is disabled
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>├── magewire.after (container)                ← last-to-render theme content
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>└── magewire.legacy (container)
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>    └── magewire.plugin.scripts               ← pre-v3 plugin compatibility
+</code></pre></div>
+<p>Frontend layout (<code>src/view/frontend/layout/default.xml</code>) adds on top:</p>
+<ul>
+<li><code>&lt;move element="magewire" destination="before.body.end"/&gt;</code> — moves the whole subtree to the end of <code>&lt;body&gt;</code>.</li>
+<li><code>magewire.alpinejs.components.magewire-script</code> inside <code>magewire.alpinejs.components</code> — the Alpine component that boots Magewire's JS runtime.</li>
+<li><code>magewire.object-proxy</code> inside <code>after.body.start</code> — early global object so inline snippets can queue work against <code>window.Magewire</code>.</li>
+</ul>
+<p>Admin layout (<code>magewire-admin</code> package) replaces the body-end move with a head-injection strategy — see <a href="../../admin/how-it-works.html">Admin → How it works</a>.</p>
+<h2 id="containers">Containers</h2>
+<table>
+<thead>
+<tr>
+<th>Container / block</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>magewire</code></td>
+<td>block</td>
+<td>Root; wraps every Magewire-owned output. Do not replace its template — override children instead.</td>
+</tr>
+<tr>
+<td><code>magewire.global</code></td>
+<td>block</td>
+<td>Global setup pass — runs once per page, before any per-feature wiring.</td>
+</tr>
+<tr>
+<td><code>magewire.global.before</code></td>
+<td>container</td>
+<td>First region inside <code>magewire.global</code>. Used by the Alpine load, Alpine init, utilities, addons.</td>
+</tr>
+<tr>
+<td><code>magewire.global.after</code></td>
+<td>container</td>
+<td>After-hook inside <code>magewire.global</code>. Empty by default — safe place for page-level hooks that must run after utilities / addons are registered.</td>
+</tr>
+<tr>
+<td><code>magewire.alpinejs.load</code></td>
+<td>container</td>
+<td>Where Alpine's own <code>&lt;script&gt;</code> tag is rendered. Reorder or swap the Alpine bundle here.</td>
+</tr>
+<tr>
+<td><code>magewire.alpinejs</code></td>
+<td>container</td>
+<td>Holds the block that defines Magewire's Alpine global (<code>Alpine.data</code>, <code>Alpine.store</code>). Targeted by themes that add global Alpine helpers.</td>
+</tr>
+<tr>
+<td><code>magewire.alpinejs.components</code></td>
+<td>container</td>
+<td><code>Alpine.data(...)</code> registrations. Each child block renders an <code>&lt;script&gt;</code> calling <code>Alpine.data</code>.</td>
+</tr>
+<tr>
+<td><code>magewire.before</code></td>
+<td>container</td>
+<td>Everything that must precede Magewire's own directives/features. Theme-owned by convention.</td>
+</tr>
+<tr>
+<td><code>magewire.alpinejs.directives</code></td>
+<td>container</td>
+<td>Custom <code>x-*</code> directive registrations.</td>
+</tr>
+<tr>
+<td><code>magewire.ui-components</code></td>
+<td>container</td>
+<td>UI Alpine components — the core notifier lives here; theme overrides and additions too.</td>
+</tr>
+<tr>
+<td><code>magewire.alpinejs.after</code></td>
+<td>container</td>
+<td>Alpine code that must load AFTER Magewire's Alpine wiring.</td>
+</tr>
+<tr>
+<td><code>magewire.before.internal</code></td>
+<td>container</td>
+<td>Before Magewire's internal machinery. Reserved for framework use.</td>
+</tr>
+<tr>
+<td><code>magewire.internal</code></td>
+<td>block</td>
+<td>Non-overridable core. Deliberately a block, not a container, so arbitrary injection is impossible. Inject via <code>magewire.after.internal</code> instead.</td>
+</tr>
+<tr>
+<td><code>magewire.internal.backwards-compatibility</code></td>
+<td>container</td>
+<td>v1 BC shims only. Reserved.</td>
+</tr>
+<tr>
+<td><code>magewire.directives</code></td>
+<td>block</td>
+<td>Magewire's own <code>wire:*</code> / <code>mage-*</code> directives (select, mage-notify, mage-throttle).</td>
+</tr>
+<tr>
+<td><code>magewire.features</code></td>
+<td>block</td>
+<td>Feature-side bridge scripts (loaders, rate-limiting, etc.). One child per Feature by convention.</td>
+</tr>
+<tr>
+<td><code>magewire.after.internal</code></td>
+<td>container</td>
+<td>After the internal block. Use when you must interleave with core internals.</td>
+</tr>
+<tr>
+<td><code>magewire.disabled</code></td>
+<td>container</td>
+<td>Rendered ONLY when Magewire is disabled site-wide — surface a fallback or a warning here.</td>
+</tr>
+<tr>
+<td><code>magewire.after</code></td>
+<td>container</td>
+<td>Last-to-render Magewire content. Theme-owned; safe default for theme-final output.</td>
+</tr>
+<tr>
+<td><code>magewire.utilities</code></td>
+<td>block</td>
+<td>Loads <code>window.MagewireUtilities</code> and registers core utilities (dom, loader, str, cookie).</td>
+</tr>
+<tr>
+<td><code>magewire.utilities.after</code></td>
+<td>container</td>
+<td>Inject custom utilities so they register after the core ones.</td>
+</tr>
+<tr>
+<td><code>magewire.addons</code></td>
+<td>block</td>
+<td>Loads <code>window.MagewireAddons</code> and registers core addons (notifier).</td>
+</tr>
+<tr>
+<td><code>magewire.addons.after</code></td>
+<td>container</td>
+<td>Inject custom addons so they register after the core ones.</td>
+</tr>
+<tr>
+<td><code>magewire.legacy</code></td>
+<td>container</td>
+<td>BC shelf for v1 block/container names.</td>
+</tr>
+<tr>
+<td><code>magewire.plugin.scripts</code></td>
+<td>container</td>
+<td>Pre-v3 plugin compatibility target.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="referencecontainer-vs-referenceblock"><code>&lt;referenceContainer&gt;</code> vs <code>&lt;referenceBlock&gt;</code></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cm">&lt;!-- Add a sibling block inside a container. Original children keep rendering. --&gt;</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nt">&lt;referenceContainer</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;magewire.features&quot;</span><span class="nt">&gt;</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="nt">&lt;block</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;magewire.features.my-bridge&quot;</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">           </span><span class="na">template=</span><span class="s">&quot;MyVendor_MyModule::magewire-features/my-bridge.phtml&quot;</span><span class="nt">/&gt;</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="nt">&lt;/referenceContainer&gt;</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="cm">&lt;!-- Replace an existing block&#39;s template. Original template is gone. --&gt;</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="nt">&lt;referenceBlock</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;magewire.features.support-magewire-loaders&quot;</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">                </span><span class="na">template=</span><span class="s">&quot;MyVendor_MyModule::override-loaders.phtml&quot;</span><span class="nt">/&gt;</span>
+</code></pre></div>
+<p>Default to <code>&lt;referenceContainer&gt;</code>. Reach for <code>&lt;referenceBlock&gt;</code> only when you deliberately want to swap the template of a named block (for example, overriding the admin rate-limiting template with an admin-styled variant).</p>
+<h2 id="ordering-within-a-container">Ordering within a container</h2>
+<p>Magento layout XML honours <code>after=</code> / <code>before=</code> among siblings. For deterministic ordering inside a container:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nt">&lt;block</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;magewire.features.my-bridge&quot;</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">       </span><span class="na">template=</span><span class="s">&quot;...&quot;</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">       </span><span class="na">after=</span><span class="s">&quot;magewire.features.support-magewire-loaders&quot;</span><span class="nt">/&gt;</span>
+</code></pre></div>
+<p>Do not rely on file load order — that depends on module sequence and is brittle.</p>
+<h2 id="which-container-to-target">Which container to target</h2>
+<table>
+<thead>
+<tr>
+<th>Goal</th>
+<th>Target</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reorder or swap the Alpine bundle</td>
+<td><code>magewire.alpinejs.load</code></td>
+</tr>
+<tr>
+<td>Register a global JS helper (Magewire consumers)</td>
+<td><code>magewire.utilities.after</code></td>
+</tr>
+<tr>
+<td>Register an independent addon (e.g. notifier replacement)</td>
+<td><code>magewire.addons.after</code></td>
+</tr>
+<tr>
+<td>Add an <code>Alpine.data(...)</code> component</td>
+<td><code>magewire.alpinejs.components</code></td>
+</tr>
+<tr>
+<td>Add a custom Alpine directive (<code>x-*</code>)</td>
+<td><code>magewire.alpinejs.directives</code></td>
+</tr>
+<tr>
+<td>Add a Magewire-level <code>wire:*</code> / <code>mage-*</code> directive</td>
+<td><code>magewire.directives</code></td>
+</tr>
+<tr>
+<td>Bridge a Feature's JS counterpart</td>
+<td><code>magewire.features</code></td>
+</tr>
+<tr>
+<td>Inject theme-final content</td>
+<td><code>magewire.after</code></td>
+</tr>
+<tr>
+<td>Render a fallback when Magewire is disabled</td>
+<td><code>magewire.disabled</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="directories-templates">Directories &amp; Templates</h2>
+<p>Magewire's <code>src/view/base/templates/</code> directory is organised by the library the template targets — the path tells you what the template does before you open it.</p>
+<h3 id="top-level-directories">Top-level directories</h3>
+<table>
+<thead>
+<tr>
+<th>Directory</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>js/</code></td>
+<td>Templates whose primary payload is a <code>&lt;script&gt;</code> block.</td>
+</tr>
+<tr>
+<td><code>magewire/</code></td>
+<td>PHTML UI templates (components and shared pieces) with negligible JS.</td>
+</tr>
+<tr>
+<td><code>magewire-features/</code></td>
+<td>One subdirectory per registered Feature — bridge PHTML paired with <code>magewire.features.*</code> blocks.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="under-js">Under <code>js/</code></h3>
+<table>
+<thead>
+<tr>
+<th>Directory</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>js/alpinejs/</code></td>
+<td>Alpine-related templates.</td>
+</tr>
+<tr>
+<td><code>js/alpinejs/components/</code></td>
+<td>Alpine <code>.data(...)</code> registrations — one file per component.</td>
+</tr>
+<tr>
+<td><code>js/alpinejs/directives/</code></td>
+<td>Alpine <code>x-*</code> directive registrations.</td>
+</tr>
+<tr>
+<td><code>js/magewire/</code></td>
+<td>Magewire runtime templates.</td>
+</tr>
+<tr>
+<td><code>js/magewire/addons/</code></td>
+<td>One file per <code>MagewireAddons.register(...)</code> call (the notifier lives here).</td>
+</tr>
+<tr>
+<td><code>js/magewire/utilities/</code></td>
+<td>One file per <code>MagewireUtilities.register(...)</code> call (dom, loader, str, cookie).</td>
+</tr>
+<tr>
+<td><code>js/magewire/directives/</code></td>
+<td>Magewire-level directive registrations (select, mage-notify, mage-throttle).</td>
+</tr>
+<tr>
+<td><code>js/magewire/internal/</code></td>
+<td>Non-overridable internals — do not add here from a module.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="under-magewire">Under <code>magewire/</code></h3>
+<table>
+<thead>
+<tr>
+<th>Directory</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>magewire/ui-components/</code></td>
+<td>Alpine-driven UI components (notifier, notifier activity state, …).</td>
+</tr>
+<tr>
+<td><code>magewire/utils/</code></td>
+<td>Shared PHTML snippets consumed by other templates (icons, spinners).</td>
+</tr>
+<tr>
+<td><code>magewire/flakes/</code></td>
+<td>Flake templates — see <a href="../../features/magewire-flakes.html">Magewire Flakes</a>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="under-magewire-features">Under <code>magewire-features/</code></h3>
+<p>Each Feature gets its own kebab-cased subdirectory matching its container name. For example:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>magewire-features/
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>├── support-magewire-loaders/
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>│   └── support-magewire-loaders.phtml
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>└── support-magewire-rate-limiting/
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    └── support-magewire-rate-limiting.phtml
+</code></pre></div>
+<p>Pair a child block under <code>magewire.features</code> with a template in <code>Vendor_Module::magewire-features/&lt;kebab-name&gt;/&lt;kebab-name&gt;.phtml</code>. The admin rate-limiting override in <code>magewire-admin</code> follows the same convention — reuse it in your own theme modules.</p>
+<div class="admonition tip">
+<p class="admonition-title">Building something custom or making a contribution? Always examine the folder and file structure closely to ensure you're in the right location.</p>
+</div>
+<h2 id="blocks-that-look-like-containers">Blocks that look like containers</h2>
+<p><code>magewire.internal</code>, <code>magewire.directives</code>, <code>magewire.features</code>, <code>magewire.utilities</code>, and <code>magewire.addons</code> are <strong>blocks</strong>, not containers — each has a template that renders a scaffold around its children. Two practical consequences:</p>
+<ul>
+<li>You cannot <code>&lt;referenceContainer name="magewire.features"&gt;</code> and expect it to work in every context — Magento is picky about container vs. block reference types. <code>&lt;referenceBlock&gt;</code> works for both when you only need to add children, but prefer the correct tag for the target.</li>
+<li>To completely swap the scaffold (e.g. a different wrapper for all directives), override the template with <code>&lt;referenceBlock name="magewire.directives" template="..."/&gt;</code>. Rare; only do this when the parent's markup genuinely needs replacing.</li>
+</ul>
+<h2 id="off-limits-from-a-theme">Off-limits from a theme</h2>
+<ul>
+<li><code>magewire</code> root block itself — do not replace its template.</li>
+<li><code>magewire.internal</code> and anything directly under it (except the BC sub-container) — reserved for core.</li>
+<li><code>magewire.before.internal</code> / <code>magewire.after.internal</code> — used only when the framework's own internal ordering requires it.</li>
+</ul>
+<p>If a container you need doesn't exist, add one in <code>default_{theme}.xml</code> as a child of an existing container rather than repurposing a reserved one.</p>
+<h2 id="page-specific-vs-global-overrides">Page-specific vs global overrides</h2>
+<ul>
+<li><code>default_{theme}.xml</code> — applies on every page where the theme is active. Use for load-order fixes, global Feature bridges, BC shims.</li>
+<li><code>{route}_{controller}_{action}.xml</code> — applies on one route only. Use for page-scoped Features (for example, Hyvä Checkout's BC feature is activated only on <code>hyva_checkout_index_index</code>).</li>
+</ul>
+<p>Smaller scope is cheaper — page-specific handles avoid paying for the block on every page.</p>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="mechanisms/resolvers.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Resolvers">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Resolvers
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="portman.html" class="md-footer__link md-footer__link--next" aria-label="Next: Portman">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Portman
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://x.com/magewirephp" target="_blank" rel="noopener" title="x.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M459.4 151.7c.3 4.5.3 9.1.3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.3 25.3 1.3 49.1 0 94.2-16.6 130.3-44.8-46.1-1-84.8-31.2-98.1-72.8 6.5 1 13 1.6 19.8 1.6 9.4 0 18.8-1.3 27.6-3.6-48.1-9.7-84.1-52-84.1-103v-1.3c14 7.8 30.2 12.7 47.4 13.3-28.3-18.8-46.8-51-46.8-87.4 0-19.5 5.2-37.4 14.3-53C87.4 130.8 165 172.4 252.1 176.9c-1.6-7.8-2.6-15.9-2.6-24C249.5 95.1 296.3 48 354.4 48c30.2 0 57.5 12.7 76.7 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.4-24.4 44.8-46.1 57.8 21.1-2.3 41.6-8.1 60.4-16.2-14.3 20.8-32.2 39.3-52.6 54.3"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.path", "navigation.tabs", "navigation.footer", "navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.prune", "navigation.top", "navigation.indexes", "content.code.copy", "content.code.annotate", "content.code.select", "header.autohide"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
