@@ -112,6 +112,7 @@ nav:
       - 'pages/essentials/events.md'
       - 'pages/essentials/lifecycle-hooks.md'
       - 'pages/essentials/nesting-components.md'
+      - 'pages/essentials/backwards-compatibility.md'
       - 'pages/essentials/testing.md'
   - 'Features':
       - 'pages/features/alpine.md'
