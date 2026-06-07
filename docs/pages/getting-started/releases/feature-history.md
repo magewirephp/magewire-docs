@@ -6,6 +6,53 @@ of new capabilities.
 
 Versions not included in this log indicate releases where no new features were introduced.
 
+## 3.1.0
+
+- **Blade-like Echo Compilers**
+
+  {% raw %}Adds Blade-style echo syntax to the template compiler. Expressions wrapped in `{{ }}` are automatically
+  escaped, while `{!! !!}` renders raw, unescaped output{% endraw %}—mirroring the familiar Laravel Blade behaviour and
+  making it easier to output values directly within `.phtml` templates.
+
+- **Theme-aware Compiled View Paths**
+
+  The compiled views resource path now includes the area and theme. This keeps compiled output isolated per
+  area and theme, preventing collisions and ensuring the correct compiled template is served for each storefront context.
+
+## 3.0.0
+
+Magewire V3 is a full rewrite that ports the Laravel Livewire v3 core into Magento 2, replacing the hand-written
+V1 runtime with a formalised pipeline.
+
+- **Livewire V3 Core**
+
+  The runtime is now based on the Laravel Livewire v3 core, brought over into Magento 2. This modernises the
+  foundation Magewire is built on and aligns its behaviour and concepts with the wider Livewire ecosystem.
+
+- **Mechanisms & Features Pipeline**
+
+  The old V1 runtime is replaced by a formalised Mechanisms and Features pipeline, providing a structured,
+  extensible architecture for processing component lifecycles.
+
+- **Template Compiler**
+
+  Introduces a dedicated template compiler, enabling the `@` directives, fragments, and other simplified syntax
+  to be transformed into PHP during template compilation.
+
+- **Snapshot-based State Flow**
+
+  Component state is now managed through a snapshot-based flow, capturing and restoring component data between
+  requests in a predictable, serialisable manner.
+
+- **Backwards Compatibility Layer**
+
+  Ships a first-class backwards compatibility layer for V1 components, allowing existing V1 components to keep
+  running on the V3 runtime.
+
+  Upgrading from 1.x? See [UPGRADING.md](https://github.com/magewirephp/magewire/blob/main/UPGRADING.md).
+
+> **Note:** Requires PHP 8.2 or higher. Support for all PHP versions below 8.2 has been dropped.
+
 ## 3.0.0-beta1
 
 - **Dedicated Documentation**

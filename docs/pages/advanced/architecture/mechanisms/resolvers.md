@@ -20,19 +20,21 @@ Think of a resolver as a three-state machine with a stable identity:
 - **`complies()`** — a cheap yes/no question the manager asks every registered resolver until one says yes.
 - **`construct()`** — runs once per initial render. Hands back the block with a `Component` bound to it.
 - **`reconstruct()`** — runs on every update roundtrip. Must rebuild the block/component from *only* the incoming snapshot (no layout state survives the HTTP hop).
-- **`getAccessor()`** — a unique short name (`layout`, `flake`, `layout_admin`). Stored in the snapshot memo so the same resolver is picked on reconstruction. Must match the DI item name.
+- **`accessor()`** — a unique short name (`layout`, `flake`, `layout_admin`). Stored in the snapshot memo so the same resolver is picked on reconstruction. Must match the DI item name. (`getAccessor()` is a deprecated alias.)
 
 ## Responsibilities
 
-A resolver must implement four abstract methods and may override `remember()`:
+A resolver must implement three abstract methods (`construct`, `reconstruct`, `arguments`). The remaining methods ship with a default implementation on the base `ComponentResolver` and are overridden only when needed:
 
-| Method | Purpose |
-|---|---|
-| `complies(AbstractBlock $block, mixed $magewire = null): bool` | Cheap check. Returns `true` if this resolver should handle the block. |
-| `construct(AbstractBlock $block): AbstractBlock` | Attach a `Component` to the block (via `$block->setData('magewire', $component)`) and return the block. |
-| `reconstruct(ComponentRequestContext $request): AbstractBlock` | Rebuild the block + component from the XHR snapshot. |
-| `arguments(): MagewireArguments` | Provide the typed arguments object that collects `magewire.*` / `magewire:*` data keys from the block. |
-| `remember(): bool` *(optional)* | Cache the resolver/block pairing. Defaults to `true`. Return `false` for a fluent resolver that re-evaluates conditions per request. |
+| Method | Abstract? | Purpose |
+|---|---|---|
+| `construct(AbstractBlock $block): AbstractBlock` | yes | Attach a `Component` to the block (via `$block->setData('magewire', $component)`) and return the block. |
+| `reconstruct(ComponentRequestContext $request): AbstractBlock` | yes | Rebuild the block + component from the XHR snapshot. |
+| `arguments(): MagewireArguments` | yes | Provide the typed arguments object that collects `magewire.*` / `magewire:*` data keys from the block. |
+| `complies(AbstractBlock $block, mixed $magewire = null): bool` | no | Cheap check. Returns `true` if this resolver should handle the block. The base implementation already matches when the block's `magewire:resolver` data key equals this resolver's accessor. |
+| `assemble(AbstractBlock $block, Component $component): AbstractBlock` | no | Final step after construct/reconstruct — binds `name`, `id` and `alias` onto the component and resolves a default template. |
+| `remember(): bool` | no | Cache the resolver/block pairing. Defaults to `true`. Return `false` for a fluent resolver that re-evaluates conditions per request. |
+| `canPropagate(): bool` | no | Whether a dynamically-loaded child block with no resolver of its own may reuse this resolver. Defaults to `false`. |
 
 ## How the manager picks a resolver
 
@@ -66,11 +68,17 @@ public function construct(AbstractBlock $block): AbstractBlock
 
     $block->setData('magewire', $component);
 
-    // On dehydrate, stash the active layout handles into the snapshot memo
-    // so reconstruct() can rebuild the layout on the next XHR.
+    // On dehydrate, stash the active layout handles (and alias, if any) into the
+    // snapshot memo so reconstruct() can rebuild the layout on the next XHR.
     on('dehydrate', function (Component $component, ComponentContext $context) {
-        if ($component->magewireResolver()->getAccessor() === $this->getAccessor()) {
-            $context->addMemo('handles', $this->determineLayoutHandles($component, $context));
+        if ($component->magewireResolver()->accessor() === $this->accessor()) {
+            if ($this->canMemorizeLayoutHandles()) {
+                $context->addMemo('handles', $this->determineLayoutHandles($component, $context));
+            }
+
+            if ($alias = $component->magewireBlock()->getData('magewire:alias')) {
+                $context->addMemo('alias', $alias);
+            }
         }
     });
 
@@ -90,6 +98,9 @@ public function reconstruct(ComponentRequestContext $request): AbstractBlock
 ```
 
 The key insight: **reconstruction replays the layout handles**, then re-enters the same `construct()` path. This is why layout XML is the whole source of truth — snapshots only carry enough memo to replay the layout.
+
+!!! info "Default template convention"
+    `LayoutResolver::assemble()` also resolves a template when the block doesn't define one. It falls back to the convention `Vendor_Module::magewire/dashed-class-name.phtml`, derived from the component's class name (e.g. `Vendor\Module\Magewire\ProductList` → `Vendor_Module::magewire/product-list.phtml`). Define a `template` on the block to override it.
 
 ## Writing a custom resolver
 
@@ -161,30 +172,24 @@ Register with a sort order **lower** than `layout` (99900) so `complies()` runs 
 !!! info "DI item name matches the accessor"
     The `name="reactive_block"` attribute in DI *must* match `$accessor` on the resolver class. The manager uses this mapping during reconstruction to instantiate the correct class from the snapshot memo.
 
-### Example 2: Layout-handle-scoped resolver (FlakeResolver pattern)
+### Example 2: Fixed-handle reconstruction (the real `FlakeResolver`)
 
-The real `FlakeResolver` claims any block on a page that activates the `magewire_flakes` handle, auto-wiring a lightweight component when no Magewire object is bound:
+The core `FlakeResolver` shows a resolver that does **not** rely on the `complies()` scan at all. Its `complies()` returns `false` outright — it is never selected by the auto-scan. Flakes are instead bound through the Flakes feature (and resolver propagation), then this resolver takes over construction and, crucially, reconstruction:
 
 ```php
 class FlakeResolver extends LayoutResolver
 {
-    public const FLAKES_HANDLE = 'magewire_flakes';
-
     protected string $accessor = 'flake';
 
     public function complies(mixed $block, mixed $magewire = null): bool
     {
-        $this->conditions()->if(static fn () => $block instanceof AbstractBlock);
-        $this->conditions()->if(static fn () =>
-            in_array(self::FLAKES_HANDLE, $block->getLayout()->getUpdate()->getHandles())
-        );
-
-        return $this->conditions()->evaluate($block, $magewire);
+        // Never matched by the auto-scan. The Flakes feature binds this resolver.
+        return false;
     }
 
     public function construct(AbstractBlock $block): AbstractBlock
     {
-        // If the block has an alias but no component, synthesize one so it still "has powers".
+        // Block has an alias but no component? Synthesize an empty Flake so it still "has powers".
         if ($block->hasData('magewire:alias') && ! $block->hasData('magewire')) {
             $block->setData('magewire', $this->flakeFactory->create());
         }
@@ -194,20 +199,23 @@ class FlakeResolver extends LayoutResolver
 
     protected function canMemorizeLayoutHandles(): bool
     {
-        return false; // Flakes manage their own handles.
+        return false; // Don't store the page's active handles in the memo…
     }
 
     protected function recoverLayoutHandles(Snapshot $snapshot): array
     {
-        return [self::FLAKES_HANDLE];
+        return ['magewire_flakes']; // …always replay this fixed handle instead.
     }
 }
 ```
 
-Two takeaways worth copying:
+Takeaways worth copying:
 
-- **`$this->conditions()`** — a readable builder for `complies()` rules. Each `->if()` adds an AND; `->or()` adds alternates. `evaluate()` returns the final boolean.
-- **Override `canMemorizeLayoutHandles()` / `recoverLayoutHandles()`** — swap the snapshot's default "store active handles" strategy when the layout is scripted rather than serialised.
+- **`complies()` is not the only entry point.** A resolver can bow out of the scan (`return false`) and be bound explicitly (`magewire:resolver`) or by propagation from a parent (`canPropagate()`).
+- **Override `canMemorizeLayoutHandles()` / `recoverLayoutHandles()`** to swap the default "store the page's active handles" strategy for a fixed handle set — useful when the same handle always rebuilds the block, regardless of which page the XHR originated from.
+
+!!! tip "The `conditions()` builder"
+    `complies()` doesn't have to be hand-rolled boolean logic. The base resolver exposes a `$this->conditions()` builder: `->if()` (alias `->validate()`) adds an AND clause, `->or()` adds an alternative, and `->evaluate(...$args)` runs them. The default `ComponentResolver::complies()` uses it to match the `magewire:resolver` data key, and `LayoutResolver` adds an `is_block` AND clause on top.
 
 ### Example 3: Widget resolver (non-layout binding)
 
@@ -261,6 +269,19 @@ When the automatic `complies()` scan is too broad or too narrow, bind a resolver
 ```
 
 Works in both layout XML and programmatic block construction. The manager skips `complies()` entirely when this key is present.
+
+## Propagating a resolver to child blocks
+
+A block dynamically loaded as a child of an already-resolved component (e.g. introduced through a parent's XHR re-render) may have no resolver binding of its own. Rather than re-running the full `complies()` scan, the child can inherit its parent's resolver — but only if that resolver opts in via `canPropagate()`:
+
+```php
+public function canPropagate(): bool
+{
+    return true; // Children of my components reuse me by default.
+}
+```
+
+The default is `false`. Enable it for resolvers whose construction logic is generic enough to handle children the same way as their parent — and leave it off when each block must be matched on its own merits.
 
 ## The `remember()` cache
 
