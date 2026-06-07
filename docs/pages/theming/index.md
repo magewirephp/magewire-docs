@@ -48,5 +48,5 @@ You will still need a theme module whenever you want:
 - [Layout containers](layout-containers.md) — the extension points you plug into.
 - [Alpine loading](alpine-loading.md) — remove your theme's own Alpine, fix load order.
 - [Tailwind](tailwind.md) — integrate Magewire's components into a Tailwind pipeline.
-- [Backwards compatibility](backwards-compatibility.md) — V1 → V3 BC system.
+- [Backwards compatibility](../essentials/backwards-compatibility.md) — V1 → V3 BC system.
 - [Hyvä Checkout BC](hyva-checkout-bc.md) — Hyvä-specific auto-enabled BC.

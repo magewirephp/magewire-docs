@@ -151,7 +151,6 @@ nav:
     - 'pages/theming/layout-containers.md'
     - 'pages/theming/alpine-loading.md'
     - 'pages/theming/tailwind.md'
-    - 'pages/theming/backwards-compatibility.md'
     - 'pages/theming/hyva-checkout-bc.md'
   - 'Admin':
     - 'pages/admin/index.md'

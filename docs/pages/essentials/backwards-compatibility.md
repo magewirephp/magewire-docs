@@ -7,10 +7,9 @@ V1 (Livewire V2) era. To keep existing V1 components running while you migrate, 
 **backwards-compatibility (BC) layer**.
 
 BC is **opt-in and per-component**: a component only gets BC treatment when you ask for it, so
-modern components pay no cost. This page covers the framework side — how to switch BC on and off,
-and what it actually does. For the theme-side JavaScript shim (directive rewriting, `entangle`
-semantics, deprecated hook names) and Hyvä's auto-enable rule, see
-[Theming → Backwards Compatibility](../theming/backwards-compatibility.md).
+modern components pay no cost. This page covers the whole system — how to switch BC on and off, and
+what it does on both the PHP and JavaScript sides. For a theme's auto-enable rule, see
+[Hyvä Checkout BC](../theming/hyva-checkout-bc.md).
 
 ## Two scopes of enable / disable
 
@@ -96,10 +95,23 @@ BC enabling activates several adaptations, on both the PHP and JavaScript sides.
 
 ### JavaScript side (theme shim)
 
-When the per-component flag reaches the browser as `memo.bc.enabled`, a theme's BC shim rewrites
-`wire:*` directives, restores `entangle`'s live-by-default behaviour, and re-fires deprecated hook
-names alongside their V3 replacements. That layer lives in the theme compatibility module and is
-documented in [Theming → Backwards Compatibility](../theming/backwards-compatibility.md).
+The per-component flag reaches the browser as `memo.bc.enabled`. When present and truthy, a theme's
+BC shim activates for that component's DOM subtree and applies the V2→V3 transforms automatically;
+when absent, the shim sleeps, so non-BC components pay no client-side cost. With BC active it:
+
+- rewrites `wire:model` to `wire:model.live` (V1's default was live);
+- rewrites `wire:model.defer` to `wire:model`, and `wire:model.lazy` to `wire:model.blur`;
+- rewrites `wire:model.delay.Xms` to `wire:model.live.debounce.Xms`;
+- returns a **live-by-default** proxy from `$wire.entangle()`;
+- re-fires deprecated hook names (`component.initialized`, `element.updating`, `message.sent`, …)
+  alongside their V3 replacements, so V1 JavaScript listening on old names keeps working;
+- aliases `component.data` and `component.deferredActions` to `component.$wire` and
+  `component.queuedUpdates`.
+
+This shim lives in the theme compatibility module (see
+[Compatibility module](../theming/compatibility-module.md)). Themes may also add their own BC
+behaviour on top — Hyvä Checkout, for example, auto-enables BC for a whole container
+([Hyvä Checkout BC](../theming/hyva-checkout-bc.md)).
 
 ### V1 → V3 cheat sheet
 
@@ -163,9 +175,21 @@ A feature item set to `false` is filtered out before booting, so the BC feature 
 4. When the whole site is migrated, [disable the feature](#disabling-the-whole-feature) to drop the
    BC code (and the theme's JS shim) entirely.
 
+## Performance impact
+
+The BC shim runs on every morph for every BC-enabled component. The cost per morph is:
+
+- one pass over the element's `wire:*` attributes (directive rewriting);
+- one `Proxy` wrapper around the component's `$wire` (entangle semantics);
+- one extra event dispatch per deprecated hook name during each commit.
+
+In practice that's sub-millisecond per morph — negligible for individual components, but not free if
+BC is enabled across a site with hundreds of components. It's another reason to treat BC as a
+migration aid and switch it off per component as you finish each one.
+
 ## Related
 
-- [Theming → Backwards Compatibility](../theming/backwards-compatibility.md) — the JavaScript shim and the `memo.bc.enabled` flag.
-- [Theming → Hyvä Checkout BC](../theming/hyva-checkout-bc.md) — the canonical theme auto-enable rule.
+- [Hyvä Checkout BC](../theming/hyva-checkout-bc.md) — the canonical theme auto-enable rule.
+- [Compatibility module](../theming/compatibility-module.md) — where a theme's BC shim and features live.
 - [Upgrade](../getting-started/upgrade.md) — the V1 → V3 migration checklist.
 - [Features](../advanced/architecture/features.md) — how the BC feature is registered and booted.

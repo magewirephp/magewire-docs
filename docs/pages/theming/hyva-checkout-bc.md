@@ -1,6 +1,6 @@
 # Hyvä Checkout Backwards Compatibility
 
-Hyvä Checkout V1 was built on Magewire V1, which tracked Livewire V2. Most installations carry dozens of V1-era checkout components. To smooth the Magewire V3 upgrade without forcing a full rewrite, Magewire's Hyvä compatibility module auto-enables the [BC layer](backwards-compatibility.md) for every component inside the `hyva-checkout-main` layout container.
+Hyvä Checkout V1 was built on Magewire V1, which tracked Livewire V2. Most installations carry dozens of V1-era checkout components. To smooth the Magewire V3 upgrade without forcing a full rewrite, Magewire's Hyvä compatibility module auto-enables the [BC layer](../essentials/backwards-compatibility.md) for every component inside the `hyva-checkout-main` layout container.
 
 ## The automatic rule
 
@@ -67,6 +67,6 @@ If any checkout component was relying on the automatic rule without the attribut
 
 ## Related
 
-- [Backwards compatibility](backwards-compatibility.md) — the underlying system.
+- [Backwards compatibility](../essentials/backwards-compatibility.md) — the underlying system.
 - [Upgrade](../getting-started/upgrade.md) — V1 → V3 migration checklist.
 - [Compatibility module](compatibility-module.md) — how Hyvä's compat module is organised.

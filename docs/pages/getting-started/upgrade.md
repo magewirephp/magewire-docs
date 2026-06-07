@@ -497,7 +497,7 @@ Migration done. You can now remove the theme BC feature registration when every 
 
 ## Related
 
-- [Backwards compatibility](../theming/backwards-compatibility.md) — the BC system in depth.
+- [Backwards compatibility](../essentials/backwards-compatibility.md) — the BC system in depth.
 - [Hyvä Checkout BC](../theming/hyva-checkout-bc.md) — the auto-enable rule.
 - [Admin → Installation](../admin/installation.md) — install the admin companion package.
 - [Features](../advanced/architecture/features.md) — how to rewrite V1 Features as V3 Component Hooks.
