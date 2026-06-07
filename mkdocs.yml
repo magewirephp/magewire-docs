@@ -107,6 +107,7 @@ nav:
         - 'pages/getting-started/releases/feature-history.md'
   - 'Essentials':
       - 'pages/essentials/components.md'
+      - 'pages/essentials/view-model.md'
       - 'pages/essentials/properties.md'
       - 'pages/essentials/actions.md'
       - 'pages/essentials/events.md'
@@ -164,6 +165,7 @@ nav:
     - 'pages/advanced/performance.md'
     - 'pages/advanced/security.md'
     - 'pages/advanced/synthesizers.md'
+    - 'pages/advanced/exception-handling.md'
     - 'pages/advanced/troubleshooting.md'
     - 'Javascript':
         - 'pages/advanced/javascript/index.md'
@@ -177,6 +179,7 @@ nav:
             - 'pages/advanced/javascript/utilities/str.md'
     - 'Architecture':
         - 'pages/advanced/architecture/component-hooks.md'
+        - 'pages/advanced/architecture/observer-events.md'
         - 'pages/advanced/architecture/index.md'
         - 'pages/advanced/architecture/runtime.md'
         - 'pages/advanced/architecture/facades.md'
