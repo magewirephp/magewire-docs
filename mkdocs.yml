@@ -86,6 +86,9 @@ plugins:
   - macros:
       include_dir: includes
 
+hooks:
+  - hooks/llms_txt.py
+
 nav:
   - 'Getting Started':
       - 'index.md'
@@ -102,7 +105,6 @@ nav:
       - 'pages/getting-started/upgrade.md'
       - 'Releases':
         - 'pages/getting-started/releases/feature-history.md'
-        - 'pages/getting-started/releases/changelog.md'
   - 'Essentials':
       - 'pages/essentials/components.md'
       - 'pages/essentials/properties.md'
