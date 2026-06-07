@@ -157,34 +157,49 @@ def _strip_leading_h1(markdown: str) -> str:
 
 
 def _extract_summary(markdown: str) -> str:
-    """First meaningful prose sentence after the H1, lightly de-marked."""
+    """First meaningful prose sentence after the H1, lightly de-marked.
+
+    Collects the first qualifying paragraph (wrapped lines joined back together)
+    before cutting to the first sentence, so summaries don't end mid-clause.
+    """
     body = _strip_leading_h1(markdown)
+    paragraph: list[str] = []
     for raw in body.splitlines():
         line = raw.strip()
-        if not line:
+        if _is_skippable(raw, line):
+            # A blank/block line ends the paragraph once we've started one.
+            if paragraph:
+                break
             continue
-        # Skip indented content — admonition bodies, code blocks, list/table
-        # continuations — so the summary is genuine top-level intro prose.
-        if raw[:1] in (" ", "\t"):
-            continue
-        # Skip headings, admonitions, blockquotes, code fences, list/table markup,
-        # html comments and leftover macro/snippet syntax.
-        if line.startswith(("#", "!!!", "???", ">", "```", "|", "<!--", "{{", "--8<")):
-            continue
-        if line.startswith(("- ", "* ", "+ ")) or re.match(r"^\d+\.\s", line):
-            continue
-        # Skip link-reference definitions and `[//]: # (...)` comment lines.
-        if re.match(r"^\[[^\]]*\]:\s", line):
-            continue
-        text = _demark(line)
-        if not text:
-            continue
-        # Cut to the first sentence; cap length so the index stays scannable.
-        sentence = re.split(r"(?<=[.!?])\s", text, maxsplit=1)[0]
-        if len(sentence) > 200:
-            sentence = sentence[:197].rstrip() + "..."
-        return sentence
-    return ""
+        paragraph.append(line)
+
+    text = _demark(" ".join(paragraph))
+    if not text:
+        return ""
+    # Cut to the first sentence; cap length so the index stays scannable.
+    sentence = re.split(r"(?<=[.!?])\s", text, maxsplit=1)[0]
+    if len(sentence) > 200:
+        sentence = sentence[:197].rstrip() + "..."
+    return sentence
+
+
+def _is_skippable(raw: str, line: str) -> bool:
+    """True for lines that are not top-level intro prose."""
+    if not line:
+        return True
+    # Indented content — admonition bodies, code blocks, list/table continuations.
+    if raw[:1] in (" ", "\t"):
+        return True
+    # Headings, admonitions, blockquotes, code fences, list/table markup,
+    # html comments and leftover macro/snippet syntax.
+    if line.startswith(("#", "!!!", "???", ">", "```", "|", "<!--", "{{", "--8<")):
+        return True
+    if line.startswith(("- ", "* ", "+ ")) or re.match(r"^\d+\.\s", line):
+        return True
+    # Link-reference definitions and `[//]: # (...)` comment lines.
+    if re.match(r"^\[[^\]]*\]:\s", line):
+        return True
+    return False
 
 
 def _demark(text: str) -> str:

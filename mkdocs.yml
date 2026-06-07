@@ -178,6 +178,7 @@ nav:
     - 'Architecture':
         - 'pages/advanced/architecture/component-hooks.md'
         - 'pages/advanced/architecture/index.md'
+        - 'pages/advanced/architecture/runtime.md'
         - 'pages/advanced/architecture/facades.md'
         - 'pages/advanced/architecture/features.md'
         - 'Mechanisms':
