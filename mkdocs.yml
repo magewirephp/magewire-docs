@@ -95,7 +95,9 @@ nav:
       - 'pages/getting-started/basics.md'
       - 'pages/getting-started/contribute.md'
       - 'pages/getting-started/documentation.md'
-      - 'pages/getting-started/examples.md'
+      - 'Examples':
+        - 'pages/getting-started/examples.md'
+        - 'pages/getting-started/examples/magento-flash-messages.md'
       - 'pages/getting-started/faq.md'
       - 'pages/getting-started/license.md'
       - 'pages/getting-started/notables.md'
@@ -121,6 +123,7 @@ nav:
       - 'pages/features/magewire-template-directives.md'
       - 'pages/features/notifications.md'
       - 'pages/features/rate-limiting.md'
+      - 'pages/features/redirects.md'
       - 'pages/features/request-bundling.md'
       - 'pages/features/offline-states.md'
   - 'Directives':
@@ -187,6 +190,9 @@ nav:
         - 'Mechanisms':
             - 'pages/advanced/architecture/mechanisms/index.md'
             - 'pages/advanced/architecture/mechanisms/resolvers.md'
+            - 'pages/advanced/architecture/mechanisms/handle-components.md'
+            - 'pages/advanced/architecture/mechanisms/handle-requests.md'
+            - 'pages/advanced/architecture/mechanisms/frontend-assets.md'
         - 'pages/advanced/architecture/layout.md'
         - 'pages/advanced/architecture/portman.md'
   - 'Blog':

@@ -1,6 +1,12 @@
 # Examples
 
-WIP...
+## Tutorials
+
+Walkthroughs that build something real — and, where relevant, show what it takes to adapt a Livewire
+concept to Magento.
+
+- [Magento Flash Messages](examples/magento-flash-messages.md) — surface typed messages from a
+  component, and see how a Laravel/Livewire feature is re-seated on Magento's primitives.
 
 ## Projects
 
