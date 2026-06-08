@@ -219,6 +219,42 @@ If a container you need doesn't exist, add one in `default_{theme}.xml` as a chi
 
 Smaller scope is cheaper — page-specific handles avoid paying for the block on every page.
 
+## Accessing layout context from a component
+
+{{ include("admonition/magewire-specific.md", since_version="3.0.0") }}
+
+A Magewire component is bound to a Magento block, but it isn't a block itself. The
+`SupportMagentoLayouts` feature bridges the two: its `HandlesMagentoLayout` trait is mixed into the
+base `Component`, giving every component live accessors to its own layout context.
+
+| Accessor | Returns | Use it for |
+|---|---|---|
+| `magewireBlock()` | The `AbstractBlock` the component is bound to. | Reading block data/arguments, the cache key, or fetching child blocks. |
+| `magewireResolver()` | The [`ComponentResolver`](mechanisms/resolvers.md) that built the component. | Inspecting how the component was resolved (accessor, arguments). |
+| `magewireLayoutLifecycle()` | The `LayoutLifecycle` tracker for this component's block. | Advanced: reasoning about the block's render lifecycle. |
+
+The framework wires these up for you. After a component is constructed or reconstructed, the
+[`ResolveComponents`](mechanisms/index.md) mechanism sets all three — so they're already populated by
+the time any lifecycle hook, action, or `render()` runs.
+
+```php
+public function mount(): void
+{
+    $block = $this->magewireBlock();
+
+    $sku       = $block->getData('product_sku');             // a layout argument
+    $childHtml = $block->getChildHtml('extra_information');   // a child block's output
+}
+```
+
+!!! note "Prefer the `magewire*` accessors"
+    The trait also carries deprecated aliases — `block()`, `resolver()`, `setParent()`,
+    `getParent()`. Use `magewireBlock()` / `magewireResolver()` in new code.
+
+Reaching for the block is the escape hatch when you need something only Magento's layout knows. For
+passing data *into* a component, prefer [block arguments](../../essentials/components.md#block-arguments)
+over reading raw block data.
+
 ## Dynamic, page-less block loading
 
 {{ include("admonition/magewire-specific.md", since_version="3.0.0") }}
