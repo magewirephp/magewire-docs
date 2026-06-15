@@ -24,3 +24,9 @@ A `3.x.x` version is **not** just the core `magewirephp/magewire` package. It me
 Subpackages adopt the major version of the Magewire release they target rather than starting their own version line. So for packages like `magewirephp/magewire-hyva-theme` or `magewirephp/magewire-hyva-checkout`, there is no `1.x` or `2.x` — they are tagged `3.x` because they are packages for Magewire V3.
 
 This keeps the ecosystem readable: if you see a `3.x` tag anywhere in the Magewire family, you know it belongs to the V3 generation.
+
+## PHP version support
+
+Magewire aims to support only **actively supported** PHP versions, as listed on [php.net's supported versions page](https://www.php.net/supported-versions.php).
+
+A PHP version moving out of active support (into security-only or end-of-life) is treated as a reason to drop it — the minimum required PHP version can be raised in a Magewire release once a version is no longer actively supported. Staying on actively supported PHP means receiving upstream bug fixes and security patches, and lets Magewire use current language features without carrying compatibility shims for end-of-life runtimes.
