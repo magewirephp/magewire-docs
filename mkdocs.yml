@@ -105,6 +105,7 @@ nav:
       - 'pages/getting-started/roadmap.md'
       - 'pages/getting-started/sponsoring.md'
       - 'pages/getting-started/upgrade.md'
+      - 'pages/getting-started/versioning.md'
       - 'Releases':
         - 'pages/getting-started/releases/feature-history.md'
   - 'Essentials':

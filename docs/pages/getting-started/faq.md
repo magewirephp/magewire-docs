@@ -41,6 +41,10 @@ making upgrades easier and enabling a more modular approach to building new feat
 
 Additionally, a custom router was introduced to improve performance, resulting in a notable ~33% performance gain.
 
+## How Is Magewire Versioned?
+
+Magewire follows [semantic versioning](https://semver.org/), and its major version tracks Livewire's — which is why V2 was skipped. A `3.x` tag also covers subpackages that require Magewire V3, so packages like `magewirephp/magewire-hyva-theme` have no `1.x` or `2.x` line. See the [Versioning](versioning.md) page for the full explanation.
+
 ## What Will Happen to Magewire V1?
 
 Active development on this project has ceased, meaning no new features will be added.

@@ -20,6 +20,8 @@ The BC layer is the key insight: V3 does not force you to migrate on day one. Yo
 
 Magewire V2 never existed. Magewire V1 was built on Livewire V2, which created persistent version confusion — a "Magewire 1" that was effectively at Livewire's v2 feature line. V3 aligns Magewire's major version with Livewire's, so V2 was skipped entirely. Going forward, Magewire's major version tracks Livewire's.
 
+See [Versioning](versioning.md) for the full versioning scheme, including how subpackages are tagged.
+
 ## Requirements
 
 Before running `composer update`, bring the surrounding environment up to spec.
