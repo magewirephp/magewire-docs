@@ -204,5 +204,5 @@ nav:
         - 'pages/advanced/architecture/portman.md'
   - 'Blog':
       - 'blogs/index.md'
-  - 'Personal':
-      - 'personal/index.md'
+  # - 'Personal':
+  #     - 'personal/index.md'
