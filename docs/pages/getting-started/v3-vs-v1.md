@@ -65,7 +65,7 @@ runtime.
 - **Template compiler.** `.phtml` templates are compiled, enabling simplified syntax that expands to
   PHP at compile time. Templates recompile when the file changes.
 - **`@` directives.** Author shorthands that compile into the underlying calls.
-- **Blade-like echo** *(3.1.0)*. `{{ }}` (escaped) and `{!! !!}` (raw) echo syntax in templates.
+- **Blade-like echo** *(3.1.0)*. {% raw %}`{{ }}`{% endraw %} (escaped) and `{!! !!}` (raw) echo syntax in templates.
 - **Fragments.** Mark a region of a template so modifiers can alter its output — e.g. making inline
   scripts CSP-compliant — via the `fragment()` utility. New in V3.
 
