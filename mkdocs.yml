@@ -76,6 +76,11 @@ plugins:
       enabled: true
       post_readtime: true
       blog_dir: blogs
+  - blog:
+      enabled: true
+      post_readtime: true
+      blog_dir: personal
+      post_url_format: "{slug}"
   - tags:
       enabled: true
   - privacy:
@@ -199,3 +204,5 @@ nav:
         - 'pages/advanced/architecture/portman.md'
   - 'Blog':
       - 'blogs/index.md'
+  - 'Personal':
+      - 'personal/index.md'
