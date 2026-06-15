@@ -9,8 +9,8 @@ formalised **Mechanisms + Features** pipeline, and component state now flows thr
 runtime.
 
 > This is a summary of the big shifts, not an exhaustive changelog. For the per-release feature log
-> see `docs/.../releases/feature-history.md`; for migrating a component see the Upgrade and
-> Backwards Compatibility pages.
+> see the [Feature History](releases/feature-history.md); for migrating a component see the
+> [Upgrade](upgrade.md) and [Versioning](versioning.md) pages.
 
 ---
 
