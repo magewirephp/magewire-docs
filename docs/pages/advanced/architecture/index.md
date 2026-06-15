@@ -14,12 +14,15 @@ The module structure differs slightly from a typical Magento module.
 | `./portman` | Specific **Portman** class overwrites.                                                                                                                                            |
 | `./src`     | Core structure serving as the initial entry point, binding key elements to Magento.                                                                                               |
 | `./tests`   | Multiple type of tests e.g. Playwright                                                                                                                                            |
-| `./themes`  | Theme support decided into sub-modules                                                                                                                                            |
 
 ## Themes
 
 Magewire is build to support multiple themes with having the Hyvä theme as its default. A theme needs to be made compatible adding or overwriting
 specific theme related code re-using the javascript which is written in a modular and loosly coupled fashion.
+
+Since 3.2.0 theme support no longer lives in-tree under a `themes/` directory in the core repository. Each theme has been split into its own
+repository and Composer package — `magewirephp/magewire-hyva-theme`, `magewirephp/magewire-hyva-checkout`, and `magewirephp/magewire-admin` —
+for better maintainability. See [Theming](../../theming/index.md).
 
 ### Example
 

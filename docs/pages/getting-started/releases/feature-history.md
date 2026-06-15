@@ -6,6 +6,20 @@ of new capabilities.
 
 Versions not included in this log indicate releases where no new features were introduced.
 
+## 3.2.0
+
+- **Themes split into standalone packages**
+
+  Theme support no longer ships in-tree. The `themes/` directory has been removed from the core
+  `magewirephp/magewire` repository and every theme moved into its own repository and Composer package
+  for better maintainability:
+
+  - `magewirephp/magewire-hyva-theme` — Hyvä theme support (was `themes/Hyva/`).
+  - `magewirephp/magewire-hyva-checkout` — Hyvä Checkout support.
+  - `magewirephp/magewire-admin` — Magento admin support (replaces the `themes/Backend/` marker).
+
+  Install the package(s) for the themes you use. See [Theming](../../theming/index.md).
+
 ## 3.1.0
 
 - **Blade-like Echo Compilers**

@@ -15,9 +15,12 @@ The admin ships with its own conventions — a different frontName (`/admin`), R
 | **Component resolution** | `LayoutAdminResolver` reading admin-layout metadata under the `layout_admin` accessor |
 | **Component discovery workaround** | `doesPageHaveComponents()` always returns `true` — admin JS loads too early for DOM-based discovery |
 
-## Relation to the `themes/Backend/` marker
+## No in-core admin marker
 
-The core `magewirephp/magewire` package ships a marker compatibility module under `themes/Backend/`. It only exists to set area scope and enable the service provider in `adminhtml`. The real admin integration lives in `magewirephp/magewire-admin` — that is the package you install.
+Everything admin-related lives in the standalone `magewirephp/magewire-admin` package — that is the only package you install for admin support.
+
+!!! note "Changed in 3.2.0"
+    Before 3.2.0 the core `magewirephp/magewire` package shipped a marker compatibility module under `themes/Backend/` to set area scope and enable the service provider in `adminhtml`. That `themes/` directory has been removed — all theme and admin integration now lives in its own repository. Do not look for a `themes/Backend/` folder in the core repo; it no longer exists.
 
 ## When to install it
 

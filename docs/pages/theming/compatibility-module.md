@@ -9,7 +9,7 @@ Use the name `Vendor_MagewireCompatibilityWith{Theme}`. Place it in either:
 - `app/code/Vendor/MagewireCompatibilityWith{Theme}/` for a project-local override, or
 - A standalone composer package for reusable distribution.
 
-Hyvä's own compatibility module lives in-tree under `magewirephp/magewire/themes/Hyva/` as an example of the second shape.
+Hyvä's own compatibility module is the standalone `magewirephp/magewire-hyva-theme` package — an example of the second shape. (Before 3.2.0 it lived in-tree under the core repo's `themes/Hyva/` directory; that directory has since been removed and every theme split into its own package.)
 
 ## Minimum viable module
 

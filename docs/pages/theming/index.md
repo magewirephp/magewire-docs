@@ -12,20 +12,24 @@ Magewire is deliberately split across three layers:
 |---|---|---|
 | **Core module** | `magewirephp/magewire` | Framework runtime. Controllers, DI, events, layout XML scaffolding, templates. Theme-agnostic. |
 | **Global view layer** | `magewirephp/magewire/src/view/base/` + `src/view/frontend/` | Skeleton every theme inherits — named layout containers for JS addons, utilities, Alpine components, directives, Features. |
-| **Theme compatibility modules** | `magewirephp/magewire/themes/{Theme}/` (in-tree) or standalone packages like `magewirephp/magewire-admin` | Adapts Magewire to one theme — layout overrides, Features, CSS pipeline, BC layers. |
+| **Theme compatibility modules** | Standalone packages like `magewirephp/magewire-hyva-theme`, `magewirephp/magewire-hyva-checkout`, and `magewirephp/magewire-admin` | Adapts Magewire to one theme — layout overrides, Features, CSS pipeline, BC layers. |
 
 The split matters because **every theme has different conventions**. Hyvä uses Tailwind and its own `hyva_config_generate_before` event for build hooks. Luma uses LESS. The admin uses RequireJS. A core runtime that tried to handle all of them would be unreadable; a thin core with per-theme adapters is tractable.
 
 ## Supported themes
 
-| Theme | Location | Install |
+!!! info "Themes are separate packages since 3.2.0"
+    Before 3.2.0 the Hyvä theme and the admin marker shipped in-tree under a `themes/` directory inside the core `magewirephp/magewire` repository. That directory no longer exists — every theme has been split into its own repository and Composer package for better maintainability. There is **no `themes/` folder in the core repo** to look into.
+
+| Theme | Package | Install |
 |---|---|---|
-| **Hyvä** | in-tree (`themes/Hyva/`) | Installed with the core `magewirephp/magewire` package |
-| **Magento Admin** | standalone (`magewirephp/magewire-admin`) | `composer require magewirephp/magewire-admin` |
+| **Hyvä** | `magewirephp/magewire-hyva-theme` | `composer require magewirephp/magewire-hyva-theme` |
+| **Hyvä Checkout** | `magewirephp/magewire-hyva-checkout` | `composer require magewirephp/magewire-hyva-checkout` |
+| **Magento Admin** | `magewirephp/magewire-admin` | `composer require magewirephp/magewire-admin` |
 | Luma | community | _Not supported in V3 at launch_ |
 | Breeze | community | _Not supported in V3 at launch_ |
 
-Hyvä ships in-tree because it is the theme Magewire is developed against. The admin ships standalone because it ships its own controllers, routes, and plugins — see [Admin](../admin/index.md).
+Each theme ships as a standalone package because each carries its own controllers, routes, plugins, and CSS pipeline — see [Admin](../admin/index.md) for the canonical example.
 
 ## When you need a theme module
 

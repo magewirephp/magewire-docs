@@ -10,7 +10,7 @@ Every Magewire package and compatibility module keeps its Tailwind-scannable tem
 
 When the Hyvä compatibility module is installed, Magewire hooks Hyvä's build pipeline via the `hyva_config_generate_before` observer event. An observer registers every Magewire module path that contains `view/frontend/tailwind/` into Hyvä's content-sources list, so Tailwind scans them automatically.
 
-You do not need to configure anything for Hyvä beyond installing Magewire's core and (optionally) installing additional compatibility modules.
+You do not need to configure anything for Hyvä beyond installing the `magewirephp/magewire-hyva-theme` package (and any additional compatibility modules you need).
 
 ## Custom Tailwind themes
 
@@ -21,8 +21,9 @@ module.exports = {
     content: [
         '../../../**/*.phtml',
         '../../../vendor/magewirephp/magewire/src/view/*/tailwind/**/*.{phtml,html,js}',
-        '../../../vendor/magewirephp/magewire/themes/*/view/*/tailwind/**/*.{phtml,html,js}',
-        // add per-package paths for standalone compat modules:
+        // add per-package paths for each installed theme / compat module:
+        '../../../vendor/magewirephp/magewire-hyva-theme/view/*/tailwind/**/*.{phtml,html,js}',
+        '../../../vendor/magewirephp/magewire-hyva-checkout/view/*/tailwind/**/*.{phtml,html,js}',
         '../../../vendor/magewirephp/magewire-admin/view/*/tailwind/**/*.{phtml,html,js}',
     ],
     // …
@@ -52,7 +53,7 @@ Override in your theme's CSS:
 }
 ```
 
-(Exact variable set depends on the Magewire release — consult the core `themes/Hyva/view/frontend/tailwind/` tree for the current list.)
+(Exact variable set depends on the Magewire release — consult the `magewirephp/magewire-hyva-theme` package's `view/frontend/tailwind/` tree for the current list.)
 
 ## No Tailwind in admin
 
