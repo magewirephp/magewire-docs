@@ -106,7 +106,7 @@ nav:
       - 'pages/getting-started/sponsoring.md'
       - 'pages/getting-started/upgrade.md'
       - 'pages/getting-started/versioning.md'
-      - 'pages/getting-started/v3-vs-v1.md'
+      - 'V3 vs V1': 'pages/getting-started/v3-vs-v1.md'
       - 'Releases':
         - 'pages/getting-started/releases/feature-history.md'
   - 'Essentials':
