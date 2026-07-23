@@ -132,6 +132,7 @@ nav:
       - 'pages/features/rate-limiting.md'
       - 'pages/features/redirects.md'
       - 'pages/features/request-bundling.md'
+      - 'pages/features/lazy-loading.md'
       - 'pages/features/offline-states.md'
   - 'Directives':
       - 'pages/html-directives/wire-click.md'
