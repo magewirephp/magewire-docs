@@ -1,6 +1,6 @@
 # Upgrade
 
-{{ include("admonition/livewire-reference.md", reference_url="https://livewire.laravel.com/docs/upgrading") }}
+{{ include("admonition/livewire-reference.md", reference_url="https://livewire.laravel.com/docs/3.x/upgrading") }}
 
 This page covers upgrading from Magewire V1 to V3. It is meant to be read top-to-bottom the first time and used as a reference afterwards — copy the checklist at the end into a ticket or PR description when you start the work.
 
@@ -8,7 +8,7 @@ This page covers upgrading from Magewire V1 to V3. It is meant to be read top-to
 
 1. Upgrade PHP, Magento, and Composer requirements.
 2. Install V3: `composer require magewirephp/magewire:^3.0`.
-3. Remove any separately-loaded Alpine.js from your theme.
+3. Install or update the appropriate theme compatibility package so Alpine is loaded once.
 4. Add `#[HandleBackwardsCompatibility]` to every existing component. The site should run as-is.
 5. Migrate one component at a time using the checklist below.
 6. Drop the BC attribute per component once it is fully V3-native.
@@ -26,13 +26,13 @@ See [Versioning](versioning.md) for the full versioning scheme, including how su
 
 Before running `composer update`, bring the surrounding environment up to spec.
 
-- **Magento** `2.4.4` or later.
+- **Magento or Mage-OS** on a release line supported by the selected Magewire tag. Magewire 3.5's tested floor is Magento Open Source 2.4.6-p15 or Mage-OS 1.3.1.
 - **PHP** `8.2` or later.
 - **Composer 2**.
-- **No separately-loaded Alpine.js.** Magewire bundles the CSP build of Alpine inside its own JS bundle. Loading Alpine a second time clashes on directive registration and `$store` identity.
+- **A compatible theme integration.** Magewire bundles Alpine, while the compatibility package coordinates it with the theme's own loader.
 
-!!! warning "Remove Alpine from your theme first"
-    Strip out any `<script src="…alpine.min.js">` tags from theme templates, layout XML, and bundle configs before installing V3. A double-Alpine page fails in confusing ways — silent Alpine expressions, lost reactivity, and console errors that do not obviously point at the root cause.
+!!! warning "Do not remove theme assets globally"
+    A double-Alpine page fails in confusing ways, but removing a theme's loader globally can break pages without Magewire. For Hyvä, install `magewirephp/magewire-hyva-theme` and let it select the correct loader per page.
 
 ## Install the new version
 
@@ -106,7 +106,7 @@ Resolution priority for the flag:
 
 1. `#[HandleBackwardsCompatibility]` attribute (either `enabled: true` or `enabled: false`) — wins in all cases.
 2. Programmatic assignment: `store($component)->set('magewire:bc', true)` from a Component Hook or Feature.
-3. Theme default. Hyvä Checkout auto-enables BC for every component rendered inside the `hyva-checkout-main` container — see [Theming → Hyvä Checkout BC](../theming/hyva-checkout-bc.md).
+3. Theme default. A companion package may attempt a default, but current Hyvä Checkout migrations should add the attribute explicitly; see [Theming → Hyvä Checkout BC](../theming/hyva-checkout-bc.md).
 
 ## Breaking changes
 
@@ -419,11 +419,7 @@ When every component on the site is migrated (not just the ones in your module �
 
 ## Hyvä Checkout
 
-Hyvä Checkout V1 is wired for Livewire V2 semantics. Good news: the Hyvä theme module ships a BC layer that auto-enables `#[HandleBackwardsCompatibility]` for every component rendered inside the `hyva-checkout-main` layout container.
-
-In practice that means an unchanged Hyvä Checkout V1 site runs on Magewire V3 without any manual BC opt-in. For most merchants, the checkout just keeps working after the upgrade.
-
-If you customise Hyvä Checkout components, plan their migration with the main workflow above — the auto-enable rule only covers BC at runtime, not long-term migration.
+Hyvä Checkout V1 is wired for Livewire V2 semantics. Install `magewirephp/magewire-hyva-checkout`, add `#[HandleBackwardsCompatibility]` explicitly to legacy components, and verify the checkout end to end. The companion package contains a container-based fallback, but a Magewire 3.5 resolver interaction makes implicit opt-in unreliable.
 
 See [Theming → Hyvä Checkout BC](../theming/hyva-checkout-bc.md) for the full detail.
 
@@ -472,10 +468,10 @@ If the upgrade surfaces a showstopper bug, you can roll back to V1 by restoring 
 
 Copy this into a PR description.
 
-- [ ] PHP is on 8.2+, Magento on 2.4.4+.
+- [ ] PHP is on 8.2+ and the Magento or Mage-OS release is supported by the selected Magewire tag.
 - [ ] Composer updated to `magewirephp/magewire:^3.0`.
 - [ ] `magewirephp/magewire-admin` installed if the site uses Magewire in admin.
-- [ ] Every separately-loaded Alpine.js removed from theme templates and bundle configs.
+- [ ] The theme compatibility package ensures only one Alpine runtime starts on pages with and without Magewire components.
 - [ ] Every existing component carries `#[HandleBackwardsCompatibility]` (imported from `Magewirephp\Magewire\Features\SupportMagewireBackwardsCompatibility\`).
 - [ ] `wire:model.defer` → `wire:model`.
 - [ ] `wire:model.lazy` → `wire:model.blur`.

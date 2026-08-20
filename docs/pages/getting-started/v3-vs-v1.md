@@ -26,7 +26,7 @@ runtime.
 | Templates | Plain `.phtml` | **Template compiler**: `@` directives, fragments, Blade-like echo |
 | Events | `emit*()` + `$listeners` | `dispatch()` + `#[On]` |
 | Messages | `dispatchSuccessMessage()` … | `magewireNotifications()` / `magewireFlashMessages()` |
-| JavaScript | Custom | **Unmodified Livewire bundle** + `MagewireUtilities` / `MagewireAddons` |
+| JavaScript | Custom | Ported Livewire bundle + `MagewireUtilities` / `MagewireAddons` |
 | PHP | < 8.2 supported | **8.2+** required |
 | Docs | In-repo | Dedicated **MkDocs** site |
 
@@ -87,8 +87,8 @@ The V1 method names above are preserved by the BC layer's trait so existing comp
 
 ## 5. Directives & JavaScript
 
-- **JS is an unmodified Livewire bundle.** V3 serves Livewire's JS as a Magento static asset, kept
-  untouched so upstream upgrades are a file swap. V1 shipped custom JS.
+- **JS is based on the Livewire bundle.** V3 serves the ported Livewire runtime as a Magento static
+  asset and adds Magewire aliases and Magento/theme integration around it. V1 shipped custom JS.
 - **Utilities & Addons.** `window.MagewireUtilities` (`dom`, `loader`, `str`, `cookie`) and
   `window.MagewireAddons` (the notifier) are registerable, layout-driven extension points. New in V3.
 - **`wire:*` default changes (v2 → v3):**
@@ -110,10 +110,13 @@ Optional capabilities that didn't exist (or weren't formalised) in V1:
 - **Notifications** — fluent toast API (`magewireNotifications()`).
 - **Magento Flash Messages** — typed messages (`error`/`warning`/`notice`/`success`) rendered in
   Magento's message area.
-- **Rate limiting** — configurable per-component request throttling.
+- **Rate limiting** — configurable request-wide throttling or a fixed component-scoped limiter.
+- **Lazy loading** *(3.4)* — defer a component until page load or viewport intersection.
+- **Application container** *(3.5)* — a Magento-backed `app()` compatibility API.
+- **Request filters** *(3.5)* — reject a request before component reconstruction.
 - **Loaders / offline states** — first-class loading and offline UX (reworked from V1).
 - **Nesting components** — formal parent/child support.
-- **Flakes** — lightweight components resolved by layout handle (secondary resolver).
+- **Flakes** — experimental compiler syntax that is not yet part of the supported navigation.
 - **View Model utilities** — `utils()` surface (`magewire`, `security`, `env`, `csp`, `fragment`,
   `layout`, `template`) auto-bound to every Magewire block.
 - **Exception handling** — preceding vs subsequent handling, an error placeholder template, custom

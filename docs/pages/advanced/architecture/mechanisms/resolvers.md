@@ -174,6 +174,9 @@ Register with a sort order **lower** than `layout` (99900) so `complies()` runs 
 
 ### Example 2: Fixed-handle reconstruction (the real `FlakeResolver`)
 
+!!! warning "Experimental source example"
+    The resolver illustrates a fixed-handle strategy, but the current Flakes feature has unresolved registrations and is not a stable public API. Copy the resolver pattern, not the Flakes API.
+
 The core `FlakeResolver` shows a resolver that does **not** rely on the `complies()` scan at all. Its `complies()` returns `false` outright — it is never selected by the auto-scan. Flakes are instead bound through the Flakes feature (and resolver propagation), then this resolver takes over construction and, crucially, reconstruction:
 
 ```php
@@ -341,4 +344,3 @@ Overkill:
 - [Mechanisms](index.md) — the broader pipeline resolvers plug into.
 - [Component Hooks](../component-hooks.md) — extend lifecycle without a new resolver.
 - [Admin → How it works](../../../admin/how-it-works.md) — `LayoutAdminResolver` walkthrough.
-- [Magewire Flakes](../../../features/magewire-flakes.md) — real-world secondary resolver in core.

@@ -1,6 +1,6 @@
 # Nesting
 
-{{ include("admonition/livewire-reference.md", reference_url="https://livewire.laravel.com/docs/nesting") }}
+{{ include("admonition/livewire-reference.md", reference_url="https://livewire.laravel.com/docs/3.x/nesting") }}
 
 ## Layout-driven children
 
@@ -14,13 +14,6 @@ A nested component is a Magento layout block bound to a Magewire class. Children
 <?php endforeach; ?>
 ```
 
-## Flakes vs. nested components
+## Lightweight child markup
 
-| Aspect | Nested component | Flake |
-|---|---|---|
-| Own snapshot | Yes | No |
-| Own request cycle | Yes | No |
-| Layout block required | Yes | Registered in `magewire_flakes.xml` |
-| Nesting inside nesting | Yes | Not supported |
-
-See [Flakes](../features/magewire-flakes.md).
+Not every child block needs to be a Magewire component. Render a normal Magento child block when it only contributes markup to the parent's snapshot. The experimental Flakes source is not currently a stable alternative and is intentionally omitted from navigation.

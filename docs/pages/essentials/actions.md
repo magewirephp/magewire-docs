@@ -1,6 +1,6 @@
 # Actions
 
-{{ include("admonition/livewire-reference.md", reference_url="https://livewire.laravel.com/docs/actions") }}
+{{ include("admonition/livewire-reference.md", reference_url="https://livewire.laravel.com/docs/3.x/actions") }}
 
 ## Defining an action
 
@@ -51,4 +51,4 @@ public function boot(): void
 
 ## Rate limiting
 
-`SupportMagewireRateLimiting` throttles abusive clients. Configure per store in the admin. See [Rate limiting](../features/rate-limiting.md).
+`SupportMagewireRateLimiting` can throttle abusive clients but is disabled by default. Enable and tune the appropriate variant per scope. See [Rate Limiting](../features/rate-limiting.md).

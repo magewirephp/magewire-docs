@@ -5,7 +5,7 @@ Install as a composer dependency on any Magewire V3 site.
 ## Requirements
 
 - Magewire core (`magewirephp/magewire`) installed and enabled.
-- Magento 2.4.4+ with the admin (Magento_Backend) module enabled.
+- A Magento or Mage-OS/PHP combination supported by the installed Magewire core release, with `Magento_Backend` enabled.
 - PHP 8.2+.
 
 ## Install

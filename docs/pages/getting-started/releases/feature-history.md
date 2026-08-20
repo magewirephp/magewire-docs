@@ -6,6 +6,46 @@ of new capabilities.
 
 Versions not included in this log indicate releases where no new features were introduced.
 
+## 3.5.0
+
+- **Magento-backed application container**
+
+  The new `app()` helper and `ApplicationContainer` resolve Magento classes, interface preferences, virtual types, Magewire aliases, and request-time bindings through one compatibility API. See [Application Container](../../advanced/application-container.md).
+
+- **Request filter pipeline**
+
+  Incoming update requests can now be checked once, before any component reconstruction. Rejections carry an HTTP status and a deliberately customer-safe message severity. Request-scoped rate limiting now uses this pipeline. See [Request Filters](../../advanced/request-filters.md).
+
+## 3.4.0
+
+- **Lazy loading**
+
+  Components can defer mounting and rendering until page load or viewport intersection. Lazy behavior can be selected with `#[Lazy]` or the `magewire:component:lazy` layout argument, with optional request isolation and custom placeholders. See [Lazy Loading](../../features/lazy-loading.md).
+
+## 3.3.1
+
+- Fixed condition parsing when an array offset resolves to `null`.
+- Removed deprecated `ReflectionMethod::setAccessible()` usage.
+- Fixed dependency-injection compilation on the Magento 2.4.6 release line.
+
+## 3.3.0
+
+- **Expression-aware template directives**
+
+  Directive arguments can preserve PHP expressions, nested arrays, named arguments, and typed `true`, `false`, and `null` values. This powers updated directives such as `@translate`, `@child`, and `@escapeUrl`.
+
+- **Compiler mechanism and cache command**
+
+  Template compilation moved from an optional feature to the `HandleCompiling` mechanism. Compiled views can be cleared with `bin/magento magewire:compile:clear`, optionally scoped with `--area`. See [Handle Compiling](../../advanced/architecture/mechanisms/handle-compiling.md).
+
+- **Pluggable multiple-root handling**
+
+  The response to multiple root elements is now selected through `MultipleRootElementDetectionHandlerInterface`. The default handler continues to throw an exception.
+
+- **Removed experimental facades**
+
+  The experimental facade API was removed. Use Magento dependency injection, Magewire's registries, or the application container introduced in 3.5.
+
 ## 3.2.0
 
 - **Themes split into standalone packages**

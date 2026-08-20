@@ -31,6 +31,8 @@ HandleRequests (1200)
 DataStore (1250)
    ↓
 FrontendAssets (1400)
+   ↓
+HandleCompiling (1500)
 ```
 
 ## Built-in mechanisms
@@ -43,6 +45,7 @@ FrontendAssets (1400)
 | **HandleRequests** | 1200 | On AJAX updates: receives the POST to `/magewire/update`, validates the snapshot checksum, invokes HandleComponents, assembles the response. |
 | **DataStore** | 1250 | Per-component request-scoped key/value store used by features (BC flag, rate-limit counters, feature-owned state). Accessed via `store($component)->get/set(…)`. |
 | **FrontendAssets** | 1400 | Emits the JS/CSS assets — the Magewire bundle, inline setup scripts, CSP fragments, nonces. |
+| **HandleCompiling** | 1500 | Compiles `.phtml` views, echo syntax, and registered template directives into `var/magewire/views/{area}/`. |
 
 ## Registering / overriding
 
@@ -91,3 +94,4 @@ Livewire ships a handful of Laravel-specific mechanisms (routing macros, session
 - [Features](../features.md)
 - [Resolvers](resolvers.md) — the ResolveComponents mechanism in depth.
 - [Layout](../layout.md) — how FrontendAssets surfaces layout containers.
+- [Handle Compiling](handle-compiling.md) — compiler lifecycle and cache command.

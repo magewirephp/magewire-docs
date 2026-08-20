@@ -17,17 +17,7 @@ Any third-party additions to Magewire will mainly come in the form of Features a
 
 ## Example
 
-We use **Directives** as an example.
-
-Magewire Directives allow you to add directives prefixed with `@` within Magewire-driven block templates.
-These directives use bound parsers to transform them into a specific output.
-
-For instance, consider `@ucfirst('foo')`, which would render as `Foo`.
-
-Now, you might wonder: *If I disable this feature, won't `@ucfirst` just appear as plain text in my template?*
-That’s correct—but it won’t break the architecture, and everything else will continue to function as expected.
-
-So, while in this particular example, you would likely never want to disable or remove **Directives**, the possibility still exists.
+Notifications and rate limiting are examples of features. Template compilation is not: it moved to the required `HandleCompiling` mechanism in Magewire 3.3.
 
 ## Write your own
 
@@ -41,11 +31,11 @@ Create a class that extends `Magewirephp\Magewire\ComponentHook` and declare a `
     <type name="Magewirephp\Magewire\Features">
         <arguments>
             <argument name="items" xsi:type="array">
-                <item name="magewire_compiling" xsi:type="array">
+                <item name="vendor_example" xsi:type="array">
                     <item name="type" xsi:type="string">
-                        Magewirephp\Magewire\Features\SupportMagewireCompiling\SupportMagewireCompiling
+                        Vendor\Module\Magewire\Features\SupportExample\SupportExample
                     </item>
-                    <item name="sort_order" xsi:type="number">99100</item>
+                    <item name="sort_order" xsi:type="number">6000</item>
                     <!-- Optional. Defaults to the Features fallback (LAZY = 10). -->
                     <item name="boot_mode" xsi:type="number">30</item>
                 </item>
@@ -58,7 +48,7 @@ Create a class that extends `Magewirephp\Magewire\ComponentHook` and declare a `
 Each `<item>` in the `items` array carries:
 
 - `type` — fully-qualified class name of the feature (must extend `ComponentHook`).
-- `sort_order` — required; lower numbers boot first. Core features occupy 700 – 99900; pick a slot relative to the features yours depends on.
+- `sort_order` — required; lower numbers boot first. Pick a slot relative to the features yours depends on and recheck the tagged area-specific DI configuration on upgrades.
 - `boot_mode` — optional; integer from the `ServiceTypeItemBootMode` enum (`LAZY = 10`, `PERSISTENT = 20`, `ALWAYS = 30`). Omit to inherit the Features fallback.
 
 Register under `etc/adminhtml/di.xml` as well if the feature must run in the admin area.
@@ -83,7 +73,7 @@ This isn't a strict requirement, but it’s considered a best practice for consi
 You can extend your feature to the frontend by adding JavaScript functionality when required.
 
 This JavaScript code doesn't live within the feature folder itself, but must be organized within the `/view` subfolder structure.
-For complete details on implementing JavaScript features, refer to the [Features JavaScript](../javascript/index.md#features) paragraph.
+For complete details on implementing JavaScript features, refer to the [JavaScript](../javascript/index.md) page.
 
 ### Hooks
 

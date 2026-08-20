@@ -1,77 +1,46 @@
 # Alpine Loading
 
-Magewire bundles the [CSP build of Alpine.js](https://alpinejs.dev/advanced/csp). A theme that loads Alpine itself will collide with Magewire's bundle and break directive registration.
+Magewire's browser build includes Alpine.js. A theme integration must ensure that only one Alpine runtime starts while preserving the theme's behavior on pages where Magewire is absent.
 
-## The rule
+## Hyvä
 
-**Load Alpine exactly once. That one must be Magewire's bundle.**
+Install `magewirephp/magewire-hyva-theme` instead of manually removing Hyvä's Alpine block. The package wraps Hyvä's loader:
 
-If your theme ships an Alpine script tag:
+- pages with Magewire components use Magewire's bundled Alpine runtime;
+- pages without Magewire components can fall back to Hyvä's Alpine runtime.
 
-```html
-<!-- REMOVE this from your theme -->
-<script src="…/alpine.min.js"></script>
+This conditional behavior is why a global layout removal of Hyvä's Alpine asset is incorrect.
+
+```shell
+composer require magewirephp/magewire-hyva-theme
+bin/magento module:enable Magewirephp_MagewireHyvaTheme
+bin/magento setup:upgrade
 ```
 
-…remove it. Magewire will load Alpine for you as part of its bundle.
+## Custom themes
 
-## Why it matters
+A custom compatibility module owns three decisions:
 
-Alpine keeps a global store of directives, data components, and plugin registrations. A second instance instantiates its own store; directives registered against the first are invisible to the second, and vice versa. Typical symptoms:
+1. where the Magewire loader is rendered;
+2. how the theme's existing Alpine asset is suppressed on Magewire pages;
+3. how the theme loads Alpine when the page has no Magewire components.
 
-- `x-data` blocks render their initial markup but never become reactive.
-- `Alpine.store('theme')` exists from the theme's POV but not from Magewire's.
-- `$wire.entangle()` resolves to `undefined`.
+Use the `magewire.alpinejs.load` layout node as the integration point. Preserve script ordering expected by the theme and test pages both with and without components.
 
-## Load-order considerations
-
-Magewire renders the Alpine script in the `magewire.alpinejs.load` container. The container is placed in `<head>` by default, deferred with `defer` so it parses after the rest of the document is ready.
-
-### Themes that need Alpine earlier
-
-Hyvä expects Alpine to be available before its own setup scripts run. Move the block to an earlier container:
-
-```xml title="view/frontend/layout/default_hyva.xml"
-<move element="magewire.alpinejs.load" destination="head.additional" before="-" />
-```
-
-### Themes that inject scripts above Magewire
-
-The theme loads its bundle into `<head>` synchronously; Magewire's deferred script hasn't parsed yet when the theme's `x-data` attributes render. Two options:
-
-1. Move `magewire.alpinejs.load` to a container the theme's script depends on.
-2. Keep theme scripts in `<body>` after the Magewire container.
-
-## Initialisation events
+## Initialization events
 
 | Event | Use |
 |---|---|
-| `alpine:init` | Register `Alpine.data()`, `Alpine.store()`, `Alpine.bind()`, utilities, addons |
-| `magewire:init` | Register Magewire hooks (commit, request, morph) |
-| `magewire:initialized` | Register custom `Magewire.directive()`s |
-
-Always guard with `{ once: true }` — SPA-style navigation can re-fire initialisation events and duplicate registrations throw.
+| `alpine:init` | Register `Alpine.data()`, stores, binds, and Alpine-dependent registries. |
+| `magewire:init` | Register Magewire hooks. |
+| `magewire:initialized` | Run work that requires the initialized runtime. |
 
 ```html
 <script>
     document.addEventListener('alpine:init', () => {
-        Alpine.data('myBlock', () => ({ open: false }));
-    }, { once: true });
+        Alpine.data('searchBox', () => ({ open: false }))
+    }, { once: true })
 </script>
 ```
 
-## Debugging double-load
-
-Paste into the browser console:
-
-```javascript
-Alpine.version
-```
-
-Magewire's bundle uses a specific version — a mismatch or `undefined` points at a second Alpine overwriting Magewire's. View-source-search for `alpine` / `Alpine` across all script tags; there should be exactly one.
-
-## Related
-
-- [Alpine](../features/alpine.md) — directive surface.
-- [Layout containers](layout-containers.md) — the target of `<move>` and `<referenceContainer>`.
-- [Fragments](../concepts/fragments.md) — CSP-safe inline scripts.
+If Alpine warns that it was started more than once, inspect the final merged layout and rendered script tags before changing component code.

@@ -69,12 +69,13 @@ The plugin runs after Magento assembles the head assets and injects the `magewir
         </block>
     </block>
 
-    <referenceBlock name="magewire.features.support-magewire-rate-limiting"
-        template="Magewirephp_MagewireAdmin::magewire-features/support-magewire-rate-limiting/support-magewire-rate-limiting.phtml"/>
 </body>
 ```
 
-Moves the `magewire` block to root so its children render in the admin's layout tree, declares a standalone `magewire.head` block (picked up and injected by the Renderer plugin), and overrides the rate-limiting feature template with an admin-styled variant.
+This moves the `magewire` block to root so its children render in the admin's layout tree and declares a standalone `magewire.head` block for the Renderer plugin.
+
+!!! warning "Rate-limit layout compatibility"
+    The currently tagged admin package still contains an override for the removed `magewire.features.support-magewire-rate-limiting` block. Magewire 3.5 uses `magewire.features.support-magewire-request-filters` instead. The obsolete reference has no target and should not be copied into new integrations.
 
 ## Admin component resolver
 

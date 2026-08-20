@@ -11,7 +11,7 @@ Magewire is deliberately split across three layers:
 | Layer | Location | Responsibility |
 |---|---|---|
 | **Core module** | `magewirephp/magewire` | Framework runtime. Controllers, DI, events, layout XML scaffolding, templates. Theme-agnostic. |
-| **Global view layer** | `magewirephp/magewire/src/view/base/` + `src/view/frontend/` | Skeleton every theme inherits — named layout containers for JS addons, utilities, Alpine components, directives, Features. |
+| **Global view layer** | `magewirephp/magewire/src/view/base/` + `src/view/frontend/` | Skeleton every theme inherits—named layout nodes for JS addons, utilities, Alpine components, directives, and feature bridges. |
 | **Theme compatibility modules** | Standalone packages like `magewirephp/magewire-hyva-theme`, `magewirephp/magewire-hyva-checkout`, and `magewirephp/magewire-admin` | Adapts Magewire to one theme — layout overrides, Features, CSS pipeline, BC layers. |
 
 The split matters because **every theme has different conventions**. Hyvä uses Tailwind and its own `hyva_config_generate_before` event for build hooks. Luma uses LESS. The admin uses RequireJS. A core runtime that tried to handle all of them would be unreadable; a thin core with per-theme adapters is tractable.
@@ -26,8 +26,8 @@ The split matters because **every theme has different conventions**. Hyvä uses 
 | **Hyvä** | `magewirephp/magewire-hyva-theme` | `composer require magewirephp/magewire-hyva-theme` |
 | **Hyvä Checkout** | `magewirephp/magewire-hyva-checkout` | `composer require magewirephp/magewire-hyva-checkout` |
 | **Magento Admin** | `magewirephp/magewire-admin` | `composer require magewirephp/magewire-admin` |
-| Luma | community | _Not supported in V3 at launch_ |
-| Breeze | community | _Not supported in V3 at launch_ |
+| Luma | custom/community integration required | No maintained first-party Magewire 3 package. |
+| Breeze | custom/community integration required | No maintained first-party Magewire 3 package. |
 
 Each theme ships as a standalone package because each carries its own controllers, routes, plugins, and CSS pipeline — see [Admin](../admin/index.md) for the canonical example.
 
@@ -50,7 +50,7 @@ You will still need a theme module whenever you want:
 
 - [Compatibility module](compatibility-module.md) — build one from scratch.
 - [Layout containers](layout-containers.md) — the extension points you plug into.
-- [Alpine loading](alpine-loading.md) — remove your theme's own Alpine, fix load order.
+- [Alpine loading](alpine-loading.md) — coordinate the theme and Magewire Alpine loaders.
 - [Tailwind](tailwind.md) — integrate Magewire's components into a Tailwind pipeline.
 - [Backwards compatibility](../essentials/backwards-compatibility.md) — V1 → V3 BC system.
 - [Hyvä Checkout BC](hyva-checkout-bc.md) — Hyvä-specific auto-enabled BC.

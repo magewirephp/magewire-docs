@@ -1,3 +1,3 @@
 # Request Bundling
 
-{{ include("admonition/livewire-reference.md", reference_url="https://livewire.laravel.com/docs/bundling") }}
+{{ include("admonition/livewire-reference.md", reference_url="https://livewire.laravel.com/docs/3.x/bundling") }}

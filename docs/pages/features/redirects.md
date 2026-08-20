@@ -1,6 +1,6 @@
 # Redirects
 
-{{ include("admonition/livewire-reference.md", reference_url="https://livewire.laravel.com/docs/redirecting") }}
+{{ include("admonition/livewire-reference.md", reference_url="https://livewire.laravel.com/docs/3.x/redirecting") }}
 
 A component action can send the browser to another URL by calling `$this->redirect()`. The redirect
 happens after the action finishes — it's queued as an effect on the response and performed by the JS

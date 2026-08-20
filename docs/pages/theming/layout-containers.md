@@ -1,77 +1,65 @@
-# Layout Containers
+# Layout Nodes
 
-Magewire emits its runtime as a layout tree of named containers and blocks. Theme modules extend Magewire by adding blocks to these containers — never by replacing Magewire's core layout files.
+Magewire renders its browser resources through a named Magento layout tree. Compatibility modules extend that tree instead of copying core layout XML.
 
-## Full reference
+## Core reference
 
-| Container / block | Kind | What goes here |
+| Name | Kind | Purpose |
 |---|---|---|
-| `magewire.alpinejs.load` | container | The Alpine bundle script tag. Reorder here if you need Alpine loaded at a different point (e.g. Hyvä's early-head requirement). |
-| `magewire.alpinejs` | container | Global `$wire` setup, Alpine stores registered under `Alpine.store()`. |
-| `magewire.alpinejs.components` | container | Reusable Alpine components (`Alpine.data()`). |
-| `magewire.utilities` | block | Pure helper functions registered on `window.MagewireUtilities`. Children render inside. |
-| `magewire.addons` | block | Stateful plugins registered on `window.MagewireAddons`. Children render inside. |
-| `magewire.before` | container | User directives, theme-scoped UI components, custom `wire:*` directives — anything that must run before Magewire initialises. |
-| `magewire.internal.backwards-compatibility` | container | V1 BC shims — hook aliases, `wire:model` rewriting, entangle proxy. Owned by the BC Feature. |
-| `magewire.directives` | block | Custom `Magewire.directive()` registrations. Children render inside. |
-| `magewire.features` | block | Feature bridge scripts — one child per registered Feature. Children render inside. |
-| `magewire.after` | container | Last-to-render theme content. Theme flourishes, late-bound overrides. |
-| `magewire.ui-components` | container | Alpine UI components shipped by Magewire (the notifier lives here). |
-| `magewire.script` | block | The core Magewire library `<script>` tag. |
+| `magewire` | block | Root of Magewire's rendered resources. |
+| `magewire.global` | block | Creates the addon and utility registries. |
+| `magewire.alpinejs.load` | container | Theme package injection point for the selected Alpine/Magewire loader. |
+| `magewire.alpinejs` | container | Alpine registrations that run before reusable components. |
+| `magewire.alpinejs.components` | container | `Alpine.data()` component registrations. |
+| `magewire.utilities` | block | Built-in `MagewireUtilities` registrations. Add late utilities under `magewire.utilities.after`. |
+| `magewire.addons` | block | Built-in `MagewireAddons` registrations. Add late addons under `magewire.addons.after`. |
+| `magewire.before` | container | Theme-facing content before Magewire internals. |
+| `magewire.ui-components` | container | Rendered Alpine UI, including the notifier. |
+| `magewire.internal` | block | Internal bridge output; do not override casually. |
+| `magewire.internal.backwards-compatibility` | container | V1 browser compatibility shims. |
+| `magewire.directives` | block | Custom Magewire directive registrations. |
+| `magewire.features` | block | Browser bridges for PHP features, including loaders, request filters, and lazy loading. |
+| `magewire.after.internal` | container | Safe injection point immediately after internals. |
+| `magewire.after` | container | General late content. |
+| `magewire.disabled` | container | Output used only when Magewire is disabled. |
+| `magewire.legacy` | container | V1 compatibility tree; not rendered unless a theme moves it. |
 
-## Container vs. block
+`magewire.script` is not a core storefront block. The current admin companion package defines that name inside its own `magewire.head` block; do not target it from a storefront integration.
 
-**Container** (`<referenceContainer>`) is additive. Your block is added alongside Magewire's existing children. Use containers for extension.
+## Referencing nodes
 
-**Block** (`<referenceBlock>`) replaces. The target's template and arguments are overwritten by your declaration. Use blocks only when you explicitly need to replace a Magewire-provided block — which is rare.
+`referenceBlock` and `referenceContainer` both modify an existing layout node; neither replaces content merely by being referenced. Use the reference type expected by the layout structure and the current first-party integration pattern. Replacement happens when you change a target's template or arguments, while declaring a child adds to its output.
 
-```xml
-<!-- Right: additive -->
-<referenceContainer name="magewire.features">
-    <block name="magewire.features.my-bridge"
-           template="Vendor_Mine::magewire-features/my-bridge.phtml" />
-</referenceContainer>
-
-<!-- Wrong in most cases: replaces the core block -->
-<referenceBlock name="magewire.script"
-                template="Vendor_Mine::different-script.phtml" />
-```
-
-## Ordering children
-
-Children within a container inherit Magento's usual ordering primitives — `before`, `after`, and `sortOrder`. Use them when a feature must run before or after another:
+First-party theme packages commonly add feature children like this:
 
 ```xml
 <referenceContainer name="magewire.features">
-    <block name="magewire.features.a" template="…" before="-" />          <!-- first -->
-    <block name="magewire.features.b" template="…" />
-    <block name="magewire.features.c" template="…" after="magewire.features.b" />
+    <block name="vendor.magewire.features.my-bridge"
+           template="Vendor_Module::magewire-features/my-bridge.phtml" />
 </referenceContainer>
 ```
 
-## Where to render what
+For the registries, prefer their dedicated late containers so core registrations remain first:
 
-| Kind of asset | Container |
-|---|---|
-| Feature bridge script | `magewire.features` |
-| Stateful JS plugin (auto-save, analytics) | `magewire.addons` |
-| Pure helper (formatters, translators) | `magewire.utilities` |
-| Reusable Alpine component | `magewire.alpinejs.components` |
-| Alpine store (global reactive state) | `magewire.alpinejs` |
-| Custom `wire:*` directive | `magewire.directives` |
-| Pre-initialisation UI | `magewire.before` |
-| Post-initialisation UI | `magewire.after` |
-| Alpine UI widgets (notifier, modals) | `magewire.ui-components` |
+```xml
+<referenceContainer name="magewire.utilities.after">
+    <block name="vendor.magewire.utilities.currency"
+           template="Vendor_Module::js/magewire/utilities/currency.phtml" />
+</referenceContainer>
+```
 
-## Anti-patterns
+## Ordering
 
-- Using `<referenceBlock>` on a container name — it silently fails.
-- Adding raw `<script>` tags inside a container — use a fragment template for CSP.
-- Hard-coding an existing sibling's block name into `after=""` without declaring a dependency — if the sibling is removed, your ordering silently breaks. Prefer `sortOrder`.
-- Adding blocks to Magewire's containers from global `etc/layout/` — always use an area-scoped layout handle (`default_{theme}.xml` or `adminhtml_default.xml`).
+Magento's normal `before` and `after` attributes control siblings:
 
-## Related
+```xml
+<referenceContainer name="magewire.alpinejs.components">
+    <block name="vendor.search"
+           template="Vendor_Module::js/alpinejs/search.phtml"
+           after="magewire.alpinejs.components.magewire-notifier" />
+</referenceContainer>
+```
 
-- [Compatibility module](compatibility-module.md)
-- [Alpine loading](alpine-loading.md) — concrete use of `magewire.alpinejs.load`.
-- [JavaScript](../advanced/javascript/index.md) — utilities, addons, directives, components in depth.
+Choose an ordering dependency that is guaranteed by a sequenced module. Avoid copying the complete Magewire layout tree into a theme because that prevents new core resources from appearing after upgrades.
+
+All inline scripts should use a [fragment](../concepts/fragments.md) so Magento CSP metadata can be applied.

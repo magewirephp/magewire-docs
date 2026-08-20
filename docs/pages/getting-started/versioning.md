@@ -27,6 +27,6 @@ This keeps the ecosystem readable: if you see a `3.x` tag anywhere in the Magewi
 
 ## PHP version support
 
-Magewire aims to support only **actively supported** PHP versions, as listed on [php.net's supported versions page](https://www.php.net/supported-versions.php).
+The `php` constraint in the tagged package's `composer.json` is authoritative. Magewire 3.5 requires PHP 8.2 or newer, while the production-build matrix verifies selected Magento and Mage-OS releases on PHP 8.2 through 8.5.
 
-A PHP version moving out of active support (into security-only or end-of-life) is treated as a reason to drop it — the minimum required PHP version can be raised in a Magewire release once a version is no longer actively supported. Staying on actively supported PHP means receiving upstream bug fixes and security patches, and lets Magewire use current language features without carrying compatibility shims for end-of-life runtimes.
+A future release may raise the minimum when ecosystem compatibility or language support requires it. Check Composer constraints and the repository's production-build workflow before planning an upgrade; do not infer support solely from PHP's general support calendar.

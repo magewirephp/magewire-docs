@@ -57,6 +57,10 @@ Boot modes are defined by the `Magewirephp\Magewire\Enums\ServiceTypeItemBootMod
 
 Set this inside the `<item>` definition when registering a Feature or Mechanism in area-scoped `di.xml` — see `src/etc/frontend/di.xml` for examples.
 
+### Lazy components
+
+Use [lazy loading](../features/lazy-loading.md) for expensive components that are not needed in the initial viewport. `on-intersect` delays work until the placeholder becomes visible; `on-load` moves it behind the initial page response.
+
 ### Avoid work in `render()` / `rendering()` hooks
 
 `render()` runs every time the component re-renders. Computing expensive derived state there means paying on every round-trip. Cache the derivation in a property computed in `boot()` or `updated*()` and read the property from the template.
@@ -83,7 +87,7 @@ Third-party widgets (date pickers, Google Maps, rich-text editors) are expensive
 
 - **Magento FPC**: Magewire adds a cache-bypass header on update responses. The GET that renders the initial component is still FPC-cacheable — check that your block's FPC handle is configured correctly.
 - **Browser devtools**: in the Network tab, filter for `magewire/update`. Sort by duration. The slow requests tell you which actions are hot.
-- **System log**: enabled rate limiting surfaces per-component hot spots. Check `var/log/system.log` for `MagewireRateLimit` entries.
+- **Application metrics**: instrument component actions or request filters when you need per-component timings. Core rate limiting does not emit dedicated `MagewireRateLimit` log entries.
 
 ## Related
 

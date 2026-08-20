@@ -1,15 +1,25 @@
 # Documentation
 
-{{ include("admonition/documentation-under-construction.md") }}
-
 Magewire is heavily inspired by Livewire, and as a result, most of its core functionality works in the same way.
-For this reason, all essential documentation can be found in the official [Livewire documentation](https://livewire.laravel.com/docs/quickstart).
+For this reason, all essential documentation can be found in the official [Livewire documentation](https://livewire.laravel.com/docs/3.x/quickstart).
 
 The Magewire documentation primarily focuses on Magento-specific implementations, custom features,
 and additional explanations that are either missing from the Livewire docs or are not relevant due to platform differences.
 
 If you're looking for a deeper understanding of how Magewire works under the hood, we highly recommend referring to the
-Livewire documentation alongside this guide.
+Livewire 3 documentation alongside this guide. Links are pinned to `/docs/3.x/` deliberately: the unversioned Livewire documentation describes the latest major version and may not match Magewire 3.
+
+## Compatibility boundary
+
+The Magewire repository contains ported upstream classes so updates can remain traceable, but source presence alone does not mean a feature is active. Runtime registration and Magewire's public component API determine support.
+
+| Documentation says | Interpretation |
+|---|---|
+| Livewire reference | The linked Livewire 3 concept applies, with local differences described on the Magewire page. |
+| Magewire specific | The behavior is implemented by Magewire or its named companion package. |
+| Experimental | The API or behavior can change and should not be treated as stable production support. |
+
+Laravel-specific integrations and Livewire capabilities that Magewire does not register are outside the compatibility promise. When these docs and the current Magewire source disagree, the tagged source is authoritative and the documentation should be corrected.
 
 ## Disclaimer
 

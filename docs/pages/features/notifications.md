@@ -1,6 +1,6 @@
 # Notifications
 
-Surface toast-style messages to the user from inside a component action. Notifications travel back as effects on the next response and are rendered by the notifier Alpine component in `magewire.ui-components`.
+Notifications send toast-style messages from a component response to the registered notifier addon.
 
 ```php
 $this->magewireNotifications()
@@ -8,63 +8,52 @@ $this->magewireNotifications()
     ->asSuccess();
 ```
 
-## Builder API
+`make()` expects a Magento `Phrase`, so use `__()` for translatable customer-facing text.
 
-`magewireNotifications()` returns a fluent builder.
+## Builder API
 
 | Method | Effect |
 |---|---|
-| `make($message)` | Start a new notification with the given message |
-| `asSuccess()` | Green success style |
-| `asError()` | Red error style |
-| `asWarning()` | Amber warning style |
-| `asNotice()` | Neutral info style |
-| `withTitle($title)` | Add a title above the message |
-| `withDuration($ms)` | Auto-dismiss after `$ms` milliseconds (default 3000) |
+| `make(Phrase $message, ?string $name = null)` | Create a notification, or return the already-created builder item with the same name. |
+| `asSuccess()` / `asError()` / `asWarning()` / `asNotice()` | Select a standard message type. |
+| `as(NotificationType $type)` | Select a notification enum value directly. |
+| `withMessage(Phrase $message)` | Change the message on the builder item. |
+| `withTitle(Phrase $title)` / `withoutTitle()` | Set or remove a title. |
+| `withDuration(int $milliseconds)` | Set the browser display duration. The PHP default is 3000 ms. |
 
 ```php
 $this->magewireNotifications()
-    ->make(__('Order %1 confirmed.', $orderId))
+    ->make(__('Order %1 confirmed.', $orderId), 'order-confirmation')
     ->asSuccess()
-    ->withTitle(__('Order Confirmation'))
+    ->withTitle(__('Order confirmation'))
     ->withDuration(5000);
 ```
 
 ## Named notifications
 
-Pass a name as the second argument to `make()` to prevent duplicates. Firing the same-named notification while one is still visible replaces the existing instance rather than stacking.
+Names de-duplicate notifications within the current builder collection. Calling `make()` again with the same name returns the existing item; it does not automatically replace its message or type. Update that item through the fluent methods:
 
 ```php
-$this->magewireNotifications()
+$notification = $this->magewireNotifications()
     ->make(__('Saving…'), 'save-progress')
-    ->asNotice()
-    ->withDuration(0);  // 0 = sticky, no auto-dismiss
+    ->asNotice();
 
-// Later, when save completes:
+// Later in the same response-building flow:
 $this->magewireNotifications()
-    ->make(__('Saved.'), 'save-progress')
+    ->make(__('Ignored because the name already exists.'), 'save-progress')
+    ->withMessage(__('Saved.'))
     ->asSuccess();
 ```
 
-## Rendering
-
-The notifier is registered under `magewire.ui-components`. Theme modules can override its template or style it via CSS variables (see [Tailwind](../theming/tailwind.md)).
-
-For programmatic access from JavaScript, the notifier exposes an addon:
+## JavaScript access
 
 ```javascript
-window.MagewireAddons.notifier.create('Hello', {
-    type: 'success',
-    duration: 3000,
-});
+document.addEventListener('magewire:init', async () => {
+    await window.MagewireAddons.notifier.create('Saved.', {
+        type: 'success',
+        duration: 3000,
+    })
+}, { once: true })
 ```
 
-`create(message, options, hooks)` takes the message string as the first argument; `options` accepts `type`, `duration`, `title`, and the per-notification lifecycle hooks (`onCreate`, `onActivate`, `onCleanup`, `onTerminate`, `onStateChange`, `onClick`, `onFailure`).
-
-See [Magewire Notifier](../advanced/javascript/addons/magewire-notifier.md) for the JS surface.
-
-## Related
-
-- [Actions](../essentials/actions.md)
-- [Magewire Notifier (JS addon)](../advanced/javascript/addons/magewire-notifier.md)
-- [Tailwind](../theming/tailwind.md) — notifier CSS variables.
+See [Magewire Notifier](../advanced/javascript/addons/magewire-notifier.md) for lifecycle methods and hooks.

@@ -14,16 +14,17 @@ On an initial page render this mechanism does nothing; the work happens only on 
 A Magewire update is a single POST carrying one or more component payloads. `handleUpdate()` walks
 them:
 
-1. Read the `components` array from the request.
-2. Fire the `request` event (lets features inspect/transform the raw payload).
-3. For **each** component payload:
+1. Parse the request envelope, verify the form key, and create a request context.
+2. Run registered [request filters](../../request-filters.md) once, in DI order. A rejection stops before reconstruction.
+3. Fire the `request` event.
+4. For **each** component payload:
    - `magewire:component:reconstruct` — rebuild the block and component from the snapshot
      (via its [resolver](resolvers.md)).
    - Mark the component as updating: `store($component)->set('magewire:update', $payload)`.
    - Render the block (`$block->toHtml()`), which runs the component lifecycle through
      [HandleComponents](handle-components.md).
    - Collect the new `snapshot` and `effects`.
-4. Fire the `response` event and return the assembled payload:
+5. Fire the `response` event and return the assembled payload:
 
 ```json
 {
@@ -59,3 +60,4 @@ source of truth for "are we on an update request?".
 - [HandleComponents](handle-components.md) — the lifecycle this mechanism invokes per component.
 - [Runtime](../runtime.md) — `SUBSEQUENT` mode and the boot trigger.
 - [Resolvers](resolvers.md) — how each component is reconstructed from its snapshot.
+- [Request Filters](../../request-filters.md) — request-wide checks before reconstruction.

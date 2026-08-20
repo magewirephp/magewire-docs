@@ -20,7 +20,7 @@ developers to experience the same smooth workflow and productivity.
 
 ## More than a Port
 
-Magewire is more than just a [Livewire](https://livewire.laravel.com/){:target="_blank"} port; it draws inspiration from Laravel,
+Magewire is more than just a [Livewire](https://livewire.laravel.com/docs/3.x/){:target="_blank"} port; it draws inspiration from Laravel,
 particularly its simplicity. While Magewire primarily focuses on enabling dynamic component development,
 it also includes a range of enhancements that accelerate Magento feature development and improve the developer experience.
 

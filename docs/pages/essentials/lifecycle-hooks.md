@@ -1,6 +1,6 @@
 # Lifecycle Hooks
 
-{{ include("admonition/livewire-reference.md", reference_url="https://livewire.laravel.com/docs/lifecycle-hooks") }}
+{{ include("admonition/livewire-reference.md", reference_url="https://livewire.laravel.com/docs/3.x/lifecycle-hooks") }}
 
 ## mount() receives layout XML arguments
 

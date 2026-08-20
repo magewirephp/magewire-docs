@@ -42,7 +42,7 @@ for this component (see resolution order below):
 #[HandleBackwardsCompatibility(enabled: false)]
 class ModernCart extends Component
 {
-    // Forced off, even under a theme that auto-enables BC.
+    // Forced off, even when a theme integration supplies a BC default.
 }
 ```
 
@@ -110,8 +110,7 @@ when absent, the shim sleeps, so non-BC components pay no client-side cost. With
 
 This shim lives in the theme compatibility module (see
 [Compatibility module](../theming/compatibility-module.md)). Themes may also add their own BC
-behaviour on top — Hyvä Checkout, for example, auto-enables BC for a whole container
-([Hyvä Checkout BC](../theming/hyva-checkout-bc.md)).
+behaviour on top. The Hyvä Checkout companion attempts a container-based default, but current 3.5 migrations should use explicit attributes; see [Hyvä Checkout BC](../theming/hyva-checkout-bc.md).
 
 ### V1 → V3 cheat sheet
 
@@ -183,9 +182,7 @@ The BC shim runs on every morph for every BC-enabled component. The cost per mor
 - one `Proxy` wrapper around the component's `$wire` (entangle semantics);
 - one extra event dispatch per deprecated hook name during each commit.
 
-In practice that's sub-millisecond per morph — negligible for individual components, but not free if
-BC is enabled across a site with hundreds of components. It's another reason to treat BC as a
-migration aid and switch it off per component as you finish each one.
+The exact cost depends on component size and browser workload. Treat BC as a migration aid, measure it in the target checkout, and switch it off per component as migration finishes.
 
 ## Related
 

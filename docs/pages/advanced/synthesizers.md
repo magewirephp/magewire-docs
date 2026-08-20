@@ -1,6 +1,6 @@
 # Synthesizers
 
-{{ include("admonition/livewire-reference.md", reference_url="https://livewire.laravel.com/docs/synthesizers") }}
+{{ include("admonition/livewire-reference.md", reference_url="https://livewire.laravel.com/docs/3.x/synthesizers") }}
 
 ## Built-in synthesizers
 

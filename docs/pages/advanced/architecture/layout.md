@@ -179,7 +179,6 @@ Magewire's `src/view/base/templates/` directory is organised by the library the 
 |---|---|
 | `magewire/ui-components/` | Alpine-driven UI components (notifier, notifier activity state, …). |
 | `magewire/utils/` | Shared PHTML snippets consumed by other templates (icons, spinners). |
-| `magewire/flakes/` | Flake templates — see [Magewire Flakes](../../features/magewire-flakes.md). |
 
 ### Under `magewire-features/`
 
@@ -189,11 +188,11 @@ Each Feature gets its own kebab-cased subdirectory matching its container name. 
 magewire-features/
 ├── support-magewire-loaders/
 │   └── support-magewire-loaders.phtml
-└── support-magewire-rate-limiting/
-    └── support-magewire-rate-limiting.phtml
+└── support-magewire-request-filters/
+    └── support-magewire-request-filters.phtml
 ```
 
-Pair a child block under `magewire.features` with a template in `Vendor_Module::magewire-features/<kebab-name>/<kebab-name>.phtml`. The admin rate-limiting override in `magewire-admin` follows the same convention — reuse it in your own theme modules.
+Pair a child block under `magewire.features` with a template in `Vendor_Module::magewire-features/<kebab-name>/<kebab-name>.phtml`.
 
 !!! tip "Building something custom or making a contribution? Always examine the folder and file structure closely to ensure you're in the right location."
 
@@ -201,7 +200,7 @@ Pair a child block under `magewire.features` with a template in `Vendor_Module::
 
 `magewire.global`, `magewire.internal`, `magewire.directives`, `magewire.features`, `magewire.utilities`, and `magewire.addons` are **blocks**, not containers — each has a template that renders a scaffold around its children. Two practical consequences:
 
-- You cannot `<referenceContainer name="magewire.features">` and expect it to work in every context — Magento is picky about container vs. block reference types. `<referenceBlock>` works for both when you only need to add children, but prefer the correct tag for the target.
+- Follow the reference form used by the current first-party package for the target node. A reference does not replace the target by itself; template or argument changes do.
 - To completely swap the scaffold (e.g. a different wrapper for all directives), override the template with `<referenceBlock name="magewire.directives" template="..."/>`. Rare; only do this when the parent's markup genuinely needs replacing.
 
 ## Off-limits from a theme

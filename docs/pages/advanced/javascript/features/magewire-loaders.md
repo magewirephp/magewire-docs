@@ -61,14 +61,14 @@ We want to demonstrate this capability as inspiration for alternative implementa
 
 ```html
 <script>
-    document.addEventListener('magewire:init', event => {
-        const { addons, utilities } = event.detail.magewire;
+    document.addEventListener('magewire:init', () => {
+        const addons = window.MagewireAddons;
 
         Magewire.hook('commit', ({ component, commit, respond, succeed, fail }) => {
             addons.notifier.create('Committed');
 
             succeed(({ snapshot, effect }) => addons.notifier.create('Succeeded'));
         });
-    });
+    }, { once: true });
 </script>
 ```

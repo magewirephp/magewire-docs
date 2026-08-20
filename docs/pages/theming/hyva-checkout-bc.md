@@ -1,6 +1,9 @@
 # Hyvä Checkout Backwards Compatibility
 
-Hyvä Checkout V1 was built on Magewire V1, which tracked Livewire V2. Most installations carry dozens of V1-era checkout components. To smooth the Magewire V3 upgrade without forcing a full rewrite, Magewire's Hyvä compatibility module auto-enables the [BC layer](../essentials/backwards-compatibility.md) for every component inside the `hyva-checkout-main` layout container.
+Hyvä Checkout V1 was built on Magewire V1, which tracked Livewire V2. The `magewirephp/magewire-hyva-checkout` package contains integration intended to enable Magewire's [BC layer](../essentials/backwards-compatibility.md) for components in the `hyva-checkout-main` layout container.
+
+!!! warning "Use explicit attributes with Magewire 3.5"
+    The current core layout resolver writes an explicit disabled BC flag before the companion package's container fallback checks for an unset value. As a result, automatic container opt-in is not a reliable migration guarantee in the current source. Add the attribute explicitly to legacy checkout components and verify their snapshots until the integration is corrected upstream.
 
 ## The automatic rule
 
@@ -21,7 +24,7 @@ This covers the V1 checkout's entire component tree without touching a single PH
 Once you rewrite a checkout component to be V3-native end-to-end, opt it out so it stops paying the shim cost:
 
 ```php
-use Magewirephp\Magewire\Attributes\HandleBackwardsCompatibility;
+use Magewirephp\Magewire\Features\SupportMagewireBackwardsCompatibility\HandleBackwardsCompatibility;
 
 #[HandleBackwardsCompatibility(enabled: false)]
 class CheckoutShipping extends \Magewirephp\Magewire\Component { /* … */ }
@@ -40,7 +43,7 @@ class MiniCart extends \Magewirephp\Magewire\Component { /* … */ }
 
 ## Dynamic components
 
-For components injected dynamically (after initial render), the container rule checks the parent's BC status via a hydration registry. A child rendered into a BC-enabled parent inherits BC automatically. Components injected into non-BC parents without the attribute default to BC-disabled.
+The companion integration also attempts to inherit BC status from a parent through its hydration registry. Treat that as a convenience, not a substitute for explicit component attributes during a migration.
 
 ## What the Hyvä BC layer does (under the hood)
 

@@ -1,6 +1,6 @@
 # Security
 
-{{ include("admonition/livewire-reference.md", reference_url="https://livewire.laravel.com/docs/security") }}
+{{ include("admonition/livewire-reference.md", reference_url="https://livewire.laravel.com/docs/3.x/security") }}
 
 ## CSRF
 
@@ -45,7 +45,13 @@ public function boot(): void
 
 ## Rate limiting
 
-Magewire ships `SupportMagewireRateLimiting`. Configure thresholds per store from the admin. See [Rate limiting](../features/rate-limiting.md).
+Magewire ships `SupportMagewireRateLimiting`, disabled by default. Enable the appropriate request or component variant per scope after choosing a budget suitable for the application. See [Rate Limiting](../features/rate-limiting.md).
+
+Use [Request Filters](request-filters.md) for inexpensive request-wide checks that must run before component reconstruction. Filters complement—not replace—authorization inside actions.
+
+## Vulnerability reports
+
+Report suspected Magewire vulnerabilities privately to `magewirephp@wpoortman.nl` according to the repository security policy. Do not post exploit details in a public issue, discussion, or pull request.
 
 ## CSP
 

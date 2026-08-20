@@ -1,65 +1,27 @@
 # Tailwind
 
-Magewire ships CSS classes for its built-in UI components (the notifier, default wire-loading indicators, BC-layer utilities). If your theme uses Tailwind, those classes need to be visible to Tailwind's content scanner or they will be purged from the final CSS.
+Tailwind integration belongs to the theme package. Magewire core does not require every installation to scan a conventional `view/frontend/tailwind/` tree.
 
-## Magewire's source paths
+## Hyvä package
 
-Every Magewire package and compatibility module keeps its Tailwind-scannable templates under `view/frontend/tailwind/` — a convention inherited from Hyvä. Tailwind configs in the theme should include these directories as `@source` inputs.
+The current `magewirephp/magewire-hyva-theme` package provides a Tailwind source file for Hyvä. Its source registration scans the package's `src/view` tree and imports the notifier styles shipped by that package.
 
-## Hyvä integration (automatic)
+Install the package and include its Hyvä Tailwind source through the mechanism supported by the installed Hyvä version. Use the package source as the authoritative path:
 
-When the Hyvä compatibility module is installed, Magewire hooks Hyvä's build pipeline via the `hyva_config_generate_before` observer event. An observer registers every Magewire module path that contains `view/frontend/tailwind/` into Hyvä's content-sources list, so Tailwind scans them automatically.
-
-You do not need to configure anything for Hyvä beyond installing the `magewirephp/magewire-hyva-theme` package (and any additional compatibility modules you need).
-
-## Custom Tailwind themes
-
-For a non-Hyvä Tailwind theme, add Magewire's tailwind paths to your theme's `tailwind.config.js`:
-
-```javascript title="view/frontend/web/tailwind/tailwind.config.js"
-module.exports = {
-    content: [
-        '../../../**/*.phtml',
-        '../../../vendor/magewirephp/magewire/src/view/*/tailwind/**/*.{phtml,html,js}',
-        // add per-package paths for each installed theme / compat module:
-        '../../../vendor/magewirephp/magewire-hyva-theme/view/*/tailwind/**/*.{phtml,html,js}',
-        '../../../vendor/magewirephp/magewire-hyva-checkout/view/*/tailwind/**/*.{phtml,html,js}',
-        '../../../vendor/magewirephp/magewire-admin/view/*/tailwind/**/*.{phtml,html,js}',
-    ],
-    // …
-};
+```css
+@source "../../../../../src/view";
 ```
 
-Relative paths depend on where your config lives. Adjust the prefix.
+The relative path is evaluated from the package's Tailwind source file; do not paste it into an unrelated theme unchanged. Resolve paths from the consuming stylesheet and verify them during the Tailwind build.
 
-## CSS variables for theming
+## Custom Tailwind integrations
 
-Magewire components use CSS custom properties for colours and spacing so themes can override without rewriting selectors. Document set per component:
+Scan only packages that contain templates or JavaScript with classes needed by the storefront. In particular:
 
-| Variable | Default | Used in |
-|---|---|---|
-| `--notifier-bg` | theme-default | Notifier toast backgrounds |
-| `--notifier-text` | theme-default | Notifier toast text |
-| `--notifier-radius` | `0.5rem` | Notifier corner radius |
-| `--wire-loading-spinner` | theme-default | Default spinner colour |
+- core templates are below `vendor/magewirephp/magewire/src/view`;
+- Hyvä integration templates are below `vendor/magewirephp/magewire-hyva-theme/src/view`;
+- other companion packages may have different trees and should not be added speculatively.
 
-Override in your theme's CSS:
+Magewire does not currently publish the `--notifier-*` and `--wire-loading-spinner` custom-property contract previously shown in these docs. Style the rendered markup through the CSS shipped by the compatibility package or an explicit theme override, and recheck selectors after package upgrades.
 
-```css title="view/frontend/web/css/_magewire-overrides.css"
-:root {
-    --notifier-bg: #111;
-    --notifier-text: #fff;
-    --notifier-radius: 0;
-}
-```
-
-(Exact variable set depends on the Magewire release — consult the `magewirephp/magewire-hyva-theme` package's `view/frontend/tailwind/` tree for the current list.)
-
-## No Tailwind in admin
-
-The Magento admin theme does **not** use Tailwind. `magewire-admin` targets the admin's own stylesheet conventions — no `@source` configuration is needed. See [Admin](../admin/index.md).
-
-## Related
-
-- [Compatibility module](compatibility-module.md)
-- [Layout containers](layout-containers.md)
+Magento admin does not use this storefront Tailwind integration. See [Admin](../admin/index.md).

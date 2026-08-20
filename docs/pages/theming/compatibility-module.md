@@ -88,19 +88,18 @@ Hyvä already dispatches its own flash messages via `dispatchMessages()`. Bridge
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-    <type name="Magewirephp\Magewire\MagewireServiceProvider">
+    <type name="Magewirephp\Magewire\Features">
         <arguments>
-            <argument name="features" xsi:type="array">
-                <item name="support_hyva_flash_messages" xsi:type="string">
-                    Vendor\MagewireCompatibilityWithHyva\Magewire\Features\SupportHyvaFlashMessages
+            <argument name="items" xsi:type="array">
+                <item name="support_hyva_flash_messages" xsi:type="array">
+                    <item name="type" xsi:type="string">Vendor\MagewireCompatibilityWithHyva\Magewire\Features\SupportHyvaFlashMessages</item>
+                    <item name="sort_order" xsi:type="number">5150</item>
                 </item>
             </argument>
         </arguments>
     </type>
 </config>
 ```
-
-(Exact argument name may vary by release — check the `MagewireServiceProvider` constructor.)
 
 **2. Render the bridge script** — `view/frontend/layout/default_hyva.xml`:
 
@@ -117,8 +116,8 @@ Hyvä already dispatches its own flash messages via `dispatchMessages()`. Bridge
 
 ```html
 <?php
-$fragment = $block->getData('view_model')->utils()->template()->fragment();
-$script = $fragment->script()->start();
+$fragment = $block->getData('view_model')->utils()->fragment();
+$script = $fragment->make()->script()->start();
 ?>
 <script>
     window.addEventListener('magewire:flash-messages:dispatch', event => {
@@ -136,7 +135,7 @@ Fragments handle CSP nonce/hash injection — never emit raw `<script>` tags.
 - Editing Magewire's base layout XML in place (patches break on upgrade).
 - Emitting raw `<script>` / `<style>` tags instead of using [fragments](../concepts/fragments.md).
 - Referencing theme-specific FQCNs from inside Magewire core — they belong in the compatibility module.
-- Using `<referenceBlock>` where `<referenceContainer>` is the documented extension point — it replaces rather than adds.
+- Assuming `referenceBlock` replaces a block or `referenceContainer` is inherently additive. Both reference an existing layout node; child addition and template/argument changes determine the result. Follow the node and pattern used by the current first-party package.
 - Shipping theme modules separately from the themes they compat with, without a `<sequence>` declaration.
 
 ## Related

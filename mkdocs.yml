@@ -126,6 +126,7 @@ nav:
       - 'pages/essentials/testing.md'
   - 'Features':
       - 'pages/features/alpine.md'
+      - 'pages/features/lazy-loading.md'
 #      - 'pages/features/magewire-flakes.md'
       - 'pages/features/magewire-template-directives.md'
       - 'pages/features/notifications.md'
@@ -170,6 +171,8 @@ nav:
     - 'pages/admin/building-admin-components.md'
     - 'pages/admin/rate-limiting.md'
   - 'Advanced':
+    - 'pages/advanced/application-container.md'
+    - 'pages/advanced/request-filters.md'
     - 'pages/advanced/best-practices.md'
     - 'pages/advanced/patterns.md'
     - 'pages/advanced/performance.md'
@@ -184,6 +187,7 @@ nav:
         - 'Addons':
             - 'pages/advanced/javascript/addons/magewire-notifier.md'
         - 'Utilities':
+            - 'pages/advanced/javascript/utilities/cookie.md'
             - 'pages/advanced/javascript/utilities/dom.md'
             - 'pages/advanced/javascript/utilities/loader.md'
             - 'pages/advanced/javascript/utilities/str.md'
@@ -199,6 +203,7 @@ nav:
             - 'pages/advanced/architecture/mechanisms/resolvers.md'
             - 'pages/advanced/architecture/mechanisms/handle-components.md'
             - 'pages/advanced/architecture/mechanisms/handle-requests.md'
+            - 'pages/advanced/architecture/mechanisms/handle-compiling.md'
             - 'pages/advanced/architecture/mechanisms/frontend-assets.md'
         - 'pages/advanced/architecture/layout.md'
         - 'pages/advanced/architecture/portman.md'

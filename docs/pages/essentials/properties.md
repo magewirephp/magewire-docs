@@ -1,6 +1,6 @@
 # Properties
 
-{{ include("admonition/livewire-reference.md", reference_url="https://livewire.laravel.com/docs/properties") }}
+{{ include("admonition/livewire-reference.md", reference_url="https://livewire.laravel.com/docs/3.x/properties") }}
 
 ## Template access
 

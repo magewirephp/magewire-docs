@@ -102,8 +102,7 @@ both:
 </type>
 ```
 
-This is exactly how the rate-limiting feature plugs in: it binds its `TooManyRequestsException` to a
-handler that returns a `429` response on update requests. See [Rate Limiting](../features/rate-limiting.md).
+Rate limiting returns a 429 through a specific handler. Since Magewire 3.5, request-scoped throttling rejects through the request-filter pipeline before reconstruction, while component-scoped throttling can still reject later in the component lifecycle. See [Rate Limiting](../features/rate-limiting.md) and [Request Filters](request-filters.md).
 
 ## The error placeholder template
 

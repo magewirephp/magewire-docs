@@ -1,48 +1,44 @@
 # Rate Limiting
 
-`SupportMagewireRateLimiting` caps the number of requests a component accepts over a sliding window. The feature is on by default and configured from Magento admin.
+Magewire can throttle update traffic with a cache-backed sliding window. It is **disabled by default** and configured at:
 
-## Why it exists
-
-Every public method on a component is a public HTTP endpoint. Without a rate limit:
-
-- A brute-force attacker can submit a login form thousands of times per second.
-- A malformed client can flood the server with `wire:poll` ticks.
-- A runaway Alpine loop can trigger `$wire.set()` in an infinite loop.
-
-Rate limiting caps all of that at the framework level — before the action runs.
-
-## Configuration
-
-```
-Stores → Configuration → Advanced → Magewire → Rate Limiting
+```text
+Stores → Configuration → Advanced → Magewire → Features → Rate Limiting
 ```
 
-The configuration is shared across the storefront and admin.
+Public component methods still require authorization and input validation. Rate limiting limits volume; it does not make an unsafe action secure.
 
-| Setting | Meaning |
-|---|---|
-| Variant | Which rate-limiting strategy to apply (source: `RateLimitingVariant`). |
-| Requests → Scope | `shared` (one bucket across all components per session) or `isolated` (per-component bucket). Source: `RequestsScope`. |
-| Requests → Max Attempts | Maximum number of requests allowed within the decay window. |
-| Requests → Decay Seconds | Time window in seconds after which the attempt counter resets. |
+## Variants
 
-Global settings take precedence over any component-specific limits when both are configured.
+The variants are mutually exclusive:
 
-## Per-component override
+| Variant | Enforcement | Budget |
+|---|---|---|
+| None | No rate limiting. This is the default. | — |
+| Requests only | Runs once in the 3.5 request-filter pipeline, before component reconstruction. | Configurable maximum and decay window. |
+| Components only | Runs for each reconstructed component. | Fixed at 4 attempts per 5 seconds in Magewire 3.5. |
 
-A component can declare tighter limits via DI on `Magewirephp\Magewire\Features\SupportMagewireRateLimiting\UpdateRequestRateLimiter` — see the class and its cache-backed storage (`RateLimiterCacheStorage`) for the current API surface.
+The component variant currently has no per-component attribute or configurable component-specific budget. The admin field description may suggest otherwise, but the 3.5 runtime uses the fixed budget above.
 
-## What the user sees
+## Request scope
 
-By default, rate-limited requests return an error notification (storefront) or an admin-style toast (admin). The exact rendering is theme-scoped — see [Admin rate limiting](../admin/rate-limiting.md) for the admin path and customise the template per theme if needed.
+For the request variant:
 
-## Observability
+- **Shared** uses one budget for the request fingerprint. A bundled request consumes one attempt regardless of component count.
+- **Isolated** maintains a budget per component identifier. Each component in a bundled request consumes its own attempt, and one exhausted component rejects the request.
 
-Rate-limit events are logged. Check `var/log/system.log` for `MagewireRateLimit` entries. In log-only mode, hitting the limit logs without rejecting — useful while tuning thresholds.
+`Max Attempts` and `Decay Seconds` configure the sliding window for this variant.
+
+Rate limiting is always evaluated in production mode. In default or developer mode it is skipped unless **Enable in Developer Mode** is set to Yes.
+
+## Rejection behavior
+
+A rejected request receives HTTP 429. Magewire's request-filter bridge marks its short customer-facing message with `X-Magewire-Message-Severity`, allowing a theme notifier—or a browser alert fallback—to present it safely. Generic server error bodies and stack traces do not receive that marker.
+
+The core feature does not provide a log-only mode and does not write special `MagewireRateLimit` entries. Use your infrastructure metrics, Magento logging extension, or a custom request filter when additional observability is required.
 
 ## Related
 
+- [Request Filters](../advanced/request-filters.md)
 - [Actions](../essentials/actions.md)
 - [Security](../advanced/security.md)
-- [Admin rate limiting](../admin/rate-limiting.md)

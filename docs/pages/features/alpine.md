@@ -1,10 +1,12 @@
 # Alpine
 
-{{ include("admonition/livewire-reference.md", reference_url="https://livewire.laravel.com/docs/offline") }}
+{{ include("admonition/livewire-reference.md", reference_url="https://livewire.laravel.com/docs/3.x/alpine") }}
 
 ## Single Alpine bundle
 
-Magewire ships Alpine.js bundled into its own JavaScript build. Do **not** load a second Alpine — two Alpine instances clash on directive registration and `$store` identity.
+Magewire ships Alpine.js in its browser build. Two independently started Alpine instances clash on directive registration and `$store` identity, so asset coordination belongs to the theme compatibility package.
+
+The maintained Hyvä package wraps Hyvä's Alpine block: a page containing Magewire components uses Magewire's bundled Alpine, while a page without them can fall back to Hyvä's copy. Do not remove or override the theme's Alpine assets globally; follow the integration package's layout strategy.
 
 ## CSP build
 
@@ -18,7 +20,7 @@ The bundled build is the CSP variant: it evaluates directive expressions without
 | `magewire:init` | `Magewire.hook()` — commit, request, morph hooks |
 | `magewire:initialized` | `Magewire.directive()` — custom `mage:*` directives |
 
-Always pass `{ once: true }` — Magewire may re-fire init events across SPA navigations.
+Use `{ once: true }` for one-time global registrations.
 
 ## Registering through layout containers
 

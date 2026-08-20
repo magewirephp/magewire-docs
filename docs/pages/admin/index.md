@@ -31,4 +31,4 @@ Install `magewire-admin` when you want to build admin components — grids that 
 - [Installation](installation.md)
 - [How it works](how-it-works.md) — architecture detail.
 - [Building admin components](building-admin-components.md) — layout XML, area scoping.
-- [Rate limiting](rate-limiting.md) — admin-specific template and configuration.
+- [Rate limiting](rate-limiting.md) — current core behavior and companion-package compatibility note.

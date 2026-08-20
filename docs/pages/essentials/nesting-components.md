@@ -1,6 +1,6 @@
 # Nesting Components
 
-{{ include("admonition/livewire-reference.md", reference_url="https://livewire.laravel.com/docs/nesting") }}
+{{ include("admonition/livewire-reference.md", reference_url="https://livewire.laravel.com/docs/3.x/nesting") }}
 
 ## Layout XML
 
@@ -50,6 +50,6 @@ Use `$block->getChildHtml('alias')` from the parent template. Each child emits i
 
 For dynamically-created child blocks, generate them in `mount()` or a hook with unique `name` / `as` aliases.
 
-## Flakes
+## Lightweight composition
 
-A child without full component isolation belongs as a [Flake](../features/magewire-flakes.md).
+Use normal Magento child blocks when a child does not need its own Magewire snapshot. Flakes are present as experimental source but are not a stable documented API in the current release.

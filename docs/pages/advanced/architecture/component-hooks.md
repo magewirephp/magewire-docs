@@ -138,7 +138,7 @@ Emitted on the JS side and available via `Magewire.hook(…)`:
 
 ## Magento Observer bridge
 
-For listeners that do not need closure-based middleware semantics, Magewire re-emits lifecycle events as Magento observer events prefixed `magewire_on_`. Dots in the event name become underscores (`magewire:construct` → `magewire_on_construct`).
+For listeners that prefer Magento's observer system, Magewire re-emits an explicit lifecycle map with the prefix `magewire_on_`. Non-alphanumeric characters become underscores (`magewire:component:construct` → `magewire_on_magewire_component_construct`).
 
 ```xml title="etc/frontend/events.xml"
 <event name="magewire_on_render">

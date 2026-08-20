@@ -11,10 +11,11 @@ consistent, and maintainable.
 While waiting for Magewire to initialize, you can import any function from the global Magewire object.
 
 ```js
-document.addEventListener('magewire:init', event => {
-    // This shows only a small subset of available options.
-    const { addons, utilities, dispatch, on } = event.detail.magewire;
-});
+document.addEventListener('magewire:init', () => {
+    const magewire = window.Magewire;
+    const addons = window.MagewireAddons;
+    const utilities = window.MagewireUtilities;
+}, { once: true });
 ```
 
 ## AlpineJS Function Proxy
@@ -29,7 +30,7 @@ This pattern lets you proxy the function regardless of DOM script order.
     function magewireNotifier() {
         'use strict';
     
-        const notifier = Magewire.addons.notifier;
+        const notifier = window.MagewireAddons.notifier;
     
         return {
             terminate: function() {

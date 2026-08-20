@@ -2,7 +2,7 @@
 
 !!! tip "Fragments can also be used outside Magewire components!"
 
-A **Fragment** is an explicitly-scoped slice of output — a region of a template or a string of rendered HTML — that Magewire can validate, enhance, and transform before it reaches the browser. Fragments are the plumbing behind Magewire's CSP support, developer-mode annotations, Flakes, and any other feature that needs a second pass over inline markup.
+A **Fragment** is an explicitly-scoped slice of output—a region of a template or a string of rendered HTML—that Magewire can validate, enhance, and transform before it reaches the browser. Fragments underpin Magewire's CSP support, developer-mode annotations, and other features that need a second pass over inline markup.
 
 Think of a fragment as a typed buffer: you tell Magewire *what kind of output this is* (a `<script>`, a `<style>`, arbitrary HTML, a JS literal), and Magewire runs the registered validators and modifiers for that type.
 
@@ -51,7 +51,7 @@ Available on `FragmentFactory` (and therefore on `$viewModel->utils()->fragment(
 | `style()` | `Fragment\Style` | Inline `<style>` tag. |
 | `javascript()` | `Fragment\Javascript` | A raw JavaScript literal (not wrapped in `<script>`). |
 | `component($block)` | `Fragment\Component` | Wraps a Magewire component's rendered root for morph-safe boundaries. |
-| `custom('name')` | registered via DI | Typed fragment for feature-specific output (Flakes use this). |
+| `custom('name')` | registered via DI | Typed fragment for feature-specific output. |
 
 ### HTML fragment — decorating a rendered block
 
@@ -230,14 +230,14 @@ Register it on `Magewirephp\Magewire\Model\View\Fragment\Script` with a sort ord
 
 ## Custom fragment types
 
-The `FragmentFactory` supports user-registered types. This is how `SupportMagewireFlakes` introduces a `flake` fragment without touching core:
+The `FragmentFactory` supports user-registered types. Register the project-specific fragment class through DI:
 
 ```xml
 <type name="Magewirephp\Magewire\Model\View\FragmentFactory">
     <arguments>
         <argument name="types" xsi:type="array">
-            <item name="flake" xsi:type="string">
-                Magewirephp\Magewire\Features\SupportMagewireFlakes\View\Fragment\FlakeFragment
+            <item name="vendor_panel" xsi:type="string">
+                Vendor\Module\Magewire\Fragment\Panel
             </item>
         </argument>
     </arguments>
@@ -247,9 +247,9 @@ The `FragmentFactory` supports user-registered types. This is how `SupportMagewi
 In a template:
 
 ```php
-<?php $flake = $viewModel->utils()->fragment()->make('flake')->start() ?>
-    <!-- flake markup -->
-<?php $flake->end() ?>
+<?php $panel = $viewModel->utils()->fragment()->make('vendor_panel')->start() ?>
+    <!-- panel markup -->
+<?php $panel->end() ?>
 ```
 
 Your class must extend `Magewirephp\Magewire\Model\View\Fragment` (or `Fragment\Html` for attribute support). Add validators in `start()`, expose typed getters for modifiers to read, and register per-type modifiers via the same DI shape shown above.
@@ -284,7 +284,7 @@ Good candidates:
 - Inline `<script>` or `<style>` that needs CSP compliance without hand-rolled nonces.
 - Any rendered region you want to annotate in developer mode (devtools-friendly data attributes, profiling hooks).
 - A region whose final markup depends on something you cannot know until after render (an FPC-cached vs uncached branch, a nonce from the page config, a hash computed from output).
-- A feature that needs to hand rendered HTML to another subsystem (Flakes → compiler, slots → layout tree).
+- A feature that needs to hand rendered HTML to another subsystem.
 
 When a plain `echo` is fine:
 
@@ -293,5 +293,4 @@ When a plain `echo` is fine:
 
 ## Related
 
-- [Magewire Flakes](../features/magewire-flakes.md) — a feature built entirely on top of custom fragment types.
 - [Security](../advanced/security.md) — why the CSP modifier exists.

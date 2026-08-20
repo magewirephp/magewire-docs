@@ -1,6 +1,6 @@
 # Hydration
 
-{{ include("admonition/livewire-reference.md", reference_url="https://livewire.laravel.com/docs/hydration") }}
+{{ include("admonition/livewire-reference.md", reference_url="https://livewire.laravel.com/docs/3.x/hydration") }}
 
 ## Update endpoint
 

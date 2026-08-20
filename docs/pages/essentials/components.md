@@ -1,6 +1,6 @@
 # Components
 
-{{ include("admonition/livewire-reference.md", reference_url="https://livewire.laravel.com/docs/components") }}
+{{ include("admonition/livewire-reference.md", reference_url="https://livewire.laravel.com/docs/3.x/components") }}
 
 ## Creating components
 

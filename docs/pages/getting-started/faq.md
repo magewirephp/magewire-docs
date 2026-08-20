@@ -51,7 +51,7 @@ Active development on this project has ceased, meaning no new features will be a
 
 Merge requests are still welcome, and bug fixes may be addressed depending on the time investment required.
 
-Security updates will continue to be applied until **January 1st, 2026.**
+The announced security-maintenance window ended on **January 1, 2026**. Magewire V1 is now unsupported. Upgrade to Magewire 3 and report suspected vulnerabilities privately according to the current repository security policy.
 
 ## Are All Features from V1 Already Available in V3?
 
@@ -68,9 +68,7 @@ we encourage you to troubleshoot them yourself or reach out for support on our D
 
 ## Can Magewire Be Used with the Luma Theme?
 
-Magewire has been specifically designed to be Hyvä-first, meaning it works seamlessly with the Hyvä theme right out of the box.
-
-That said, thanks to its flexible architecture, Magewire can also be made compatible with other themes. In fact, it has already been made compatible with the admin panel.
+Magewire core is theme-agnostic. The maintained `magewirephp/magewire-hyva-theme` companion package provides Hyvä support, while other storefront themes need their own integration for asset loading and frontend behavior. The separate `magewirephp/magewire-admin` package covers Magento's admin area.
 
 ## Will Hyvä Checkout Use Magewire V3?
 

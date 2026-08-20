@@ -1,52 +1,65 @@
 # Testing
 
-!!! info "Magewire's test coverage is currently limited, focusing primarily on Playwright tests. We plan to expand testing in the future to include unit tests and other test types as needed."
+Magewire uses complementary checks rather than relying on browser tests alone:
+
+- PHPUnit covers isolated PHP behavior such as the application container and registries.
+- Playwright exercises Magewire in a running Magento storefront.
+- The production-build matrix installs Magewire into supported Magento Open Source and Mage-OS versions and runs `setup:di:compile`.
+- Static analysis and formatting workflows cover the PHP source separately.
+
+## Unit tests
+
+From a Magewire source checkout with Composer dependencies installed:
+
+```shell
+phpunit --bootstrap vendor/autoload.php --do-not-cache-result tests/Unit
+```
+
+The repository workflow currently runs this suite on PHP 8.2. Application modules can use their own PHPUnit integration and mock component dependencies as normal Magento services.
 
 ## Playwright
 
-Playwright is an open-source automation library developed by Microsoft for testing and automating web applications.
-It enables developers to write reliable end-to-end tests by simulating user interactions across multiple browsers,
-including Chromium, Firefox, and WebKit. Playwright supports various programming languages like JavaScript, TypeScript,
-Python, and C#, and provides features such as auto-waiting, network interception, and mobile emulation.
-It is widely used for ensuring web application functionality and performance.
+The browser suite requires a Magento installation with sample data and Magewire's Playwright fixtures enabled.
 
-### Requirements
+From the Magewire source checkout:
 
-Before we start, make sure you have the following installed:
+```shell
+cd tests/Playwright
+npm install
+```
 
-- Magewire 3.0.0 or later
-- Magento version 2.4.4 or later
+Create `tests/Playwright/.env`:
 
-### Installation
+```dotenv
+BASE_URL=https://local.test/
+ENVIRONMENT=local
+ACCOUNT_FIRSTNAME=Veronica
+ACCOUNT_LASTNAME=Costello
+ACCOUNT_EMAIL=roni_cost@example.com
+ACCOUNT_PASSWORD=roni_cost3@example.com
+```
 
-1. CD into the Playwright test folder
-   ```shell
-   cd vendor/magewirephp/magewire/tests/Playwright
-   ```
+Run the suite or open Playwright's interactive UI:
 
-2. Install all dev-dependencies
-   ```sh
-   npm install
-   ```
+```shell
+npm run test
+npm run test:ui
+```
 
-3. Create a `.env` config file in the root `Playwright` folder using the following variables:
-   ```text
-   BASE_URL=https://local.test/
-   
-   ENVIRONMENT=local
-   ACCOUNT_FIRSTNAME=Veronica
-   ACCOUNT_LASTNAME=Costello
-   ACCOUNT_EMAIL=roni_cost@example.com
-   ACCOUNT_PASSWORD=roni_cost3@example.com
-   ```
-   _Set the `BASE_URL` value with the `base-url` of your Magento instance._
+Do not commit real customer credentials or a local `.env` file.
 
-4. Run tests
-   ```sh
-   npm run test
-   ```
+## Compatibility matrix
 
-5. Run tests manually (optional)
-   ```sh
-   npx playwright test --ui
-   ```
+Magewire 3.5's production workflow verifies these representative builds:
+
+| Distribution | Release | PHP |
+|---|---:|---:|
+| Magento Open Source | 2.4.6-p15 | 8.2 |
+| Magento Open Source | 2.4.7-p10 | 8.3 |
+| Magento Open Source | 2.4.8-p5 | 8.4 |
+| Magento Open Source | 2.4.9 | 8.5 |
+| Mage-OS | 1.3.1 | 8.2 |
+| Mage-OS | 2.3.0 | 8.4 |
+| Mage-OS | 3.2.0 | 8.5 |
+
+This matrix demonstrates tested combinations, not every theoretically installable permutation. Check the workflow in the tag you deploy.

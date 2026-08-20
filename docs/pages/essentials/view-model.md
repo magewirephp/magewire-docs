@@ -140,10 +140,10 @@ Helpers for working with child blocks and rendering blocks as containers:
 ## Adding your own utility
 
 The utilities collection is extensible. Register a custom utility (implementing `UtilsInterface`) via
-DI, then reach it by name through `utils()`:
+DI, then reach it by its generated accessor through `utils()`:
 
 ```php
-$viewModel->utils('myUtility');
+$viewModel->utils()->myUtility();
 ```
 
 This keeps project-specific template helpers in one predictable place instead of scattered custom
