@@ -1,13 +1,17 @@
-### 1. Create a Component class
+### 1. Create the component class
 
-Create a new component class:
+Create the component below inside your Magento module:
 
-```php title="File: Magewire/Counter.php"
+```php title="Magewire/Counter.php"
 <?php
+
+declare(strict_types=1);
 
 namespace Vendor\Module\Magewire;
 
-class Counter extends \Magewirephp\Magewire\Component
+use Magewirephp\Magewire\Component;
+
+class Counter extends Component
 {
     public int $count = 0;
 
@@ -18,53 +22,53 @@ class Counter extends \Magewirephp\Magewire\Component
 }
 ```
 
-**Note:** It is advisable to keep your components inside the `Magewire` root directory of your module,
-either as direct children or nested within subdirectories.
+Public properties hold the component state. Public methods can be called from the template, so treat their arguments as
+untrusted input and perform the same validation and authorization you would use in a controller.
 
-### 2. Create a Template File
+### 2. Create the template
 
-Now, create the corresponding template file:
+The corresponding template reads state through the injected `$magewire` variable:
 
-```html title="File: view/frontend/templates/magewire/counter.phtml"
+```php title="view/frontend/templates/magewire/counter.phtml"
 <div>
-    Counter: <?= $magewire->count ?>
-    
-    <button wire:click="increment">
-        Increase
+    <span>
+        <?= $escaper->escapeHtml(__('Counter: %1', $magewire->count)) ?>
+    </span>
+
+    <button type="button" wire:click="increment">
+        <?= $escaper->escapeHtml(__('Increase')) ?>
     </button>
 </div>
 ```
 
-**Note:** Every Magewire component binds its state to the first HTML element in its template.
-This means you must always wrap your component's content in a root HTML element,
-such as a `<div>`, to ensure proper functionality.
+Every component template must have one root HTML element. Magewire attaches the component snapshot to that element and
+morphs its contents after an update.
 
-### 3. Inject onto a page
+### 3. Bind it in layout XML
 
-To render the component, add the following to your layout handle:
+Add a block to the layout handle where the component should appear:
 
-```xml title="File: view/frontend/layout/page_handle.xml"
-<referenceBlock name="content">
-    <block name="counter.block" template="Vendor_Module::magewire/counter.phtml">
+```xml title="view/frontend/layout/page_handle.xml"
+<referenceContainer name="content">
+    <block name="vendor.module.counter"
+           template="Vendor_Module::magewire/counter.phtml">
         <arguments>
             <argument name="magewire" xsi:type="object">
                 Vendor\Module\Magewire\Counter
             </argument>
         </arguments>
     </block>
-</referenceBlock>
+</referenceContainer>
 ```
 
-**Note:** This is the standard method for injecting a Magewire component into your page.
-However, alternatives exist through component resolvers, allowing more flexible integration.
-You can even create a custom resolver to fit specific requirements.
+The built-in layout resolver turns the block's `magewire` argument into the component instance. Custom resolvers are
+available for integrations that cannot use this standard block-and-argument shape.
 
-### 4. Test it out
+### 4. Clear layout caches and try it
 
-<img src="/images/counter.gif" alt="Counter" style="border-radius: 15px">
-
-Clear the Magento cache and navigate to the relevant page:
-
-```sh
-bin/magento cache:flush
+```shell
+bin/magento cache:clean layout full_page
 ```
+
+Open the page represented by the layout handle. Clicking **Increase** sends a Magewire update request, calls
+`increment()`, renders the template again, and morphs the changed counter into the existing DOM.

@@ -1,62 +1,51 @@
 # Basics
 
-Just getting started with Magewire and want to learn the basics? This page will help you kickstart your development journey!
+A Magewire component combines a PHP class with a `.phtml` template. Magento layout XML places the component on a page;
+Magewire then keeps its public state and the rendered DOM synchronized across update requests.
 
-!!! tip "Don’t miss our Notables—a collection of helpful, nice-to-know examples that go beyond the basics."
+Before continuing, install and enable Magewire as described on the [documentation home page](../../index.md).
 
-## Layout XML
+## Build a counter
 
-The primary method for converting a block into a dynamic Magewire component is by defining the `magewire` block argument
-and assigning it a component object using the `layout` resolver.
+The following example creates a complete component, binds it to a Magento block, and calls a PHP action from the
+browser.
 
-!!! tip "Refer to the [Resolvers](../advanced/architecture/mechanisms/resolvers.md) section for a deeper understanding of how components are bound to blocks."
+{{ include("create-a-component.md") }}
 
-### Arguments
+## The request cycle
 
-Since Magewire V3, you can pass arguments to components via block data using the magewire prefix,
-followed by either a dot `.` or a colon `:` separator.
+The counter demonstrates Magewire's normal request cycle:
 
-- Use `magewire.` for individual component property values.
-- Use `magewire:` for grouped arguments.
+1. Magento renders the layout block and component template.
+2. Magewire serializes the component's public state into a signed snapshot.
+3. `wire:click="increment"` sends that snapshot and the requested action to the Magewire update route.
+4. Magewire reconstructs the component, calls `increment()`, and renders the template again.
+5. The browser processes the response and morphs only the changed DOM.
+
+Component snapshots are browser-visible data. Never put secrets in public properties, and always authorize sensitive
+actions on the server.
+
+## Passing initial values from layout XML
+
+Use a `magewire.` argument for a public property and a `magewire:mount:` argument for a named `mount()` parameter:
 
 ```xml
-<block name="counter" template="Example_Module::magewire/counter.phtml">
-    <arguments>
-        <argument name="magewire" xsi:type="object">
-            ...
-        </argument>
-        
-        <!-- Single public $foo property value assignment. -->
-        <argument name="magewire.foo" xsi:type="string">
-            baz
-        </argument>
-        
-        <!-- Grouped for specific purposes like the "mount" or "boot" method. -->
-        <argument name="magewire:mount:start" xsi:type="number">
-            19
-        </argument>
-    </arguments>
-</block>
+<argument name="magewire.label" xsi:type="string">Items</argument>
+<argument name="magewire:mount:start" xsi:type="number">19</argument>
 ```
-
-!!! warning "Adding arguments to the `mount` method via layout XML should not be mistaken for standard dependency injection used in the `__construct` method."
-
-The component looks like:
 
 ```php
-<?php
+public string $label = 'Counter';
 
-class Counter extends \Magewirephp\Magewire\Component
+public function mount(int $start = 0): void
 {
-    // Value of $foo becomes "baz" thanks to the "magewire.foo" XML argument.
-    public string $foo = 'bar';
-    
-    public int $count = 0;
-    
-    public function mount(int $start = 1337)
-    {
-        // Value of $count becomes "19" thanks to the "magewire:mount:start" XML arguments.
-        $this->count = $start;
-    }
+    $this->count = $start;
 }
 ```
+
+The layout resolver converts kebab-case argument names to camelCase. For example,
+`magewire:mount:page-size` is passed as `$pageSize`.
+
+See [Components](../essentials/components.md) for every supported binding shape and argument group. Continue with
+[Properties](../essentials/properties.md), [Actions](../essentials/actions.md), and the
+[HTML directives](../html-directives/wire-click.md) when you are ready to add real behavior.

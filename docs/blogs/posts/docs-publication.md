@@ -27,9 +27,12 @@ The beta code itself is planned for release by June 1st. I just need a few more 
 
 ## A Work in Progress (Literally)
 
-Let me be upfront: the documentation is still very much a work in progress.
+At publication, the documentation was still very much a work in progress and contained visible placeholder tags for
+sections that needed attention.
 
-You’ll see a few `WIP...` tags sprinkled throughout. These are simply placeholders and reminders for myself—sections that still need attention.
+!!! note "August 2026 update"
+    Those placeholders have since been replaced with reviewed content. The wording above is retained to preserve the
+    context in which this publication announcement was written.
 
 ## Why This Release Matters
 

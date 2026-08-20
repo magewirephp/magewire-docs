@@ -1,147 +1,89 @@
 # Documentation
 
-Magewire is heavily inspired by Livewire, and as a result, most of its core functionality works in the same way.
-For this reason, all essential documentation can be found in the official [Livewire documentation](https://livewire.laravel.com/docs/3.x/quickstart).
+Magewire is built around Livewire 3 concepts and reuses a substantial part of its runtime. The
+[Livewire 3 documentation](https://livewire.laravel.com/docs/3.x/quickstart) is therefore the canonical explanation for
+shared concepts such as properties, actions, morphing, and most `wire:` directives.
 
-The Magewire documentation primarily focuses on Magento-specific implementations, custom features,
-and additional explanations that are either missing from the Livewire docs or are not relevant due to platform differences.
-
-If you're looking for a deeper understanding of how Magewire works under the hood, we highly recommend referring to the
-Livewire 3 documentation alongside this guide. Links are pinned to `/docs/3.x/` deliberately: the unversioned Livewire documentation describes the latest major version and may not match Magewire 3.
+These Magewire docs complement that reference with Magento integration, Magewire-specific features, supported
+boundaries, and differences from Livewire. Links are pinned to `/docs/3.x/` because unversioned Livewire pages can move
+to a later major version that does not describe Magewire 3.
 
 ## Compatibility boundary
 
-The Magewire repository contains ported upstream classes so updates can remain traceable, but source presence alone does not mean a feature is active. Runtime registration and Magewire's public component API determine support.
+The Magewire repository contains ported upstream classes so changes remain traceable, but the presence of a class in
+the source tree does not by itself make a feature supported. Runtime registration, Magewire's public component API,
+tests, and released companion packages determine the supported surface.
 
-| Documentation says | Interpretation |
+| Documentation label | Meaning |
 |---|---|
-| Livewire reference | The linked Livewire 3 concept applies, with local differences described on the Magewire page. |
-| Magewire specific | The behavior is implemented by Magewire or its named companion package. |
-| Experimental | The API or behavior can change and should not be treated as stable production support. |
+| Livewire reference | The linked Livewire 3 behavior applies; the local page describes Magewire differences. |
+| Magewire specific | Magewire or the named companion package implements the behavior. |
+| Experimental | The behavior exists, but its API or integration is not stable enough for a production promise. |
+| Unsupported | Upstream code may be present, but Magewire does not currently document the feature as usable. |
 
-Laravel-specific integrations and Livewire capabilities that Magewire does not register are outside the compatibility promise. When these docs and the current Magewire source disagree, the tagged source is authoritative and the documentation should be corrected.
+Laravel services and integrations that Magewire does not register remain outside this compatibility promise. If these
+docs and a tagged Magewire release disagree, the tagged source is authoritative and the docs should be corrected.
 
-## Disclaimer
+## Documentation structure
 
-These docs are written based on the knowledge and experience we had at the time of writing.
-
-If you notice anything incorrect, unclear, in need of expansion, or outdated, feel free to open a pull request.
-We’ll review it as soon as possible.
-
-## Tone of Voice
-
-The tone of voice should always be professional, clear, and inclusive. We write from a "we" perspective
-rather than an "I" perspective to reflect a collaborative effort.
-
-Since these docs are primarily aimed at developers, we use a direct and instructional tone when providing step-by-step guidance.
-Addressing the reader with "you" ensures clarity and engagement.
-
-**Key Principles:**
-
-- Clarity & Precision – Avoid ambiguity and unnecessary complexity. Be concise but thorough.
-- Consistency – Use a uniform tone and terminology throughout the documentation.
-- Respect & Inclusivity – We respect and welcome everyone. Our language should be neutral, inclusive, and non-discriminatory.
-- Empathy – If something is unclear or if our tone ever feels unwelcoming, we encourage feedback. Please let us know, and we will work to improve it.
-- Encouraging & Helpful – When explaining concepts, especially for beginners, be supportive and assume good intent.
-
-By following these guidelines, we aim to create documentation that is helpful, approachable, and professional for all developers.
-
-## Navigation
-
-The navigation structure has been mirrored from the Livewire 3 documentation, with a few additions.
-The goal is to keep things in sync, making content easier to navigate and understand.
-
-## Structure
-
-The Magewire documentation is intentionally structured in a way that closely follows the Livewire documentation.
-This has been done to create a sense of familiarity, making navigation more intuitive and helping users better
-understand how different concepts relate to each other. If you're already familiar with Livewire,
-you should find it easy to adapt to Magewire.
-
-To avoid unnecessary duplication, pages that exist in both the Magewire and Livewire documentation will always include
-a direct link to the corresponding Livewire page for quick access. The Magewire documentation will only contain
-additional information specific to Magewire, such as Magento-specific implementations, platform-specific limitations,
-and custom features.
+Navigation broadly follows the Livewire 3 documentation so developers familiar with Livewire can find the equivalent
+concept quickly. We avoid copying upstream manuals. A shared page contains the upstream reference followed only by
+Magewire-specific setup, examples, limitations, or migration notes.
 
 {{ include("admonition/livewire-reference.md", reference_url="#") }}
 
-We deliberately avoid copying and pasting content from the Livewire documentation. Instead, our goal is to complement
-it with details that are unique to Magewire, ensuring you get the most relevant and accurate information without redundancy.
+Magewire-only pages use a versioned marker:
 
-## Clarity
-
-We strive to keep this documentation as clean and clear as possible. This means that, in most cases, page titles will
-consist of a single word rather than a full sentence. Titles are carefully chosen to be self-explanatory,
-ensuring that readers can quickly understand the topic at a glance.
-
-The goal is to make navigation intuitive and to avoid unnecessary complexity. By keeping titles concise,
-it becomes easier to scan through the documentation and find the information you need without distractions.
-If a topic requires further clarification, the content of the page itself will provide the necessary details.
-
-## Contribute
-
-If you notice any missing details or information in this documentation, please refer to the [Contribution](contribute.md) section.
-We encourage everyone to contribute and help make the documentation as clear and accessible as possible for everyone.
-
-## Includes
-
-The following blocks are included as a preview of what to expect within these docs.
-
-**Livewire Concept**
-
-{{ include('admonition/livewire-concept.md') }}
-
-To indicate that the explanation pertains to Livewire.
-
-**Livewire Reference**
-{{ include("admonition/livewire-reference.md", reference_url="#") }}
-
-Magewire is heavily inspired by Livewire and, in many cases, works identically. As a result, rewriting the same
-documentation would not only require a significant time investment but also create confusion when changes occur in either project.
-
-Therefore, referring to the original Livewire documentation makes more sense.
-
-However, this does not mean that everything in the Livewire documentation applies to Magento.
-Some features are specific to Laravel, some may not make sense in the Magewire context, and others might be in
-development.
-
-**Magewire Experimental**
-{{ include("admonition/magewire-experimental.md") }}
-
-Magewire is an ambitious experiment with serious intentions. Some features should already be documented but require an
-experimental flag to indicate that they are subject to change and should not be used in a production environment.
-
-**Magewire Specific**
 {{ include("admonition/magewire-specific.md", since_version="3.0.0") }}
 
-For Magewire-specific features, we are introducing a "Magewire Specific" block. This serves as a clear indicator that
-the content applies specifically to Magewire and also displays the version in which the feature was introduced.
+Unstable behavior is marked explicitly:
 
-While version-specific documentation with a version selector could be an option in the future,
-we currently do not see an immediate need for it, and implementing it would be a significantly larger project.
+{{ include("admonition/magewire-experimental.md") }}
 
-## AI
+## Writing guidelines
 
-Writing good documentation is a skill in itself. An explanation can be technically accurate but may not always be clear, concise, or well-structured in terms of vocabulary and readability. To enhance the quality of our documentation, we use AI as an assistant, but with clear boundaries.
+Write for developers who understand Magento but may be new to Magewire:
 
-**Writing Guidelines:**
+- Lead with what the feature does and when to use it.
+- Prefer a small, runnable Magento example over abstract pseudocode.
+- Use `we` for project decisions and `you` for instructions to the reader.
+- Keep terminology, paths, namespaces, and version numbers consistent with the current release.
+- Explain platform-specific limits next to the behavior they affect.
+- Escape customer-visible output in `.phtml` examples and call out authorization boundaries for public actions.
+- Link to Livewire 3 for shared behavior instead of reproducing it.
 
-- AI as a Writing Aid, Not a Replacement – AI helps refine wording, improve clarity, and enhance readability. However, it does not replace human judgment or expertise.
-- Human Oversight is Essential – Every AI-generated suggestion must be reviewed and approved by a human to ensure it aligns with our documentation standards and intent.
-- No AI-Generated Code – AI should not be used to write the initial code examples. Code should be written by developers first, ensuring correctness, best practices, and relevance. AI may assist in refining or improving existing code, but all changes must be carefully reviewed by a developer.
-- Maintain Consistency – AI should be used to align tone and structure but must follow the established style and technical accuracy of the documentation.
+Concise pages are welcome when the upstream reference is complete, but a Magewire page should still answer why the
+topic is present and whether Magento changes how it is used.
 
-By using AI thoughtfully and responsibly, we ensure that our documentation remains human-centered, high-quality, and reliable while benefiting from AI-driven enhancements.
+## Source verification
 
-!!! info "Future Considerations: Automated Tone of Voice Checks"
-    We are exploring the possibility of implementing a GitHub action workflow that periodically reviews all Markdown
-    files within the pages folder. The goal is to ensure a consistent tone of voice throughout the entire documentation.
+Before documenting behavior, verify it in this order:
 
-    While this is not a priority at the moment, it remains a potential future improvement to maintain quality
-    and uniformity in our documentation.
+1. Check the latest tagged `magewirephp/magewire` source and release history.
+2. Confirm the Feature, Mechanism, directive, or hook is registered at runtime.
+3. Check tests and the generated browser bundle for the actual request-side behavior.
+4. Inspect the relevant companion repository for theme, checkout, or admin integrations.
+5. Compare with Livewire 3 only after establishing the Magewire boundary.
 
-This prompt can be used when requesting AI to refine and enhance a specific section of your writing.
+Do not infer support from a ported class, an old V1 example, or an internal comment alone.
+
+## Using AI as a writing aid
+
+AI can help improve structure and wording, but technical claims and code still require human review against the source.
+Do not ask a model to fill an unknown API from convention: mark the gap, investigate it, and document only what can be
+verified.
+
+A useful editing prompt is:
 
 ```text
-WIP...
+Review the following Magewire documentation for clarity, structure, and consistency.
+Preserve its technical meaning and Magento terminology. Do not invent APIs, support
+claims, version numbers, or code. Keep Livewire 3 as the reference for shared behavior
+and retain only Magewire-specific detail locally. Return the revised passage followed
+by a short list of statements that still need verification against source or tests.
 ```
+
+## Contributing
+
+If information is missing, unclear, or outdated, see [Contribute](contribute.md). A focused correction with a source,
+test, release, or reproducible example is especially helpful.

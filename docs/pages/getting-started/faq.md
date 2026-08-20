@@ -2,89 +2,87 @@
 
 ## What is Magewire?
 
-MagewirePHP brings the power of reactive, server-driven UI development to Magento 2—without writing JavaScript.
-Inspired by Laravel Livewire, MagewirePHP lets you build dynamic, interactive frontend components using only PHP,
-fully integrated with Magento’s architecture.
+Magewire is a server-driven UI framework for Magento 2. A component keeps its state and actions in PHP, renders through
+a Magento `.phtml` template, and updates the existing page through a small browser runtime.
 
-Whether you're creating real-time search, dynamic product forms, or interactive checkout steps, MagewirePHP enables a clean,
-component-based approach that stays true to Magento’s conventions while simplifying complex frontend behavior.
+Magewire follows Livewire 3 concepts while integrating component construction, templates, requests, and configuration
+with Magento.
 
-MagewirePHP helps you deliver modern UX experiences in Magento—faster, cleaner, and with less frontend overhead.
+## When is Magewire a good fit?
 
-## Why Use Magewire?
+Magewire is useful when an interaction is naturally owned by server-side Magento code but still needs a responsive UI:
+forms, selectors, configurators, cart tools, checkout steps, and account features are common examples.
 
-Apart from a few frameworks attempting to mimic Magewire's concept, it is a proven framework not only within the Magento community but,
-more importantly, within the Laravel community, where it has become one of the most widely used third-party frameworks.
+Use ordinary server-rendered blocks for static output and Alpine for state that exists only in the browser. Choose a
+Magewire component when the browser and PHP need to share state or invoke server-side behavior repeatedly without a full
+page reload.
 
-With approximately 3,000 weekly downloads of Magewire V1, Magewire V3 is poised to surpass that record.
+## How is Magewire versioned?
 
-## When Is Magewire the Right Choice?
+Magewire follows [semantic versioning](https://semver.org/), and its major version tracks Livewire's major version. That
+is why Magewire V2 was skipped. Companion packages adopt the Magewire major they support, so packages such as
+`magewirephp/magewire-hyva-theme` start their current line at `3.x`.
 
-Magewire doesn’t make sense everywhere, but with Magewire V3, it has become much more feature-rich.
-It no longer just makes blocks dynamic; it offers a variety of powerful features, making it a great choice in certain situations.
+See [Versioning](versioning.md) for the complete policy.
 
-We like to describe a Magewire component as a "View Model on steroids." While providing examples can be helpful,
-it might limit developers' creativity and detract from the curiosity we aim to foster.
+## What are the main differences between V1 and V3?
 
-If we offer a list of examples that doesn’t suit your needs, you might overlook the framework entirely.
-However, with just a little exploration, Magewire could be the perfect fit for your project.
+Magewire V3 is a substantial rewrite built much closer to Livewire 3. It has a modular Feature and Mechanism
+architecture, a new component resolver and request path, signed snapshots, a newer browser runtime, and different
+property-binding defaults.
 
-## What Are the Key Differences Between Magewire V1 and V3?
+It includes a backwards-compatibility layer for common V1 behavior, but it is not a drop-in replacement for every V1
+extension. See [V3 vs V1](v3-vs-v1.md) and the [Upgrade Guide](upgrade.md) before migrating custom components.
 
-Magewire V1 started as an experiment that quickly gained traction, especially after Hyvä embraced the framework for its products.
-Others soon followed, building filtering systems, configurators, and quick order components on top of it.
-Over time, a lot was built on the framework—despite it not being originally designed to support such a wide range of features.
+## Is Magewire V1 still supported?
 
-Magewire V3, however, is a different story. It has been developed with a structure much closer to Livewire V3,
-reusing a significant amount of its core code. A thin wrapper integrates it seamlessly into Magento,
-making upgrades easier and enabling a more modular approach to building new features.
+No. Feature development stopped earlier, and the announced security-maintenance window ended on **January 1, 2026**.
+V1 is now unsupported.
 
-Additionally, a custom router was introduced to improve performance, resulting in a notable ~33% performance gain.
+Upgrade to Magewire 3. Report suspected vulnerabilities privately according to the security policy in the current
+Magewire repository rather than opening a public issue with sensitive details.
 
-## How Is Magewire Versioned?
+## Does V3 contain every V1 feature?
 
-Magewire follows [semantic versioning](https://semver.org/), and its major version tracks Livewire's — which is why V2 was skipped. A `3.x` tag also covers subpackages that require Magewire V3, so packages like `magewirephp/magewire-hyva-theme` have no `1.x` or `2.x` line. See the [Versioning](versioning.md) page for the full explanation.
+There is no permanent one-to-one feature checklist: V3 replaces some V1 behavior, ports some through its compatibility
+layer, and deliberately leaves other internals behind. The commonly used component lifecycle and directive workflows
+are available, while custom V1 integrations may need to be redesigned.
 
-## What Will Happen to Magewire V1?
+Use [V3 vs V1](v3-vs-v1.md) for conceptual differences and the [Feature History](releases/feature-history.md) for the
+released V3 surface.
 
-Active development on this project has ceased, meaning no new features will be added.
+## Can I upgrade an existing V1 component?
 
-Merge requests are still welcome, and bug fixes may be addressed depending on the time investment required.
+Yes. The [Upgrade Guide](upgrade.md) covers namespace changes, lifecycle semantics, property binding, JavaScript hooks,
+and the optional backwards-compatibility attribute. Test the full interaction rather than only its initial render,
+because many V1/V3 differences appear during hydration and browser updates.
 
-The announced security-maintenance window ended on **January 1, 2026**. Magewire V1 is now unsupported. Upgrade to Magewire 3 and report suspected vulnerabilities privately according to the current repository security policy.
+Report reproducible framework defects through GitHub Issues. For implementation help, use the Magewire community
+support channels.
 
-## Are All Features from V1 Already Available in V3?
+## Can Magewire be used with Luma or another theme?
 
-At the time of writing, this is not yet the case. However, the most commonly used features are already available.
+Magewire core is theme-agnostic, but every storefront must load compatible frontend assets and integrate with its
+JavaScript and CSP setup. The maintained `magewirephp/magewire-hyva-theme` package provides Hyvä Theme support. Other
+themes need an equivalent integration where the core defaults are not sufficient.
 
-While there is never a perfect time to release V3, the current architecture makes porting features and ensuring compatibility easier than ever.
+Magento's admin area is supported separately through `magewirephp/magewire-admin`.
 
-## Can I Upgrade from Magewire V1 to V3?
+## Does Hyvä Checkout work with Magewire V3?
 
-Using the upgrade guide should get you most of the way there. However, you might still encounter some issues — in those cases,
-we encourage you to troubleshoot them yourself or reach out for support on our Discord.
+Yes. Install `magewirephp/magewire-hyva-checkout` for the Magewire 3 checkout integration. Legacy Hyvä Checkout
+components written for Magewire V1 may also need Magewire's backwards-compatibility behavior while they are migrated.
 
-*If you encounter any issues while upgrading, please report them via GitHub Issues.*
+See [Hyvä Checkout Backwards Compatibility](../theming/hyva-checkout-bc.md) for the current opt-in rules and migration
+guidance.
 
-## Can Magewire Be Used with the Luma Theme?
+## Can Magewire V1 and V3 run simultaneously?
 
-Magewire core is theme-agnostic. The maintained `magewirephp/magewire-hyva-theme` companion package provides Hyvä support, while other storefront themes need their own integration for asset loading and frontend behavior. The separate `magewirephp/magewire-admin` package covers Magento's admin area.
+No. They provide different versions of the same framework package and browser runtime. Migrate the installed component
+set together, using the compatibility layer only as a temporary bridge for V1-style behavior running on Magewire V3.
 
-## Will Hyvä Checkout Use Magewire V3?
+## Where can I find the V1 documentation?
 
-Magewire is an independent framework, with support from Hyvä through contributions to areas necessary for its products.
-
-Whether it will be officially supported is beyond our control, so we cannot make any guarantees or statements about that.
-
-## Can V1 and V3 run simultaneously?
-
-No, this is not possible. Magewire V3 is a complete rewrite, though it maintains backward compatibility where feasible.
-
-However, features that were specifically built for Magewire V1 will need to be updated to work with V3.
-
-The upgrade process shouldn't be difficult—just follow the steps outlined in the [Upgrade Guide](upgrade.md),
-which will help you migrate your code smoothly.
-
-## Where can I find the V1 Documentation?
-
-V1 documentation can be found [here](https://github.com/magewirephp/magewire/tree/1.13.1/docs)
+The archived V1 documentation is available in the
+[`1.13.3` source tree](https://github.com/magewirephp/magewire/tree/1.13.3/docs). It describes an unsupported release and
+should not be used as API documentation for Magewire 3.
