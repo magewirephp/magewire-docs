@@ -1,0 +1,121 @@
+# Magewire PHP
+
+> Magewire PHP Documentation
+
+Magewire is a reactive, full-stack component framework for Magento 2, inspired by Laravel Livewire. It lets developers build dynamic interfaces in PHP and PHTML without writing custom JavaScript.
+
+The complete documentation inlined into a single file is available at [https://docs.magewirephp.nl/llms-full.txt](https://docs.magewirephp.nl/llms-full.txt).
+
+## Getting Started
+- [Magewire PHP 3](https://docs.magewirephp.nl/index.html): Magewire brings reactive, server-driven components to Magento.
+- [Basics](https://docs.magewirephp.nl/pages/getting-started/basics.html): A Magewire component combines a PHP class with a .phtml template.
+- [Contribute](https://docs.magewirephp.nl/pages/getting-started/contribute.html): These docs are constantly evolving, requiring updates and improvements as the framework gains new features.
+- [Documentation](https://docs.magewirephp.nl/pages/getting-started/documentation.html): Magewire is built around Livewire 3 concepts and reuses a substantial part of its runtime.
+- [Examples](https://docs.magewirephp.nl/pages/getting-started/examples.html): Walkthroughs that build something real — and, where relevant, show what it takes to adapt a Livewire concept to Magento.
+- [Tutorial: Magento Flash Messages](https://docs.magewirephp.nl/pages/getting-started/examples/magento-flash-messages.html): This walkthrough does two things at once.
+- [FAQ](https://docs.magewirephp.nl/pages/getting-started/faq.html): Magewire is a server-driven UI framework for Magento 2.
+- [License](https://docs.magewirephp.nl/pages/getting-started/license.html): MagewirePHP is open-source software licensed under the MIT License.
+- [Notables](https://docs.magewirephp.nl/pages/getting-started/notables.html): Notables are brief, helpful insights that highlight useful context or nuances.
+- [Purpose](https://docs.magewirephp.nl/pages/getting-started/purpose.html): Magento has evolved over time, and certain aspects of its PHP architecture and development approach may not align with current trends.
+- [Roadmap](https://docs.magewirephp.nl/pages/getting-started/roadmap.html): Magewire's roadmap is intentionally conservative: tagged source describes what has shipped, while issues and pull requests describe work that may still change.
+- [Sponsoring](https://docs.magewirephp.nl/pages/getting-started/sponsoring.html): The purpose of open-source sponsorship should never be seen as begging for money.
+- [Upgrade](https://docs.magewirephp.nl/pages/getting-started/upgrade.html): This page covers upgrading from Magewire V1 to V3.
+- [Versioning](https://docs.magewirephp.nl/pages/getting-started/versioning.html): This page explains how Magewire is versioned, why V2 was skipped, and how the version numbers on Magewire's subpackages relate to the core framework.
+- [Magewire V3 vs V1 — what changed](https://docs.magewirephp.nl/pages/getting-started/v3-vs-v1.html): A high-level map of everything built for Magewire V3 relative to V1, organised by area.
+- [Feature History](https://docs.magewirephp.nl/pages/getting-started/releases/feature-history.html): This list found below provides an overview of newly introduced features across different versions.
+
+## Essentials
+- [Components](https://docs.magewirephp.nl/pages/essentials/components.html): Creating a basic Magewire component takes just a few minutes and requires only two or three files, depending on whether you already have a layout handle.
+- [View Model & Utilities](https://docs.magewirephp.nl/pages/essentials/view-model.html): Most templates need the same handful of helpers — a CSRF token, a CSP nonce, an environment check, a fragment builder.
+- [Properties](https://docs.magewirephp.nl/pages/essentials/properties.html): In the PHTML, the component instance is available as $magewire.
+- [Actions](https://docs.magewirephp.nl/pages/essentials/actions.html): Components extend Magewirephp\Magewire\Component; actions are public methods.
+- [Events](https://docs.magewirephp.nl/pages/essentials/events.html): Component events use Livewire 3's dispatch() and #[On] concepts.
+- [Lifecycle Hooks](https://docs.magewirephp.nl/pages/essentials/lifecycle-hooks.html): mount() receives magewire:mount: layout arguments as named parameters:
+- [Nesting Components](https://docs.magewirephp.nl/pages/essentials/nesting-components.html): Nest Magewire children under a parent block in layout XML:
+- [Backwards Compatibility](https://docs.magewirephp.nl/pages/essentials/backwards-compatibility.html): Magewire V3 is a full rewrite on top of Livewire V3, which changed a number of conventions from the V1 (Livewire V2) era.
+- [Testing](https://docs.magewirephp.nl/pages/essentials/testing.html): Magewire uses complementary checks rather than relying on browser tests alone:
+
+## Features
+- [Alpine](https://docs.magewirephp.nl/pages/features/alpine.html): Magewire ships Alpine.js in its browser build.
+- [Lazy Loading](https://docs.magewirephp.nl/pages/features/lazy-loading.html): Lazy components postpone mounting and rendering until the browser needs them.
+- [Template Directives](https://docs.magewirephp.nl/pages/features/magewire-template-directives.html): Magewire compiles component .phtml templates before rendering them.
+- [Notifications](https://docs.magewirephp.nl/pages/features/notifications.html): Notifications send toast-style messages from a component response to the registered notifier addon.
+- [Rate Limiting](https://docs.magewirephp.nl/pages/features/rate-limiting.html): Magewire can throttle update traffic with a cache-backed sliding window.
+- [Redirects](https://docs.magewirephp.nl/pages/features/redirects.html): A component action can send the browser to another URL by calling $this->redirect().
+- [Request Bundling](https://docs.magewirephp.nl/pages/features/request-bundling.html): Magewire collects component commits created in the same short browser window and sends compatible commits in one HTTP request.
+- [Offline States](https://docs.magewirephp.nl/pages/features/offline-states.html): Magewire listens for the browser's online and offline events.
+
+## Directives
+- [wire:click](https://docs.magewirephp.nl/pages/html-directives/wire-click.html): Use wire:click to call a public component method when an element is clicked:
+- [wire:submit](https://docs.magewirephp.nl/pages/html-directives/wire-submit.html): Attach wire:submit to a form to prevent the normal browser submission and call a component action.
+- [wire:model](https://docs.magewirephp.nl/pages/html-directives/wire-model.html): wire:model binds a form control to a public component property:
+- [wire:loading](https://docs.magewirephp.nl/pages/html-directives/wire-loading.html): wire:loading toggles an element for the duration of a component commit.
+- [wire:current](https://docs.magewirephp.nl/pages/html-directives/wire-current.html): The Magewire browser bundle contains the upstream directive, but Magewire does not currently promise Livewire's SPA-navigation lifecycle.
+- [wire:cloak](https://docs.magewirephp.nl/pages/html-directives/wire-cloak.html): wire:cloak marks content that should remain hidden until Magewire initializes, then the browser runtime removes the attribute.
+- [wire:dirty](https://docs.magewirephp.nl/pages/html-directives/wire-dirty.html): wire:dirty reacts when the component's browser-side value differs from the last server-confirmed value.
+- [wire:confirm](https://docs.magewirephp.nl/pages/html-directives/wire-confirm.html): Add wire:confirm to an action element when the browser should ask for confirmation before Magewire sends the call:
+- [wire:transition](https://docs.magewirephp.nl/pages/html-directives/wire-transition.html): wire:transition applies Alpine transitions when Magewire adds or removes an element during DOM morphing:
+- [wire:init](https://docs.magewirephp.nl/pages/html-directives/wire-init.html): wire:init calls an action after the component has initialized in the browser:
+- [wire:poll](https://docs.magewirephp.nl/pages/html-directives/wire-poll.html): wire:poll refreshes a component or calls an action on an interval:
+- [wire:offline](https://docs.magewirephp.nl/pages/html-directives/wire-offline.html): wire:offline toggles an element when the browser emits its offline and online events:
+- [wire:ignore](https://docs.magewirephp.nl/pages/html-directives/wire-ignore.html): Use wire:ignore when a third-party script owns an element's DOM and Magewire must not morph it:
+- [wire:replace](https://docs.magewirephp.nl/pages/html-directives/wire-replace.html): wire:replace tells Magewire to replace an element's children instead of morphing them individually:
+- [wire:show](https://docs.magewirephp.nl/pages/html-directives/wire-show.html): wire:show toggles an element's visibility from a component property without removing the element from the DOM:
+- [wire:stream](https://docs.magewirephp.nl/pages/html-directives/wire-stream.html): Magewire disables output buffering on the update controller for streaming actions, but Magento's FPC and some hosting layers such as Varnish or Cloudflare may still buffer the response.
+- [wire:text](https://docs.magewirephp.nl/pages/html-directives/wire-text.html): wire:text writes a component property into an element's text content:
+
+## Concepts
+- [Fragments](https://docs.magewirephp.nl/pages/concepts/fragments.html): A Fragment is an explicitly-scoped slice of output—a region of a template or a string of rendered HTML—that Magewire can validate, enhance, and transform before it reaches the browser.
+- [Morphing](https://docs.magewirephp.nl/pages/concepts/morphing.html): Use Magento-typed escapers and PHP loops when keying items:
+- [Hydration](https://docs.magewirephp.nl/pages/concepts/hydration.html): Magewire posts snapshots to /magewire/update.
+- [Nesting](https://docs.magewirephp.nl/pages/concepts/nesting.html): A nested component is a Magento layout block bound to a Magewire class.
+
+## Theming
+- [Theming](https://docs.magewirephp.nl/pages/theming/index.html): Magewire is not tied to a single Magento theme.
+- [Compatibility Module](https://docs.magewirephp.nl/pages/theming/compatibility-module.html): A compatibility module is a standard Magento 2 module whose job is to adapt Magewire to one specific theme.
+- [Layout Nodes](https://docs.magewirephp.nl/pages/theming/layout-containers.html): Magewire renders its browser resources through a named Magento layout tree.
+- [Alpine Loading](https://docs.magewirephp.nl/pages/theming/alpine-loading.html): Magewire's browser build includes Alpine.js.
+- [Tailwind](https://docs.magewirephp.nl/pages/theming/tailwind.html): Tailwind integration belongs to the theme package.
+- [Hyvä Checkout Backwards Compatibility](https://docs.magewirephp.nl/pages/theming/hyva-checkout-bc.html): Hyvä Checkout V1 was built on Magewire V1, which tracked Livewire V2.
+
+## Admin
+- [Admin](https://docs.magewirephp.nl/pages/admin/index.html): Magewire V1 was storefront-only.
+- [Installation](https://docs.magewirephp.nl/pages/admin/installation.html): Install as a composer dependency on any Magewire V3 site.
+- [How It Works](https://docs.magewirephp.nl/pages/admin/how-it-works.html): magewire-admin is thin — five PHP classes and a handful of XML files.
+- [Building Admin Components](https://docs.magewirephp.nl/pages/admin/building-admin-components.html): Admin components are Magewire components registered in the admin area.
+- [Admin Rate Limiting](https://docs.magewirephp.nl/pages/admin/rate-limiting.html): Core rate limiting applies in adminhtml as well as the storefront when enabled.
+
+## Advanced
+- [Application Container](https://docs.magewirephp.nl/pages/advanced/application-container.html): Magewire exposes a small Laravel-compatible application container backed by Magento dependency injection.
+- [Request Filters](https://docs.magewirephp.nl/pages/advanced/request-filters.html): Request filters reject invalid or unwanted Magewire update requests before any component is reconstructed.
+- [Best Practices](https://docs.magewirephp.nl/pages/advanced/best-practices.html): Magewire does not require a particular application-module structure, but predictable locations make components easier to discover and keep framework extensions separate from application behavior.
+- [Patterns](https://docs.magewirephp.nl/pages/advanced/patterns.html): Instead of sharing numerous GitHub Gists, we prefer to share the patterns used within the Magewire core package itself.
+- [Performance](https://docs.magewirephp.nl/pages/advanced/performance.html): Magewire components are cheap — a typical round-trip is a small JSON payload, a PHP re-render of one block, and a DOM morph.
+- [Security](https://docs.magewirephp.nl/pages/advanced/security.html): Magento's FormKey protects every Magewire request automatically.
+- [Synthesizers](https://docs.magewirephp.nl/pages/advanced/synthesizers.html): Magewire adds a \Magento\Framework\DataObject synthesizer on top of Livewire's defaults (scalars, arrays, \stdClass, backed enums).
+- [Exception Handling](https://docs.magewirephp.nl/pages/advanced/exception-handling.html): When a component throws — during the initial page render or during an update — Magewire catches it and routes it through a configurable exception pipeline instead of letting it blow up the page or...
+- [Troubleshooting](https://docs.magewirephp.nl/pages/advanced/troubleshooting.html): magewire.script is an admin companion-package block, not the core storefront asset name.
+- [JavaScript](https://docs.magewirephp.nl/pages/advanced/javascript/index.html): Magewire exposes the ported Livewire runtime as window.Magewire and adds two registries:
+- [Magewire Loaders](https://docs.magewirephp.nl/pages/advanced/javascript/features/magewire-loaders.html): Magewire loaders connect a component update to the notifier addon.
+- [Magewire Notifier](https://docs.magewirephp.nl/pages/advanced/javascript/addons/magewire-notifier.html): The notifier is available as window.MagewireAddons.notifier after Magewire's layout resources have registered.
+- [Cookie Utility](https://docs.magewirephp.nl/pages/advanced/javascript/utilities/cookie.html): The cookie utility provides a small wrapper for reading, writing, and removing browser cookies:
+- [DOM](https://docs.magewirephp.nl/pages/advanced/javascript/utilities/dom.html): Access under window.MagewireUtilities.dom.
+- [Loader](https://docs.magewirephp.nl/pages/advanced/javascript/utilities/loader.html): Access under window.MagewireUtilities.loader.
+- [Str](https://docs.magewirephp.nl/pages/advanced/javascript/utilities/str.html): Access under window.MagewireUtilities.str.
+- [Component Hooks](https://docs.magewirephp.nl/pages/advanced/architecture/component-hooks.html): A Component Hook is a class that subscribes to events in the Magewire request pipeline.
+- [Magento Observer Events](https://docs.magewirephp.nl/pages/advanced/architecture/observer-events.html): Magewire has its own in-process event pipeline (on() / trigger()) that powers Component Hooks.
+- [Architecture](https://docs.magewirephp.nl/pages/advanced/architecture/index.html): Considerable research was conducted to devise a practical and comprehensible approach to porting Livewire into a Magento module, while maintaining a straightforward architecture to encourage broade...
+- [Runtime](https://docs.magewirephp.nl/pages/advanced/architecture/runtime.html): You can build every component you'll ever need without reading this page — Magewire boots itself automatically.
+- [Facades](https://docs.magewirephp.nl/pages/advanced/architecture/facades.html): Magewire's experimental Feature and Mechanism facade API was removed in version 3.3.
+- [Features](https://docs.magewirephp.nl/pages/advanced/architecture/features.html): Magewire is divided into three aspects.
+- [Mechanisms](https://docs.magewirephp.nl/pages/advanced/architecture/mechanisms/index.html): Magewire is composed of three layers: the Magento module that loads everything, Mechanisms (required core steps), and Features (optional extensions).
+- [Resolvers](https://docs.magewirephp.nl/pages/advanced/architecture/mechanisms/resolvers.html): A Component Resolver is the bridge between a Magento AbstractBlock and a Magewire Component.
+- [HandleComponents](https://docs.magewirephp.nl/pages/advanced/architecture/mechanisms/handle-components.html): HandleComponents (sort order 1100) is the heart of the pipeline.
+- [HandleRequests](https://docs.magewirephp.nl/pages/advanced/architecture/mechanisms/handle-requests.html): HandleRequests (sort order 1200) is the entry point for subsequent requests — the /magewire/update XHR that fires when a user interacts with a component.
+- [Handle Compiling](https://docs.magewirephp.nl/pages/advanced/architecture/mechanisms/handle-compiling.html): Magewirephp\Magewire\Mechanisms\HandleCompiling\HandleCompiling owns Magewire's template compilation pipeline.
+- [FrontendAssets](https://docs.magewirephp.nl/pages/advanced/architecture/mechanisms/frontend-assets.html): FrontendAssets (sort order 1400) is the last mechanism in the pipeline.
+- [Layout](https://docs.magewirephp.nl/pages/advanced/architecture/layout.html): Magewire is a large framework with many options and features.
+- [Portman](https://docs.magewirephp.nl/pages/advanced/architecture/portman.html): Portman, developed by Justin van Elst, is a command-line utility designed to simplify the process of porting PHP libraries between frameworks.
+
+## Blog
+- [Blog](https://docs.magewirephp.nl/blogs/index.html)
