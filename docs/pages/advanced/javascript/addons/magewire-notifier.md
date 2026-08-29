@@ -29,9 +29,26 @@ Options include:
 
 When `duration` is `null`, Magewire calculates a reading duration from the message length. Values `0` and `false` currently become 24 hours; they are not permanently sticky.
 
+## Repeated messages
+
+Since Magewire 3.6, the notifier coalesces an immediately repeated message when all of the following
+are true:
+
+- the previous notification is still active;
+- its message and type match the new notification;
+- the new call uses `activate: true`.
+
+Instead of appending another item, `create()` returns the existing notification with the same `id`,
+increments its `occurrences`, merges any new hooks, and restarts its cleanup timer. Different text,
+a different type, an inactive previous notification, or `activate: false` creates a separate item.
+
+The built-in presentation shows an occurrence badge after the count reaches two. Integrations can
+read `notification.occurrences` and style or announce repeated messages differently.
+
 Per-notification hook names are:
 
 - `onCreate`
+- `onUpdate`
 - `onActivate`
 - `onCleanup`
 - `onTerminate`
@@ -47,6 +64,7 @@ Hooks receive an object. For example, `onStateChange` receives `{ state, previou
 | Method | Result |
 |---|---|
 | `get(id)` | Return a notification or `null`. |
+| `update(id, changes = {}, hooks = {})` | Hold and update an existing notification, merge hooks, and restart cleanup while active. |
 | `activate(id)` | Activate, finish, and schedule cleanup. |
 | `finish(id)` | Mark the notification successful. |
 | `terminate(id)` | Hold and terminate it. |
@@ -69,4 +87,4 @@ window.Magewire.hook(
 )
 ```
 
-Available suffixes are `create`, `activate`, `cleanup`, `terminate`, `recover`, `state-change`, and `failure`.
+Available suffixes are `create`, `update`, `activate`, `cleanup`, `terminate`, `recover`, `state-change`, and `failure`.

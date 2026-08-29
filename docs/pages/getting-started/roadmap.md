@@ -11,6 +11,7 @@ Magewire's roadmap is intentionally conservative: tagged source describes what h
 | 3.3.1 | Parser, PHP reflection, and Magento 2.4.6 DI compilation fixes. |
 | 3.4 | Lazy component loading. |
 | 3.5 | Magento-backed application container and pre-reconstruction request filters. |
+| 3.6 | Component-state pagination, temporary rate-limit lockouts, notifier coalescing, and a template-fragment compiler fix. |
 
 See [Feature History](releases/feature-history.md) for details and links to the relevant documentation.
 

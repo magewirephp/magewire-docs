@@ -50,7 +50,7 @@ Do not commit real customer credentials or a local `.env` file.
 
 ## Compatibility matrix
 
-Magewire 3.5's production workflow verifies these representative builds:
+Magewire 3.6's production workflow verifies these representative builds:
 
 | Distribution | Release | PHP |
 |---|---:|---:|

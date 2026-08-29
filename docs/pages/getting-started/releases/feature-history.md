@@ -6,6 +6,33 @@ of new capabilities.
 
 Versions not included in this log indicate releases where no new features were introduced.
 
+## 3.6.0
+
+- **Component-state pagination**
+
+  Components can use `WithPagination` to track default or named paginator state and call
+  `getPage()`, `previousPage()`, `nextPage()`, `gotoPage()`, `resetPage()`, or `setPage()`.
+  Magewire 3.6 does not synchronize paginator state to the URL and does not ship paginator views;
+  components remain responsible for querying and rendering their current page. See
+  [Pagination](../../features/pagination.md).
+
+- **Temporary rate-limit lockouts**
+
+  Repeated rate-limit rejections can now escalate into an opt-in, origin-scoped lockout. Lockout
+  responses include `Retry-After`, and the browser suppresses further Magewire updates until the
+  deadline expires. See [Rate Limiting](../../features/rate-limiting.md).
+
+- **Notifier message coalescing**
+
+  Repeated active notifications with the same message and type reuse one notification, increment
+  its `occurrences`, and trigger the new update lifecycle. See
+  [Magewire Notifier](../../advanced/javascript/addons/magewire-notifier.md).
+
+- **Template-fragment compiler fix**
+
+  Compiler-generated `@template` fragment scopes now call `start()` before rendering and pair it
+  with the generated `end()` call.
+
 ## 3.5.0
 
 - **Magento-backed application container**

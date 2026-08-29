@@ -27,6 +27,6 @@ This keeps the ecosystem readable: if you see a `3.x` tag anywhere in the Magewi
 
 ## PHP version support
 
-The `php` constraint in the tagged package's `composer.json` is authoritative. Magewire 3.5 requires PHP 8.2 or newer, while the production-build matrix verifies selected Magento and Mage-OS releases on PHP 8.2 through 8.5.
+The `php` constraint in the tagged package's `composer.json` is authoritative. Magewire 3.6 requires PHP 8.2 or newer, while the production-build matrix verifies selected Magento and Mage-OS releases on PHP 8.2 through 8.5.
 
 A future release may raise the minimum when ecosystem compatibility or language support requires it. Check Composer constraints and the repository's production-build workflow before planning an upgrade; do not infer support solely from PHP's general support calendar.

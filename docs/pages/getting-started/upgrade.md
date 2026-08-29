@@ -26,7 +26,7 @@ See [Versioning](versioning.md) for the full versioning scheme, including how su
 
 Before running `composer update`, bring the surrounding environment up to spec.
 
-- **Magento or Mage-OS** on a release line supported by the selected Magewire tag. Magewire 3.5's tested floor is Magento Open Source 2.4.6-p15 or Mage-OS 1.3.1.
+- **Magento or Mage-OS** on a release line supported by the selected Magewire tag. Magewire 3.6's tested floor is Magento Open Source 2.4.6-p15 or Mage-OS 1.3.1.
 - **PHP** `8.2` or later.
 - **Composer 2**.
 - **A compatible theme integration.** Magewire bundles Alpine, while the compatibility package coordinates it with the theme's own loader.

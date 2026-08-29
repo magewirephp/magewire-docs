@@ -16,9 +16,9 @@ The variants are mutually exclusive:
 |---|---|---|
 | None | No rate limiting. This is the default. | — |
 | Requests only | Runs once in the 3.5 request-filter pipeline, before component reconstruction. | Configurable maximum and decay window. |
-| Components only | Runs for each reconstructed component. | Fixed at 4 attempts per 5 seconds in Magewire 3.5. |
+| Components only | Runs for each reconstructed component. | Fixed at 4 attempts per 5 seconds. |
 
-The component variant currently has no per-component attribute or configurable component-specific budget. The admin field description may suggest otherwise, but the 3.5 runtime uses the fixed budget above.
+The component variant currently has no per-component attribute or configurable component-specific budget. The admin field description may suggest otherwise, but the runtime uses the fixed budget above.
 
 ## Request scope
 
@@ -31,9 +31,33 @@ For the request variant:
 
 Rate limiting is always evaluated in production mode. In default or developer mode it is skipped unless **Enable in Developer Mode** is set to Yes.
 
+## Temporary lockouts
+
+Magewire 3.6 can escalate repeated rejections into a temporary lockout. It is disabled by default
+and configured in the **Lockout** group below the normal rate-limit settings:
+
+| Setting | Default | Meaning |
+|---|---:|---|
+| Enable Lockout | No | Enables warning tracking and temporary lockouts. |
+| Warnings Before Lockout | 3 | Rejections required inside one active rate-limit window. |
+| Lockout Seconds | 60 | How long the request origin remains blocked. |
+
+Warnings expire with the active limiter window; old rejections do not accumulate indefinitely. The
+lockout is shared across the request and component variants and is keyed by an opaque request
+fingerprint. Magewire prefers the Magento session identifier and falls back to the remote address,
+then includes the user agent and hashes the result before using it as a cache key.
+
+An active lockout is rejected before component reconstruction. The response remains HTTP 429 and
+adds `Retry-After` with the remaining whole seconds. The frontend stores that deadline for the
+current browser session and aborts Magewire update requests until it expires, including after a
+page reload.
+
 ## Rejection behavior
 
-A rejected request receives HTTP 429. Magewire's request-filter bridge marks its short customer-facing message with `X-Magewire-Message-Severity`, allowing a theme notifier—or a browser alert fallback—to present it safely. Generic server error bodies and stack traces do not receive that marker.
+A rejected request receives HTTP 429. A normal rate-limit rejection does not include `Retry-After`;
+an active lockout does. Magewire's request-filter bridge marks its short customer-facing message
+with `X-Magewire-Message-Severity`, allowing a theme notifier—or a browser alert fallback—to present
+it safely. Generic server error bodies and stack traces do not receive that marker.
 
 The core feature does not provide a log-only mode and does not write special `MagewireRateLimit` entries. Use your infrastructure metrics, Magento logging extension, or a custom request filter when additional observability is required.
 
