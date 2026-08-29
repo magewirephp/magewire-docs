@@ -5,8 +5,9 @@ belong with it. The
 [`magewirephp/magewire-bundler`](https://github.com/magewirephp/magewire-bundler) repository provides
 an isolated, repeatable build that produces both standard and CSP-compatible Magewire bundles.
 
-Use the declared Alpine version for routine Livewire updates. An explicit Alpine override is useful
-when testing or releasing a specific combination, but that combination must be tested as a unit.
+Each dependency patch belongs to one exact upstream version. There are no range matches or fallback
+patches: changing Livewire or Alpine requires a new version directory and a reviewed patch, even
+when that patch happens to be identical to the previous one.
 
 ## Prerequisites
 
@@ -35,8 +36,7 @@ The check compares `js/`, `scripts/build.js`, `package.json`, and `package-lock.
 successful build. It prints the relevant files and commits, but does not create or replace output.
 
 By default, the build reads Livewire's `alpinejs` dependency and checks out that exact Alpine tag.
-This keeps Alpine and all `@alpinejs/*` packages on the version declared by the selected Livewire
-release.
+The build proceeds only when both exact version patch directories exist.
 
 ## Build with a specific Alpine version
 
@@ -47,9 +47,9 @@ ALPINE_VERSION=v3.15.11 \
     bash magewire-release.sh build v3.7.15 --force
 ```
 
-The script reports both the override and Livewire's declared constraint. It then builds Alpine at
-the requested tag and links those packages into the isolated Livewire checkout before producing the
-Magewire bundles.
+The script reports both the override and Livewire's declared constraint. It then selects only
+`patches/alpine/v3.15.11/` and the matching exact Livewire patch directory, builds Alpine at the
+requested tag, and links those packages into the isolated Livewire checkout.
 
 !!! warning "Test explicit Alpine overrides"
 
@@ -57,9 +57,9 @@ Magewire bundles.
     successfully while still changing browser behavior. Test Magewire directives, navigation,
     morphing, uploads, and the CSP bundle before publishing the result.
 
-Use `--force` for an explicit Alpine build. Change detection is based on Livewire's bundle inputs,
-so an Alpine-only version change can otherwise reuse an existing complete output for the same
-Livewire tag.
+Patch names, patch SHA-256 hashes, and both dependency versions participate in change detection and
+the artifact identity. An Alpine-only version or patch change therefore cannot reuse another
+combination's output.
 
 ## Save versions in configuration
 
@@ -92,23 +92,40 @@ The release script:
 
 1. Checks out the requested Livewire and Alpine tags under `build/`.
 2. Reports bundle-relevant Livewire changes since the last successful build.
-3. Builds the Alpine monorepo.
-4. Applies `magewire.patch` to Livewire's build script.
-5. Installs Livewire's dependencies and links the pinned Alpine packages.
+3. Selects numbered patches from only
+   `patches/livewire/<exact-version>/` and `patches/alpine/<exact-version>/`.
+4. Runs `git apply --check` immediately before every patch and stops on failure.
+5. Builds Alpine, installs Livewire's dependencies, and links the pinned Alpine packages.
 6. Builds the standard and CSP Magewire targets.
-7. Verifies every output, its source-map reference, the manifest, and esbuild metadata proving that
-   only CSP targets resolved `@alpinejs/csp`.
-8. Promotes the verified files to `dist/<livewire-tag>/` and records `.magewire-state`.
+7. Verifies every output, source map, manifest, CSP input graph, `x-html` implementation, dynamic
+   code policy, and a DOM runtime fixture.
+8. Promotes the staged files to an exact, fingerprinted artifact directory and records dependency
+   commits, patch names, and patch SHA-256 hashes in `.magewire-state`.
 
 Existing output is replaced only after the staged build passes verification. A failed build leaves
 the last successful version and state untouched.
+
+The patch layout for the current release is:
+
+```text
+patches/
+├── livewire/
+│   └── v3.7.15/
+│       └── 001-magewire-build.patch
+└── alpine/
+    └── v3.15.11/
+        └── 001-enable-x-html.patch
+```
+
+Patch filenames have a three-digit numeric prefix and are applied in that order. Never create
+directories such as `v3.15.*`, and never reuse another version's directory as a fallback.
 
 ## Output
 
 A successful build creates:
 
 ```text
-dist/v3.7.15/
+dist/livewire-v3.7.15_alpine-v3.15.11_patches-<fingerprint>/
 ├── magewire.js
 ├── magewire.csp.js
 ├── magewire.esm.js
@@ -122,9 +139,47 @@ dist/v3.7.15/
 └── manifest.json
 ```
 
-Copy the required `magewire*.js` files, source maps, and manifest into the Magewire release branch or
-module that owns the published frontend assets. Generated `build/`, `dist/`, and state files are
-ignored by the bundler repository.
+The fingerprint is derived from the exact dependency versions, patch names, and patch hashes.
+Another version or reviewed patch set receives another directory, leaving existing release
+artifacts available.
+
+Copy the required `magewire*.js` files, source maps, and manifest into the Magewire release branch
+or module that owns the published frontend assets. Generated `build/`, `dist/`, and state files
+are ignored by the bundler repository.
+
+## Alpine CSP and x-html
+
+Magewire v3.7.15 stays on Alpine CSP v3.15.11. Its exact Alpine patch removes only:
+
+```js
+import './directives/x-html'
+```
+
+from `packages/csp/src/index.js`. The standard directives import already registered Alpine's
+normal `x-html`; removing this CSP override prevents it from being replaced by the directive that
+always throws an error. The generated Magewire CSP bundle still resolves `@alpinejs/csp` and must
+remain free of `eval` and `new Function`.
+
+!!! danger "Only trusted or sanitized HTML"
+
+    Restored `x-html` interprets markup. Bind it only to trusted HTML or HTML processed by a
+    reviewed sanitizer. Never render uncontrolled customer input, addresses, form values, comments,
+    query-string content, or other user-provided data with `x-html`. Prefer `x-text` when markup
+    is not required.
+
+## Verification and rollback
+
+Before publishing, perform two clean builds and compare every output hash. The automated checks
+confirm `@alpinejs/csp`, the normal `x-html` implementation, absence of the CSP prohibition
+message, absence of `eval` / `new Function`, and trusted `x-html`, `x-text`, events, Alpine,
+and Livewire startup in a browser DOM.
+
+Also test a Magento installation: trigger a Magewire update, navigate through checkout, add a
+product, open checkout, and confirm that the browser console contains no Alpine `x-html` errors.
+
+Keep the previous known-good distribution as a separate versioned artifact. Rollback means
+deploying that artifact or rebuilding the previous exact dependency versions with their matching
+patch directories. Do not roll back by manually reversing source files.
 
 ## Troubleshooting
 
@@ -142,12 +197,11 @@ bash magewire-release.sh build v3.7.15 --force
 Tag fetches and some npm installation output are quiet. Give the command time to finish and check
 that the shell job has not been suspended. Run it in the foreground with Bash.
 
-### `magewire.patch` does not apply
+### An exact-version patch is missing or does not apply
 
-The selected Livewire release changed `scripts/build.js`. Stop the release and review that upstream
-change before updating `magewire.patch`; do not blindly force or three-way apply the old transform.
-The patch owns Magewire output names, CSP resolver substitution, alias resolution, and esbuild
-metadata used by verification, so all of those behaviors must remain intact.
+Stop the release and review the selected upstream tag. Add a newly reviewed, numbered patch under
+that dependency's exact version directory. Do not copy a patch silently, force it, use a three-way
+application, broaden selection to a version range, or fall back to another directory.
 
 ### Recreate the isolated clones
 
