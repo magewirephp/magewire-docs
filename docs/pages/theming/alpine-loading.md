@@ -11,6 +11,10 @@ Install `magewirephp/magewire-hyva-theme` instead of manually removing Hyvä's A
 
 This conditional behavior is why a global layout removal of Hyvä's Alpine asset is incorrect.
 
+See [Hyvä CSP Script Bootstrap](csp-script-bootstrap.md) for the runtime
+configuration carrier, lifecycle ordering, and extension points used on
+component pages.
+
 ```shell
 composer require magewirephp/magewire-hyva-theme
 bin/magento module:enable Magewirephp_MagewireHyvaTheme
