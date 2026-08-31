@@ -51,6 +51,7 @@ You will still need a theme module whenever you want:
 - [Compatibility module](compatibility-module.md) — build one from scratch.
 - [Layout containers](layout-containers.md) — the extension points you plug into.
 - [Alpine loading](alpine-loading.md) — coordinate the theme and Magewire Alpine loaders.
+- [Hyvä CSP script bootstrap](csp-script-bootstrap.md) — load runtime request configuration without Alpine directives on the script element.
 - [Tailwind](tailwind.md) — integrate Magewire's components into a Tailwind pipeline.
 - [Backwards compatibility](../essentials/backwards-compatibility.md) — V1 → V3 BC system.
 - [Hyvä Checkout BC](hyva-checkout-bc.md) — Hyvä-specific auto-enabled BC.
