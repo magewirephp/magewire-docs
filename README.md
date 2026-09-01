@@ -9,7 +9,7 @@ python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 python scripts/build_blog.py prepare --docs-dir docs --output-dir .build/docs
-zensical build --config-file mkdocs.zensical.yml --clean --strict
+zensical build --config-file .build-mkdocs.yml --clean --strict
 python scripts/build_blog.py finalize --docs-dir docs --site-dir site
 python scripts/generate_ai_docs.py --config-file mkdocs.yml --output-dir site
 python scripts/validate_site.py --config-file mkdocs.yml --site-dir site
@@ -17,7 +17,7 @@ python scripts/compare_production_urls.py --manifest tests/production-url-manife
 python3 -m http.server 8000 --directory site
 ```
 
-Visit `http://localhost:8000/`. This serves the same static artifact CI uploads, including the source-derived Blog pages, `/llms.txt`, `/llms-full.txt`, `/ai/*.txt`, and per-page Markdown such as `/pages/concepts/fragments.md`. The temporary `.build/docs` tree is generated from the canonical post Markdown and can be deleted at any time. See [`docs-migration.md`](docs-migration.md) for the migration findings and compatibility record.
+Visit `http://localhost:8000/`. This serves the same static artifact CI uploads, including the source-derived Blog pages, `/llms.txt`, `/llms-full.txt`, `/ai/*.txt`, and per-page Markdown such as `/pages/concepts/fragments.md`. The temporary `.build/docs` tree and `.build-mkdocs.yml` configuration are generated from the canonical post Markdown and can be deleted at any time. See [`docs-migration.md`](docs-migration.md) for the migration findings and compatibility record.
 
 ## Material rollback preview
 

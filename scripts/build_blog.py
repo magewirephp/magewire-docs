@@ -16,6 +16,7 @@ import argparse
 from dataclasses import dataclass
 from datetime import date
 from html import escape
+from html.parser import HTMLParser
 import math
 from pathlib import Path, PurePosixPath
 import posixpath
@@ -73,6 +74,44 @@ class Post:
     heading_anchor: str
 
 
+class NavigationParser(HTMLParser):
+    def __init__(self, source: PurePosixPath) -> None:
+        super().__init__(convert_charrefs=True)
+        self.source = source
+        self.links: list[tuple[PurePosixPath, str]] = []
+        self._href: str | None = None
+        self._text: list[str] = []
+
+    def handle_starttag(
+        self, tag: str, attrs: list[tuple[str, str | None]]
+    ) -> None:
+        if tag != "a" or self._href is not None:
+            return
+        values = {name: value for name, value in attrs if value is not None}
+        if "md-nav__link" not in values.get("class", "").split():
+            return
+        self._href = values.get("href")
+        self._text = []
+
+    def handle_data(self, data: str) -> None:
+        if self._href is not None:
+            self._text.append(data)
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag != "a" or self._href is None:
+            return
+        parsed = urlsplit(self._href)
+        if not parsed.scheme and not parsed.netloc:
+            target = PurePosixPath(
+                posixpath.normpath(
+                    posixpath.join(self.source.parent.as_posix(), parsed.path)
+                )
+            )
+            self.links.append((target, " ".join("".join(self._text).split())))
+        self._href = None
+        self._text = []
+
+
 _COLLECTIONS = (
     Collection(PurePosixPath("blogs"), PurePosixPath("blogs"), True, None),
 )
@@ -115,6 +154,10 @@ def _prepare(docs_dir: Path, output_dir: Path) -> None:
         )
 
     collections = _load_collections(docs_dir)
+    config_template = docs_dir.parent / "mkdocs.zensical.yml"
+    output_config = docs_dir.parent / ".build-mkdocs.yml"
+    if not config_template.is_file():
+        raise SystemExit(f"Zensical config template does not exist: {config_template}")
     if output_dir.exists():
         shutil.rmtree(output_dir)
     output_dir.parent.mkdir(parents=True, exist_ok=True)
@@ -123,6 +166,8 @@ def _prepare(docs_dir: Path, output_dir: Path) -> None:
         staged_source = output_dir / source_dir
         if staged_source.exists():
             shutil.rmtree(staged_source)
+
+    _write_build_config(config_template, output_config, collections)
 
     generated = 0
     for collection, posts, authors in collections:
@@ -210,6 +255,13 @@ def _finalize(docs_dir: Path, site_dir: Path, site_url: str) -> None:
     if missing:
         formatted = "\n".join(f"- /{route}" for route in missing)
         raise SystemExit(f"Generated blog routes are missing:\n{formatted}")
+
+    blog_posts = next(
+        posts
+        for collection, posts, _authors in collections
+        if collection.route_dir == PurePosixPath("blogs")
+    )
+    _check_blog_navigation(site_dir / "blogs" / "index.html", blog_posts)
 
     for source, target in sorted(redirects.items()):
         path = site_dir / source
@@ -368,6 +420,47 @@ def _render_post(post: Post, authors: dict[str, str]) -> str:
         f"{_metadata_line(post, authors)}\n\n"
         f"{post.body}\n"
     )
+
+
+def _write_build_config(
+    template: Path,
+    output: Path,
+    collections: list[tuple[Collection, tuple[Post, ...], dict[str, str]]],
+) -> None:
+    blog_posts = next(
+        posts
+        for collection, posts, _authors in collections
+        if collection.route_dir == PurePosixPath("blogs")
+    )
+    navigation: list[object] = ["blogs/index.md"]
+    navigation.extend({post.title: post.route.as_posix()} for post in blog_posts)
+    generated = yaml.safe_dump(
+        {"nav": [{"Blog": navigation}]},
+        allow_unicode=True,
+        sort_keys=False,
+        default_flow_style=False,
+    )
+    _write(output, f"{template.read_text(encoding='utf-8').rstrip()}\n\n{generated}")
+
+
+def _check_blog_navigation(path: Path, posts: tuple[Post, ...]) -> None:
+    if not path.is_file():
+        raise SystemExit(f"Blog index does not exist for navigation check: {path}")
+    parser = NavigationParser(PurePosixPath("blogs/index.html"))
+    parser.feed(path.read_text(encoding="utf-8"))
+
+    positions: list[int] = []
+    for post in posts:
+        expected = (post.route.with_suffix(".html"), post.title)
+        try:
+            positions.append(parser.links.index(expected))
+        except ValueError as exception:
+            raise SystemExit(
+                f"Blog navigation is missing {post.title!r} at "
+                f"/{expected[0].as_posix()}"
+            ) from exception
+    if positions != sorted(positions):
+        raise SystemExit("Blog navigation posts are not ordered newest first")
 
 
 def _render_listing(

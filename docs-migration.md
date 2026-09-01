@@ -2,7 +2,7 @@
 
 Status: Zensical production cutover complete; blog compatibility follow-up proven locally, 2026-09-01
 
-Current follow-up branch: `docs/defer-personal-blog`
+Current follow-up branch: `docs/blog-menu-posts`
 Tested versions: Material for MkDocs 9.7.7, MkDocs 1.6.1, Zensical 0.0.57, mkdocs-macros-plugin 1.5.0, Python 3.14.4
 
 The Zensical migration is live on `main`. This follow-up restores the Material-generated Blog routes without waiting for Zensical's native blog module and without changing the canonical post files. Personal publishing is deliberately left out for now.
@@ -12,12 +12,12 @@ The Zensical migration is live on `main`. This follow-up restores the Material-g
 Zensical 0.0.57 still does not implement Material for MkDocs' blog plugin. `scripts/build_blog.py` provides a temporary, static compatibility layer:
 
 - `prepare` copies `docs/` to ignored `.build/docs`, reads post front matter and author metadata, and generates the historical Blog post, archive, and full-listing index paths as Markdown;
-- `mkdocs.zensical.yml` inherits the canonical `mkdocs.yml`, points Zensical at the staged tree, and appends Blog to the visible navigation;
+- `mkdocs.zensical.yml` is the stable compatibility template; `prepare` derives ignored `.build-mkdocs.yml` from it, points Zensical at the staged tree, and appends Blog plus its newest-first post-title submenu to the visible navigation;
 - Zensical renders every generated page with the same modern default theme as the documentation;
 - `finalize` verifies all eight expected Blog routes, replaces the five briefly published Zensical source-path post URLs with static canonical redirects, and adds the unlisted compatibility pages to `sitemap.xml`;
 - the AI documentation generator continues to read canonical `mkdocs.yml`, so this human-facing restoration does not silently change the established AI corpus.
 
-The post Markdown, front matter, authors, dates, links, and directory ownership remain canonical under `docs/blogs/posts/`. New Blog posts automatically receive a route, listing entry, yearly archive entry, search entries, and sitemap entry. `docs/personal/` remains preserved in Git but is removed from the temporary staging tree, so Personal pages, redirects, search entries, and sitemap entries are not published.
+The post Markdown, front matter, authors, dates, links, and directory ownership remain canonical under `docs/blogs/posts/`. New Blog posts automatically receive a navigation subitem, route, listing entry, yearly archive entry, search entries, and sitemap entry. `docs/personal/` remains preserved in Git but is removed from the temporary staging tree, so Personal pages, redirects, search entries, and sitemap entries are not published.
 
 The clean compatibility gate preserves 107 of 111 pre-migration production URLs and all captured heading anchors on those pages. The four explicitly deferred differences are the Personal index, post, archive, and category routes. The five Blog source-path URLs from the initial Zensical deployment redirect without duplicating searchable content. No third-party runtime assets are used. The only remaining sitemap exception is the deliberately unlisted Magewire Flakes draft.
 
