@@ -1,24 +1,8 @@
 {
-  "deferred_anchor_loss": {
-    "blogs/index.html": "Zensical 0.0.57 does not render the Material blog post listing and its post heading anchors; restore them with the later blog compatibility solution.",
-    "personal/index.html": "Zensical 0.0.57 does not render the Material personal-post listing and its post heading anchors; restore them with the later blog compatibility solution."
-  },
-  "deferred_missing": {
-    "blogs/2025/05/24/magewire-3---docs-publication.html": "Blog URL compatibility was explicitly deferred on 2026-09-01; revisit if the blog is restored.",
-    "blogs/2025/06/02/magewire-3---hello-world.html": "Blog URL compatibility was explicitly deferred on 2026-09-01; revisit if the blog is restored.",
-    "blogs/2025/09/08/magewire-3---beta-release.html": "Blog URL compatibility was explicitly deferred on 2026-09-01; revisit if the blog is restored.",
-    "blogs/2025/11/13/magewire-3---a-different-kind-of-blog.html": "Blog URL compatibility was explicitly deferred on 2026-09-01; revisit if the blog is restored.",
-    "blogs/2026/04/23/magewire-3---finally.html": "Blog URL compatibility was explicitly deferred on 2026-09-01; revisit if the blog is restored.",
-    "blogs/archive/2025.html": "Blog URL compatibility was explicitly deferred on 2026-09-01; revisit if the blog is restored.",
-    "blogs/archive/2026.html": "Blog URL compatibility was explicitly deferred on 2026-09-01; revisit if the blog is restored.",
-    "personal/archive/2026.html": "Personal blog URL compatibility was explicitly deferred on 2026-09-01; revisit if the blog is restored.",
-    "personal/category/life.html": "Personal blog URL compatibility was explicitly deferred on 2026-09-01; revisit if the blog is restored.",
-    "personal/why-i-started-a-personal-corner.html": "Personal blog URL compatibility was explicitly deferred on 2026-09-01; revisit if the blog is restored."
-  },
+  "deferred_anchor_loss": {},
+  "deferred_missing": {},
   "deferred_sitemap_missing": {
-    "blogs/index.html": "Zensical omits the unsupported blog index from its navigation-derived sitemap; restore it with the later blog compatibility solution.",
-    "pages/features/magewire-flakes.html": "The deliberately unlisted Flakes draft remains routable but Zensical excludes unlisted pages from its sitemap.",
-    "personal/index.html": "Zensical omits the unsupported personal index from its navigation-derived sitemap; restore it with the later blog compatibility solution."
+    "pages/features/magewire-flakes.html": "The deliberately unlisted Flakes draft remains routable but Zensical excludes unlisted pages from its sitemap."
   },
   "captured_at": "2026-09-01",
   "pages": {

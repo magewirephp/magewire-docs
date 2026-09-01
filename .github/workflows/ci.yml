@@ -29,8 +29,14 @@ jobs:
       - name: Install dependencies
         run: python -m pip install --disable-pip-version-check -r requirements.txt
 
+      - name: Prepare blog compatibility pages
+        run: python scripts/build_blog.py prepare --docs-dir docs --output-dir .build/docs
+
       - name: Build with Zensical
-        run: zensical build --config-file mkdocs.yml --clean --strict
+        run: zensical build --config-file mkdocs.zensical.yml --clean --strict
+
+      - name: Finalize blog compatibility pages
+        run: python scripts/build_blog.py finalize --docs-dir docs --site-dir site
 
       - name: Generate AI documentation
         run: python scripts/generate_ai_docs.py --config-file mkdocs.yml --output-dir site
