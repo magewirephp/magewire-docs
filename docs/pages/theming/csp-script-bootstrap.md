@@ -19,8 +19,8 @@ element. Consequently, this markup is not CSP compatible:
 <script
     id="magewire-script"
     src="magewire.csp.min.js"
-    x-data="magewireScript"
-    x-bind="magewireScriptBindings"
+    x-data="magewireRuntime"
+    x-bind="magewireRuntimeBindings"
 ></script>
 ```
 
@@ -38,10 +38,10 @@ The Hyvä compatibility package separates Alpine evaluation from asset loading:
 
 ```html
 <div
-    id="magewire-runtime-config"
+    id="magewire-runtime"
     hidden
-    x-data="magewireScript"
-    x-bind="magewireScriptBindings"
+    x-data="magewireRuntime"
+    x-bind="magewireRuntimeBindings"
 ></div>
 
 <script
@@ -55,7 +55,7 @@ The hidden element is a temporary runtime configuration host. The external
 script remains an inert asset loader with no Alpine directives.
 
 Once Alpine has initialized the host, the compatibility package moves every
-generated `data-*` attribute from `#magewire-runtime-config` to
+generated `data-*` attribute from `#magewire-runtime` to
 `#magewire-script`. The resulting script follows Livewire's normal DOM contract:
 
 ```html
@@ -69,7 +69,20 @@ generated `data-*` attribute from `#magewire-runtime-config` to
 ```
 
 Moving every `data-*` attribute, rather than only the two core attributes,
-preserves attributes supplied by extensions to `magewireScriptBindings`.
+preserves attributes supplied by extensions to `magewireRuntimeBindings`.
+
+## Runtime provider names
+
+New integrations should use the canonical runtime providers:
+
+| Purpose | Canonical provider | Deprecated alias |
+| --- | --- | --- |
+| Alpine data | `magewireRuntime` | `magewireScript` |
+| Alpine bindings | `magewireRuntimeBindings` | `magewireScriptBindings` |
+
+The deprecated providers delegate to their canonical runtime equivalents, so
+existing markup continues to initialize. They should only be retained while an
+integration migrates; do not use them in new templates or extensions.
 
 ## Initialization order
 
@@ -78,8 +91,8 @@ The transfer uses the `alpine:initialized` event intentionally:
 1. Livewire begins startup and schedules its script-placement diagnostic.
 2. Livewire dispatches `livewire:init`.
 3. `Alpine.start()` dispatches `alpine:init`.
-4. Magewire registers `magewireScript`, `magewireScriptBindings`, and its cookie
-   utility.
+4. Magewire registers `magewireRuntime`, `magewireRuntimeBindings`, their
+   deprecated aliases, and its cookie utility.
 5. Alpine initializes the hidden host and evaluates its bindings.
 6. Alpine dispatches `alpine:initialized`.
 7. During that synchronous event dispatch, the compatibility package moves the
@@ -110,25 +123,24 @@ Treat the three attribute categories differently:
 | Attribute category | Owner | Extension point |
 | --- | --- | --- |
 | Asset attributes such as `src` and `data-navigate-once` | Magewire frontend-assets mechanism | `script.html_attributes` in frontend DI |
-| Runtime request attributes such as `data-csrf` and `data-update-uri` | `magewireScriptBindings` | Magewire Alpine binding customization |
-| Alpine directives such as `x-data` and `x-bind` | Runtime configuration host | `script-alpine-js-magewire-runtime-config` layout block |
+| Runtime request attributes such as `data-csrf` and `data-update-uri` | `magewireRuntimeBindings` | Magewire Alpine binding customization |
+| Alpine directives such as `x-data` and `x-bind` | Runtime host | `script-alpine-js-magewire-runtime` layout block |
 
 Static script attributes are rendered through
 `FrontendAssetsViewModel::getScriptAttributes()`. Runtime attributes should be
 returned as `data-*` bindings so they are evaluated on the CSP-safe host and then
 forwarded to the script.
 
-The Magento layout block `script-alpine-js-magewire-runtime-config` can be
-replaced or moved by an integration that needs a different runtime configuration
-host. Keep the stable IDs `magewire-runtime-config` and `magewire-script` unless
-the forwarding logic is replaced at the same time. Do not defer the runtime host
-past Alpine startup.
+The Magento layout block `script-alpine-js-magewire-runtime` can be replaced or
+moved by an integration that needs a different runtime host. Keep the stable IDs
+`magewire-runtime` and `magewire-script` unless the forwarding logic is replaced
+at the same time. Do not defer the runtime host past Alpine startup.
 
 ## CSRF and full-page cache safety
 
 The CSRF value is read from the browser's current `form_key` cookie by
-`magewireScriptBindings`. It is intentionally not embedded as a fixed server-side
-value in potentially cached markup.
+`magewireRuntimeBindings`. It is intentionally not embedded as a fixed
+server-side value in potentially cached markup.
 
 Moving the evaluated value to the script preserves both requirements:
 
