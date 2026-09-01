@@ -335,7 +335,7 @@ def _render_index(
 def _render_full(
     project: Project, sections: list[Section], pages: dict[str, Page]
 ) -> str:
-    lines = _preamble(project, f"# {project.site_name} — Full Documentation")
+    lines = _preamble(project, f"# {project.site_name}: Full Documentation")
     seen: set[str] = set()
     for section in sections:
         lines.extend(_section_separator(section.title))
@@ -348,7 +348,7 @@ def _render_full(
 
 
 def _render_topic(project: Project, section: Section, pages: dict[str, Page]) -> str:
-    lines = _preamble(project, f"# {project.site_name} — {section.title}")
+    lines = _preamble(project, f"# {project.site_name}: {section.title}")
     lines.extend(["## Contents", ""])
     for source in section.sources:
         page = pages[source]

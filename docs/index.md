@@ -69,8 +69,8 @@ Use the [Magewire GitHub repository](https://github.com/magewirephp/magewire) fo
 
 ## Next steps
 
-- [Documentation model](pages/getting-started/documentation.md) — understand what is delegated to Livewire 3 and what is documented locally.
-- [V3 versus V1](pages/getting-started/v3-vs-v1.md) — understand the runtime and migration differences.
-- [Lazy loading](pages/features/lazy-loading.md) — defer expensive components.
-- [Application container](pages/advanced/application-container.md) — resolve Magento services from ported or extension code.
-- [Architecture](pages/advanced/architecture/index.md) — explore mechanisms, features, and extension points.
+- [Documentation model](pages/getting-started/documentation.md): understand what is delegated to Livewire 3 and what is documented locally.
+- [V3 versus V1](pages/getting-started/v3-vs-v1.md): understand the runtime and migration differences.
+- [Lazy loading](pages/features/lazy-loading.md): defer expensive components.
+- [Application container](pages/advanced/application-container.md): resolve Magento services from ported or extension code.
+- [Architecture](pages/advanced/architecture/index.md): explore mechanisms, features, and extension points.

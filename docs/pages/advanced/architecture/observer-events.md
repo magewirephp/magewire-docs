@@ -3,11 +3,11 @@
 {{ include("admonition/magewire-specific.md", since_version="3.0.0") }}
 
 Magewire has its own in-process event pipeline (`on()` / `trigger()`) that powers
-[Component Hooks](component-hooks.md). That pipeline is fast and typed, but it's *Magewire's* — to
+[Component Hooks](component-hooks.md). That pipeline is fast and typed, but it's *Magewire's*. To
 listen, you write a Mechanism, Feature, or hook.
 
 The `SupportMagentoObserverEvents` feature bridges that pipeline into **Magento's native observer
-system**, so you can react to a component's lifecycle from a plain `events.xml` observer — no
+system**, so you can react to a component's lifecycle from a plain `events.xml` observer without a
 Magewire-specific class required.
 
 ## How it works
@@ -59,7 +59,7 @@ Register an observer against the `magewire_on_*` event as usual:
 ```
 
 The observer doesn't receive the Magewire arguments directly. Instead it's handed a **listener**
-object on which you register a callback — the callback then receives the original event arguments:
+object on which you register a callback. The callback then receives the original event arguments:
 
 ```php
 namespace Vendor\Module\Observer;
@@ -83,7 +83,7 @@ class OnMagewireMount implements ObserverInterface
 
 ### Before / after semantics
 
-If your callback **returns another callable**, that returned function runs as an *after* step — the
+If your callback **returns another callable**, that returned function runs as an *after* step: the
 same before/after middleware shape Magewire's own hooks use. Returning nothing simply reacts at the
 "before" point:
 
@@ -92,7 +92,7 @@ $listener->with(function (Component $component) {
     // before
 
     return function ($result) {
-        // after — receives the event result, can transform and return it
+        // after: receives the event result, can transform and return it
         return $result;
     };
 });
@@ -105,13 +105,13 @@ When several observers each contribute an after step, they run as a pipeline.
 | Reach for… | When |
 |---|---|
 | [Component Hooks](component-hooks.md) | You want middleware semantics, typed access, and return values inside Magewire. |
-| **Observer events** | You want Magento-native extensibility — a third party reacting to Magewire without depending on Magewire's hook classes. |
+| **Observer events** | You want Magento-native extensibility: a third party reacting to Magewire without depending on Magewire's hook classes. |
 
 Hooks are the in-framework tool; observer events are the Magento-ecosystem door onto the same
 lifecycle.
 
 ## Related
 
-- [Component Hooks](component-hooks.md) — the underlying `on()` / `trigger()` pipeline.
-- [Runtime](runtime.md) — where `magewire:setup` / `magewire:boot` fire.
-- [Features](features.md) — how this feature is registered.
+- [Component Hooks](component-hooks.md): the underlying `on()` / `trigger()` pipeline.
+- [Runtime](runtime.md): where `magewire:setup` / `magewire:boot` fire.
+- [Features](features.md): how this feature is registered.

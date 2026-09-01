@@ -1,4 +1,4 @@
-# Magewire V3 vs V1 — what changed
+# Magewire V3 vs V1: what changed
 
 A high-level map of everything built for **Magewire V3** relative to **V1**, organised by area.
 
@@ -38,7 +38,7 @@ runtime.
   **Portman**, so behaviour and concepts align with the wider Livewire ecosystem and upstream fixes
   can be re-adopted. V1 was a bespoke reimplementation of v2 ideas.
 - **Mechanisms & Features pipeline.** The runtime is now split into **Mechanisms** (the
-  non-negotiable core steps — `ResolveComponents`, `HandleComponents`, `HandleRequests`,
+  non-negotiable core steps: `ResolveComponents`, `HandleComponents`, `HandleRequests`,
   `FrontendAssets`, …) and **Features** (optional, swappable capabilities). Both are area-scoped DI
   registrations with sort orders. V1 had no such separation.
 - **Runtime state machine.** A request-scoped runtime boots Magewire once per request, tracks a
@@ -48,12 +48,12 @@ runtime.
   `LayoutResolver` handles the standard layout-XML case; custom resolvers cover widgets, dynamic
   blocks, Flakes, etc. V1 bound components through a fixed `magewire` block argument only.
 - **Layout decoration for dynamic blocks.** On an update, V3 decorates the layout instance so a
-  single block can be rebuilt by handle **without a page body** — enabling dynamically loaded /
+  single block can be rebuilt by handle **without a page body**: enabling dynamically loaded /
   re-rendered components that V1 couldn't cleanly express.
 
 ## 2. State & the wire
 
-- **Snapshot, not serverMemo.** Component state travels as a **snapshot** — `data` (public
+- **Snapshot, not serverMemo.** Component state travels as a **snapshot**: `data` (public
   properties), `memo` (reconstruction metadata: name, id, resolver accessor, layout handles, feature
   flags) and a **checksum** that's verified on every update to reject tampering.
 - **Synthesizers.** Non-scalar property values are dehydrated/hydrated by **synthesizers** (arrays,
@@ -66,8 +66,8 @@ runtime.
   PHP at compile time. Templates recompile when the file changes.
 - **`@` directives.** Author shorthands that compile into the underlying calls.
 - **Blade-like echo** *(3.1.0)*. {% raw %}`{{ }}`{% endraw %} (escaped) and `{!! !!}` (raw) echo syntax in templates.
-- **Fragments.** Mark a region of a template so modifiers can alter its output — e.g. making inline
-  scripts CSP-compliant — via the `fragment()` utility. New in V3.
+- **Fragments.** Mark a region of a template so modifiers can alter its output: e.g. making inline
+  scripts CSP-compliant: via the `fragment()` utility. New in V3.
 
 ## 4. Component PHP API
 
@@ -100,49 +100,49 @@ The V1 method names above are preserved by the BC layer's trait so existing comp
 | `wire:model.lazy` | `wire:model.blur` | on blur |
 | `$wire.entangle('p')` (live) | `$wire.entangle('p').live` | live is now opt-in |
 
-- **Renamed JS hooks** — `component.initialized → component.init`, `message.sent/received → commit`,
+- **Renamed JS hooks**: `component.initialized → component.init`, `message.sent/received → commit`,
   etc. (the BC JS shim re-fires the old names for BC-enabled components).
 
 ## 6. New features in V3
 
 Optional capabilities that didn't exist (or weren't formalised) in V1:
 
-- **Notifications** — fluent toast API (`magewireNotifications()`).
-- **Magento Flash Messages** — typed messages (`error`/`warning`/`notice`/`success`) rendered in
+- **Notifications**: fluent toast API (`magewireNotifications()`).
+- **Magento Flash Messages**: typed messages (`error`/`warning`/`notice`/`success`) rendered in
   Magento's message area.
-- **Rate limiting** — configurable request-wide throttling or a fixed component-scoped limiter.
-- **Lazy loading** *(3.4)* — defer a component until page load or viewport intersection.
-- **Application container** *(3.5)* — a Magento-backed `app()` compatibility API.
-- **Request filters** *(3.5)* — reject a request before component reconstruction.
-- **Loaders / offline states** — first-class loading and offline UX (reworked from V1).
-- **Nesting components** — formal parent/child support.
-- **Flakes** — experimental compiler syntax that is not yet part of the supported navigation.
-- **View Model utilities** — `utils()` surface (`magewire`, `security`, `env`, `csp`, `fragment`,
+- **Rate limiting**: configurable request-wide throttling or a fixed component-scoped limiter.
+- **Lazy loading** *(3.4)*: defer a component until page load or viewport intersection.
+- **Application container** *(3.5)*: a Magento-backed `app()` compatibility API.
+- **Request filters** *(3.5)*: reject a request before component reconstruction.
+- **Loaders / offline states**: first-class loading and offline UX (reworked from V1).
+- **Nesting components**: formal parent/child support.
+- **Flakes**: experimental compiler syntax that is not yet part of the supported navigation.
+- **View Model utilities**: `utils()` surface (`magewire`, `security`, `env`, `csp`, `fragment`,
   `layout`, `template`) auto-bound to every Magewire block.
-- **Exception handling** — preceding vs subsequent handling, an error placeholder template, custom
+- **Exception handling**: preceding vs subsequent handling, an error placeholder template, custom
   handlers via DI, and an `exception()` component hook.
-- **Component Hooks** — a broad `on()` / `trigger()` lifecycle pipeline for extending the framework.
-- **CSP compliance** — nonce/fragment support for payment-grade Content-Security-Policy.
+- **Component Hooks**: a broad `on()` / `trigger()` lifecycle pipeline for extending the framework.
+- **CSP compliance**: nonce/fragment support for payment-grade Content-Security-Policy.
 
 ## 7. Magento integration
 
-- **Observer events** — every lifecycle event is re-emitted as a Magento observer event
+- **Observer events**: every lifecycle event is re-emitted as a Magento observer event
   (`magewire_on_*`), so you can react with a plain `events.xml` observer.
-- **Layout containers** — a documented container/block tree for injecting JS, Alpine data, UI
+- **Layout containers**: a documented container/block tree for injecting JS, Alpine data, UI
   components, and feature bridges from a theme.
-- **Component layout context** — components expose `magewireBlock()`, `magewireResolver()`,
+- **Component layout context**: components expose `magewireBlock()`, `magewireResolver()`,
   `magewireLayoutLifecycle()`.
-- **Admin package** — a dedicated `magewire-admin` package brings components to the Magento admin
+- **Admin package**: a dedicated `magewire-admin` package brings components to the Magento admin
   (head-injection strategy, admin resolver/route).
-- **Structured block arguments** — `magewire.*` (→ properties), `magewire:{group}:{key}` (→ grouped,
+- **Structured block arguments**: `magewire.*` (→ properties), `magewire:{group}:{key}` (→ grouped,
   e.g. `mount`), and reserved `magewire:resolver` / `magewire:alias`.
 
 ## 8. Tooling, platform & docs
 
-- **Portman** — the tool that ports upstream libraries (Livewire) into Magento and keeps them in
+- **Portman**: the tool that ports upstream libraries (Livewire) into Magento and keeps them in
   sync.
-- **PHP 8.2+** — support for PHP below 8.2 was dropped.
-- **Dedicated documentation** — a GitHub-hosted MkDocs site replaces in-repo docs.
+- **PHP 8.2+**: support for PHP below 8.2 was dropped.
+- **Dedicated documentation**: a GitHub-hosted MkDocs site replaces in-repo docs.
 
 ## 9. Backwards compatibility
 

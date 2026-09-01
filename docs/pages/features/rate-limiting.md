@@ -14,7 +14,7 @@ The variants are mutually exclusive:
 
 | Variant | Enforcement | Budget |
 |---|---|---|
-| None | No rate limiting. This is the default. | — |
+| None | No rate limiting. This is the default. |: |
 | Requests only | Runs once in the 3.5 request-filter pipeline, before component reconstruction. | Configurable maximum and decay window. |
 | Components only | Runs for each reconstructed component. | Fixed at 4 attempts per 5 seconds. |
 
@@ -56,7 +56,7 @@ page reload.
 
 A rejected request receives HTTP 429. A normal rate-limit rejection does not include `Retry-After`;
 an active lockout does. Magewire's request-filter bridge marks its short customer-facing message
-with `X-Magewire-Message-Severity`, allowing a theme notifier—or a browser alert fallback—to present
+with `X-Magewire-Message-Severity`, allowing a theme notifier, or a browser alert fallback, to present
 it safely. Generic server error bodies and stack traces do not receive that marker.
 
 The core feature does not provide a log-only mode and does not write special `MagewireRateLimit` entries. Use your infrastructure metrics, Magento logging extension, or a custom request filter when additional observability is required.

@@ -2,7 +2,7 @@
 
 {{ include("admonition/magewire-specific.md", since_version="3.0.0") }}
 
-When a component throws — during the initial page render or during an update — Magewire catches it
+When a component throws, either during the initial page render or during an update, Magewire catches it
 and routes it through a configurable **exception pipeline** instead of letting it blow up the page or
 the XHR. You can observe it per component, swap the error UI, or bind specific exception types to
 custom handlers.
@@ -11,11 +11,11 @@ custom handlers.
 
 Handling differs by [request mode](architecture/runtime.md#request-modes):
 
-- **Preceding** (initial page render) — the failing block's template is swapped to
+- **Preceding** (initial page render): the failing block's template is swapped to
   `Magewirephp_Magewire::magewire/exception.phtml`, so the page renders an error placeholder where
   the component would be instead of crashing the whole page. The component binding is removed from
   the block to prevent a cyclic re-trigger, and the exception is attached to the block as data.
-- **Subsequent** (`/magewire/update` XHR) — the exception is normalised (wrapped in a
+- **Subsequent** (`/magewire/update` XHR): the exception is normalised (wrapped in a
   `RequestException` if it isn't one already) and returned to the browser, where the JS runtime
   surfaces it.
 
@@ -36,7 +36,7 @@ public function exception(Throwable $e, callable $stopPropagation): void
     if ($e instanceof MyRecoverableException) {
         $this->magewireNotifications()->make(__('Something went wrong, please retry.'))->asError();
 
-        $stopPropagation(); // handled — don't bubble further
+        $stopPropagation(); // handled: don't bubble further
     }
 }
 ```
@@ -45,14 +45,14 @@ public function exception(Throwable $e, callable $stopPropagation): void
 
 `Magewirephp\Magewire\Model\App\ExceptionManager` (`@api`) is the central router. It holds a default
 **preceding** handler and a default **subsequent** handler, plus a pool of **type-specific** handlers
-keyed by exception class — optionally scoped to a context group.
+keyed by exception class and optionally scoped to a context group.
 
 A handler can do one of three things by what it returns from `handle()`:
 
-- **Return a (different) exception** — that exception is logged and thrown.
-- **Return a callable** — used as a custom response builder (the request flow runs it instead of
+- **Return a (different) exception**: that exception is logged and thrown.
+- **Return a callable**: used as a custom response builder (the request flow runs it instead of
   throwing). Useful for turning an exception into a specific HTTP response.
-- **Throw / return a `SilentException`** — the error is swallowed silently (logged, not surfaced).
+- **Throw / return a `SilentException`**: the error is swallowed silently (logged, not surfaced).
 
 `RequestException` is the wrapper used for subsequent-mode errors; `SilentException` is the
 "swallow this" signal.
@@ -115,7 +115,7 @@ style or restyle the placeholder for your theme.
 
 ## Related
 
-- [Troubleshooting](troubleshooting.md) — diagnosing common runtime errors.
-- [Rate Limiting](../features/rate-limiting.md) — a real custom handler in core.
-- [Runtime](architecture/runtime.md) — preceding vs subsequent request modes.
-- [Lifecycle Hooks](../essentials/lifecycle-hooks.md) — the `exception()` hook.
+- [Troubleshooting](troubleshooting.md): diagnosing common runtime errors.
+- [Rate Limiting](../features/rate-limiting.md): a real custom handler in core.
+- [Runtime](architecture/runtime.md): preceding vs subsequent request modes.
+- [Lifecycle Hooks](../essentials/lifecycle-hooks.md): the `exception()` hook.

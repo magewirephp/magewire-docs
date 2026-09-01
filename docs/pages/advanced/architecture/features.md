@@ -47,9 +47,9 @@ Create a class that extends `Magewirephp\Magewire\ComponentHook` and declare a `
 
 Each `<item>` in the `items` array carries:
 
-- `type` — fully-qualified class name of the feature (must extend `ComponentHook`).
-- `sort_order` — required; lower numbers boot first. Pick a slot relative to the features yours depends on and recheck the tagged area-specific DI configuration on upgrades.
-- `boot_mode` — optional; integer from the `ServiceTypeItemBootMode` enum (`LAZY = 10`, `PERSISTENT = 20`, `ALWAYS = 30`). Omit to inherit the Features fallback.
+- `type`: fully-qualified class name of the feature (must extend `ComponentHook`).
+- `sort_order`: required; lower numbers boot first. Pick a slot relative to the features yours depends on and recheck the tagged area-specific DI configuration on upgrades.
+- `boot_mode`: optional; integer from the `ServiceTypeItemBootMode` enum (`LAZY = 10`, `PERSISTENT = 20`, `ALWAYS = 30`). Omit to inherit the Features fallback.
 
 Register under `etc/adminhtml/di.xml` as well if the feature must run in the admin area.
 
@@ -81,15 +81,15 @@ The Livewire (and by extension, Magewire) architecture was designed with extensi
 
 Listeners are registered via `Magewirephp\Magewire\on($event, $callback)`. Two rules:
 
-- A listener's return value is either a **callback** (the "after" half of the hook) or the incoming value unchanged. Returning a callback turns the listener into before/after middleware — the callback receives the downstream return value, can mutate it, and must return a result.
-- When a listener returns a callback, the result is automatically piped into it — modify it if you need to, but always return a result to keep the pipeline consistent.
+- A listener's return value is either a **callback** (the "after" half of the hook) or the incoming value unchanged. Returning a callback turns the listener into before/after middleware: the callback receives the downstream return value, can mutate it, and must return a result.
+- When a listener returns a callback, the result is automatically piped into it. Modify it if needed, but always return a result to keep the pipeline consistent.
 
 #### FAQ
 
 | Question | Answer |
 |---|---|
 | When do I use hooks? | When you need to react to specific Magewire lifecycle events (construct, mount, hydrate, update, call, render, dehydrate, destroy, exception, …) or trigger your own events that other code listens for. |
-| Are these hooks the same as Observer Events? | No. Hooks are an in-process, closure-based middleware pipeline — faster, typed, and able to run before/after semantics with return values. Observer Events are Magento's dispatched-event system. Magewire **also** ships `SupportMagentoObserverEvents` (registered by default in frontend and adminhtml), which re-emits every Magewire lifecycle event as a Magento observer event prefixed `magewire_on_*`. Non-alphanumeric characters in the event name are replaced with `_`, so `magewire:component:construct` becomes `magewire_on_magewire_component_construct`, `render` becomes `magewire_on_render`, etc. Reach for a hook when you want middleware semantics; reach for an observer when you want Magento-native extensibility. |
+| Are these hooks the same as Observer Events? | No. Hooks are an in-process, closure-based middleware pipeline: faster, typed, and able to run before/after semantics with return values. Observer Events are Magento's dispatched-event system. Magewire **also** ships `SupportMagentoObserverEvents` (registered by default in frontend and adminhtml), which re-emits every Magewire lifecycle event as a Magento observer event prefixed `magewire_on_*`. Non-alphanumeric characters in the event name are replaced with `_`, so `magewire:component:construct` becomes `magewire_on_magewire_component_construct`, `render` becomes `magewire_on_render`, etc. Reach for a hook when you want middleware semantics; reach for an observer when you want Magento-native extensibility. |
 
 #### Observer event example
 
@@ -116,10 +116,10 @@ class MagewireOnRender implements \Magento\Framework\Event\ObserverInterface
         $listener = $observer->getData('listener');
 
         $listener->with(function (Component $component, $block) {
-            // Before — runs in place of the "before" half of the hook.
+            // Before: runs in place of the "before" half of the hook.
 
             return function (string $html): string {
-                // After — receives the rendered HTML, can mutate, must return.
+                // After: receives the rendered HTML, can mutate, must return.
                 return $html;
             };
         });
@@ -144,10 +144,10 @@ class SupportExample extends ComponentHook
     public function provide(): void
     {
         on('magewire:component:construct', function (AbstractBlock $block) {
-            // Before — runs immediately when the event fires.
+            // Before: runs immediately when the event fires.
 
             return function (AbstractBlock $block): AbstractBlock {
-                // After — runs when the pipeline unwinds with the downstream result.
+                // After: runs when the pipeline unwinds with the downstream result.
                 return $block;
             };
         });
@@ -166,5 +166,5 @@ $block = $construct();
 
 ## Related
 
-- [Component Hooks](component-hooks.md) — full list of lifecycle events and the hook-registration contract.
-- [Mechanisms](mechanisms/index.md) — what Features register alongside.
+- [Component Hooks](component-hooks.md): full list of lifecycle events and the hook-registration contract.
+- [Mechanisms](mechanisms/index.md): what Features register alongside.

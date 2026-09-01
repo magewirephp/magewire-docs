@@ -1,6 +1,6 @@
 # Performance
 
-Magewire components are cheap — a typical round-trip is a small JSON payload, a PHP re-render of one block, and a DOM morph. Performance problems are almost always about doing too many round-trips, not about any single round-trip being slow.
+Magewire components are cheap: a typical round-trip is a small JSON payload, a PHP re-render of one block, and a DOM morph. Performance problems are almost always about doing too many round-trips, not about any single round-trip being slow.
 
 ## Reduce round-trips
 
@@ -30,7 +30,7 @@ Multiple `$wire.set()` / `$wire.call()` calls within the same browser tick are [
 
 ### `skipRender()`
 
-An action that mutates state the UI does not reflect (a log entry, a background-queue enqueue, a redirect) does not need to re-render. Call `$this->skipRender()` — Magewire skips the template render and sends only the effects.
+An action that mutates state the UI does not reflect (a log entry, a background-queue enqueue, a redirect) does not need to re-render. Call `$this->skipRender()`; Magewire skips the template render and sends only the effects.
 
 ```php
 public function logClick(): void
@@ -45,7 +45,7 @@ public function logClick(): void
 Every `public` property is serialised on every request. A 500 kB array on a polling component is 500 kB × poll-rate of bandwidth wasted.
 
 - Keep large read-only data in a private property, hydrated in `boot()` from cache or DB.
-- Summarise — send a count or a list of IDs, look up details on demand.
+- Summarise: send a count or a list of IDs, look up details on demand.
 
 ### Lazy boot
 
@@ -55,7 +55,7 @@ Boot modes are defined by the `Magewirephp\Magewire\Enums\ServiceTypeItemBootMod
 <item name="boot_mode" xsi:type="number">10</item>
 ```
 
-Set this inside the `<item>` definition when registering a Feature or Mechanism in area-scoped `di.xml` — see `src/etc/frontend/di.xml` for examples.
+Set this inside the `<item>` definition when registering a Feature or Mechanism in area-scoped `di.xml`. See `src/etc/frontend/di.xml` for examples.
 
 ### Lazy components
 
@@ -69,7 +69,7 @@ Use [lazy loading](../features/lazy-loading.md) for expensive components that ar
 
 ### `wire:loading.delay`
 
-A 100 ms request followed by a visible "Loading…" state creates jank. `wire:loading.delay` waits 200 ms before showing the indicator — so fast requests feel instantaneous and only slow ones surface a loading state.
+A 100 ms request followed by a visible "Loading…" state creates jank. `wire:loading.delay` waits 200 ms before showing the indicator, so fast requests feel instantaneous and only slow ones surface a loading state.
 
 ```html
 <span wire:loading.delay>Working…</span>
@@ -81,11 +81,11 @@ An unkeyed loop over 200 items forces the morph algorithm to replace every node 
 
 ### `wire:ignore` for heavy subtrees
 
-Third-party widgets (date pickers, Google Maps, rich-text editors) are expensive to re-hydrate on every morph. Wrap them in `wire:ignore` — Magewire walks past the subtree and the browser keeps the existing DOM.
+Third-party widgets (date pickers, Google Maps, rich-text editors) are expensive to re-hydrate on every morph. Wrap them in `wire:ignore`; Magewire walks past the subtree and the browser keeps the existing DOM.
 
 ## Monitoring
 
-- **Magento FPC**: Magewire adds a cache-bypass header on update responses. The GET that renders the initial component is still FPC-cacheable — check that your block's FPC handle is configured correctly.
+- **Magento FPC**: Magewire adds a cache-bypass header on update responses. The GET that renders the initial component is still FPC-cacheable: check that your block's FPC handle is configured correctly.
 - **Browser devtools**: in the Network tab, filter for `magewire/update`. Sort by duration. The slow requests tell you which actions are hot.
 - **Application metrics**: instrument component actions or request filters when you need per-component timings. Core rate limiting does not emit dedicated `MagewireRateLimit` log entries.
 

@@ -2,13 +2,13 @@
 
 !!! tip "Fragments can also be used outside Magewire components!"
 
-A **Fragment** is an explicitly-scoped slice of output—a region of a template or a string of rendered HTML—that Magewire can validate, enhance, and transform before it reaches the browser. Fragments underpin Magewire's CSP support, developer-mode annotations, and other features that need a second pass over inline markup.
+A **Fragment** is an explicitly scoped slice of output: a region of a template or a string of rendered HTML that Magewire can validate, enhance, and transform before it reaches the browser. Fragments underpin Magewire's CSP support, developer-mode annotations, and other features that need a second pass over inline markup.
 
 Think of a fragment as a typed buffer: you tell Magewire *what kind of output this is* (a `<script>`, a `<style>`, arbitrary HTML, a JS literal), and Magewire runs the registered validators and modifiers for that type.
 
 ## Why fragments exist
 
-PHTML templates in Magento are plain output — whatever you `echo` lands in the HTTP response as-is. That means every inline `<script>` is a CSP pain point, every `<style>` bypasses your theme's asset pipeline, and every bit of rendered HTML is opaque to tooling.
+PHTML templates in Magento are plain output; whatever you `echo` lands in the HTTP response as-is. That means every inline `<script>` is a CSP pain point, every `<style>` bypasses your theme's asset pipeline, and every bit of rendered HTML is opaque to tooling.
 
 Fragments flip that. When the contents of an `echo` pass through a fragment, the framework gets a chance to:
 
@@ -47,13 +47,13 @@ Available on `FragmentFactory` (and therefore on `$viewModel->utils()->fragment(
 | Method | Class | Intended use |
 |---|---|---|
 | `html()` | `Fragment\Html` | Generic HTML with root-element attribute decoration. |
-| `script()` | `Fragment\Script` | Inline `<script>` tag — validated start/end, CSP-aware. |
+| `script()` | `Fragment\Script` | Inline `<script>` tag: validated start/end, CSP-aware. |
 | `style()` | `Fragment\Style` | Inline `<style>` tag. |
 | `javascript()` | `Fragment\Javascript` | A raw JavaScript literal (not wrapped in `<script>`). |
 | `component($block)` | `Fragment\Component` | Wraps a Magewire component's rendered root for morph-safe boundaries. |
 | `custom('name')` | registered via DI | Typed fragment for feature-specific output. |
 
-### HTML fragment — decorating a rendered block
+### HTML fragment: decorating a rendered block
 
 ```html
 <?php $html = $fragment->make()->html()->withAttribute('data-trackable', 'cart-row')->start() ?>
@@ -63,7 +63,7 @@ Available on `FragmentFactory` (and therefore on `$viewModel->utils()->fragment(
 <?php $html->end() ?>
 ```
 
-`withAttribute` merges attributes into the root element at render time — no string concatenation required. Multiple calls accumulate; `withAttributes([...])` sets a batch at once.
+`withAttribute` merges attributes into the root element at render time; no string concatenation is required. Multiple calls accumulate; `withAttributes([...])` sets a batch at once.
 
 ### Style fragment
 
@@ -77,7 +77,7 @@ Available on `FragmentFactory` (and therefore on `$viewModel->utils()->fragment(
 
 ### Wrapping pre-rendered HTML
 
-Sometimes the HTML already exists as a string (rendered elsewhere, fetched from a service, stored in a model). `start`/`end` buffering doesn't help here — use `wrap` instead:
+Sometimes the HTML already exists as a string (rendered elsewhere, fetched from a service, stored in a model). `start`/`end` buffering doesn't help here, so use `wrap` instead:
 
 ```php title="Vendor\Module\Model\View\Renderer"
 <?php
@@ -129,13 +129,13 @@ class Script extends \Magewirephp\Magewire\Model\View\Fragment\Html
 Two things happen:
 
 1. **Validators** reject anything that isn't a well-formed `<script>…</script>` block. A typo or stray echo becomes a logged exception instead of mangled markup.
-2. **`getScriptCode()`** gives modifiers access to *just the inline code* — useful for hashing (CSP) or linting.
+2. **`getScriptCode()`** gives modifiers access to *just the inline code*: useful for hashing (CSP) or linting.
 
-Because `Script` extends `Html`, it inherits `withAttribute` / `withAttributes` — so a modifier can drop a `nonce="..."` onto the root `<script>` tag without rewriting the output string.
+Because `Script` extends `Html`, it inherits `withAttribute` / `withAttributes`, so a modifier can drop a `nonce="..."` onto the root `<script>` tag without rewriting the output string.
 
 ## Fragment Modifiers
 
-A **Modifier** is a small class that mutates a fragment right before it renders. Modifiers are the extension point: CSP, developer-mode annotations, FPC integration, analytics tags — all live as modifiers.
+A **Modifier** is a small class that mutates a fragment right before it renders. Modifiers are the extension point for CSP, developer-mode annotations, FPC integration, analytics tags, and similar concerns.
 
 Modifiers extend `Magewirephp\Magewire\Model\View\FragmentModifier`:
 
@@ -164,11 +164,11 @@ class Csp extends \Magewirephp\Magewire\Model\View\FragmentModifier
 Two rules worth internalising:
 
 - **Type-check first.** Modifiers are registered per fragment class, but they often only care about a subset of shapes (e.g. the CSP modifier only touches `Script` fragments). An early `instanceof` guard keeps the logic readable.
-- **Return the fragment.** Modifiers mutate in place (via `withAttribute`, etc.) and return the instance. Do not return a string — the pipeline expects a `Fragment`.
+- **Return the fragment.** Modifiers mutate in place (via `withAttribute`, etc.) and return the instance. Do not return a string because the pipeline expects a `Fragment`.
 
 ### Registering a modifier
 
-Register modifiers on the target fragment class in `di.xml`. Sort order matters — modifiers run in ascending order, so hashing (needs final output) runs late, while annotation (safe to run anytime) runs early:
+Register modifiers on the target fragment class in `di.xml`. Sort order matters; modifiers run in ascending order, so hashing (needs final output) runs late, while annotation (safe to run anytime) runs early:
 
 ```xml
 <type name="Magewirephp\Magewire\Model\View\Fragment\Script">
@@ -186,14 +186,14 @@ Register modifiers on the target fragment class in `di.xml`. Sort order matters 
 </type>
 ```
 
-Register in `etc/frontend/di.xml` for storefront or `etc/adminhtml/di.xml` for admin — area-scope the modifier to the contexts where it should apply.
+Register in `etc/frontend/di.xml` for storefront or `etc/adminhtml/di.xml` for admin. Scope the modifier to the areas where it should apply.
 
 ### Built-in modifiers worth knowing
 
 | Modifier | Fragment | Effect |
 |---|---|---|
 | `Csp` | `Script` | Adds a hash to the dynamic CSP collector on cached pages; injects a nonce on uncached requests. |
-| `Developer` | `Html` (and subclasses) | Adds a `magewire-fragment` boolean attribute to the root element when `MAGE_MODE=developer` — makes fragments visible in browser devtools. |
+| `Developer` | `Html` (and subclasses) | Adds a `magewire-fragment` boolean attribute to the root element when `MAGE_MODE=developer`: makes fragments visible in browser devtools. |
 
 ### A sketch of a custom modifier
 
@@ -273,9 +273,9 @@ end()
 
 A few knobs worth knowing:
 
-- **`lock()`** — freeze a fragment so later code cannot mutate it (useful for shared/injected fragments).
-- **`mute()`** — run the pipeline but suppress the echo. Hand the instance off to other code via `getRawOutput()` or `getScriptCode()`.
-- **`withTag('name')`** — tag the fragment so a later pass can identify it by name.
+- **`lock()`**: freeze a fragment so later code cannot mutate it (useful for shared/injected fragments).
+- **`mute()`**: run the pipeline but suppress the echo. Hand the instance off to other code via `getRawOutput()` or `getScriptCode()`.
+- **`withTag('name')`**: tag the fragment so a later pass can identify it by name.
 
 ## When to reach for a fragment
 
@@ -293,4 +293,4 @@ When a plain `echo` is fine:
 
 ## Related
 
-- [Security](../advanced/security.md) — why the CSP modifier exists.
+- [Security](../advanced/security.md): why the CSP modifier exists.

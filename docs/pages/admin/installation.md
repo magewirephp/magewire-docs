@@ -18,7 +18,7 @@ bin/magento setup:di:compile         # production mode only
 bin/magento cache:flush
 ```
 
-In developer mode, the module picks up on the next request — no DI compile needed.
+In developer mode, the module picks up on the next request; no DI compile is needed.
 
 ## Verify
 

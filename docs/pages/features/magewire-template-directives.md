@@ -66,7 +66,7 @@ Magewirephp\Magewire\Mechanisms\HandleCompiling\View
 
 Important extension points include `Directive`, `DirectiveArea`, `ScopeDirective`, `Management\DirectiveManager`, and the parser types below `Directive\Parser`.
 
-Register a directive in an existing or custom `DirectiveArea` through area-specific `di.xml`. Prefixes map to areas—for example, the `escape` area exposes `@escapeUrl`. Keep compiled output small and delegate business logic to a service or a registered compiler action.
+Register a directive in an existing or custom `DirectiveArea` through area-specific `di.xml`. Prefixes map to areas; for example, the `escape` area exposes `@escapeUrl`. Keep compiled output small and delegate business logic to a service or a registered compiler action.
 
 Available parser modes are `CONDITION`, `ITERATION_CLAUSE`, `FUNCTION_ARGUMENTS`, and `EXPRESSION_ARGUMENTS`. Use `EXPRESSION_ARGUMENTS` when arguments must remain valid PHP expressions at render time; use `FUNCTION_ARGUMENTS` only for the older token-style behavior.
 

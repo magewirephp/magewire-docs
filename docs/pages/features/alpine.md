@@ -17,8 +17,8 @@ The bundled build is the CSP variant: it evaluates directive expressions without
 | Event | Register |
 |---|---|
 | `alpine:init` | `Alpine.data()`, `Alpine.store()`, `Alpine.bind()`, utilities |
-| `magewire:init` | `Magewire.hook()` — commit, request, morph hooks |
-| `magewire:initialized` | `Magewire.directive()` — custom `mage:*` directives |
+| `magewire:init` | `Magewire.hook()`: commit, request, morph hooks |
+| `magewire:initialized` | `Magewire.directive()`: custom `mage:*` directives |
 
 Use `{ once: true }` for one-time global registrations.
 

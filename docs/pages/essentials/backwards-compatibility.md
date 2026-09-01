@@ -7,7 +7,7 @@ V1 (Livewire V2) era. To keep existing V1 components running while you migrate, 
 **backwards-compatibility (BC) layer**.
 
 BC is **opt-in and per-component**: a component only gets BC treatment when you ask for it, so
-modern components pay no cost. This page covers the whole system — how to switch BC on and off, and
+modern components pay no cost. This page covers the whole system: how to switch BC on and off, and
 what it does on both the PHP and JavaScript sides. For a theme's auto-enable rule, see
 [Hyvä Checkout BC](../theming/hyva-checkout-bc.md).
 
@@ -35,7 +35,7 @@ class LegacyCart extends Component
 }
 ```
 
-Pass `enabled: false` to opt **out** explicitly — handy when a theme rule would otherwise enable BC
+Pass `enabled: false` to opt **out** explicitly, which is handy when a theme rule would otherwise enable BC
 for this component (see resolution order below):
 
 ```php
@@ -65,9 +65,9 @@ store($component)->set('magewire:bc', true);
 
 When more than one source has an opinion, the flag resolves in this order:
 
-1. **Explicit attribute** — `#[HandleBackwardsCompatibility]` (either value) wins.
-2. **Data-store value** — a programmatically set `magewire:bc` flag.
-3. **Theme default** — a theme compatibility module may enable BC for whole groups of components
+1. **Explicit attribute**: `#[HandleBackwardsCompatibility]` (either value) wins.
+2. **Data-store value**: a programmatically set `magewire:bc` flag.
+3. **Theme default**: a theme compatibility module may enable BC for whole groups of components
    (e.g. everything inside a checkout container). See the theme's BC documentation.
 
 If none apply, the flag defaults to `false` and the component runs as pure V3.
@@ -79,7 +79,7 @@ BC enabling activates several adaptations, on both the PHP and JavaScript sides.
 ### PHP side (framework, theme-agnostic)
 
 - **Deprecated V1 component APIs.** The base `Component` mixes in the
-  `HandlesComponentBackwardsCompatibility` trait, which keeps V1-era methods and properties working —
+  `HandlesComponentBackwardsCompatibility` trait, which keeps V1-era methods and properties working:
   `getPublicProperties()` (the V2 equivalent of `all()`), the public `$id` property, and the Emit,
   Error, BrowserEvent, Request and View concerns. These exist on every component, but are only
   meaningful to code written against the old API.
@@ -89,7 +89,7 @@ BC enabling activates several adaptations, on both the PHP and JavaScript sides.
   (`data` → `$wire`, `__livewire` → `queuedUpdates`). V1-era JavaScript uses this map to find
   properties that moved in V3.
 - **Lifecycle-hook argument adaptation.** For BC-enabled components only, a plugin on the lifecycle
-  feature rewrites V1 hook call signatures to their V3 form before dispatch — for example the
+  feature rewrites V1 hook call signatures to their V3 form before dispatch: for example the
   argument order of `updatingFoo()` / `updatedFoo()`. V1 hook methods keep being called correctly
   without you rewriting their signatures.
 
@@ -135,13 +135,13 @@ BC buys time; it does not eliminate migration work. It will **not** fix:
 - **Validation-rule** format changes.
 - Behavioural changes in the underlying Magento or theme code that Magewire wraps.
 
-These still require manual changes — see the [Upgrade](../getting-started/upgrade.md) checklist.
+These still require manual changes. See the [Upgrade](../getting-started/upgrade.md) checklist.
 
 ## Disabling the whole feature
 
 BC is registered as a [Feature](../advanced/architecture/features.md) named
-`magewire_backwards_compatibility`. To remove the entire subsystem site-wide — once every component
-is V3-native — override the feature item to `false` in your module's **area-scoped** DI
+`magewire_backwards_compatibility`. Once every component is V3-native, remove the entire subsystem
+site-wide by overriding the feature item to `false` in your module's **area-scoped** DI
 (`etc/frontend/di.xml`, and `etc/adminhtml/di.xml` if relevant):
 
 ```xml title="etc/frontend/di.xml"
@@ -159,7 +159,7 @@ A feature item set to `false` is filtered out before booting, so the BC feature 
 
 !!! warning "Only disable once you're fully migrated"
     Turning the feature off removes BC for **every** component at once, regardless of any
-    `#[HandleBackwardsCompatibility]` attributes. Do this only when no component — in any module —
+    `#[HandleBackwardsCompatibility]` attributes. Do this only when no component, in any module,
     still depends on V1 behaviour. To drop BC for a single component, prefer
     `#[HandleBackwardsCompatibility(enabled: false)]`.
 
@@ -169,7 +169,7 @@ A feature item set to `false` is filtered out before booting, so the BC feature 
    component. The site runs with no V1 code changes.
 2. Migrate one component at a time using the [Upgrade](../getting-started/upgrade.md) checklist.
 3. When a component is fully V3-native, switch its attribute to
-   `#[HandleBackwardsCompatibility(enabled: false)]` so it stops paying the BC cost — then remove the
+   `#[HandleBackwardsCompatibility(enabled: false)]` so it stops paying the BC cost: then remove the
    attribute once you're confident.
 4. When the whole site is migrated, [disable the feature](#disabling-the-whole-feature) to drop the
    BC code (and the theme's JS shim) entirely.
@@ -186,7 +186,7 @@ The exact cost depends on component size and browser workload. Treat BC as a mig
 
 ## Related
 
-- [Hyvä Checkout BC](../theming/hyva-checkout-bc.md) — the canonical theme auto-enable rule.
-- [Compatibility module](../theming/compatibility-module.md) — where a theme's BC shim and features live.
-- [Upgrade](../getting-started/upgrade.md) — the V1 → V3 migration checklist.
-- [Features](../advanced/architecture/features.md) — how the BC feature is registered and booted.
+- [Hyvä Checkout BC](../theming/hyva-checkout-bc.md): the canonical theme auto-enable rule.
+- [Compatibility module](../theming/compatibility-module.md): where a theme's BC shim and features live.
+- [Upgrade](../getting-started/upgrade.md): the V1 → V3 migration checklist.
+- [Features](../advanced/architecture/features.md): how the BC feature is registered and booted.

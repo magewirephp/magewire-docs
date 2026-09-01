@@ -19,4 +19,4 @@ In addition to the Livewire defaults, Magewire supports `\Magento\Framework\Data
 ## wire:model defaults to deferred
 
 !!! info "Migrating from Magewire V1"
-    V1's `wire:model` was live-by-default and `.lazy` meant blur. V3 flips the default — `wire:model` defers. Use `.live` for instant sync. See [Upgrade](../getting-started/upgrade.md).
+    V1's `wire:model` was live-by-default and `.lazy` meant blur. V3 flips the default: `wire:model` defers. Use `.live` for instant sync. See [Upgrade](../getting-started/upgrade.md).

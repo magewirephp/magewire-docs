@@ -32,14 +32,14 @@ We inherit an entire ecosystem of eyes, fingers, and documentation.
 
 If you only used V1, this is probably the biggest jump:
 
-- **`$wire`** — the reactive proxy on every component. Read any public property, call any public method, subscribe to any event, all from Alpine or inline JS.
-- **`#[On('event-name')]`** — PHP attributes replace the old `$listeners` array. Less boilerplate, better IDE support.
-- **Entangle with deferred default** — `$wire.entangle('open')` gives you an Alpine-friendly two-way proxy that no longer floods the server on every keystroke. Add `.live` when you actually want live.
-- **`wire:model` is deferred by default** — same story, different directive. Use `.live`, `.blur`, or `.live.debounce.300ms` depending on what you need.
-- **Bundled Alpine — and only one of it** — Magewire ships the CSP build of Alpine inside its JS bundle. If your theme used to load Alpine separately, you can rip that out. One Alpine, one store, no more directive-registration fights.
-- **Streaming** — `wire:stream` works. A Magento output-buffering layer made this harder than it should have been, but we got there.
-- **Modern morphing, modern commit hooks** — the frontend uses Livewire's current morph algorithm with all its bug fixes. Every request goes through the `commit` hook pipeline, so you can intercept, retry, or observe without hacks.
-- **Lifecycle hooks that read like Laravel** — `boot`, `booted`, `mount`, `hydrate`, `updating`/`updated`, `rendering`/`rendered`, `dehydrate`, `exception`. Plus per-property variants (`updatedFirstName`, `hydrateCart`).
+- **`$wire`**: the reactive proxy on every component. Read any public property, call any public method, subscribe to any event, all from Alpine or inline JS.
+- **`#[On('event-name')]`**: PHP attributes replace the old `$listeners` array. Less boilerplate, better IDE support.
+- **Entangle with deferred default**: `$wire.entangle('open')` gives you an Alpine-friendly two-way proxy that no longer floods the server on every keystroke. Add `.live` when you actually want live.
+- **`wire:model` is deferred by default**: same story, different directive. Use `.live`, `.blur`, or `.live.debounce.300ms` depending on what you need.
+- **Bundled Alpine, with only one copy**: Magewire ships the CSP build of Alpine inside its JS bundle. If your theme used to load Alpine separately, you can rip that out. One Alpine, one store, no more directive-registration fights.
+- **Streaming**: `wire:stream` works. A Magento output-buffering layer made this harder than it should have been, but we got there.
+- **Modern morphing, modern commit hooks**: the frontend uses Livewire's current morph algorithm with all its bug fixes. Every request goes through the `commit` hook pipeline, so you can intercept, retry, or observe without hacks.
+- **Lifecycle hooks that read like Laravel**: `boot`, `booted`, `mount`, `hydrate`, `updating`/`updated`, `rendering`/`rendered`, `dehydrate`, `exception`. Plus per-property variants (`updatedFirstName`, `hydrateCart`).
 
 None of this is Magewire-specific. It's Livewire V3, running inside Magento, behaving exactly like the Livewire community expects.
 
@@ -70,9 +70,9 @@ Layout XML is the same as storefront. Lifecycle is the same. Alpine is the same 
 
 V3 is a complete architectural rewrite. Three concepts you'll see everywhere in the docs:
 
-- **Mechanisms** — the non-removable backbone: component resolving, snapshot handling, request handling, frontend assets. You extend them; you don't delete them.
-- **Features** — the optional layer: notifications, rate limiting, streaming, redirects, BC shims. Disabling a feature never breaks the architecture.
-- **Component Hooks** — the primitive behind everything. A class that subscribes to lifecycle events (`mount`, `render`, `dehydrate`, …) with middleware semantics. Almost every Feature is one.
+- **Mechanisms**: the non-removable backbone: component resolving, snapshot handling, request handling, frontend assets. You extend them; you don't delete them.
+- **Features**: the optional layer: notifications, rate limiting, streaming, redirects, BC shims. Disabling a feature never breaks the architecture.
+- **Component Hooks**: the primitive behind everything. A class that subscribes to lifecycle events (`mount`, `render`, `dehydrate`, …) with middleware semantics. Almost every Feature is one.
 
 Every custom piece you write, a new resolver, a new synthesizer, a new feature, a theme adapter, plugs into this shape. The boundary between core, theme, and userland is clearer than it has ever been.
 

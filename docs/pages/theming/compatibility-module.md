@@ -9,7 +9,7 @@ Use the name `Vendor_MagewireCompatibilityWith{Theme}`. Place it in either:
 - `app/code/Vendor/MagewireCompatibilityWith{Theme}/` for a project-local override, or
 - A standalone composer package for reusable distribution.
 
-Hyvä's own compatibility module is the standalone `magewirephp/magewire-hyva-theme` package — an example of the second shape. (Before 3.2.0 it lived in-tree under the core repo's `themes/Hyva/` directory; that directory has since been removed and every theme split into its own package.)
+Hyvä's own compatibility module is the standalone `magewirephp/magewire-hyva-theme` package, an example of the second shape. (Before 3.2.0 it lived in-tree under the core repo's `themes/Hyva/` directory; that directory has since been removed and every theme split into its own package.)
 
 ## Minimum viable module
 
@@ -38,7 +38,7 @@ Two files, nothing else:
 </config>
 ```
 
-The `sequence` block is load-bearing — it forces this module to load **after** both Magewire and your theme, so your DI and layout overrides win.
+The `sequence` block is load-bearing because it forces this module to load **after** both Magewire and your theme, so your DI and layout overrides win.
 
 Enable it:
 
@@ -72,8 +72,8 @@ See [Layout containers](layout-containers.md) for the full map.
 
 All Features, Hooks, and Mechanisms register via **area-scoped DI**:
 
-- `etc/frontend/di.xml` — storefront
-- `etc/adminhtml/di.xml` — admin
+- `etc/frontend/di.xml`: storefront
+- `etc/adminhtml/di.xml`: admin
 - **Never** `etc/di.xml` (global)
 
 Global DI is ignored by the Magewire service provider. If registrations don't appear to take effect, this is almost always why.
@@ -82,7 +82,7 @@ Global DI is ignored by the Magewire service provider. If registrations don't ap
 
 Hyvä already dispatches its own flash messages via `dispatchMessages()`. Bridge Magewire's notifications to that function in three files.
 
-**1. Register the Feature** — `etc/frontend/di.xml`:
+**1. Register the Feature**: `etc/frontend/di.xml`:
 
 ```xml
 <?xml version="1.0"?>
@@ -101,7 +101,7 @@ Hyvä already dispatches its own flash messages via `dispatchMessages()`. Bridge
 </config>
 ```
 
-**2. Render the bridge script** — `view/frontend/layout/default_hyva.xml`:
+**2. Render the bridge script**: `view/frontend/layout/default_hyva.xml`:
 
 ```xml
 <body>
@@ -112,7 +112,7 @@ Hyvä already dispatches its own flash messages via `dispatchMessages()`. Bridge
 </body>
 ```
 
-**3. The bridge script** — `view/frontend/templates/magewire-features/support-hyva-flash-messages.phtml`:
+**3. The bridge script**: `view/frontend/templates/magewire-features/support-hyva-flash-messages.phtml`:
 
 ```html
 <?php
@@ -127,14 +127,14 @@ $script = $fragment->make()->script()->start();
 <?php $script->end(); ?>
 ```
 
-Fragments handle CSP nonce/hash injection — never emit raw `<script>` tags.
+Fragments handle CSP nonce/hash injection; never emit raw `<script>` tags.
 
 ## Anti-patterns
 
 - Registering Features or Mechanisms in global `etc/di.xml`.
 - Editing Magewire's base layout XML in place (patches break on upgrade).
 - Emitting raw `<script>` / `<style>` tags instead of using [fragments](../concepts/fragments.md).
-- Referencing theme-specific FQCNs from inside Magewire core — they belong in the compatibility module.
+- Referencing theme-specific FQCNs from inside Magewire core: they belong in the compatibility module.
 - Assuming `referenceBlock` replaces a block or `referenceContainer` is inherently additive. Both reference an existing layout node; child addition and template/argument changes determine the result. Follow the node and pattern used by the current first-party package.
 - Shipping theme modules separately from the themes they compat with, without a `<sequence>` declaration.
 
@@ -143,4 +143,4 @@ Fragments handle CSP nonce/hash injection — never emit raw `<script>` tags.
 - [Layout containers](layout-containers.md)
 - [Alpine loading](alpine-loading.md)
 - [Tailwind](tailwind.md)
-- [Admin](../admin/index.md) — the canonical standalone compat module.
+- [Admin](../admin/index.md): the canonical standalone compat module.

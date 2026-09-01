@@ -1,10 +1,10 @@
 # Layout
 
-Magewire is a large framework with many options and features. Still, the layout stays flexible — there is a documented extension point for injecting JavaScript, UI components, Alpine data, and every other piece of frontend wiring Magewire ships.
+Magewire is a large framework with many options and features. Still, the layout stays flexible, with a documented extension point for injecting JavaScript, UI components, Alpine data, and every other piece of frontend wiring Magewire ships.
 
 It's impossible to explain everything, and many parts are self-explanatory or include clear comments in the layout files. The sections below cover the containers and blocks you are most likely to target from a theme or a feature module.
 
-The canonical source is `src/view/base/layout/default.xml` — the tree below mirrors it. Frontend and admin layouts add a small number of page-level moves on top (documented at the end).
+The canonical source is `src/view/base/layout/default.xml`. The tree below mirrors it. Frontend and admin layouts add a small number of page-level moves on top (documented at the end).
 
 ## Container tree
 
@@ -16,8 +16,8 @@ after.body.start
 └── magewire.priority                         ← early JS, runs right after <body> opens
     └── magewire.object-proxy   (frontend)    ← window.Magewire stub so inline snippets can queue work
 
-magewire (root block — Magewirephp_Magewire::root.phtml)
-├── magewire.global (block — js/magewire/global.phtml)
+magewire (root block: Magewirephp_Magewire::root.phtml)
+├── magewire.global (block: js/magewire/global.phtml)
 │   ├── magewire.global.before (container)
 │   │   ├── magewire.alpinejs.load            ← Alpine JS <script> tag goes here (empty; theme fills it)
 │   │   ├── magewire.alpinejs (container)
@@ -62,15 +62,15 @@ magewire (root block — Magewirephp_Magewire::root.phtml)
     └── magewire.plugin.scripts               ← pre-v3 plugin compatibility
 ```
 
-The base layout also defines two blocks **outside** the `magewire` root subtree — `magewire.css` (in `head.additional`) and `magewire.priority` (in `after.body.start`). They are not moved with the root and stay where they render best: CSS in the head, priority JS right after the body opens.
+The base layout also defines two blocks **outside** the `magewire` root subtree: `magewire.css` (in `head.additional`) and `magewire.priority` (in `after.body.start`). They are not moved with the root and stay where they render best: CSS in the head, priority JS right after the body opens.
 
 Frontend layout (`src/view/frontend/layout/default.xml`) adds on top:
 
-- `<move element="magewire" destination="before.body.end"/>` — moves the whole `magewire` root subtree to the end of `<body>` (`magewire.css` and `magewire.priority` stay put).
-- `magewire.alpinejs.components.magewire-script` inside `magewire.alpinejs.components` — the Alpine component that boots Magewire's JS runtime.
-- `magewire.object-proxy` as a child of `magewire.priority` — early global object so inline snippets can queue work against `window.Magewire` before the runtime boots.
+- `<move element="magewire" destination="before.body.end"/>`: moves the whole `magewire` root subtree to the end of `<body>` (`magewire.css` and `magewire.priority` stay put).
+- `magewire.alpinejs.components.magewire-script` inside `magewire.alpinejs.components`: the Alpine component that boots Magewire's JS runtime.
+- `magewire.object-proxy` as a child of `magewire.priority`: early global object so inline snippets can queue work against `window.Magewire` before the runtime boots.
 
-Admin layout (`magewire-admin` package) replaces the body-end move with a head-injection strategy — see [Admin → How it works](../../admin/how-it-works.md).
+Admin layout (`magewire-admin` package) replaces the body-end move with a head-injection strategy. See [Admin → How it works](../../admin/how-it-works.md).
 
 ## Containers
 
@@ -78,16 +78,16 @@ Admin layout (`magewire-admin` package) replaces the body-end move with a head-i
 |--------------------------------------|-----------|-------------|
 | `magewire.css`                       | block     | Lives in `head.additional`. Renders the CSS for `wire:*` attributes (loading / cloak states). Outside the `magewire` root subtree. |
 | `magewire.priority`                  | block     | Lives in `after.body.start`. Early JS that must run right after `<body>` opens. Hosts `magewire.object-proxy` on the frontend. Outside the `magewire` root subtree. |
-| `magewire`                           | block     | Root; wraps every Magewire-owned output. Do not replace its template — override children instead. |
-| `magewire.global`                    | block     | Global setup pass — runs once per page, before any per-feature wiring. |
+| `magewire`                           | block     | Root; wraps every Magewire-owned output. Do not replace its template: override children instead. |
+| `magewire.global`                    | block     | Global setup pass: runs once per page, before any per-feature wiring. |
 | `magewire.global.before`             | container | First region inside `magewire.global`. Used by the Alpine load, Alpine init, utilities, addons. |
-| `magewire.global.after`              | container | After-hook inside `magewire.global`. Empty by default — safe place for page-level hooks that must run after utilities / addons are registered. |
+| `magewire.global.after`              | container | After-hook inside `magewire.global`. Empty by default: safe place for page-level hooks that must run after utilities / addons are registered. |
 | `magewire.alpinejs.load`             | container | Where Alpine's own `<script>` tag is rendered. Reorder or swap the Alpine bundle here. |
 | `magewire.alpinejs`                  | container | Holds the block that defines Magewire's Alpine global (`Alpine.data`, `Alpine.store`). Targeted by themes that add global Alpine helpers. |
 | `magewire.alpinejs.components`       | container | `Alpine.data(...)` registrations. Each child block renders an `<script>` calling `Alpine.data`. |
 | `magewire.before`                    | container | Everything that must precede Magewire's own directives/features. Theme-owned by convention. |
 | `magewire.alpinejs.directives`       | container | Custom `x-*` directive registrations. |
-| `magewire.ui-components`             | container | UI Alpine components — the core notifier lives here; theme overrides and additions too. |
+| `magewire.ui-components`             | container | UI Alpine components: the core notifier lives here; theme overrides and additions too. |
 | `magewire.alpinejs.after`            | container | Alpine code that must load AFTER Magewire's Alpine wiring. |
 | `magewire.before.internal`           | container | Before Magewire's internal machinery. Reserved for framework use; ships the debug-only `magewire.state.enabled` notice (`ifconfig dev/magewire/debug/enable`). |
 | `magewire.internal`                  | block     | Non-overridable core. Deliberately a block, not a container, so arbitrary injection is impossible. Inject via `magewire.after.internal` instead. |
@@ -95,7 +95,7 @@ Admin layout (`magewire-admin` package) replaces the body-end move with a head-i
 | `magewire.directives`                | block     | Magewire's own `wire:*` / `mage-*` directives (select, mage-notify, mage-throttle). |
 | `magewire.features`                  | block     | Feature-side bridge scripts (loaders, rate-limiting, etc.). One child per Feature by convention. |
 | `magewire.after.internal`            | container | After the internal block. Use when you must interleave with core internals. |
-| `magewire.disabled`                  | container | Rendered ONLY when Magewire is disabled site-wide — surface a fallback or a warning here. Ships the debug-only `magewire.state.disabled` notice. |
+| `magewire.disabled`                  | container | Rendered ONLY when Magewire is disabled site-wide: surface a fallback or a warning here. Ships the debug-only `magewire.state.disabled` notice. |
 | `magewire.after`                     | container | Last-to-render Magewire content. Theme-owned; safe default for theme-final output. |
 | `magewire.utilities`                 | block     | Loads `window.MagewireUtilities` and registers core utilities (dom, loader, str, cookie). |
 | `magewire.utilities.after`           | container | Inject custom utilities so they register after the core ones. |
@@ -130,7 +130,7 @@ Magento layout XML honours `after=` / `before=` among siblings. For deterministi
        after="magewire.features.support-magewire-loaders"/>
 ```
 
-Do not rely on file load order — that depends on module sequence and is brittle.
+Do not rely on file load order because it depends on module sequence and is brittle.
 
 ## Which container to target
 
@@ -150,7 +150,7 @@ Do not rely on file load order — that depends on module sequence and is brittl
 
 ## Directories & Templates
 
-Magewire's `src/view/base/templates/` directory is organised by the library the template targets — the path tells you what the template does before you open it.
+Magewire's `src/view/base/templates/` directory is organised by the library the template targets: the path tells you what the template does before you open it.
 
 ### Top-level directories
 
@@ -158,20 +158,20 @@ Magewire's `src/view/base/templates/` directory is organised by the library the 
 |---|---|
 | `js/` | Templates whose primary payload is a `<script>` block. |
 | `magewire/` | PHTML UI templates (components and shared pieces) with negligible JS. |
-| `magewire-features/` | One subdirectory per registered Feature — bridge PHTML paired with `magewire.features.*` blocks. |
+| `magewire-features/` | One subdirectory per registered Feature: bridge PHTML paired with `magewire.features.*` blocks. |
 
 ### Under `js/`
 
 | Directory | Purpose |
 |---|---|
 | `js/alpinejs/` | Alpine-related templates. |
-| `js/alpinejs/components/` | Alpine `.data(...)` registrations — one file per component. |
+| `js/alpinejs/components/` | Alpine `.data(...)` registrations: one file per component. |
 | `js/alpinejs/directives/` | Alpine `x-*` directive registrations. |
 | `js/magewire/` | Magewire runtime templates. |
 | `js/magewire/addons/` | One file per `MagewireAddons.register(...)` call (the notifier lives here). |
 | `js/magewire/utilities/` | One file per `MagewireUtilities.register(...)` call (dom, loader, str, cookie). |
 | `js/magewire/directives/` | Magewire-level directive registrations (select, mage-notify, mage-throttle). |
-| `js/magewire/internal/` | Non-overridable internals — do not add here from a module. |
+| `js/magewire/internal/` | Non-overridable internals: do not add here from a module. |
 
 ### Under `magewire/`
 
@@ -198,25 +198,25 @@ Pair a child block under `magewire.features` with a template in `Vendor_Module::
 
 ## Blocks that look like containers
 
-`magewire.global`, `magewire.internal`, `magewire.directives`, `magewire.features`, `magewire.utilities`, and `magewire.addons` are **blocks**, not containers — each has a template that renders a scaffold around its children. Two practical consequences:
+`magewire.global`, `magewire.internal`, `magewire.directives`, `magewire.features`, `magewire.utilities`, and `magewire.addons` are **blocks**, not containers: each has a template that renders a scaffold around its children. Two practical consequences:
 
 - Follow the reference form used by the current first-party package for the target node. A reference does not replace the target by itself; template or argument changes do.
 - To completely swap the scaffold (e.g. a different wrapper for all directives), override the template with `<referenceBlock name="magewire.directives" template="..."/>`. Rare; only do this when the parent's markup genuinely needs replacing.
 
 ## Off-limits from a theme
 
-- `magewire` root block itself — do not replace its template.
-- `magewire.internal` and anything directly under it (except the BC sub-container) — reserved for core.
-- `magewire.before.internal` / `magewire.after.internal` — used only when the framework's own internal ordering requires it.
+- `magewire` root block itself: do not replace its template.
+- `magewire.internal` and anything directly under it (except the BC sub-container): reserved for core.
+- `magewire.before.internal` / `magewire.after.internal`: used only when the framework's own internal ordering requires it.
 
 If a container you need doesn't exist, add one in `default_{theme}.xml` as a child of an existing container rather than repurposing a reserved one.
 
 ## Page-specific vs global overrides
 
-- `default_{theme}.xml` — applies on every page where the theme is active. Use for load-order fixes, global Feature bridges, BC shims.
-- `{route}_{controller}_{action}.xml` — applies on one route only. Use for page-scoped Features (for example, Hyvä Checkout's BC feature is activated only on `hyva_checkout_index_index`).
+- `default_{theme}.xml`: applies on every page where the theme is active. Use for load-order fixes, global Feature bridges, BC shims.
+- `{route}_{controller}_{action}.xml`: applies on one route only. Use for page-scoped Features (for example, Hyvä Checkout's BC feature is activated only on `hyva_checkout_index_index`).
 
-Smaller scope is cheaper — page-specific handles avoid paying for the block on every page.
+Smaller scope is cheaper: page-specific handles avoid paying for the block on every page.
 
 ## Accessing layout context from a component
 
@@ -233,7 +233,7 @@ base `Component`, giving every component live accessors to its own layout contex
 | `magewireLayoutLifecycle()` | The `LayoutLifecycle` tracker for this component's block. | Advanced: reasoning about the block's render lifecycle. |
 
 The framework wires these up for you. After a component is constructed or reconstructed, the
-[`ResolveComponents`](mechanisms/index.md) mechanism sets all three — so they're already populated by
+[`ResolveComponents`](mechanisms/index.md) mechanism sets all three, so they're already populated by
 the time any lifecycle hook, action, or `render()` runs.
 
 ```php
@@ -247,7 +247,7 @@ public function mount(): void
 ```
 
 !!! note "Prefer the `magewire*` accessors"
-    The trait also carries deprecated aliases — `block()`, `resolver()`, `setParent()`,
+    The trait also carries deprecated aliases: `block()`, `resolver()`, `setParent()`,
     `getParent()`. Use `magewireBlock()` / `magewireResolver()` in new code.
 
 Reaching for the block is the escape hatch when you need something only Magento's layout knows. For
@@ -258,13 +258,13 @@ over reading raw block data.
 
 {{ include("admonition/magewire-specific.md", since_version="3.0.0") }}
 
-Everything above describes layout XML at rest — the container tree as it renders on a normal page load. This last section covers what happens to the **layout instance itself** during a Magewire update, and why it can hand back a block that was never attached to a `<body>`.
+Everything above describes layout XML at rest: the container tree as it renders on a normal page load. This last section covers what happens to the **layout instance itself** during a Magewire update, and why it can hand back a block that was never attached to a `<body>`.
 
 ### The problem
 
 On a normal page render, Magento builds a single global `Layout` singleton, bound to the current route. Every block hangs off the page body root, and the generator pool knows how to build heads, bodies, containers and blocks alike.
 
-A Magewire update (`/magewire/update`) is **not** a page render. There is no route, no `<body>`, no head. Yet the [`LayoutResolver`](mechanisms/resolvers.md) still has to replay a component's stored layout handles and pull a *single* block back out by name to rebuild the component (see [Resolvers → reconstruction](mechanisms/resolvers.md#the-built-in-layoutresolver)). A block normally needs a page as its root parent to bind to — and on an XHR there isn't one.
+A Magewire update (`/magewire/update`) is **not** a page render. There is no route, no `<body>`, no head. Yet the [`LayoutResolver`](mechanisms/resolvers.md) still has to replay a component's stored layout handles and pull a *single* block back out by name to rebuild the component (see [Resolvers → reconstruction](mechanisms/resolvers.md#the-built-in-layoutresolver)). A block normally needs a page as its root parent to bind to, but an XHR does not have one.
 
 ### Decorating the layout instance
 
@@ -277,7 +277,7 @@ if ($this->magewireServiceProvider->runtime()->mode()->isSubsequent()) {
 }
 ```
 
-On the **initial** page load nothing is decorated — the layout behaves exactly like stock Magento. The decoration only applies during an update roundtrip, where page-less fetching is actually needed.
+On the **initial** page load nothing is decorated; the layout behaves exactly like stock Magento. The decoration only applies during an update roundtrip, where page-less fetching is actually needed.
 
 `MagewireLayoutDecorator::decorateForPagelessBlockFetching()` swaps two pieces of the layout instance:
 
@@ -287,9 +287,9 @@ public function decorateForPagelessBlockFetching(LayoutInterface $layout): Layou
     if ($layout instanceof Layout) {
         $builder = $this->dynamicLayoutBuilder->newInstance(['layout' => $layout]);
 
-        // Custom generator pool — only blocks and containers are allowed to generate.
+        // Custom generator pool: only blocks and containers are allowed to generate.
         $layout->setGeneratorPool($this->generatorPool);
-        // Custom builder — limits rebuilds for repetitive layouts.
+        // Custom builder: limits rebuilds for repetitive layouts.
         $layout->setBuilder($builder);
     }
 
@@ -297,9 +297,9 @@ public function decorateForPagelessBlockFetching(LayoutInterface $layout): Layou
 }
 ```
 
-**1. A restricted generator pool.** The custom `GeneratorPool` limits the layout's generators to just `block` and `container` — head, body, and the other page-structure generators are dropped, because there is no page to structure. More importantly, it replaces Magento's `ScheduledStructure\Helper` with a Magewire variant that **emulates a missing root**: when a block's declared parent element doesn't exist (because no page body was ever built), the helper fabricates a fictional container element so the child still has something to bind to. This is the mechanism that lets a block resolve "without being attached to a page body".
+**1. A restricted generator pool.** The custom `GeneratorPool` limits the layout's generators to just `block` and `container`: head, body, and the other page-structure generators are dropped, because there is no page to structure. More importantly, it replaces Magento's `ScheduledStructure\Helper` with a Magewire variant that **emulates a missing root**: when a block's declared parent element doesn't exist (because no page body was ever built), the helper fabricates a fictional container element so the child still has something to bind to. This is the mechanism that lets a block resolve "without being attached to a page body".
 
-**2. A caching builder.** The custom `DynamicLayoutBuilder` hashes the sorted set of active handles and caches the built layout per hash. Building the same handle set twice in one request returns the cached instance instead of re-running `generateXml()` / `generateElements()` — preventing the repetitive (and potentially recursive) rebuilds that page-less fetching would otherwise trigger. `rebuild()` / `reset()` force a fresh build when you genuinely need one.
+**2. A caching builder.** The custom `DynamicLayoutBuilder` hashes the sorted set of active handles and caches the built layout per hash. Building the same handle set twice in one request returns the cached instance instead of re-running `generateXml()` / `generateElements()`, preventing the repetitive (and potentially recursive) rebuilds that page-less fetching would otherwise trigger. `rebuild()` / `reset()` force a fresh build when you genuinely need one.
 
 ### How a resolver consumes it
 
@@ -311,7 +311,7 @@ protected function generateBlocks(array $handles): array
     $layout = $this->layoutManager->singleton();
     $layout->getUpdate()->addHandle($handles);
 
-    return $layout->getAllBlocks(); // keyed by name-in-layout — pick the one you need
+    return $layout->getAllBlocks(); // keyed by name-in-layout: pick the one you need
 }
 ```
 
@@ -323,12 +323,12 @@ The `LayoutManager` is the entry point for both layout flavours, and exposes the
 
 | Method | Returns |
 |---|---|
-| `singleton()` | The global layout singleton — decorated in place during reconstruction. |
+| `singleton()` | The global layout singleton: decorated in place during reconstruction. |
 | `factory()` | A `LayoutFactory` for building a **fresh, isolated** layout instance. |
 | `decorator()` | The `LayoutDecorator` used to enable page-less fetching on either of the above. |
 | `lifecycle(string $name = 'magewire')` | The named `LayoutLifecycle` tracker. |
 
-Most reconstruction decorates the shared singleton. Some features need an isolated layout instead — `FlakeFactory`, for example, decorates a brand-new layout (`factory()->create()`) so it can fetch flake blocks without touching the page's own layout state.
+Most reconstruction decorates the shared singleton. Some features need an isolated layout instead. For example, `FlakeFactory` decorates a brand-new layout (`factory()->create()`) so it can fetch flake blocks without touching the page's own layout state.
 
 ### Swapping the decorator
 
@@ -340,4 +340,4 @@ The decorator is bound through a DI preference, so it is replaceable:
 ```
 
 !!! warning "Framework internals"
-    This decoration is core machinery — you rarely touch it directly. Override the `LayoutDecorator` preference only if you have a genuine reason to change *how* page-less blocks are assembled on an XHR. For normal work (adding directives, features, Alpine wiring) stick to the layout XML containers documented above.
+    This decoration is core machinery: you rarely touch it directly. Override the `LayoutDecorator` preference only if you have a genuine reason to change *how* page-less blocks are assembled on an XHR. For normal work (adding directives, features, Alpine wiring) stick to the layout XML containers documented above.

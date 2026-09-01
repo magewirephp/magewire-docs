@@ -1,7 +1,7 @@
 # Notables
 
 Notables are brief, helpful insights that highlight useful context or nuances. They’re not meant to be buried in the main text,
-nor do they require a full deep-dive explanation — they simply make small but important details clearer at a glance.
+nor do they require a full deep-dive explanation; they simply make small but important details clearer at a glance.
 
 ## The Magewire Block
 
@@ -13,8 +13,8 @@ Manually assigning a `view_model` argument to each block would not only be tedio
 increase in XML configuration lines. To address this, Magewire includes a small feature that automatically injects the
 `view_model` argument into all sibling blocks contained within a `magewire` block.
 
-In practice, this means that as long as your block resides inside the `magewire` block—whether directly or as a
-sibling—you can access the view model via `$block->getViewModel()` or `$block->getData('view_model')`.
+In practice, this means that as long as your block resides inside the `magewire` block, whether directly or as a
+sibling, you can access the view model via `$block->getViewModel()` or `$block->getData('view_model')`.
 
 ```xml
 <!-- A container that sits within the "magewire" block. -->
@@ -27,7 +27,7 @@ sibling—you can access the view model via `$block->getViewModel()` or `$block-
 
 However, please note: if you move a block outside the `magewire` wrapper block, you'll need to manually bind the
 `view_model` argument. This is precisely why the view model is passed as an argument instead of being exposed as
-a global dictionary variable—to avoid forcing developers to rewrite the template just to maintain compatibility.
+a global dictionary variable. This avoids forcing developers to rewrite the template just to maintain compatibility.
 
 Also, if the block already has a `view_model` argument defined, Magewire will skip it automatically.
 
@@ -95,7 +95,7 @@ $bar = $magewireViewModel->utils()->myCustomTechnology()->bar();
 
 !!! tip "View Fragments can also be used outside Magewire components!"
 
-View Fragments—or simply fragments—are self-contained sections of code, typically HTML, that can be both validated and
+View Fragments, or simply fragments, are self-contained sections of code, typically HTML, that can be both validated and
 programmatically modified. The concept was originally introduced to provide a clean and reliable solution for making
 `<script>` tags within template files CSP-compliant.
 
@@ -115,7 +115,7 @@ For a deeper dive, refer to the [Fragments](../concepts/fragments.md) page.
 
 ## Component Reusability
 
-A Magewire component class can be bound to a layout block—for example, via layout XML. If you're using this method and
+A Magewire component class can be bound to a layout block, for example, via layout XML. If you're using this method and
 want to reuse the same component class across multiple blocks, you must set the `shared` flag to `false`.
 
 This ensures each block gets its own instance of the component rather than sharing a single one leading into conflicts.

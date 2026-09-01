@@ -28,7 +28,7 @@ the same fix was applied to Magewire thanks to the way it has been built (ported
 Feature building has stopped for now. It’s time to focus on improving testing across the board, ensuring everything remains backwards compatible, and writing documentation on how to migrate.
 
 In the meantime, I’m trying to establish a small team to speed things up. But I’ve found that asking for help and getting
-valuable input is really a struggle—which I totally understand.
+valuable input is really a struggle, which I totally understand.
 
 Open source in our money-driven community is incredibly difficult, with most people either waiting until something gets released,
 or creating a clone of what Magewire already is and ending up in the same rabbit hole.

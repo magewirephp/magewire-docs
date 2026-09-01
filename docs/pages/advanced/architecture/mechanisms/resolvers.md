@@ -4,7 +4,7 @@
 
 A **Component Resolver** is the bridge between a Magento `AbstractBlock` and a Magewire `Component`. Given a block, the resolver decides whether it should become a component, builds the component on the initial page render, and rebuilds it on every subsequent `/magewire/update` XHR.
 
-For the default Layout-XML flow (a block with a `<argument name="magewire" xsi:type="object">…</argument>`), the built-in `LayoutResolver` handles everything. You only need a custom resolver when the component's binding shape isn't a plain layout argument — Magento Widgets, dynamically-generated blocks, data-driven component construction, or anything that doesn't fit the standard layout model.
+For the default Layout-XML flow (a block with a `<argument name="magewire" xsi:type="object">…</argument>`), the built-in `LayoutResolver` handles everything. You only need a custom resolver when the component's binding shape isn't a plain layout argument, such as Magento Widgets, dynamically generated blocks, data-driven component construction, or anything else that doesn't fit the standard layout model.
 
 ## Mental model
 
@@ -17,10 +17,10 @@ Think of a resolver as a three-state machine with a stable identity:
                 (block gone)  ←  reconstruct(request)
 ```
 
-- **`complies()`** — a cheap yes/no question the manager asks every registered resolver until one says yes.
-- **`construct()`** — runs once per initial render. Hands back the block with a `Component` bound to it.
-- **`reconstruct()`** — runs on every update roundtrip. Must rebuild the block/component from *only* the incoming snapshot (no layout state survives the HTTP hop).
-- **`accessor()`** — a unique short name (`layout`, `flake`, `layout_admin`). Stored in the snapshot memo so the same resolver is picked on reconstruction. Must match the DI item name. (`getAccessor()` is a deprecated alias.)
+- **`complies()`**: a cheap yes/no question the manager asks every registered resolver until one says yes.
+- **`construct()`**: runs once per initial render. Hands back the block with a `Component` bound to it.
+- **`reconstruct()`**: runs on every update roundtrip. Must rebuild the block/component from *only* the incoming snapshot (no layout state survives the HTTP hop).
+- **`accessor()`**: a unique short name (`layout`, `flake`, `layout_admin`). Stored in the snapshot memo so the same resolver is picked on reconstruction. Must match the DI item name. (`getAccessor()` is a deprecated alias.)
 
 ## Responsibilities
 
@@ -32,7 +32,7 @@ A resolver must implement three abstract methods (`construct`, `reconstruct`, `a
 | `reconstruct(ComponentRequestContext $request): AbstractBlock` | yes | Rebuild the block + component from the XHR snapshot. |
 | `arguments(): MagewireArguments` | yes | Provide the typed arguments object that collects `magewire.*` / `magewire:*` data keys from the block. |
 | `complies(AbstractBlock $block, mixed $magewire = null): bool` | no | Cheap check. Returns `true` if this resolver should handle the block. The base implementation already matches when the block's `magewire:resolver` data key equals this resolver's accessor. |
-| `assemble(AbstractBlock $block, Component $component): AbstractBlock` | no | Final step after construct/reconstruct — binds `name`, `id` and `alias` onto the component and resolves a default template. |
+| `assemble(AbstractBlock $block, Component $component): AbstractBlock` | no | Final step after construct/reconstruct: binds `name`, `id` and `alias` onto the component and resolves a default template. |
 | `remember(): bool` | no | Cache the resolver/block pairing. Defaults to `true`. Return `false` for a fluent resolver that re-evaluates conditions per request. |
 | `canPropagate(): bool` | no | Whether a dynamically-loaded child block with no resolver of its own may reuse this resolver. Defaults to `false`. |
 
@@ -40,16 +40,16 @@ A resolver must implement three abstract methods (`construct`, `reconstruct`, `a
 
 `ComponentResolverManager::resolve($block)` runs in this order:
 
-1. **Snapshot cache.** If the block was resolved before, the previous accessor is pulled from cache — skips `complies()` entirely.
-2. **Manual selection.** `$block->setData('magewire:resolver', 'accessor')` forces a specific resolver by name or class string — useful for testing or edge cases.
+1. **Snapshot cache.** If the block was resolved before, the previous accessor is pulled from cache, skipping `complies()` entirely.
+2. **Manual selection.** `$block->setData('magewire:resolver', 'accessor')` forces a specific resolver by name or class string, which is useful for testing or edge cases.
 3. **`complies()` scan.** Every registered resolver is tested in registration order; the first `true` wins.
 4. **Not found.** Throws `ComponentResolverNotFoundException`.
 
-Sort order in DI determines step 3's evaluation order. Lower sort orders run first — which is why `FlakeResolver` (98900) is tested before `LayoutResolver` (99900) in core: the more specific resolver gets first refusal.
+Sort order in DI determines step 3's evaluation order. Lower sort orders run first, which is why `FlakeResolver` (98900) is tested before `LayoutResolver` (99900) in core. The more specific resolver gets first refusal.
 
 ## The built-in `LayoutResolver`
 
-Worth reading before writing your own — every custom resolver for block-based components should extend it.
+This is worth reading before writing your own because every custom resolver for block-based components should extend it.
 
 ```php
 // Magewirephp\Magewire\Mechanisms\ResolveComponents\ComponentResolver\LayoutResolver
@@ -97,7 +97,7 @@ public function reconstruct(ComponentRequestContext $request): AbstractBlock
 }
 ```
 
-The key insight: **reconstruction replays the layout handles**, then re-enters the same `construct()` path. This is why layout XML is the whole source of truth — snapshots only carry enough memo to replay the layout.
+The key insight: **reconstruction replays the layout handles**, then re-enters the same `construct()` path. This is why layout XML is the whole source of truth; snapshots only carry enough memo to replay the layout.
 
 !!! info "Default template convention"
     `LayoutResolver::assemble()` also resolves a template when the block doesn't define one. It falls back to the convention `Vendor_Module::magewire/dashed-class-name.phtml`, derived from the component's class name (e.g. `Vendor\Module\Magewire\ProductList` → `Vendor_Module::magewire/product-list.phtml`). Define a `template` on the block to override it.
@@ -110,7 +110,7 @@ Extend `LayoutResolver` when your component is still block-based but needs a dif
 
 ### Example 1: Convention-based resolver
 
-A resolver that auto-wires a component onto any block whose class name ends in `ReactiveBlock` — useful for module authors who want to drop a marker interface instead of writing layout arguments:
+A resolver that auto-wires a component onto any block whose class name ends in `ReactiveBlock` is useful for module authors who want to drop a marker interface instead of writing layout arguments:
 
 ```php
 <?php
@@ -145,7 +145,7 @@ class ReactiveBlockResolver extends LayoutResolver
 
     public function construct(AbstractBlock $block): AbstractBlock
     {
-        // No magewire argument in layout XML — synthesize one from the block class.
+        // No magewire argument in layout XML: synthesize one from the block class.
         if (! $block->hasData('magewire')) {
             $block->setData('magewire', $this->factory->createFor($block));
         }
@@ -177,7 +177,7 @@ Register with a sort order **lower** than `layout` (99900) so `complies()` runs 
 !!! warning "Experimental source example"
     The resolver illustrates a fixed-handle strategy, but the current Flakes feature has unresolved registrations and is not a stable public API. Copy the resolver pattern, not the Flakes API.
 
-The core `FlakeResolver` shows a resolver that does **not** rely on the `complies()` scan at all. Its `complies()` returns `false` outright — it is never selected by the auto-scan. Flakes are instead bound through the Flakes feature (and resolver propagation), then this resolver takes over construction and, crucially, reconstruction:
+The core `FlakeResolver` shows a resolver that does **not** rely on the `complies()` scan at all. Its `complies()` returns `false` outright, so it is never selected by the auto-scan. Flakes are instead bound through the Flakes feature (and resolver propagation), then this resolver takes over construction and, crucially, reconstruction:
 
 ```php
 class FlakeResolver extends LayoutResolver
@@ -215,14 +215,14 @@ class FlakeResolver extends LayoutResolver
 Takeaways worth copying:
 
 - **`complies()` is not the only entry point.** A resolver can bow out of the scan (`return false`) and be bound explicitly (`magewire:resolver`) or by propagation from a parent (`canPropagate()`).
-- **Override `canMemorizeLayoutHandles()` / `recoverLayoutHandles()`** to swap the default "store the page's active handles" strategy for a fixed handle set — useful when the same handle always rebuilds the block, regardless of which page the XHR originated from.
+- **Override `canMemorizeLayoutHandles()` / `recoverLayoutHandles()`** to swap the default "store the page's active handles" strategy for a fixed handle set. This is useful when the same handle always rebuilds the block, regardless of which page the XHR originated from.
 
 !!! tip "The `conditions()` builder"
     `complies()` doesn't have to be hand-rolled boolean logic. The base resolver exposes a `$this->conditions()` builder: `->if()` (alias `->validate()`) adds an AND clause, `->or()` adds an alternative, and `->evaluate(...$args)` runs them. The default `ComponentResolver::complies()` uses it to match the `magewire:resolver` data key, and `LayoutResolver` adds an `is_block` AND clause on top.
 
 ### Example 3: Widget resolver (non-layout binding)
 
-Magento Widgets instantiate blocks through the widget system, not layout XML — so there is no opportunity to add a `magewire` argument. A widget resolver can construct a Magewire component from the widget's parameters instead:
+Magento Widgets instantiate blocks through the widget system, not layout XML, so there is no opportunity to add a `magewire` argument. A widget resolver can construct a Magewire component from the widget's parameters instead:
 
 ```php
 class WidgetResolver extends LayoutResolver
@@ -275,7 +275,7 @@ Works in both layout XML and programmatic block construction. The manager skips 
 
 ## Propagating a resolver to child blocks
 
-A block dynamically loaded as a child of an already-resolved component (e.g. introduced through a parent's XHR re-render) may have no resolver binding of its own. Rather than re-running the full `complies()` scan, the child can inherit its parent's resolver — but only if that resolver opts in via `canPropagate()`:
+A block dynamically loaded as a child of an already-resolved component (e.g. introduced through a parent's XHR re-render) may have no resolver binding of its own. Rather than re-running the full `complies()` scan, the child can inherit its parent's resolver, but only if that resolver opts in via `canPropagate()`:
 
 ```php
 public function canPropagate(): bool
@@ -284,16 +284,16 @@ public function canPropagate(): bool
 }
 ```
 
-The default is `false`. Enable it for resolvers whose construction logic is generic enough to handle children the same way as their parent — and leave it off when each block must be matched on its own merits.
+The default is `false`. Enable it for resolvers whose construction logic is generic enough to handle children the same way as their parent, and leave it off when each block must be matched on its own merits.
 
 ## The `remember()` cache
 
-`ComponentResolverManager` caches `{block cache key → resolver accessor}` pairs after a successful resolution — the next page load (or XHR) skips `complies()` for that block. This is controlled per resolver by `remember()`:
+`ComponentResolverManager` caches `{block cache key → resolver accessor}` pairs after a successful resolution, so the next page load (or XHR) skips `complies()` for that block. This is controlled per resolver by `remember()`:
 
 ```php
 public function remember(): bool
 {
-    return true; // default — cache the pairing
+    return true; // default: cache the pairing
 }
 ```
 
@@ -308,8 +308,8 @@ Cost of `remember() === false`: every page render pays the full `complies()` sca
     <arguments>
         <argument name="resolvers" xsi:type="array">
             <!-- Sort order is required; lower runs first. -->
-            <!-- 98900 — flake     (more specific)   -->
-            <!-- 99900 — layout    (default fallback) -->
+            <!-- 98900: flake     (more specific)   -->
+            <!-- 99900: layout    (default fallback) -->
             <item name="my_custom" xsi:type="object" sortOrder="95000">
                 Vendor\Module\Mechanisms\ResolveComponents\ComponentResolver\MyCustomResolver
             </item>
@@ -321,9 +321,9 @@ Cost of `remember() === false`: every page render pays the full `complies()` sca
 Rules of thumb:
 
 - **Accessor name** matches the DI `name` attribute exactly.
-- **Sort order** — put more-specific resolvers below 99900 so they are evaluated before the default layout resolver.
-- **Area scope** — register in `etc/frontend/di.xml` for storefront, `etc/adminhtml/di.xml` for admin. The admin package's `LayoutAdminResolver` is the canonical adminhtml example.
-- **Never register in global `etc/di.xml`** — Magewire's service provider only reads area-scoped DI.
+- **Sort order**: put more-specific resolvers below 99900 so they are evaluated before the default layout resolver.
+- **Area scope**: register in `etc/frontend/di.xml` for storefront, `etc/adminhtml/di.xml` for admin. The admin package's `LayoutAdminResolver` is the canonical adminhtml example.
+- **Never register in global `etc/di.xml`**: Magewire's service provider only reads area-scoped DI.
 
 ## When to reach for a custom resolver
 
@@ -335,12 +335,12 @@ Good fit:
 
 Overkill:
 
-- A component that differs from a standard one only by the data you pass to `mount()` — just use `magewire:mount:*` arguments with the default `LayoutResolver`.
-- A component that needs different *behaviour* per page — that's what `boot()` / lifecycle hooks are for.
-- Per-theme tweaks — use layout overrides, not a new resolver.
+- A component that differs from a standard one only by the data you pass to `mount()`. Use `magewire:mount:*` arguments with the default `LayoutResolver`.
+- A component that needs different *behaviour* per page. Use `boot()` or lifecycle hooks.
+- Per-theme tweaks: use layout overrides, not a new resolver.
 
 ## Related
 
-- [Mechanisms](index.md) — the broader pipeline resolvers plug into.
-- [Component Hooks](../component-hooks.md) — extend lifecycle without a new resolver.
-- [Admin → How it works](../../../admin/how-it-works.md) — `LayoutAdminResolver` walkthrough.
+- [Mechanisms](index.md): the broader pipeline resolvers plug into.
+- [Component Hooks](../component-hooks.md): extend lifecycle without a new resolver.
+- [Admin → How it works](../../../admin/how-it-works.md): `LayoutAdminResolver` walkthrough.

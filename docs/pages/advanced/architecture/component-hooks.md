@@ -2,7 +2,7 @@
 
 {{ include('admonition/livewire-concept.md') }}
 
-A **Component Hook** is a class that subscribes to events in the Magewire request pipeline. Hooks are the mechanism behind every built-in Feature — notifications, redirects, rate limiting, backwards compatibility — and are the intended extension point for custom framework-level behaviour.
+A **Component Hook** is a class that subscribes to events in the Magewire request pipeline. Hooks drive every built-in Feature, including notifications, redirects, rate limiting, and backwards compatibility. They are also the intended extension point for custom framework-level behaviour.
 
 Unlike lifecycle hooks on a component class (which only see their own component), a Component Hook sees **every** component in the pipeline.
 
@@ -57,10 +57,10 @@ class SupportLogRender extends ComponentHook
 
 ```php
 on('dehydrate', function (Component $component, array $snapshot): \Closure {
-    // Before — inspect the component before snapshot finalises.
+    // Before: inspect the component before snapshot finalises.
 
     return function (array $snapshot): array {
-        // After — mutate the snapshot before it leaves the server.
+        // After: mutate the snapshot before it leaves the server.
         $snapshot['memo']['customFlag'] = true;
         return $snapshot;
     };
@@ -69,7 +69,7 @@ on('dehydrate', function (Component $component, array $snapshot): \Closure {
 
 ## Registering a hook
 
-Register the hook class on the `Magewirephp\Magewire\Features` collection in area-scoped DI — never global `etc/di.xml`:
+Register the hook class on the `Magewirephp\Magewire\Features` collection in area-scoped DI, never in global `etc/di.xml`:
 
 ```xml title="etc/frontend/di.xml"
 <type name="Magewirephp\Magewire\Features">
@@ -109,7 +109,7 @@ The `Features` collection calls `provide()` on the hook when it registers, givin
 | `dehydrate` | Snapshot being written |
 | `destroy` | Component finalising |
 
-Signatures vary per event and evolve between releases — inspect the emit site in core (grep for `trigger('event-name'`) for the exact arguments.
+Signatures vary per event and evolve between releases. Inspect the emit site in core (grep for `trigger('event-name'`) for the exact arguments.
 
 ### Request / response
 
@@ -164,11 +164,11 @@ class MagewireOnRender implements \Magento\Framework\Event\ObserverInterface
 }
 ```
 
-Prefer Component Hooks for most work — they are faster (no observer dispatch), typed, and area-scoped.
+Prefer Component Hooks for most work because they are faster (no observer dispatch), typed, and area-scoped.
 
 ## Component Hook vs. Feature
 
-A **Feature** is a Component Hook with a name and a layout footprint — it typically owns PHTML, CSS, or JS assets rendered into `magewire.features` and friends. A Component Hook is the smaller primitive. Every Feature contains at least one hook class; a hook class without layout assets does not need Feature packaging.
+A **Feature** is a Component Hook with a name and a layout footprint. It typically owns PHTML, CSS, or JS assets rendered into `magewire.features` and friends. A Component Hook is the smaller primitive. Every Feature contains at least one hook class; a hook class without layout assets does not need Feature packaging.
 
 See [Features](features.md).
 
@@ -176,4 +176,4 @@ See [Features](features.md).
 
 - [Mechanisms](mechanisms/index.md)
 - [Features](features.md)
-- [Lifecycle Hooks](../../essentials/lifecycle-hooks.md) — per-component lifecycle.
+- [Lifecycle Hooks](../../essentials/lifecycle-hooks.md): per-component lifecycle.

@@ -9,7 +9,7 @@ Magewire is composed of three layers: the Magento module that loads everything, 
 | | Mechanism | Feature |
 |---|---|---|
 | Optional | No | Yes |
-| Can be disabled | No | Yes — or replaced via DI |
+| Can be disabled | No | Yes: or replaced via DI |
 | Runs per request | Every request | Only when registered |
 | Examples | ResolveComponents, HandleRequests | SupportMagewireNotifications, SupportMagewireRateLimiting |
 
@@ -41,10 +41,10 @@ HandleCompiling (1500)
 |---|---|---|
 | **ResolveComponents** | 1000 | Discover components attached to Magento blocks. Runs component resolvers until one matches; binds the resolved component to the block. |
 | **PersistentMiddleware** | 1050 | Keeps state needed across the page render (layout handles, resolver metadata) available for later mechanisms. |
-| **HandleComponents** | 1100 | Runs the lifecycle pipeline for each component — boot, mount/hydrate, updates, render, dehydrate. Applies synthesizers for each public property. |
+| **HandleComponents** | 1100 | Runs the lifecycle pipeline for each component: boot, mount/hydrate, updates, render, dehydrate. Applies synthesizers for each public property. |
 | **HandleRequests** | 1200 | On AJAX updates: receives the POST to `/magewire/update`, validates the snapshot checksum, invokes HandleComponents, assembles the response. |
 | **DataStore** | 1250 | Per-component request-scoped key/value store used by features (BC flag, rate-limit counters, feature-owned state). Accessed via `store($component)->get/set(…)`. |
-| **FrontendAssets** | 1400 | Emits the JS/CSS assets — the Magewire bundle, inline setup scripts, CSP fragments, nonces. |
+| **FrontendAssets** | 1400 | Emits the JS/CSS assets: the Magewire bundle, inline setup scripts, CSP fragments, nonces. |
 | **HandleCompiling** | 1500 | Compiles `.phtml` views, echo syntax, and registered template directives into `var/magewire/views/{area}/`. |
 
 ## Registering / overriding
@@ -56,7 +56,7 @@ Mechanisms are declared on `Magewirephp\Magewire\Mechanisms` via DI. The two sup
     <arguments>
         <argument name="items" xsi:type="array">
 
-            <!-- Long form — with optional metadata -->
+            <!-- Long form: with optional metadata -->
             <item name="resolve_components" xsi:type="array">
                 <item name="type" xsi:type="string">
                     Magewirephp\Magewire\Mechanisms\ResolveComponents\ResolveComponents
@@ -76,7 +76,7 @@ Mechanisms are declared on `Magewirephp\Magewire\Mechanisms` via DI. The two sup
 </type>
 ```
 
-To override a mechanism in a specific area, declare the replacement class in `etc/frontend/di.xml` or `etc/adminhtml/di.xml` with the same item name. Replacing is what `magewire-admin` does to patch the admin-specific update route and component resolver — see [Admin → How it works](../../../admin/how-it-works.md).
+To override a mechanism in a specific area, declare the replacement class in `etc/frontend/di.xml` or `etc/adminhtml/di.xml` with the same item name. Replacing is what `magewire-admin` does to patch the admin-specific update route and component resolver. See [Admin → How it works](../../../admin/how-it-works.md).
 
 ## Adding a custom mechanism
 
@@ -92,6 +92,6 @@ Livewire ships a handful of Laravel-specific mechanisms (routing macros, session
 
 - [Component Hooks](../component-hooks.md)
 - [Features](../features.md)
-- [Resolvers](resolvers.md) — the ResolveComponents mechanism in depth.
-- [Layout](../layout.md) — how FrontendAssets surfaces layout containers.
-- [Handle Compiling](handle-compiling.md) — compiler lifecycle and cache command.
+- [Resolvers](resolvers.md): the ResolveComponents mechanism in depth.
+- [Layout](../layout.md): how FrontendAssets surfaces layout containers.
+- [Handle Compiling](handle-compiling.md): compiler lifecycle and cache command.
