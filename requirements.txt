@@ -1,1 +1,3 @@
-mkdocs-macros-plugin
+mkdocs-macros-plugin==1.5.0
+PyYAML==6.0.3
+zensical==0.0.57

@@ -6,13 +6,10 @@ use_directory_urls: false
 
 theme:
   name: material
-  custom_dir: overrides
-  font:
-    text: Roboto
-    code: Roboto Mono
+  variant: modern
+  font: false
   features:
     - navigation.path
-    - navigation.tabs
     - navigation.footer
     - navigation.instant
     - navigation.instant.progress
@@ -23,31 +20,29 @@ theme:
     - content.code.copy
     - content.code.annotate
     - content.code.select
-    - header.autohide
   palette:
+    - media: '(prefers-color-scheme)'
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
     - media: '(prefers-color-scheme: light)'
       scheme: default
       toggle:
-        icon: material/toggle-switch-off-outline
+        icon: material/brightness-7
         name: Switch to dark mode
     - media: '(prefers-color-scheme: dark)'
       scheme: slate
       toggle:
-        icon: material/toggle-switch
-        name: Switch to light mode
-
-extra_css:
-  - stylesheets/style.css
+        icon: material/brightness-4
+        name: Switch to system preference
 
 extra:
-  social:
-    - icon: fontawesome/brands/twitter
-      link: https://x.com/magewirephp
   generator: false
-  analytics:
-    provider: custom
   includes:
     dir: includes
+  ai_docs:
+    documentation_version: Magewire 3.x
+    summary: Magewire is a reactive, full-stack component framework for Magento 2 that lets developers build dynamic interfaces in PHP and PHTML.
 
 markdown_extensions:
   - abbr
@@ -83,8 +78,6 @@ plugins:
       post_url_format: "{slug}"
   - tags:
       enabled: true
-  - privacy:
-      enabled: !ENV
   - search:
       enabled: true
       separator: '[\s\-,:!=\[\]()"/]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)|&[lg]t;'
@@ -92,7 +85,7 @@ plugins:
       include_dir: includes
 
 hooks:
-  - hooks/llms_txt.py
+  - scripts/generate_ai_docs.py
 
 nav:
   - 'Getting Started':
@@ -210,7 +203,5 @@ nav:
             - 'pages/advanced/architecture/mechanisms/frontend-assets.md'
         - 'pages/advanced/architecture/layout.md'
         - 'pages/advanced/architecture/portman.md'
-  - 'Blog':
-      - 'blogs/index.md'
   # - 'Personal':
   #     - 'personal/index.md'

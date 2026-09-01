@@ -1,0 +1,959 @@
+{
+  "deferred_anchor_loss": {
+    "blogs/index.html": "Zensical 0.0.57 does not render the Material blog post listing and its post heading anchors; restore them with the later blog compatibility solution.",
+    "personal/index.html": "Zensical 0.0.57 does not render the Material personal-post listing and its post heading anchors; restore them with the later blog compatibility solution."
+  },
+  "deferred_missing": {
+    "blogs/2025/05/24/magewire-3---docs-publication.html": "Blog URL compatibility was explicitly deferred on 2026-09-01; revisit if the blog is restored.",
+    "blogs/2025/06/02/magewire-3---hello-world.html": "Blog URL compatibility was explicitly deferred on 2026-09-01; revisit if the blog is restored.",
+    "blogs/2025/09/08/magewire-3---beta-release.html": "Blog URL compatibility was explicitly deferred on 2026-09-01; revisit if the blog is restored.",
+    "blogs/2025/11/13/magewire-3---a-different-kind-of-blog.html": "Blog URL compatibility was explicitly deferred on 2026-09-01; revisit if the blog is restored.",
+    "blogs/2026/04/23/magewire-3---finally.html": "Blog URL compatibility was explicitly deferred on 2026-09-01; revisit if the blog is restored.",
+    "blogs/archive/2025.html": "Blog URL compatibility was explicitly deferred on 2026-09-01; revisit if the blog is restored.",
+    "blogs/archive/2026.html": "Blog URL compatibility was explicitly deferred on 2026-09-01; revisit if the blog is restored.",
+    "personal/archive/2026.html": "Personal blog URL compatibility was explicitly deferred on 2026-09-01; revisit if the blog is restored.",
+    "personal/category/life.html": "Personal blog URL compatibility was explicitly deferred on 2026-09-01; revisit if the blog is restored.",
+    "personal/why-i-started-a-personal-corner.html": "Personal blog URL compatibility was explicitly deferred on 2026-09-01; revisit if the blog is restored."
+  },
+  "deferred_sitemap_missing": {
+    "blogs/index.html": "Zensical omits the unsupported blog index from its navigation-derived sitemap; restore it with the later blog compatibility solution.",
+    "pages/features/magewire-flakes.html": "The deliberately unlisted Flakes draft remains routable but Zensical excludes unlisted pages from its sitemap.",
+    "personal/index.html": "Zensical omits the unsupported personal index from its navigation-derived sitemap; restore it with the later blog compatibility solution."
+  },
+  "captured_at": "2026-09-01",
+  "pages": {
+    "blogs/2025/05/24/magewire-3---docs-publication.html": [
+      "kicking-off-a-new-chapter-for-magewire",
+      "the-wait-is-kind-of-over",
+      "a-work-in-progress-literally",
+      "why-this-release-matters",
+      "whats-next"
+    ],
+    "blogs/2025/06/02/magewire-3---hello-world.html": [
+      "here-we-go",
+      "the-journey-is-what-matters-most",
+      "now-for-the-serious-stuff",
+      "whats-new",
+      "finally"
+    ],
+    "blogs/2025/09/08/magewire-3---beta-release.html": [
+      "yes-its-been-a-while",
+      "critical-security-vulnerability",
+      "so-whats-next",
+      "so-whats-new",
+      "fragments",
+      "template-directives",
+      "flakes",
+      "stream-directive",
+      "rate-limiting",
+      "observer-events",
+      "backend-compatibility"
+    ],
+    "blogs/2025/11/13/magewire-3---a-different-kind-of-blog.html": [
+      "picking-up-magewire-v3-again",
+      "the-challenge-of-building-in-open-source",
+      "not-perfect-but-honest-work",
+      "why-it-takes-time",
+      "finding-joy-in-the-process",
+      "meet-magento-netherlands",
+      "proud-of-open-source",
+      "a-final-thought"
+    ],
+    "blogs/2026/04/23/magewire-3---finally.html": [
+      "so-v3-is-finally-real",
+      "built-on-livewire-not-just-inspired-by-it",
+      "the-livewire-goodies-you-now-get-for-free",
+      "what-magewire-adds-on-top",
+      "reaching-the-admin",
+      "under-the-hood",
+      "coming-from-v1",
+      "give-it-a-spin"
+    ],
+    "blogs/archive/2025.html": [
+      "2025",
+      "magewire-3-a-different-kind-of-blog",
+      "picking-up-magewire-v3-again",
+      "the-challenge-of-building-in-open-source",
+      "not-perfect-but-honest-work",
+      "why-it-takes-time",
+      "finding-joy-in-the-process",
+      "meet-magento-netherlands",
+      "proud-of-open-source",
+      "a-final-thought",
+      "magewire-3-beta-release",
+      "yes-its-been-a-while",
+      "critical-security-vulnerability",
+      "so-whats-next",
+      "so-whats-new",
+      "fragments",
+      "template-directives",
+      "flakes",
+      "stream-directive",
+      "rate-limiting",
+      "observer-events",
+      "backend-compatibility",
+      "magewire-3-hello-world",
+      "here-we-go",
+      "the-journey-is-what-matters-most",
+      "now-for-the-serious-stuff",
+      "whats-new",
+      "finally",
+      "magewire-3-docs-publication",
+      "kicking-off-a-new-chapter-for-magewire",
+      "the-wait-is-kind-of-over",
+      "a-work-in-progress-literally",
+      "why-this-release-matters",
+      "whats-next"
+    ],
+    "blogs/archive/2026.html": [
+      "2026",
+      "magewire-3-finally",
+      "so-v3-is-finally-real",
+      "built-on-livewire-not-just-inspired-by-it",
+      "the-livewire-goodies-you-now-get-for-free",
+      "what-magewire-adds-on-top",
+      "reaching-the-admin",
+      "under-the-hood",
+      "coming-from-v1",
+      "give-it-a-spin"
+    ],
+    "blogs/index.html": [
+      "blog",
+      "magewire-3-finally",
+      "so-v3-is-finally-real",
+      "built-on-livewire-not-just-inspired-by-it",
+      "the-livewire-goodies-you-now-get-for-free",
+      "what-magewire-adds-on-top",
+      "reaching-the-admin",
+      "under-the-hood",
+      "coming-from-v1",
+      "give-it-a-spin",
+      "magewire-3-a-different-kind-of-blog",
+      "picking-up-magewire-v3-again",
+      "the-challenge-of-building-in-open-source",
+      "not-perfect-but-honest-work",
+      "why-it-takes-time",
+      "finding-joy-in-the-process",
+      "meet-magento-netherlands",
+      "proud-of-open-source",
+      "a-final-thought",
+      "magewire-3-beta-release",
+      "yes-its-been-a-while",
+      "critical-security-vulnerability",
+      "so-whats-next",
+      "so-whats-new",
+      "fragments",
+      "template-directives",
+      "flakes",
+      "stream-directive",
+      "rate-limiting",
+      "observer-events",
+      "backend-compatibility",
+      "magewire-3-hello-world",
+      "here-we-go",
+      "the-journey-is-what-matters-most",
+      "now-for-the-serious-stuff",
+      "whats-new",
+      "finally",
+      "magewire-3-docs-publication",
+      "kicking-off-a-new-chapter-for-magewire",
+      "the-wait-is-kind-of-over",
+      "a-work-in-progress-literally",
+      "why-this-release-matters",
+      "whats-next"
+    ],
+    "index.html": [
+      "magewire-php-3",
+      "requirements",
+      "installation",
+      "quickstart",
+      "1-create-the-component-class",
+      "2-create-the-template",
+      "3-bind-it-in-layout-xml",
+      "4-clear-layout-caches-and-try-it",
+      "alpinejs-and-themes",
+      "full-page-cache",
+      "support-and-security",
+      "next-steps"
+    ],
+    "pages/admin/building-admin-components.html": [
+      "building-admin-components",
+      "file-layout",
+      "example-a-simple-admin-component",
+      "binding-to-an-admin-block",
+      "template",
+      "authorization",
+      "registering-admin-scoped-features",
+      "gotchas",
+      "related"
+    ],
+    "pages/admin/how-it-works.html": [
+      "how-it-works",
+      "the-admin-route",
+      "admin-session-check",
+      "script-injection-before-requirejs",
+      "layout",
+      "admin-component-resolver",
+      "always-on-component-detection",
+      "prototypejs-collision",
+      "update-uri-prefix",
+      "request-flow",
+      "related"
+    ],
+    "pages/admin/index.html": [
+      "admin",
+      "what-the-package-provides",
+      "no-in-core-admin-marker",
+      "when-to-install-it",
+      "where-to-go-next"
+    ],
+    "pages/admin/installation.html": [
+      "installation",
+      "requirements",
+      "install",
+      "verify",
+      "what-gets-registered",
+      "uninstall",
+      "related"
+    ],
+    "pages/admin/rate-limiting.html": [
+      "admin-rate-limiting",
+      "magewire-35-response-bridge",
+      "security-boundary"
+    ],
+    "pages/advanced/application-container.html": [
+      "application-container",
+      "resolve-a-service",
+      "runtime-bindings"
+    ],
+    "pages/advanced/architecture/component-hooks.html": [
+      "component-hooks",
+      "anatomy",
+      "before-vs-after-middleware-pattern",
+      "registering-a-hook",
+      "events",
+      "lifecycle",
+      "request-response",
+      "checksum",
+      "morph",
+      "magento-observer-bridge",
+      "component-hook-vs-feature",
+      "related"
+    ],
+    "pages/advanced/architecture/facades.html": [
+      "facades"
+    ],
+    "pages/advanced/architecture/features.html": [
+      "features",
+      "concept",
+      "example",
+      "write-your-own",
+      "module-structure",
+      "javascript",
+      "hooks",
+      "faq",
+      "observer-event-example",
+      "hook-example",
+      "related"
+    ],
+    "pages/advanced/architecture/index.html": [
+      "architecture",
+      "module",
+      "themes",
+      "example"
+    ],
+    "pages/advanced/architecture/layout.html": [
+      "layout",
+      "container-tree",
+      "containers",
+      "referencecontainer-vs-referenceblock",
+      "ordering-within-a-container",
+      "which-container-to-target",
+      "directories-templates",
+      "top-level-directories",
+      "under-js",
+      "under-magewire",
+      "under-magewire-features",
+      "blocks-that-look-like-containers",
+      "off-limits-from-a-theme",
+      "page-specific-vs-global-overrides",
+      "accessing-layout-context-from-a-component",
+      "dynamic-page-less-block-loading",
+      "the-problem",
+      "decorating-the-layout-instance",
+      "how-a-resolver-consumes-it",
+      "two-layout-sources",
+      "swapping-the-decorator"
+    ],
+    "pages/advanced/architecture/mechanisms/frontend-assets.html": [
+      "frontendassets",
+      "what-it-emits",
+      "where-it-surfaces-in-layout",
+      "related"
+    ],
+    "pages/advanced/architecture/mechanisms/handle-compiling.html": [
+      "handle-compiling",
+      "clear-compiled-views"
+    ],
+    "pages/advanced/architecture/mechanisms/handle-components.html": [
+      "handlecomponents",
+      "what-it-does",
+      "the-snapshot",
+      "synthesizers",
+      "related"
+    ],
+    "pages/advanced/architecture/mechanisms/handle-requests.html": [
+      "handlerequests",
+      "the-update-flow",
+      "identifying-a-magewire-request",
+      "related"
+    ],
+    "pages/advanced/architecture/mechanisms/index.html": [
+      "mechanisms",
+      "mechanism-vs-feature",
+      "the-pipeline",
+      "built-in-mechanisms",
+      "registering-overriding",
+      "adding-a-custom-mechanism",
+      "laravel-leftovers",
+      "related"
+    ],
+    "pages/advanced/architecture/mechanisms/resolvers.html": [
+      "resolvers",
+      "mental-model",
+      "responsibilities",
+      "how-the-manager-picks-a-resolver",
+      "the-built-in-layoutresolver",
+      "writing-a-custom-resolver",
+      "example-1-convention-based-resolver",
+      "example-2-fixed-handle-reconstruction-the-real-flakeresolver",
+      "example-3-widget-resolver-non-layout-binding",
+      "forcing-a-resolver-manually",
+      "propagating-a-resolver-to-child-blocks",
+      "the-remember-cache",
+      "registration-summary",
+      "when-to-reach-for-a-custom-resolver",
+      "related"
+    ],
+    "pages/advanced/architecture/observer-events.html": [
+      "magento-observer-events",
+      "how-it-works",
+      "observable-events",
+      "listening-from-an-observer",
+      "before-after-semantics",
+      "when-to-use-this-vs-component-hooks",
+      "related"
+    ],
+    "pages/advanced/architecture/portman.html": [
+      "portman",
+      "what-is-portman",
+      "requirements",
+      "installation",
+      "watcher",
+      "troubleshooting"
+    ],
+    "pages/advanced/architecture/runtime.html": [
+      "runtime",
+      "request-modes",
+      "runtime-state",
+      "the-boot-process",
+      "phase-1-setup",
+      "phase-2-bootmode",
+      "service-types-and-boot-modes",
+      "hooking-into-the-boot",
+      "accessing-the-runtime",
+      "related"
+    ],
+    "pages/advanced/best-practices.html": [
+      "best-practices",
+      "recommended-module-structure",
+      "components-features-and-mechanisms",
+      "javascript-integration",
+      "component-boundaries",
+      "reusing-component-classes"
+    ],
+    "pages/advanced/exception-handling.html": [
+      "exception-handling",
+      "the-two-contexts",
+      "the-exception-component-hook",
+      "the-exceptionmanager",
+      "writing-a-custom-handler",
+      "the-error-placeholder-template",
+      "related"
+    ],
+    "pages/advanced/javascript/addons/magewire-notifier.html": [
+      "magewire-notifier",
+      "creating-notifications",
+      "repeated-messages",
+      "methods",
+      "global-hooks"
+    ],
+    "pages/advanced/javascript/features/magewire-loaders.html": [
+      "magewire-loaders",
+      "configuring-action-loaders",
+      "message-sequences",
+      "property-update-loaders",
+      "fast-request-suppression",
+      "custom-behavior-with-hooks"
+    ],
+    "pages/advanced/javascript/index.html": [
+      "javascript",
+      "initialization",
+      "register-an-addon",
+      "register-a-utility",
+      "feature-scripts"
+    ],
+    "pages/advanced/javascript/utilities/cookie.html": [
+      "cookie-utility"
+    ],
+    "pages/advanced/javascript/utilities/dom.html": [
+      "dom",
+      "filterdataattributeselement-prefix",
+      "registering-your-own",
+      "related"
+    ],
+    "pages/advanced/javascript/utilities/loader.html": [
+      "loader",
+      "parsetexttext",
+      "related"
+    ],
+    "pages/advanced/javascript/utilities/str.html": [
+      "str",
+      "calculatereadingdurationbystrlengthmessage-options",
+      "related"
+    ],
+    "pages/advanced/patterns.html": [
+      "patterns",
+      "magewire-object-on-init-event",
+      "alpinejs-function-proxy"
+    ],
+    "pages/advanced/performance.html": [
+      "performance",
+      "reduce-round-trips",
+      "choose-the-right-wiremodel-modifier",
+      "scope-wirepoll",
+      "bundle-updates-on-the-client",
+      "reduce-server-cost",
+      "skiprender",
+      "minimise-public-properties",
+      "lazy-boot",
+      "lazy-components",
+      "avoid-work-in-render-rendering-hooks",
+      "reduce-round-trip-size",
+      "wireloadingdelay",
+      "keyed-loops",
+      "wireignore-for-heavy-subtrees",
+      "monitoring",
+      "related"
+    ],
+    "pages/advanced/request-filters.html": [
+      "request-filters",
+      "create-a-filter",
+      "register-a-filter",
+      "safe-browser-messages"
+    ],
+    "pages/advanced/security.html": [
+      "security",
+      "csrf",
+      "snapshot-checksum",
+      "namespace-and-escaping",
+      "authorisation",
+      "rate-limiting",
+      "vulnerability-reports",
+      "csp"
+    ],
+    "pages/advanced/synthesizers.html": [
+      "synthesizers",
+      "built-in-synthesizers",
+      "writing-a-custom-synthesizer",
+      "registering-via-area-scoped-di",
+      "what-not-to-synthesize"
+    ],
+    "pages/advanced/troubleshooting.html": [
+      "troubleshooting",
+      "magewire-never-initializes",
+      "stale-or-broken-compiled-templates",
+      "checksum-mismatch",
+      "alpine-starts-twice",
+      "a-livewire-3-example-fails",
+      "request-rejected-before-the-component-runs",
+      "admin-components-never-mount",
+      "reporting-a-reproducible-bug"
+    ],
+    "pages/concepts/fragments.html": [
+      "fragments",
+      "why-fragments-exist",
+      "the-smallest-example",
+      "built-in-fragment-types",
+      "html-fragment-decorating-a-rendered-block",
+      "style-fragment",
+      "wrapping-pre-rendered-html",
+      "the-script-fragment",
+      "fragment-modifiers",
+      "registering-a-modifier",
+      "built-in-modifiers-worth-knowing",
+      "a-sketch-of-a-custom-modifier",
+      "custom-fragment-types",
+      "the-fragment-lifecycle",
+      "when-to-reach-for-a-fragment",
+      "related"
+    ],
+    "pages/concepts/hydration.html": [
+      "hydration",
+      "update-endpoint",
+      "built-in-synthesizers",
+      "hydration-hooks"
+    ],
+    "pages/concepts/morphing.html": [
+      "morphing",
+      "keyed-loop-items",
+      "morph-hooks"
+    ],
+    "pages/concepts/nesting.html": [
+      "nesting",
+      "layout-driven-children",
+      "lightweight-child-markup"
+    ],
+    "pages/essentials/actions.html": [
+      "actions",
+      "defining-an-action",
+      "authorisation",
+      "rate-limiting"
+    ],
+    "pages/essentials/backwards-compatibility.html": [
+      "backwards-compatibility",
+      "two-scopes-of-enable-disable",
+      "per-component-the-handlebackwardscompatibility-attribute",
+      "programmatic-toggle",
+      "resolution-order",
+      "what-the-bc-layer-does",
+      "php-side-framework-theme-agnostic",
+      "javascript-side-theme-shim",
+      "v1-v3-cheat-sheet",
+      "what-bc-does-not-cover",
+      "disabling-the-whole-feature",
+      "recommended-migration-flow",
+      "performance-impact",
+      "related"
+    ],
+    "pages/essentials/components.html": [
+      "components",
+      "creating-components",
+      "1-create-the-component-class",
+      "2-create-the-template",
+      "3-bind-it-in-layout-xml",
+      "4-clear-layout-caches-and-try-it",
+      "block-arguments",
+      "binding-a-component",
+      "public-arguments",
+      "group-arguments",
+      "reserved-keys"
+    ],
+    "pages/essentials/events.html": [
+      "events",
+      "framework-hooks-are-different",
+      "magento-observers"
+    ],
+    "pages/essentials/lifecycle-hooks.html": [
+      "lifecycle-hooks",
+      "mount-receives-layout-xml-arguments",
+      "boot-for-magento-guards",
+      "swap-templates-per-state",
+      "exception-handling-with-notifications"
+    ],
+    "pages/essentials/nesting-components.html": [
+      "nesting-components",
+      "layout-xml",
+      "rendering-children",
+      "keyed-children-in-loops",
+      "lightweight-composition"
+    ],
+    "pages/essentials/properties.html": [
+      "properties",
+      "template-access",
+      "supported-types",
+      "wiremodel-defaults-to-deferred"
+    ],
+    "pages/essentials/testing.html": [
+      "testing",
+      "unit-tests",
+      "playwright",
+      "compatibility-matrix"
+    ],
+    "pages/essentials/view-model.html": [
+      "view-model-utilities",
+      "how-it-gets-there",
+      "the-utils-entry-point",
+      "magewire-utils-magewire",
+      "security-utils-security",
+      "environment-utils-env",
+      "csp-utils-csp",
+      "fragment-utils-fragment",
+      "layout-utils-layout",
+      "adding-your-own-utility",
+      "related"
+    ],
+    "pages/features/alpine.html": [
+      "alpine",
+      "single-alpine-bundle",
+      "csp-build",
+      "init-events",
+      "registering-through-layout-containers"
+    ],
+    "pages/features/lazy-loading.html": [
+      "lazy-loading",
+      "enable-lazy-loading",
+      "placeholder",
+      "isolation-and-bundling"
+    ],
+    "pages/features/magewire-flakes.html": [
+      "flakes"
+    ],
+    "pages/features/magewire-template-directives.html": [
+      "template-directives",
+      "echo-syntax",
+      "directives",
+      "expression-arguments",
+      "extending-the-compiler"
+    ],
+    "pages/features/notifications.html": [
+      "notifications",
+      "builder-api",
+      "named-notifications",
+      "javascript-access"
+    ],
+    "pages/features/offline-states.html": [
+      "offline-states",
+      "what-offline-detection-means"
+    ],
+    "pages/features/pagination.html": [
+      "pagination",
+      "add-pagination-to-a-component",
+      "available-methods",
+      "multiple-paginators",
+      "lifecycle-hooks",
+      "magewire-36-limitations",
+      "related"
+    ],
+    "pages/features/rate-limiting.html": [
+      "rate-limiting",
+      "variants",
+      "request-scope",
+      "temporary-lockouts",
+      "rejection-behavior",
+      "related"
+    ],
+    "pages/features/redirects.html": [
+      "redirects",
+      "redirecting-from-an-action",
+      "what-happens-under-the-hood",
+      "related"
+    ],
+    "pages/features/request-bundling.html": [
+      "request-bundling",
+      "nested-components",
+      "operational-consequences"
+    ],
+    "pages/getting-started/basics.html": [
+      "basics",
+      "build-a-counter",
+      "1-create-the-component-class",
+      "2-create-the-template",
+      "3-bind-it-in-layout-xml",
+      "4-clear-layout-caches-and-try-it",
+      "the-request-cycle",
+      "passing-initial-values-from-layout-xml"
+    ],
+    "pages/getting-started/contribute.html": [
+      "contribute",
+      "why-contribute",
+      "your-contributions-matter",
+      "areas"
+    ],
+    "pages/getting-started/documentation.html": [
+      "documentation",
+      "compatibility-boundary",
+      "documentation-structure",
+      "writing-guidelines",
+      "source-verification",
+      "using-ai-as-a-writing-aid",
+      "contributing"
+    ],
+    "pages/getting-started/examples.html": [
+      "examples",
+      "tutorials",
+      "ecosystem-note",
+      "developer-tooling",
+      "magewire-agent-skills",
+      "magento-bricklayer-third-party",
+      "packages"
+    ],
+    "pages/getting-started/examples/magento-flash-messages.html": [
+      "tutorial-magento-flash-messages",
+      "the-problem-flash-messages-dont-port-11",
+      "how-magewire-bridges-it",
+      "using-it-in-a-component",
+      "translatable-strings",
+      "named-messages-avoiding-duplicates",
+      "flash-messages-vs-notifications",
+      "the-takeaway",
+      "related"
+    ],
+    "pages/getting-started/faq.html": [
+      "faq",
+      "what-is-magewire",
+      "when-is-magewire-a-good-fit",
+      "how-is-magewire-versioned",
+      "what-are-the-main-differences-between-v1-and-v3",
+      "is-magewire-v1-still-supported",
+      "does-v3-contain-every-v1-feature",
+      "can-i-upgrade-an-existing-v1-component",
+      "can-magewire-be-used-with-luma-or-another-theme",
+      "does-hyva-checkout-work-with-magewire-v3",
+      "can-magewire-v1-and-v3-run-simultaneously",
+      "where-can-i-find-the-v1-documentation"
+    ],
+    "pages/getting-started/license.html": [
+      "license"
+    ],
+    "pages/getting-started/notables.html": [
+      "notables",
+      "the-magewire-block",
+      "magewire-view-model",
+      "magewire-view-fragments",
+      "component-reusability"
+    ],
+    "pages/getting-started/purpose.html": [
+      "more-than-a-port",
+      "shake-things-up",
+      "the-long-term"
+    ],
+    "pages/getting-started/releases/building-javascript-bundles.html": [
+      "building-javascript-bundles",
+      "prerequisites",
+      "build-with-livewires-alpine-version",
+      "build-with-a-specific-alpine-version",
+      "save-versions-in-configuration",
+      "what-the-build-does",
+      "output",
+      "alpine-csp-and-x-html",
+      "verification-and-rollback",
+      "troubleshooting",
+      "the-build-is-skipped",
+      "the-build-appears-inactive",
+      "an-exact-version-patch-is-missing-or-does-not-apply",
+      "recreate-the-isolated-clones"
+    ],
+    "pages/getting-started/releases/feature-history.html": [
+      "feature-history",
+      "360",
+      "350",
+      "340",
+      "331",
+      "330",
+      "320",
+      "310",
+      "300",
+      "300-beta1"
+    ],
+    "pages/getting-started/roadmap.html": [
+      "roadmap",
+      "recently-shipped",
+      "current-compatibility-gaps",
+      "follow-development"
+    ],
+    "pages/getting-started/sponsoring.html": [
+      "sponsoring",
+      "sponsors",
+      "contributors"
+    ],
+    "pages/getting-started/upgrade.html": [
+      "upgrade",
+      "tldr",
+      "versioning",
+      "requirements",
+      "install-the-new-version",
+      "enable-the-backwards-compatibility-layer",
+      "what-the-bc-layer-does-automatically",
+      "what-the-bc-layer-does-not-do",
+      "the-memobcenabled-flag",
+      "breaking-changes",
+      "wiremodel-is-deferred-by-default",
+      "entangle-is-deferred-by-default",
+      "event-listeners-use-the-on-attribute",
+      "hook-event-renames-js",
+      "component-property-aliases-js",
+      "php-component-api",
+      "lifecycle-hooks",
+      "updating-updated-argument-order",
+      "there-is-no-render-method-on-component",
+      "area-scoped-di-is-required",
+      "features-are-component-hooks-now",
+      "synthesizers-replace-v1s-hydrators",
+      "alpinejs-is-bundled-and-csp",
+      "csp-fragments-replace-hand-rolled-nonces",
+      "namespace-changes",
+      "migration-workflow",
+      "1-install-v3-with-bc-on-everything",
+      "2-migrate-wire-directives",
+      "3-migrate-entangle-calls",
+      "4-migrate-listeners-arrays-to-on",
+      "5-migrate-js-hook-names",
+      "6-migrate-php-component-calls",
+      "7-move-di-registrations",
+      "8-drop-the-bc-attribute-per-component",
+      "9-remove-the-bc-feature-registration-whole-module",
+      "hyva-checkout",
+      "admin-new-in-v3",
+      "common-upgrade-gotchas",
+      "verifying-the-upgrade",
+      "rolling-back",
+      "migration-checklist",
+      "related"
+    ],
+    "pages/getting-started/v3-vs-v1.html": [
+      "magewire-v3-vs-v1-what-changed",
+      "tldr",
+      "1-foundation-architecture",
+      "2-state-the-wire",
+      "3-templates",
+      "4-component-php-api",
+      "5-directives-javascript",
+      "6-new-features-in-v3",
+      "7-magento-integration",
+      "8-tooling-platform-docs",
+      "9-backwards-compatibility",
+      "where-to-read-more"
+    ],
+    "pages/getting-started/versioning.html": [
+      "versioning",
+      "semantic-versioning",
+      "why-v2-was-skipped",
+      "what-a-3xx-tag-means",
+      "php-version-support"
+    ],
+    "pages/html-directives/wire-click.html": [
+      "wireclick"
+    ],
+    "pages/html-directives/wire-cloak.html": [
+      "wirecloak"
+    ],
+    "pages/html-directives/wire-confirm.html": [
+      "wireconfirm"
+    ],
+    "pages/html-directives/wire-current.html": [
+      "wirecurrent"
+    ],
+    "pages/html-directives/wire-dirty.html": [
+      "wiredirty"
+    ],
+    "pages/html-directives/wire-ignore.html": [
+      "wireignore"
+    ],
+    "pages/html-directives/wire-init.html": [
+      "wireinit"
+    ],
+    "pages/html-directives/wire-loading.html": [
+      "wireloading"
+    ],
+    "pages/html-directives/wire-model.html": [
+      "wiremodel"
+    ],
+    "pages/html-directives/wire-offline.html": [
+      "wireoffline"
+    ],
+    "pages/html-directives/wire-poll.html": [
+      "wirepoll"
+    ],
+    "pages/html-directives/wire-replace.html": [
+      "wirereplace"
+    ],
+    "pages/html-directives/wire-show.html": [
+      "wireshow"
+    ],
+    "pages/html-directives/wire-stream.html": [
+      "wirestream",
+      "magento-output-buffering"
+    ],
+    "pages/html-directives/wire-submit.html": [
+      "wiresubmit"
+    ],
+    "pages/html-directives/wire-text.html": [
+      "wiretext"
+    ],
+    "pages/html-directives/wire-transition.html": [
+      "wiretransition"
+    ],
+    "pages/theming/alpine-loading.html": [
+      "alpine-loading",
+      "hyva",
+      "custom-themes",
+      "initialization-events"
+    ],
+    "pages/theming/compatibility-module.html": [
+      "compatibility-module",
+      "naming-and-location",
+      "minimum-viable-module",
+      "decision-matrix",
+      "area-scoping",
+      "example-flash-message-bridge",
+      "anti-patterns",
+      "related"
+    ],
+    "pages/theming/csp-script-bootstrap.html": [
+      "hyva-csp-script-bootstrap",
+      "why-the-script-cannot-be-the-alpine-component",
+      "bootstrap-structure",
+      "initialization-order",
+      "attribute-ownership-and-extension-points",
+      "csrf-and-full-page-cache-safety",
+      "rules-for-integrations"
+    ],
+    "pages/theming/hyva-checkout-bc.html": [
+      "hyva-checkout-backwards-compatibility",
+      "the-automatic-rule",
+      "opting-out-per-component",
+      "opting-in-outside-the-container",
+      "dynamic-components",
+      "what-the-hyva-bc-layer-does-under-the-hood",
+      "removing-the-bc-layer",
+      "related"
+    ],
+    "pages/theming/index.html": [
+      "theming",
+      "three-layers",
+      "supported-themes",
+      "when-you-need-a-theme-module",
+      "where-to-go-next"
+    ],
+    "pages/theming/layout-containers.html": [
+      "layout-nodes",
+      "core-reference",
+      "referencing-nodes",
+      "ordering"
+    ],
+    "pages/theming/tailwind.html": [
+      "tailwind",
+      "hyva-package",
+      "custom-tailwind-integrations"
+    ],
+    "personal/archive/2026.html": [
+      "2026",
+      "why-i-started-a-personal-corner"
+    ],
+    "personal/category/life.html": [
+      "life",
+      "why-i-started-a-personal-corner"
+    ],
+    "personal/index.html": [
+      "personal",
+      "why-i-started-a-personal-corner"
+    ],
+    "personal/why-i-started-a-personal-corner.html": []
+  },
+  "production_branch": "gh-pages",
+  "production_commit": "ea2a9652b3c65bca644380465b0dece905c016b1",
+  "site_url": "https://docs.magewirephp.nl",
+  "sitemap_sha256": "022281e5d01d5f0d3ac4332c3a9f5874f1faffbf55dad9f9bb7d78477d31cb7b",
+  "source_commit": "d48d6a280232c09d3c9ad4249440686df5ddbf1a"
+}
