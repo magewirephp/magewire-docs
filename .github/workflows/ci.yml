@@ -33,7 +33,7 @@ jobs:
         run: python scripts/build_blog.py prepare --docs-dir docs --output-dir .build/docs
 
       - name: Build with Zensical
-        run: zensical build --config-file mkdocs.zensical.yml --clean --strict
+        run: zensical build --config-file .build-mkdocs.yml --clean --strict
 
       - name: Finalize blog compatibility pages
         run: python scripts/build_blog.py finalize --docs-dir docs --site-dir site

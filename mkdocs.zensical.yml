@@ -1,6 +1,3 @@
 INHERIT: mkdocs.yml
 
 docs_dir: .build/docs
-
-nav:
-  - 'Blog': 'blogs/index.md'

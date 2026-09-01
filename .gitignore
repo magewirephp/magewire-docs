@@ -1,5 +1,6 @@
 /site
 /.build/
+/.build-mkdocs.yml
 .venv/
 __pycache__/
 *.py[cod]
