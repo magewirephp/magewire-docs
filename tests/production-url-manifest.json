@@ -1,6 +1,11 @@
 {
   "deferred_anchor_loss": {},
-  "deferred_missing": {},
+  "deferred_missing": {
+    "personal/archive/2026.html": "Personal publishing was deliberately deferred on 2026-09-01; its canonical Markdown remains preserved.",
+    "personal/category/life.html": "Personal publishing was deliberately deferred on 2026-09-01; its canonical Markdown remains preserved.",
+    "personal/index.html": "Personal publishing was deliberately deferred on 2026-09-01; its canonical Markdown remains preserved.",
+    "personal/why-i-started-a-personal-corner.html": "Personal publishing was deliberately deferred on 2026-09-01; its canonical Markdown remains preserved."
+  },
   "deferred_sitemap_missing": {
     "pages/features/magewire-flakes.html": "The deliberately unlisted Flakes draft remains routable but Zensical excludes unlisted pages from its sitemap."
   },

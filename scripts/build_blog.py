@@ -75,13 +75,8 @@ class Post:
 
 _COLLECTIONS = (
     Collection(PurePosixPath("blogs"), PurePosixPath("blogs"), True, None),
-    Collection(
-        PurePosixPath("personal"),
-        PurePosixPath("personal"),
-        False,
-        "categories",
-    ),
 )
+_EXCLUDED_SOURCE_DIRS = (PurePosixPath("personal"),)
 
 
 def main() -> None:
@@ -124,6 +119,10 @@ def _prepare(docs_dir: Path, output_dir: Path) -> None:
         shutil.rmtree(output_dir)
     output_dir.parent.mkdir(parents=True, exist_ok=True)
     shutil.copytree(docs_dir, output_dir)
+    for source_dir in _EXCLUDED_SOURCE_DIRS:
+        staged_source = output_dir / source_dir
+        if staged_source.exists():
+            shutil.rmtree(staged_source)
 
     generated = 0
     for collection, posts, authors in collections:
