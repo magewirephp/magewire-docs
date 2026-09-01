@@ -2,7 +2,7 @@
 
 {{ include("admonition/livewire-reference.md", reference_url="https://livewire.laravel.com/docs/3.x/upgrading") }}
 
-This page covers upgrading from Magewire V1 to V3. It is meant to be read top-to-bottom the first time and used as a reference afterwards — copy the checklist at the end into a ticket or PR description when you start the work.
+This page covers upgrading from Magewire V1 to V3. Read it top-to-bottom the first time, then use it as a reference. Copy the checklist at the end into a ticket or PR description when you start the work.
 
 ## TL;DR
 
@@ -18,7 +18,7 @@ The BC layer is the key insight: V3 does not force you to migrate on day one. Yo
 
 ## Versioning
 
-Magewire V2 never existed. Magewire V1 was built on Livewire V2, which created persistent version confusion — a "Magewire 1" that was effectively at Livewire's v2 feature line. V3 aligns Magewire's major version with Livewire's, so V2 was skipped entirely. Going forward, Magewire's major version tracks Livewire's.
+Magewire V2 never existed. Magewire V1 was built on Livewire V2, which created persistent version confusion: a "Magewire 1" that was effectively at Livewire's v2 feature line. V3 aligns Magewire's major version with Livewire's, so V2 was skipped entirely. Going forward, Magewire's major version tracks Livewire's.
 
 See [Versioning](versioning.md) for the full versioning scheme, including how subpackages are tagged.
 
@@ -54,7 +54,7 @@ bin/magento setup:upgrade
 bin/magento cache:flush
 ```
 
-In developer mode, skip the `di:compile` and `static-content:deploy` steps — Magento picks up the changes on the next request.
+In developer mode, skip the `di:compile` and `static-content:deploy` steps; Magento picks up the changes on the next request.
 
 ## Enable the backwards-compatibility layer
 
@@ -66,15 +66,15 @@ use Magewirephp\Magewire\Features\SupportMagewireBackwardsCompatibility\HandleBa
 #[HandleBackwardsCompatibility]
 class LegacyCart extends \Magewirephp\Magewire\Component
 {
-    // Component code — no other changes required to keep V1 behaviour.
+    // Component code: no other changes required to keep V1 behaviour.
 }
 
-// Explicitly opt out — useful to override a theme-level auto-enable rule:
+// Explicitly opt out: useful to override a theme-level auto-enable rule:
 #[HandleBackwardsCompatibility(enabled: false)]
 class ModernCart extends \Magewirephp\Magewire\Component { /* … */ }
 ```
 
-The attribute lives in `Magewirephp\Magewire\Features\SupportMagewireBackwardsCompatibility` — **not** under `Attributes\`. Getting the namespace right matters; a wrong `use` statement silently leaves the component on V3 defaults.
+The attribute lives in `Magewirephp\Magewire\Features\SupportMagewireBackwardsCompatibility`, **not** under `Attributes\`. Getting the namespace right matters; a wrong `use` statement silently leaves the component on V3 defaults.
 
 ### What the BC layer does automatically
 
@@ -100,11 +100,11 @@ BC buys time; it does not eliminate migration work.
 
 ### The `memo.bc.enabled` flag
 
-BC pivots on a single flag in the snapshot memo: `memo.bc.enabled`. When present and truthy, the BC shims activate for that component's DOM subtree. Otherwise they stay dormant — so unaffected components pay no runtime cost.
+BC pivots on a single flag in the snapshot memo: `memo.bc.enabled`. When present and truthy, the BC shims activate for that component's DOM subtree. Otherwise they stay dormant, so unaffected components pay no runtime cost.
 
 Resolution priority for the flag:
 
-1. `#[HandleBackwardsCompatibility]` attribute (either `enabled: true` or `enabled: false`) — wins in all cases.
+1. `#[HandleBackwardsCompatibility]` attribute (either `enabled: true` or `enabled: false`): wins in all cases.
 2. Programmatic assignment: `store($component)->set('magewire:bc', true)` from a Component Hook or Feature.
 3. Theme default. A companion package may attempt a default, but current Hyvä Checkout migrations should add the attribute explicitly; see [Theming → Hyvä Checkout BC](../theming/hyva-checkout-bc.md).
 
@@ -133,7 +133,7 @@ V1's default was "sync on every keystroke", V3's default is "sync on form submit
 <div x-data="{ open: $wire.entangle('open').live }">…</div>
 ```
 
-BC auto-restores the V1 live-by-default proxy. Once the component is migrated, decide per `entangle` call whether you want live or deferred — each call site may want a different answer.
+BC auto-restores the V1 live-by-default proxy. Once the component is migrated, decide per `entangle` call whether you want live or deferred; each call site may want a different answer.
 
 ### Event listeners use the `#[On]` attribute
 
@@ -151,7 +151,7 @@ public function refresh(): void { /* … */ }
 
 `$listeners` still works (the base `Component` class still reads it) but is discouraged. `#[On]` gives better IDE support and lets a single method respond to multiple events via multiple attributes.
 
-Dispatch from PHP: `$this->dispatch('event-name', foo: 'bar')` — replaces V1's `$this->emit('event-name', ['foo' => 'bar'])`. The BC trait keeps `emit`, `emitUp`, `emitSelf`, and `emitTo` available, but they are thin wrappers around `dispatch()` now.
+Dispatch from PHP with `$this->dispatch('event-name', foo: 'bar')`. This replaces V1's `$this->emit('event-name', ['foo' => 'bar'])`. The BC trait keeps `emit`, `emitUp`, `emitSelf`, and `emitTo` available, but they are thin wrappers around `dispatch()` now.
 
 ### Hook / event renames (JS)
 
@@ -166,7 +166,7 @@ Dispatch from PHP: `$this->dispatch('event-name', foo: 'bar')` — replaces V1's
 | `message.received` | `commit` → `succeed()` | Yes |
 | `message.processed` | `commit` → `succeed()` → `queueMicrotask` | Yes |
 
-The V3 `commit` hook is callback-based — the before half runs synchronously; the returned closure receives `succeed` / `fail` / `respond` continuations you can hook into. See [Component Hooks](../advanced/architecture/component-hooks.md) for the full signature.
+The V3 `commit` hook is callback-based: the before half runs synchronously; the returned closure receives `succeed` / `fail` / `respond` continuations you can hook into. See [Component Hooks](../advanced/architecture/component-hooks.md) for the full signature.
 
 ### Component property aliases (JS)
 
@@ -209,11 +209,11 @@ V3 adds more lifecycle hooks than V1 exposed. All are optional:
 | `dehydrateXxx()` | Dehydrate for a specific property. |
 | `exception(\Throwable $e, callable $stopPropagation)` | On exception. |
 
-V1's `hydrate()` / `dehydrate()` signatures survive but V3 adds per-property variants and a `booted()` / `initialize()` pair — useful for DI wiring or authorisation guards.
+V1's `hydrate()` / `dehydrate()` signatures survive but V3 adds per-property variants and a `booted()` / `initialize()` pair, useful for DI wiring or authorisation guards.
 
 ### `updating` / `updated` argument order
 
-V1 called `updatingFooBar($value)` with the new value as the only argument. V3 passes `updatingFooBar($value, $oldValue, ...)` in some cases. Check the `UpdatingUpdatedArgumentSwapResolver` BC rule if a V1 hook starts receiving the wrong arguments — it sits in `lib/MagewireBc/Features/SupportMagewireBackwardsCompatibility/Resolver/`.
+V1 called `updatingFooBar($value)` with the new value as the only argument. V3 passes `updatingFooBar($value, $oldValue, ...)` in some cases. Check the `UpdatingUpdatedArgumentSwapResolver` BC rule if a V1 hook starts receiving the wrong arguments. It sits in `lib/MagewireBc/Features/SupportMagewireBackwardsCompatibility/Resolver/`.
 
 ### There is no `render()` method on `Component`
 
@@ -232,7 +232,7 @@ public function rendering(): void
 
 ### Area-scoped DI is required
 
-V1 registered Features, Mechanisms, and Hooks in the global `etc/di.xml`. V3's service provider reads area-scoped DI only — registrations in global DI are ignored.
+V1 registered Features, Mechanisms, and Hooks in the global `etc/di.xml`. V3's service provider reads area-scoped DI only; registrations in global DI are ignored.
 
 Move every Magewire-related `<type>` block into `etc/frontend/di.xml` (and/or `etc/adminhtml/di.xml` if the registration should also apply in admin).
 
@@ -296,11 +296,11 @@ class SupportMyFeature extends ComponentHook
 }
 ```
 
-If you registered a V1 "feature" as a plugin or observer, consider whether it should become a real Component Hook — the middleware semantics are usually cleaner.
+If you registered a V1 "feature" as a plugin or observer, consider whether it should become a real Component Hook because the middleware semantics are usually cleaner.
 
 ### Synthesizers replace V1's hydrators
 
-V1 had a `HydratorInterface`. V3 uses **Synthesizers** — classes that explain how to serialise and deserialise a given type across the snapshot boundary.
+V1 had a `HydratorInterface`. V3 uses **Synthesizers**: classes that explain how to serialise and deserialise a given type across the snapshot boundary.
 
 Magewire ships synthesizers for scalars, arrays, `\stdClass`, backed enums, and `\Magento\Framework\DataObject`. For custom value objects, write a `Synth` and register it:
 
@@ -326,7 +326,7 @@ class MoneySynth extends \Magewirephp\Magewire\Mechanisms\HandleComponents\Synth
 }
 ```
 
-Old `HydratorInterface` implementations survive under `lib/MagewireBc/Model/HydratorInterface.php` but are wrapped — convert to Synthesizers when you can.
+Old `HydratorInterface` implementations survive under `lib/MagewireBc/Model/HydratorInterface.php` but are wrapped; convert to Synthesizers when you can.
 
 ### Alpine.js is bundled and CSP
 
@@ -335,11 +335,11 @@ V3 ships the CSP build of Alpine inside its JavaScript bundle. Two consequences:
 - No second Alpine. Any `<script src="alpine.min.js">` in your theme must go.
 - CSP-mode Alpine does not evaluate JavaScript expressions with `eval` / `new Function`. Arrow functions, template literals, destructuring, spread, and nested assignments inside Alpine *directive expressions* (`x-on:click="…"`, `x-init="…"`, etc.) are unavailable. Move complex logic into `Alpine.data()` registrations or a utility on `window.MagewireUtilities`.
 
-Plain `<script>` tags in your PHTML still use normal JS — only the expressions that Alpine itself evaluates are affected.
+Plain `<script>` tags in your PHTML still use normal JS; only the expressions that Alpine itself evaluates are affected.
 
 ### CSP fragments replace hand-rolled nonces
 
-V1 templates sometimes carried hand-rolled CSP nonces or hashes on inline `<script>` tags. V3 offers **Fragments** — wrap any inline `<script>` in a fragment and Magewire injects the right nonce or hash automatically:
+V1 templates sometimes carried hand-rolled CSP nonces or hashes on inline `<script>` tags. V3 offers **Fragments**: wrap any inline `<script>` in a fragment and Magewire injects the right nonce or hash automatically:
 
 ```php
 <?php
@@ -363,11 +363,11 @@ The `On` attribute namespace did **not** change: `Magewirephp\Magewire\Attribute
 
 ## Migration workflow
 
-Recommended sequence for a module that has more than a handful of V1 components. Treat each numbered step as a separate PR or commit — they are cleanest in isolation.
+The sequence below is recommended for a module with more than a handful of V1 components. Treat each numbered step as a separate PR or commit. They are cleanest in isolation.
 
 ### 1. Install V3 with BC on everything
 
-Add `#[HandleBackwardsCompatibility]` to every V1 component in the module. Run the test suite; visit the site. The goal here is not to change behaviour — the goal is to prove that BC alone keeps the site green.
+Add `#[HandleBackwardsCompatibility]` to every V1 component in the module. Run the test suite; visit the site. The goal here is not to change behaviour; it is to prove that BC alone keeps the site green.
 
 ### 2. Migrate wire directives
 
@@ -415,7 +415,7 @@ As each component becomes fully V3-native, switch its attribute to `#[HandleBack
 
 ### 9. Remove the BC feature registration (whole-module)
 
-When every component on the site is migrated (not just the ones in your module — any V1 component left on the site will break), remove the BC feature registration from your theme compatibility module's DI. The JS shim bundle stops loading.
+When every component on the site is migrated, including V1 components in other modules, remove the BC feature registration from your theme compatibility module's DI. The JS shim bundle stops loading.
 
 ## Hyvä Checkout
 
@@ -425,22 +425,22 @@ See [Theming → Hyvä Checkout BC](../theming/hyva-checkout-bc.md) for the full
 
 ## Admin (new in V3)
 
-Magewire V1 was storefront-only. V3 supports admin components through the companion package `magewirephp/magewire-admin`. If the site has admin Magewire use cases — reactive grids, inline editors, wizards — install it alongside core. See [Admin → Installation](../admin/installation.md) and [Admin → How it works](../admin/how-it-works.md).
+Magewire V1 was storefront-only. V3 supports admin components through the companion package `magewirephp/magewire-admin`. If the site has admin Magewire use cases such as reactive grids, inline editors, or wizards, install it alongside core. See [Admin → Installation](../admin/installation.md) and [Admin → How it works](../admin/how-it-works.md).
 
 Admin components use the exact same layout-XML / PHTML / `$wire` conventions as storefront. The argument name in layout XML stays `magewire` (same as storefront). The `LayoutAdminResolver` picks up admin-area blocks automatically; you never reference `layout_admin` in your own XML.
 
 ## Common upgrade gotchas
 
-A grab-bag of issues seen during real upgrades — hit this list before opening an issue.
+The following issues have appeared during real upgrades. Check this list before opening an issue.
 
-- **"`wire:click` stopped working after upgrade"** — you probably still have a second Alpine loaded. Check the theme bundle and any layout XML that adds Alpine's script.
-- **"Half my snapshots fail checksum validation"** — the Magento crypt key changed between the snapshot being issued and the request arriving. Flush FPC; force one page reload.
-- **"CSP violations on every inline script"** — wrap inline scripts in a Script fragment. See the [CSP fragments](#csp-fragments-replace-hand-rolled-nonces) section.
-- **"A V1 component I added `#[HandleBackwardsCompatibility]` to still behaves V3"** — the attribute import is most likely wrong. The correct namespace is `Magewirephp\Magewire\Features\SupportMagewireBackwardsCompatibility\HandleBackwardsCompatibility`.
-- **"`$this->emit` throws `BadMethodCallException`"** — the component does not use the BC trait (or it extends a class that removed it). Switch to `$this->dispatch()`.
-- **"My observer listening on `message.sent` stopped firing"** — the JS-side hook is now `commit`. For server-side observer events see the table in [Features](../advanced/architecture/features.md#faq).
-- **"My Feature's `provide()` is never called"** — the Feature is registered in the global `etc/di.xml`. Move it into `etc/frontend/di.xml` and/or `etc/adminhtml/di.xml`.
-- **"Entangle spams the network tab"** — the call is still live-by-default from BC. Remove the `#[HandleBackwardsCompatibility]` attribute once the component is migrated, then audit every `entangle` on that component.
+- **"`wire:click` stopped working after upgrade"**: you probably still have a second Alpine loaded. Check the theme bundle and any layout XML that adds Alpine's script.
+- **"Half my snapshots fail checksum validation"**: the Magento crypt key changed between the snapshot being issued and the request arriving. Flush FPC; force one page reload.
+- **"CSP violations on every inline script"**: wrap inline scripts in a Script fragment. See the [CSP fragments](#csp-fragments-replace-hand-rolled-nonces) section.
+- **"A V1 component I added `#[HandleBackwardsCompatibility]` to still behaves V3"**: the attribute import is most likely wrong. The correct namespace is `Magewirephp\Magewire\Features\SupportMagewireBackwardsCompatibility\HandleBackwardsCompatibility`.
+- **"`$this->emit` throws `BadMethodCallException`"**: the component does not use the BC trait (or it extends a class that removed it). Switch to `$this->dispatch()`.
+- **"My observer listening on `message.sent` stopped firing"**: the JS-side hook is now `commit`. For server-side observer events see the table in [Features](../advanced/architecture/features.md#faq).
+- **"My Feature's `provide()` is never called"**: the Feature is registered in the global `etc/di.xml`. Move it into `etc/frontend/di.xml` and/or `etc/adminhtml/di.xml`.
+- **"Entangle spams the network tab"**: the call is still live-by-default from BC. Remove the `#[HandleBackwardsCompatibility]` attribute once the component is migrated, then audit every `entangle` on that component.
 
 ## Verifying the upgrade
 
@@ -457,12 +457,12 @@ After migrating, confirm the end state:
    grep -lrn "Magewirephp\\\\Magewire" app/code/**/etc/di.xml
    ```
    Anything matching must move to `etc/frontend/di.xml` or `etc/adminhtml/di.xml`.
-5. **No component still carries `#[HandleBackwardsCompatibility]`** — once fully migrated. A repo-wide grep proves the migration is complete.
+5. **No component still carries `#[HandleBackwardsCompatibility]`** after migration. A repo-wide grep proves the migration is complete.
 6. **Site health.** Click through the top ten most-trafficked Magewire components, watching the browser devtools Network tab for 4xx/5xx on `/magewire/update` and the console for CSP violations or Alpine warnings.
 
 ## Rolling back
 
-If the upgrade surfaces a showstopper bug, you can roll back to V1 by restoring the previous `composer.lock`, running `composer install`, and flushing caches. Any V3-specific code (the `#[HandleBackwardsCompatibility]` attribute, `->dispatch()->to()` chains, `#[On]` attributes) will need to be reverted first — V1 will not understand them. Keep the migration PR small enough that the revert is reasonable.
+If the upgrade surfaces a showstopper bug, you can roll back to V1 by restoring the previous `composer.lock`, running `composer install`, and flushing caches. Any V3-specific code (the `#[HandleBackwardsCompatibility]` attribute, `->dispatch()->to()` chains, `#[On]` attributes) will need to be reverted first; V1 will not understand them. Keep the migration PR small enough that the revert is reasonable.
 
 ## Migration checklist
 
@@ -477,7 +477,7 @@ Copy this into a PR description.
 - [ ] `wire:model.lazy` → `wire:model.blur`.
 - [ ] Bare `wire:model` → `wire:model.live` where instant sync is required.
 - [ ] `wire:model.delay.Xms` → `wire:model.live.debounce.Xms`.
-- [ ] Every `$wire.entangle('…')` audited — `.live` added where needed.
+- [ ] Every `$wire.entangle('…')` audited: `.live` added where needed.
 - [ ] Every `protected $listeners = […]` replaced with `#[On('event-name')]` attributes.
 - [ ] Every `$this->emit*()` migrated to `$this->dispatch()` (with `->up()`, `->self()`, `->to()` as appropriate).
 - [ ] Every `$this->getPublicProperties()` migrated to `$this->all()`.
@@ -495,8 +495,8 @@ Migration done. You can now remove the theme BC feature registration when every 
 
 ## Related
 
-- [Backwards compatibility](../essentials/backwards-compatibility.md) — the BC system in depth.
-- [Hyvä Checkout BC](../theming/hyva-checkout-bc.md) — the auto-enable rule.
-- [Admin → Installation](../admin/installation.md) — install the admin companion package.
-- [Features](../advanced/architecture/features.md) — how to rewrite V1 Features as V3 Component Hooks.
-- [Synthesizers](../advanced/synthesizers.md) — replacement for V1 hydrators.
+- [Backwards compatibility](../essentials/backwards-compatibility.md): the BC system in depth.
+- [Hyvä Checkout BC](../theming/hyva-checkout-bc.md): the auto-enable rule.
+- [Admin → Installation](../admin/installation.md): install the admin companion package.
+- [Features](../advanced/architecture/features.md): how to rewrite V1 Features as V3 Component Hooks.
+- [Synthesizers](../advanced/synthesizers.md): replacement for V1 hydrators.

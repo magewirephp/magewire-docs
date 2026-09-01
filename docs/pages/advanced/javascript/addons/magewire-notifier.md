@@ -21,11 +21,11 @@ document.addEventListener('magewire:init', async () => {
 
 Options include:
 
-- `type` — `success`, `error`, `warning`, or `info`;
-- `title` — optional title;
-- `duration` — display duration in milliseconds;
-- `recoverable` — marks the item as recoverable;
-- `activate` — activate immediately, defaulting to `true`.
+- `type`: `success`, `error`, `warning`, or `info`;
+- `title`: optional title;
+- `duration`: display duration in milliseconds;
+- `recoverable`: marks the item as recoverable;
+- `activate`: activate immediately, defaulting to `true`.
 
 When `duration` is `null`, Magewire calculates a reading duration from the message length. Values `0` and `false` currently become 24 hours; they are not permanently sticky.
 

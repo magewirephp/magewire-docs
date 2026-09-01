@@ -1,6 +1,6 @@
 # How It Works
 
-`magewire-admin` is thin — five PHP classes and a handful of XML files. This page walks through each piece so you know what to look for when something goes wrong.
+`magewire-admin` is thin: five PHP classes and a handful of XML files. This page walks through each piece so you know what to look for when something goes wrong.
 
 ## The admin route
 
@@ -86,7 +86,7 @@ class LayoutAdminResolver extends LayoutResolver
 }
 ```
 
-Extends the storefront's `LayoutResolver` and only overrides the internal `$accessor` string. The admin resolver is registered in `etc/adminhtml/di.xml` with `sortOrder="99800"` so it runs before the default layout resolver in the adminhtml area. The accessor (`layout_admin`) is stored in the snapshot memo so the same resolver is picked on subsequent `/magewire/update` roundtrips. Layout XML still binds components with `<argument name="magewire" xsi:type="object">` — identical to storefront.
+Extends the storefront's `LayoutResolver` and only overrides the internal `$accessor` string. The admin resolver is registered in `etc/adminhtml/di.xml` with `sortOrder="99800"` so it runs before the default layout resolver in the adminhtml area. The accessor (`layout_admin`) is stored in the snapshot memo so the same resolver is picked on subsequent `/magewire/update` roundtrips. Layout XML still binds components with `<argument name="magewire" xsi:type="object">`, just as on the storefront.
 
 ## Always-on component detection
 
@@ -100,7 +100,7 @@ class ResolveComponentsViewModel extends CoreResolveComponentsViewModel
 }
 ```
 
-On the storefront, Magewire's JavaScript skips full initialisation if the page has no components. On the admin, the JS runs early — **before** the DOM nodes containing `wire:snapshot` are rendered. So the check is forced to `true` and Magewire always fully initialises.
+On the storefront, Magewire's JavaScript skips full initialisation if the page has no components. On the admin, the JS runs early: **before** the DOM nodes containing `wire:snapshot` are rendered. So the check is forced to `true` and Magewire always fully initialises.
 
 ## Prototype.js collision
 

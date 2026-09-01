@@ -24,7 +24,7 @@ class Recommendations extends Component
 
 The default mode is `on-intersect`: Magewire loads the component when its placeholder enters the viewport.
 
-Layout XML can opt in—or override the attribute—for a particular block:
+Layout XML can opt in, or override the attribute, for a particular block:
 
 ```xml
 <block name="recommendations" template="Vendor_Module::magewire/recommendations.phtml">
@@ -37,9 +37,9 @@ Layout XML can opt in—or override the attribute—for a particular block:
 
 Accepted values are:
 
-- `on-intersect` or `true` — load when the placeholder enters the viewport.
-- `on-load` — load after the page initializes.
-- `false` — disable lazy loading for this block, including when the class has `#[Lazy]`.
+- `on-intersect` or `true`: load when the placeholder enters the viewport.
+- `on-load`: load after the page initializes.
+- `false`: disable lazy loading for this block, including when the class has `#[Lazy]`.
 
 The layout value takes precedence over the component attribute.
 

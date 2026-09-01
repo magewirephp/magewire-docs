@@ -18,7 +18,7 @@ For more advanced use cases, we recommend exploring the in-depth documentation, 
 
 Magewire components are bound to Magento blocks through layout XML `<argument>` entries. Beyond the
 `magewire` argument that declares the component itself, a structured argument system lets you pass data
-straight into a component from layout XML—no custom ViewModel or constructor wiring required.
+straight into a component from layout XML without custom ViewModel or constructor wiring.
 
 Arguments are extracted from the block during the assembly phase, after the component has been resolved and
 mounted.

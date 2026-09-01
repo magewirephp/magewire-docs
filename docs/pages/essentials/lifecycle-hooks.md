@@ -16,7 +16,7 @@ public function mount(int $productId): void
 
 ## boot() for Magento guards
 
-Run on every request, before hydration — use for authorisation and dependency resolution:
+Run on every request, before hydration. Use this hook for authorisation and dependency resolution:
 
 ```php
 public function boot(): void
@@ -29,7 +29,7 @@ public function boot(): void
 
 ## Swap templates per state
 
-`Component` has no `render()` method — the block's configured PHTML renders automatically. To switch templates based on state, use the `rendering` hook and set the block's template before render:
+`Component` has no `render()` method: the block's configured PHTML renders automatically. To switch templates based on state, use the `rendering` hook and set the block's template before render:
 
 ```php
 public function rendering(): void

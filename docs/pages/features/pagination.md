@@ -150,6 +150,6 @@ page state cannot be copied directly into Magewire 3.6.
 
 ## Related
 
-- [Actions](../essentials/actions.md) — invoking page navigation from the template.
-- [Lifecycle Hooks](../essentials/lifecycle-hooks.md) — reacting to synchronized state changes.
-- [Request Bundling](request-bundling.md) — how component updates share browser requests.
+- [Actions](../essentials/actions.md): invoking page navigation from the template.
+- [Lifecycle Hooks](../essentials/lifecycle-hooks.md): reacting to synchronized state changes.
+- [Request Bundling](request-bundling.md): how component updates share browser requests.

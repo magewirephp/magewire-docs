@@ -1,6 +1,6 @@
 # Patterns
 
-!!! warning "While entirely optional, these patterns serve as recommended approaches. They’re open to discussion and improvement—as we’re always learning and evolving to make Magewire better for everyone."
+!!! warning "While entirely optional, these patterns serve as recommended approaches. They’re open to discussion and improvement, as we’re always learning and evolving to make Magewire better for everyone."
 
 Instead of sharing numerous GitHub Gists, we prefer to share the patterns used within the Magewire core package itself.
 These patterns are the result of extensive experimentation and refinement, carefully crafted to keep things clean,

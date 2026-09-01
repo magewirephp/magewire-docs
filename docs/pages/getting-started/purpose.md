@@ -7,8 +7,8 @@ particularly on the frontend. Magewire takes a similar approach, leveraging its 
 and concepts while trying to stay somewhat aligned with Magento's core principles.
 
 Magewire tries to further modernize Magento by offering a proven solution, much like Hyvä did with Tailwind CSS and Alpine JS.
-Over the years, we've seen many new technologies emerge—some that borrow ideas from other frameworks and try to do things 
-just that little bit different, or ones that were built by accident but never really took off. This often happens because
+Over the years, we've seen many new technologies emerge, some that borrow ideas from other frameworks and try to do things
+just that little bit differently, or ones that were built by accident but never really took off. This often happens because
 our open-source community tends to focus more on using tools than contributing back to them.
 
 We've seen this cycle before, like when Snow Dog introduced two themes. While they were used, issues often led to
@@ -35,11 +35,11 @@ more streamlined approach. Simplifying certain Magento concepts makes backend de
 ## The Long Term
 
 Magewire is a powerful, feature-rich package with a bold vision for the future. With version 3, we aim to make it the
-default choice for both frontend and backend developers—whether for use in themes or to build dynamic admin panel features.
+default choice for both frontend and backend developers, whether for use in themes or to build dynamic admin panel features.
 
 The future of Magewire lies in the passion, contributions, and support of its community. It has the potential to redefine
 backend development and reshape the way developers interact with Magento.
 
 Combined with forward-thinking frontend solutions like [Hyvä](https://hyva.io?ref=magewire-documentation){:target="_blank"}, Magewire can help Magento
-reclaim or push forward its place at the forefront of modern development—ushering in a new era driven by fresh ideas and
+reclaim or push forward its place at the forefront of modern development, ushering in a new era driven by fresh ideas and
 a willingness to embrace change.

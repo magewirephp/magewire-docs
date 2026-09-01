@@ -81,9 +81,9 @@ Versions not included in this log indicate releases where no new features were i
   `magewirephp/magewire` repository and every theme moved into its own repository and Composer package
   for better maintainability:
 
-  - `magewirephp/magewire-hyva-theme` — Hyvä theme support (was `themes/Hyva/`).
-  - `magewirephp/magewire-hyva-checkout` — Hyvä Checkout support.
-  - `magewirephp/magewire-admin` — Magento admin support (replaces the `themes/Backend/` marker).
+  - `magewirephp/magewire-hyva-theme`: Hyvä theme support (was `themes/Hyva/`).
+  - `magewirephp/magewire-hyva-checkout`: Hyvä Checkout support.
+  - `magewirephp/magewire-admin`: Magento admin support (replaces the `themes/Backend/` marker).
 
   Install the package(s) for the themes you use. See [Theming](../../theming/index.md).
 
@@ -92,7 +92,7 @@ Versions not included in this log indicate releases where no new features were i
 - **Blade-like Echo Compilers**
 
   {% raw %}Adds Blade-style echo syntax to the template compiler. Expressions wrapped in `{{ }}` are automatically
-  escaped, while `{!! !!}` renders raw, unescaped output{% endraw %}—mirroring the familiar Laravel Blade behaviour and
+  escaped, while `{!! !!}` renders raw, unescaped output{% endraw %}, mirroring the familiar Laravel Blade behaviour and
   making it easier to output values directly within `.phtml` templates.
 
 - **Theme-aware Compiled View Paths**
@@ -143,7 +143,7 @@ V1 runtime with a formalised pipeline.
   By moving the documentation out of the core repository and into a centralized location, we aim to provide a more
   structured and accessible knowledge base.
 
-  This dedicated space makes it easier to find answers, stay up to date, and get inspired—ultimately helping developers build better,
+  This dedicated space makes it easier to find answers, stay up to date, and get inspired, ultimately helping developers build better,
   more powerful features with Magewire.
 
 - **Template @ Directives**
@@ -153,7 +153,7 @@ V1 runtime with a formalised pipeline.
 
 - **Template Fragments**
 
-  Provides the ability to mark a specific area within a template, allowing modifiers to alter its content—such as
+  Provides the ability to mark a specific area within a template, allowing modifiers to alter its content, such as
   making inline scripts CSP compliant. This is done using the `$fragment = $viewModel->utils()->template()->fragment()` chain,
   followed by `$script = $fragment->script()->start()` and `$script->end()` to define the fragment boundaries.
 
@@ -161,7 +161,7 @@ V1 runtime with a formalised pipeline.
 
 - **Automatic View Model Resolving**
 
-  Blocks that are direct or indirect children of the magewire block will automatically receive a `view_model` argument—as
+  Blocks that are direct or indirect children of the magewire block will automatically receive a `view_model` argument, as
   long as it hasn’t already been manually defined. This reduces the need to explicitly bind the `view_model` to each individual block,
   resulting in cleaner and more maintainable layout XML.
 
@@ -176,7 +176,7 @@ V1 runtime with a formalised pipeline.
 
 - **CSP Complaint**
 
-  Since April 2025, it is recommended that all payment-related functionality is CSP compliant—meaning that any scripts,
+  Since April 2025, it is recommended that all payment-related functionality is CSP compliant, meaning that any scripts,
   styles, or other resources involved in the payment process must adhere to Content Security Policy standards.
 
   This includes using `nonces` or `hashes` for inline scripts and ensuring that all external resources are loaded from trusted,
@@ -185,13 +185,13 @@ V1 runtime with a formalised pipeline.
 - **Components Hooks**
 
   Compared to V1, Magewire V3 introduces a wide range of new extension points throughout the backend architecture.
-  Developers can now hook into various stages of the component lifecycle—including rendering, hydration, dehydration,
-  and more—making it easier to customize and extend Magewire's behavior in powerful and flexible ways.
+  Developers can now hook into various stages of the component lifecycle, including rendering, hydration, dehydration,
+  and more, making it easier to customize and extend Magewire's behavior in powerful and flexible ways.
 
 - **View Model Utilities**
 
   The primary Magewire ViewModel has been extended with a `utils` API, giving developers easy access to commonly used
-  tools—both within and outside Magewire component template files. This eliminates the need to repeatedly create custom
+  tools, both within and outside Magewire component template files. This eliminates the need to repeatedly create custom
   ViewModels for basic functionality.
 
   The `utils` API is designed to be extensible, allowing you to add custom utilities when needed.

@@ -66,10 +66,10 @@ When every Hyvä Checkout component on your install is V3-native:
 2. Remove the Hyvä Checkout BC Feature from your theme compat module's `etc/frontend/di.xml`.
 3. Flush cache and run the checkout end-to-end.
 
-If any checkout component was relying on the automatic rule without the attribute, it will now break — adding the attribute explicitly is a safe intermediate step.
+If any checkout component was relying on the automatic rule without the attribute, it will now break; adding the attribute explicitly is a safe intermediate step.
 
 ## Related
 
-- [Backwards compatibility](../essentials/backwards-compatibility.md) — the underlying system.
-- [Upgrade](../getting-started/upgrade.md) — V1 → V3 migration checklist.
-- [Compatibility module](compatibility-module.md) — how Hyvä's compat module is organised.
+- [Backwards compatibility](../essentials/backwards-compatibility.md): the underlying system.
+- [Upgrade](../getting-started/upgrade.md): V1 → V3 migration checklist.
+- [Compatibility module](compatibility-module.md): how Hyvä's compat module is organised.

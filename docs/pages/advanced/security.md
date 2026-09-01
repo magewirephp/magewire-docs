@@ -8,7 +8,7 @@ Magento's `FormKey` protects every Magewire request automatically. The key trave
 
 ## Snapshot checksum
 
-Each snapshot carries an HMAC checksum signed with the Magento crypt key (`app/etc/env.php` → `crypt/key`). The checksum authenticates the snapshot's integrity — it does not authorise the user. Always check permissions inside actions.
+Each snapshot carries an HMAC checksum signed with the Magento crypt key (`app/etc/env.php` → `crypt/key`). The checksum authenticates the snapshot's integrity; it does not authorise the user. Always check permissions inside actions.
 
 ## Namespace and escaping
 
@@ -47,7 +47,7 @@ public function boot(): void
 
 Magewire ships `SupportMagewireRateLimiting`, disabled by default. Enable the appropriate request or component variant per scope after choosing a budget suitable for the application. See [Rate Limiting](../features/rate-limiting.md).
 
-Use [Request Filters](request-filters.md) for inexpensive request-wide checks that must run before component reconstruction. Filters complement—not replace—authorization inside actions.
+Use [Request Filters](request-filters.md) for inexpensive request-wide checks that must run before component reconstruction. Filters complement, not replace, authorization inside actions.
 
 ## Vulnerability reports
 
@@ -55,4 +55,4 @@ Report suspected Magewire vulnerabilities privately to `magewirephp@wpoortman.nl
 
 ## CSP
 
-Magewire's bundle ships the CSP build of Alpine. Inline scripts go through the [fragment](../concepts/fragments.md) system — never emit a raw `<script>` tag from a component template.
+Magewire's bundle ships the CSP build of Alpine. Inline scripts go through the [fragment](../concepts/fragments.md) system; never emit a raw `<script>` tag from a component template.

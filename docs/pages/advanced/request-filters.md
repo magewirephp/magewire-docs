@@ -43,11 +43,11 @@ final class MaintenanceRequestException extends RequestFilterException
 
 `RequestContext` provides:
 
-- `getRequest()` — the Magento HTTP request.
-- `getComponents()` — component request contexts in payload order.
-- `getToken()` — the already verified form key.
-- `getFingerprint()` — an opaque identifier for the request origin.
-- `attributes()` — request-scoped data that filters can share.
+- `getRequest()`: the Magento HTTP request.
+- `getComponents()`: component request contexts in payload order.
+- `getToken()`: the already verified form key.
+- `getFingerprint()`: an opaque identifier for the request origin.
+- `attributes()`: request-scoped data that filters can share.
 
 Filters should be inexpensive and must not reconstruct, hydrate, or render components.
 

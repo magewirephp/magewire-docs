@@ -19,13 +19,13 @@ The module structure differs slightly from a typical Magento module.
 
 Magewire core is theme-agnostic. A compatibility package supplies theme-specific asset ordering, layout integration, styles, and browser bridges.
 
-Since 3.2.0 theme support no longer lives in-tree under a `themes/` directory in the core repository. Each theme has been split into its own
-repository and Composer package — `magewirephp/magewire-hyva-theme`, `magewirephp/magewire-hyva-checkout`, and `magewirephp/magewire-admin` —
-for better maintainability. See [Theming](../../theming/index.md).
+Since 3.2.0 theme support no longer lives in-tree under a `themes/` directory in the core repository. For better maintainability, each theme has its own
+repository and Composer package: `magewirephp/magewire-hyva-theme`, `magewirephp/magewire-hyva-checkout`, or `magewirephp/magewire-admin`.
+See [Theming](../../theming/index.md).
 
 ### Example
 
-Among other things, some theme-specific adjustments for Hyvä were necessary — in this example, the flash messages are being made compatible.
+Among other things, some theme-specific adjustments for Hyvä were necessary. In this example, the flash messages are being made compatible.
 
 ```html title="page/js/magewire/features/support-magento-flash-messages.phtml"
  <script>

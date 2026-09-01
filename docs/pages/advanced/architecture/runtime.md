@@ -2,7 +2,7 @@
 
 {{ include("admonition/magewire-specific.md", since_version="3.0.0") }}
 
-You can build every component you'll ever need without reading this page — Magewire boots
+You can build every component you'll ever need without reading this page because Magewire boots
 itself automatically. But when you're debugging an edge case, writing a Mechanism or Feature, or
 just curious *how* a PHP framework wakes up inside a Magento request, this is the background that
 makes the rest of the architecture click.
@@ -13,9 +13,9 @@ lifecycle. Three pieces of vocabulary cover almost everything:
 
 | Term | Question it answers | Type |
 |---|---|---|
-| **mode** | What kind of request is this — an initial page load or an update? | `RequestMode` |
+| **mode** | What kind of request is this: an initial page load or an update? | `RequestMode` |
 | **state** | Where is Magewire in its boot lifecycle right now? | `RuntimeState` |
-| **boot mode** | How eagerly should an individual service boot — early, or only when needed? | `ServiceTypeItemBootMode` |
+| **boot mode** | How eagerly should an individual service boot: early, or only when needed? | `ServiceTypeItemBootMode` |
 
 The runtime itself is a single object (`Magewirephp\Magewire\Runtime`) holding just a `mode` and a
 `state`, reachable through `MagewireServiceProvider::runtime()`. It lives for one HTTP request and
@@ -27,7 +27,7 @@ The **mode** records which of Magewire's two request shapes is being served:
 
 | Mode | Value | Meaning |
 |---|---|---|
-| `UNDEFINED` | 0 | No mode set yet — the runtime hasn't been booted. |
+| `UNDEFINED` | 0 | No mode set yet: the runtime hasn't been booted. |
 | `PRECEDING` | 1 | The **initial full page render**. Components are constructed and mounted as the page's HTML is built. |
 | `SUBSEQUENT` | 2 | A **`/magewire/update` XHR**. Components are reconstructed from their snapshot, updated, and re-rendered. |
 
@@ -37,7 +37,7 @@ framework a single, stable answer to "are we on an update request?":
 
 ```php
 if ($magewireServiceProvider->runtime()->mode()->isSubsequent()) {
-    // e.g. decorate the layout for page-less block loading — see the Layout page.
+    // e.g. decorate the layout for page-less block loading: see the Layout page.
 }
 ```
 
@@ -66,17 +66,17 @@ UNINITIALIZED ──▶ SETUP ──▶ BOOTING ──▶ BOOTED
 | `FAILED` | 4 | A critical error stopped the boot; the request can't proceed. |
 | `STOPPED` | 5 | Was running, then gracefully shut down. |
 
-Because the cases are ordered integers, state checks read like comparisons —
+Because the cases are ordered integers, state checks read like comparisons:
 `state()->isMinimally(RuntimeState::BOOTED)`, `isAbove(...)`, `isBelow(...)`, `is(...)`,
 `isAny([...])`. The boot routine uses this to guard against re-entry: if the state is already at
 `BOOTING` or beyond, a second `boot()` call returns immediately instead of booting twice.
 
 ## The boot process
 
-Booting happens in two phases — a lightweight **setup** that runs on every controller action, and
+Booting happens in two phases: a lightweight **setup** that runs on every controller action, and
 a full **boot** that runs only when Magewire is actually needed.
 
-### Phase 1 — `setup()`
+### Phase 1: `setup()`
 
 Triggered by the `ControllerActionPredispatch` observer on **every** controller action, so the
 groundwork is in place before anything renders. It:
@@ -88,13 +88,13 @@ groundwork is in place before anything renders. It:
 
 If setup has already run (`state >= SETUP`) it's a no-op, so the cost is paid once per request.
 
-### Phase 2 — `boot(mode)`
+### Phase 2: `boot(mode)`
 
 Triggered the first time Magewire is genuinely in play. There are exactly **two** trigger points:
 
-- **`ViewBlockAbstractToHtmlBefore`** — when the first block carrying a `magewire` argument is about
+- **`ViewBlockAbstractToHtmlBefore`**: when the first block carrying a `magewire` argument is about
   to render on a normal page, it boots with `RequestMode::PRECEDING`.
-- **`MagewireUpdateRoute`** — the update endpoint boots with `RequestMode::SUBSEQUENT`.
+- **`MagewireUpdateRoute`**: the update endpoint boots with `RequestMode::SUBSEQUENT`.
 
 The boot routine then:
 
@@ -103,7 +103,7 @@ The boot routine then:
 3. Moves the state to `BOOTING`.
 4. Fires the `magewire:boot` event, which returns a `finish` callback.
 5. Boots the remaining (lazy) Mechanisms and Features that setup skipped.
-6. Invokes the `finish` callback — the "after boot" hook, run only when no exception occurred.
+6. Invokes the `finish` callback: the "after boot" hook, run only when no exception occurred.
 7. Moves the state to `BOOTED`.
 
 Any exception along the way flips the state to `FAILED` and re-throws. A `reset(mode)` helper exists
@@ -125,14 +125,14 @@ Each item declares a **boot mode** that controls *when* it boots:
 
 | Boot mode | Value | Boots during |
 |---|---|---|
-| `LAZY` | 10 | The full `boot()` phase — only when Magewire is actually used. |
-| `PERSISTENT` | 20 | `setup()` — early, on every controller action. |
-| `ALWAYS` | 30 | `setup()` — early, on every controller action. |
+| `LAZY` | 10 | The full `boot()` phase: only when Magewire is actually used. |
+| `PERSISTENT` | 20 | `setup()`: early, on every controller action. |
+| `ALWAYS` | 30 | `setup()`: early, on every controller action. |
 
 A boot call only runs items whose boot mode is **at or above** the requested level. So `setup()`'s
 `boot(PERSISTENT)` starts the `PERSISTENT` and `ALWAYS` items and skips `LAZY` ones; the later full
 `boot()` (no minimum) picks up everything that's left. The default boot mode is `ALWAYS`, while
-Mechanisms fall back to `LAZY` — most mechanisms only matter once a component is in play.
+Mechanisms fall back to `LAZY`; most mechanisms only matter once a component is in play.
 
 Within a service type, items boot in `sort_order`, with an optional `sequence` to declare
 "boot after this other item" dependencies.
@@ -157,7 +157,7 @@ on('magewire:boot', function ($runtime) {
 });
 ```
 
-These are the same `on()` / `trigger()` primitives the rest of the lifecycle uses — see
+These are the same `on()` / `trigger()` primitives the rest of the lifecycle uses. See
 [Component Hooks](component-hooks.md) for the broader hook pipeline.
 
 ## Accessing the runtime
@@ -168,8 +168,8 @@ goes through the service provider:
 ```php
 $runtime = $magewireServiceProvider->runtime();
 
-$runtime->mode();   // RequestMode  — preceding / subsequent
-$runtime->state();  // RuntimeState — where in the boot lifecycle
+$runtime->mode();   // RequestMode: preceding / subsequent
+$runtime->state();  // RuntimeState: where in the boot lifecycle
 ```
 
 Treat both as **read-only** from your own code. The framework sets the mode and advances the state
@@ -178,7 +178,7 @@ setting them by hand will desync the boot machinery.
 
 ## Related
 
-- [Mechanisms](mechanisms/index.md) — the required core steps booted by the runtime.
-- [Features](features.md) — the optional services booted alongside them.
-- [Component Hooks](component-hooks.md) — the `on()` / `trigger()` event pipeline used throughout boot.
-- [Layout](layout.md) — a concrete consumer of `mode()->isSubsequent()`.
+- [Mechanisms](mechanisms/index.md): the required core steps booted by the runtime.
+- [Features](features.md): the optional services booted alongside them.
+- [Component Hooks](component-hooks.md): the `on()` / `trigger()` event pipeline used throughout boot.
+- [Layout](layout.md): a concrete consumer of `mode()->isSubsequent()`.

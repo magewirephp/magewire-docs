@@ -32,7 +32,7 @@ document.addEventListener('alpine:init', () => {
 }, { once: true });
 ```
 
-Utilities are expected to be **pure functions** — stateless, side-effect-free, predictable. For stateful APIs, use [Addons](../addons/magewire-notifier.md) instead.
+Utilities are expected to be **pure functions**: stateless, side-effect-free, predictable. For stateful APIs, use [Addons](../addons/magewire-notifier.md) instead.
 
 ## Related
 

@@ -8,10 +8,9 @@ Portman, developed by **Justin van Elst**, is a command-line utility designed to
 
 The idea for Portman was born during a two-hour car ride, sparked by a discussion between Justin van Elst and Willem Poortman,
 about some ideal solutions to avoid the challenges faced during the development of the Magewire 3 port from Livewire.
-Throughout the process, a number of workarounds had to be implemented to make things function — many of which were less than ideal —
-as Livewire wasn’t built with cross-framework compatibility in mind.
+Throughout the process, a number of less-than-ideal workarounds were needed because Livewire wasn’t built with cross-framework compatibility in mind.
 
-During that conversation, a rough sketch of a possible solution was made. Justin took that concept and turned it into Portman —
+During that conversation, a rough sketch of a possible solution was made. Justin took that concept and turned it into Portman,
 one of the most critical tools that made Magewire V3 possible.
 
 Portman enables developers to perform various porting tasks without the need to overwrite original source files.

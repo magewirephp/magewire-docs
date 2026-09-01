@@ -1,6 +1,6 @@
 # Building Admin Components
 
-Admin components are Magewire components registered in the admin area. The PHP class, the template, and the lifecycle are identical to storefront components — only the DI scope and the layout directory differ.
+Admin components are Magewire components registered in the admin area. The PHP class, the template, and the lifecycle are identical to storefront components; only the DI scope and the layout directory differ.
 
 ## File layout
 
@@ -89,7 +89,7 @@ class OrderStatusEditor extends Component
 
 Notes:
 
-- The argument name stays `magewire` — same as storefront. `magewire-admin` registers `LayoutAdminResolver` with a higher sort order in `adminhtml/di.xml`, so it runs before the default `LayoutResolver` and claims admin-area blocks automatically. The `layout_admin` string is the resolver's internal accessor (stored in the snapshot memo for reconstruction), not a layout XML argument name.
+- The argument name stays `magewire`, just as on the storefront. `magewire-admin` registers `LayoutAdminResolver` with a higher sort order in `adminhtml/di.xml`, so it runs before the default `LayoutResolver` and claims admin-area blocks automatically. The `layout_admin` string is the resolver's internal accessor (stored in the snapshot memo for reconstruction), not a layout XML argument name.
 - `magewire:mount:*` arguments are passed to the component's `mount()` method.
 
 ## Template
@@ -111,7 +111,7 @@ Notes:
 </div>
 ```
 
-Standard Magewire syntax — no admin-specific directives.
+Standard Magewire syntax: no admin-specific directives.
 
 ## Authorization
 
@@ -140,7 +140,7 @@ public function boot(): void
 
 ## Registering admin-scoped Features
 
-Any Feature / Component Hook / Synthesizer the component depends on must be registered in `etc/adminhtml/di.xml` — the area-scoped equivalent of the storefront's `etc/frontend/di.xml`.
+Any Feature / Component Hook / Synthesizer the component depends on must be registered in `etc/adminhtml/di.xml`, the area-scoped equivalent of the storefront's `etc/frontend/di.xml`.
 
 ```xml title="etc/adminhtml/di.xml"
 <?xml version="1.0"?>
@@ -162,7 +162,7 @@ Any Feature / Component Hook / Synthesizer the component depends on must be regi
 
 - **No Tailwind.** The admin theme ships its own styles. Use admin-compatible CSS; do not rely on Tailwind utility classes.
 - **Prototype.js.** Some admin pages still include Prototype. Magewire-admin restores `Object.keys` / `Object.values`, but other Prototype-era APIs (`Element.observe`, `Hash`) are out there. Avoid them in component JavaScript.
-- **RequireJS ordering.** Admin modules often depend on RequireJS. Magewire-admin forces its bundle to load first — as long as your own admin scripts don't `requirejs.config()` in a way that overrides global shim order, you are fine.
+- **RequireJS ordering.** Admin modules often depend on RequireJS. Magewire-admin forces its bundle to load first. As long as your own admin scripts don't `requirejs.config()` in a way that overrides global shim order, you are fine.
 - **Full-page cache.** The admin is not FPC-cached, so CSP nonces (not hashes) are used on every request.
 
 ## Related

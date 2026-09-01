@@ -43,7 +43,7 @@ Confirm the feature is registered by Magewire. The `dist/` tree contains unregis
 
 ## Request rejected before the component runs
 
-Inspect the response status and `X-Magewire-Message-Severity` header. A registered [request filter](request-filters.md)—including request-scoped rate limiting—may reject before reconstruction. An unmarked 500 response remains a normal server failure and should be diagnosed in Magento logs rather than shown to the customer.
+Inspect the response status and `X-Magewire-Message-Severity` header. A registered [request filter](request-filters.md), including request-scoped rate limiting, may reject before reconstruction. An unmarked 500 response remains a normal server failure and should be diagnosed in Magento logs rather than shown to the customer.
 
 ## Admin components never mount
 
