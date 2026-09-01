@@ -1,11 +1,31 @@
 # Zensical migration notes
 
-Status: Phase 0 through Phase 14 complete; final-cutover readiness proven without changing production, 2026-09-01
+Status: Zensical production cutover complete; blog compatibility follow-up proven locally, 2026-09-01
 
-Branch: `migration/zensical`
+Current follow-up branch: `feature/restore-blogs`
 Tested versions: Material for MkDocs 9.7.7, MkDocs 1.6.1, Zensical 0.0.57, mkdocs-macros-plugin 1.5.0, Python 3.14.4
 
-This work intentionally leaves `mkdocs.yml`, the Markdown sources, and a pinned Material rollback image in place. The compatibility audit is complete, the modern theme is selected, native configuration was evaluated and deliberately deferred, a Zensical GitHub Pages workflow is prepared but not active in production, the source-derived AI documentation layer including raw page-level Markdown is implemented, and its complete static artifact and production URL contract are validated in CI. Privacy/offline behavior is resolved with system fonts and an automated third-party asset gate. The safe cleanup audit and cutover-readiness proof are complete; the production Pages setting and `main` branch have not been changed.
+The Zensical migration is live on `main`. This follow-up restores the Material-generated Blog and Personal routes without waiting for Zensical's native blog module and without changing the six canonical post files.
+
+## Blog compatibility follow-up
+
+Zensical 0.0.57 still does not implement Material for MkDocs' blog plugin. `scripts/build_blog.py` provides a temporary, static compatibility layer:
+
+- `prepare` copies `docs/` to ignored `.build/docs`, reads post front matter and author metadata, and generates the historical post, archive, category, and full-listing index paths as Markdown;
+- `mkdocs.zensical.yml` inherits the canonical `mkdocs.yml`, points Zensical at the staged tree, and appends Blog to the visible navigation;
+- Zensical renders every generated page with the same modern default theme as the documentation;
+- `finalize` verifies all 12 expected blog and personal routes, replaces the six briefly published Zensical source-path post URLs with static canonical redirects, and adds the unlisted compatibility pages to `sitemap.xml`;
+- the AI documentation generator continues to read canonical `mkdocs.yml`, so this human-facing restoration does not silently change the established AI corpus.
+
+The post Markdown, front matter, authors, dates, links, and directory ownership remain canonical under `docs/blogs/posts/` and `docs/personal/posts/`. New posts automatically receive a route, listing entry, yearly archive entry, search entries, and sitemap entry. Personal remains unlisted in the main navigation but its existing routes are preserved.
+
+The clean compatibility gate now preserves all 111 pre-migration production URLs and all 707 captured heading anchors. There are no deferred blog URL or anchor differences, and the six source-path URLs from the initial Zensical deployment redirect without duplicating searchable content. No third-party runtime assets are used. The only remaining sitemap exception is the deliberately unlisted Magewire Flakes draft.
+
+Forward path: use the adapter until Zensical ships a native blog module with equivalent URL control, then compare both outputs before removing it. Rollback path: remove the `prepare` and `finalize` workflow steps and build from `mkdocs.yml`; canonical content is unaffected because `.build/` is disposable.
+
+## Initial migration record
+
+The sections below preserve the findings at the time of the initial Zensical cutover. Statements describing Blog and Personal as deferred are superseded by the compatibility follow-up above.
 
 ## Current project inventory
 
