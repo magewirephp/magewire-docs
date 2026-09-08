@@ -6,6 +6,10 @@ date: 2025-09-08
 tags: [V3, release, beta]
 ---
 
+!!! warning "Historical beta post"
+    This post describes beta-era plans, not the supported Magewire 3.6 API. Flakes are still experimental, and only the
+    fixed observer-event map in current source is bridged to Magento events.
+
 ## Yes, it’s been a while
 
 The months have flown by. On the surface the repo may have seemed quiet, but nothing could be further from the truth.
@@ -87,37 +91,9 @@ Please refer to the [documentation](../../pages/features/magewire-template-direc
 
 ### Flakes
 
-I really wanted to create a “good” system that lets you easily add re-usable components inside your Magewire components
-using nothing more than simple HTML syntax. No complicated stuff, no need for additional ViewModels or other workarounds,
-just like in the following example.
-
-```php
-class Dialog extends Component
-{
-    public string $title = '';
-
-    public function mount(string $fooBar, AbstractBlock $block)
-    {
-        //
-    }
-}
-```
-
-Where your template simply looks like this:
-
-```html
-<?php $title = 'Hello World'; ?>
-
-<magewire:dialog name="my-component"
-                 prop:title="$title"
-                 mount:block="$block"
-                 mount:foo-bar="baz"
-/>
-```
-
-As you can see, you can easily inject public properties, pass mount method arguments, and use template variables as an attribute value.
-
-Please refer to the [documentation](../../pages/features/magewire-flakes.md) for more details.
+Flakes were introduced here as a beta experiment. The syntax in the original announcement is obsolete, and Magewire
+3.6 still contains an unresolved `FlakeFragment` registration. Flakes are therefore not a supported production API.
+Use normal nested components and Magento child blocks.
 
 ### Stream Directive
 
@@ -146,9 +122,9 @@ Cool thing, by default, its cache driven, but you can build your own adapter if 
 It’s not always easy to learn a new framework, I know that. That’s why, wherever possible, we should provide an approach
 that already feels familiar to you as a Magento developer.
 
-For every hook you can tap into, an observer event is automatically dispatched. This means you don’t have to create a
-separate **Feature** for just a small tweak. Instead, you can simply add an event in your `events.xml` and use the provided
-Data Transfer Object (DTO) to pass data along to the hook.
+Current Magewire maps a fixed list of core hook names to Magento observer events. It does not automatically dispatch an
+observer event for every custom hook. For mapped events, add the corresponding name to `events.xml` and use the
+provided Data Transfer Object (DTO) to participate in the hook.
 
 Please refer to the [documentation](../../pages/essentials/events.md) for more details.
 

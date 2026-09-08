@@ -15,7 +15,7 @@ Magewire 3 currently requires:
 - Magento Open Source or Mage-OS with a Magento 2.4.6-compatible framework or newer;
 - a theme integration suitable for the storefront or admin area where Magewire runs.
 
-The continuous-integration matrix is the most precise compatibility record. Magewire 3.5 is tested across Magento Open Source 2.4.6 through 2.4.9, Mage-OS 1.3 through 3.2, and PHP 8.2 through 8.5 in compatible combinations.
+The continuous-integration matrix is the most precise compatibility record. Magewire 3.6 is tested across Magento Open Source 2.4.6 through 2.4.9, Mage-OS 1.3 through 3.2, and PHP 8.2 through 8.5 in compatible combinations.
 
 ## Installation
 
@@ -54,11 +54,11 @@ Continue with [Basics](pages/getting-started/basics.md) to learn how layout argu
 
 ## Alpine.js and themes
 
-Magewire's browser runtime includes Alpine.js. A theme compatibility package is responsible for coordinating that runtime with the theme; the core package is theme-agnostic. Do not remove a theme's Alpine integration globally. Follow the compatibility package's loading strategy so exactly one compatible Alpine instance starts on a page.
+Magewire's browser runtime includes Alpine.js. A theme compatibility package is responsible for coordinating that runtime with the theme. Core still contains a legacy Hyvä build-config observer, but new theme-specific behavior belongs in a companion package. Do not remove a theme's Alpine integration globally. Follow the compatibility package's loading strategy so exactly one compatible Alpine instance starts on a page.
 
 ## Full-page cache
 
-Cached HTML can contain an old serialized component snapshot. Use lazy loading or `wire:init` when fresh state is required after the page loads. The experimental `magewirephp/magewire-fpc` companion package also provides a dedicated integration for Magewire 3; evaluate it against the caching stack used by your project.
+Cached HTML can contain an old serialized component snapshot. Use lazy loading or `wire:init` when fresh state is required after the page loads. There is currently no released first-party Magewire 3 FPC integration, so test snapshot lifetime and invalidation against the caching stack used by your project.
 
 ## Support and security
 

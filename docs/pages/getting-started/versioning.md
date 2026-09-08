@@ -4,7 +4,8 @@ This page explains how Magewire is versioned, why V2 was skipped, and how the ve
 
 ## Semantic versioning
 
-Magewire and its subpackages follow [semantic versioning](https://semver.org/) (`MAJOR.MINOR.PATCH`):
+Magewire and its released companion packages follow [semantic versioning](https://semver.org/)
+(`MAJOR.MINOR.PATCH`):
 
 - **MAJOR**: breaking changes that may require code updates.
 - **MINOR**: new, backward-compatible features.
@@ -24,6 +25,9 @@ A `3.x.x` version is **not** just the core `magewirephp/magewire` package. It me
 Subpackages adopt the major version of the Magewire release they target rather than starting their own version line. So for packages like `magewirephp/magewire-hyva-theme` or `magewirephp/magewire-hyva-checkout`, there is no `1.x` or `2.x`; they are tagged `3.x` because they are packages for Magewire V3.
 
 This keeps the ecosystem readable: if you see a `3.x` tag anywhere in the Magewire family, you know it belongs to the V3 generation.
+
+An experimental repository without a public tag or Packagist release is not an installable subpackage and does not
+inherit a support promise from this convention. Verify the selected package's published tags and Composer metadata.
 
 ## PHP version support
 

@@ -30,7 +30,7 @@ A resolver must implement three abstract methods (`construct`, `reconstruct`, `a
 |---|---|---|
 | `construct(AbstractBlock $block): AbstractBlock` | yes | Attach a `Component` to the block (via `$block->setData('magewire', $component)`) and return the block. |
 | `reconstruct(ComponentRequestContext $request): AbstractBlock` | yes | Rebuild the block + component from the XHR snapshot. |
-| `arguments(): MagewireArguments` | yes | Provide the typed arguments object that collects `magewire.*` / `magewire:*` data keys from the block. |
+| `arguments(): MagewireArguments` | yes | Provide the typed arguments object that collects `magewire.*` / `magewire:*` data keys from the block. Core consumes mount and component groups; the collected public subset is not assigned automatically in Magewire 3.6. |
 | `complies(AbstractBlock $block, mixed $magewire = null): bool` | no | Cheap check. Returns `true` if this resolver should handle the block. The base implementation already matches when the block's `magewire:resolver` data key equals this resolver's accessor. |
 | `assemble(AbstractBlock $block, Component $component): AbstractBlock` | no | Final step after construct/reconstruct: binds `name`, `id` and `alias` onto the component and resolves a default template. |
 | `remember(): bool` | no | Cache the resolver/block pairing. Defaults to `true`. Return `false` for a fluent resolver that re-evaluates conditions per request. |
@@ -323,7 +323,8 @@ Rules of thumb:
 - **Accessor name** matches the DI `name` attribute exactly.
 - **Sort order**: put more-specific resolvers below 99900 so they are evaluated before the default layout resolver.
 - **Area scope**: register in `etc/frontend/di.xml` for storefront, `etc/adminhtml/di.xml` for admin. The admin package's `LayoutAdminResolver` is the canonical adminhtml example.
-- **Never register in global `etc/di.xml`**: Magewire's service provider only reads area-scoped DI.
+- **Use the active area's DI file**: the resolver array is configured at Magento's area-specific DI stage, which can
+  replace additions made to the same array in global `etc/di.xml`.
 
 ## When to reach for a custom resolver
 

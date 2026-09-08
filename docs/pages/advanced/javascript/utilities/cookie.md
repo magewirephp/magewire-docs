@@ -1,6 +1,6 @@
 # Cookie Utility
 
-The cookie utility provides a small wrapper for reading, writing, and removing browser cookies:
+The cookie utility provides a small wrapper for reading and writing browser cookies:
 
 ```javascript
 const cookie = window.MagewireUtilities.cookie

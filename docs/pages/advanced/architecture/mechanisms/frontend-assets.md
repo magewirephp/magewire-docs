@@ -2,7 +2,7 @@
 
 {{ include("admonition/magewire-specific.md", since_version="3.0.0") }}
 
-`FrontendAssets` (sort order `1400`) is the last mechanism in the pipeline. It's responsible for
+`FrontendAssets` (sort order `1400`) is a late mechanism that boots before `HandleCompiling` at `1500`. It is responsible for
 getting Magewire's **client-side payload** onto the page: the JavaScript runtime, the supporting
 styles, and the per-page configuration the runtime needs to boot.
 
@@ -34,7 +34,7 @@ CSP-compliant.
 
 ## Related
 
-- [Building JavaScript bundles](../../../getting-started/releases/building-javascript-bundles.md): producing the Magewire runtime from pinned Livewire and Alpine releases.
+- [Portman](../portman.md): the supported public PHP porting workflow. JavaScript release assembly is maintainer-only.
 - [Mechanisms](index.md): the pipeline overview.
 - [Layout](../layout.md): the containers these assets render into.
 - [View Model & Utilities](../../../essentials/view-model.md): `utils()->magewire()->getUpdateUri()` and `utils()->csp()`.

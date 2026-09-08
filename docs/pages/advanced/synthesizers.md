@@ -4,7 +4,10 @@
 
 ## Built-in synthesizers
 
-Magewire adds a `\Magento\Framework\DataObject` synthesizer on top of Livewire's defaults (scalars, arrays, `\stdClass`, backed enums).
+Magewire registers a `\Magento\Framework\DataObject` synthesizer on top of Livewire's defaults (scalars, arrays,
+`\stdClass`, backed enums). In Magewire 3.6 it dehydrates by casting the object to an array rather than calling
+`getData()`, so normal DataObject state is not guaranteed to round trip correctly. Prefer a public array and rebuild
+the DataObject internally until that implementation is corrected.
 
 ## Writing a custom synthesizer
 
@@ -41,7 +44,8 @@ class MoneySynth extends \Magewirephp\Magewire\Mechanisms\HandleComponents\Synth
 
 ## Registering via area-scoped DI
 
-Register in `etc/frontend/di.xml` (and `etc/adminhtml/di.xml` where used), never in global `etc/di.xml`:
+Register in `etc/frontend/di.xml` and in `etc/adminhtml/di.xml` where used. Magewire configures this array at the
+area-specific DI stage, which can replace an addition made to the same array in global `etc/di.xml`:
 
 ```xml title="etc/frontend/di.xml"
 <type name="Magewirephp\Magewire\Mechanisms\HandleComponents\HandleComponents">

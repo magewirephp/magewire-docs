@@ -1,6 +1,8 @@
 # Loader
 
-Access under `window.MagewireUtilities.loader`. Helpers parse loader-message text into structured parts used by `wire:loading` text interpolation and the notifier.
+Access under `window.MagewireUtilities.loader`. Helpers parse Magewire's component `$loader` message text into
+structured parts used by the Magewire loader Feature and notifier. The standard `wire:loading` directive controls
+element state; it does not use this utility for text interpolation.
 
 ## `parseText(text)`
 

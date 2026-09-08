@@ -1,49 +1,44 @@
 # Hyvä Checkout Backwards Compatibility
 
-Hyvä Checkout V1 was built on Magewire V1, which tracked Livewire V2. The `magewirephp/magewire-hyva-checkout` package contains integration intended to enable Magewire's [BC layer](../essentials/backwards-compatibility.md) for components in the `hyva-checkout-main` layout container.
+Hyvä Checkout V1 was built on Magewire V1, which tracked Livewire V2. The
+`magewirephp/magewire-hyva-checkout` package contains browser shims for running those components on Magewire 3.
 
-!!! warning "Use explicit attributes with Magewire 3.5"
-    The current core layout resolver writes an explicit disabled BC flag before the companion package's container fallback checks for an unset value. As a result, automatic container opt-in is not a reliable migration guarantee in the current source. Add the attribute explicitly to legacy checkout components and verify their snapshots until the integration is corrected upstream.
+!!! warning "Use explicit attributes with Magewire 3.6"
+    The core layout resolver writes an explicit false BC value before the companion package's container fallback checks
+    for an unset value. The fallback therefore does not enable BC automatically in the current source. Add the
+    attribute explicitly to every legacy checkout component and verify its interactions.
 
-## The automatic rule
+<a id="the-automatic-rule"></a>
+<a id="opting-out-per-component"></a>
+<a id="opting-in-outside-the-container"></a>
 
-Any component rendered inside (or nested under) the `hyva-checkout-main` container has its `memo.bc.enabled` flag set to `true` unless explicitly overridden.
+## Explicit opt-in
 
-```
-hyva-checkout-main
-├── CheckoutShipping           → BC enabled
-├── CheckoutPayment            → BC enabled
-│   └── PaymentMethodSelector  → BC enabled (parent is BC)
-└── CheckoutSummary            → BC enabled
-```
-
-This covers the V1 checkout's entire component tree without touching a single PHP class.
-
-## Opting out per component
-
-Once you rewrite a checkout component to be V3-native end-to-end, opt it out so it stops paying the shim cost:
+Add the attribute to every legacy component that needs Livewire V2-style browser behavior, regardless of where it is
+rendered:
 
 ```php
 use Magewirephp\Magewire\Features\SupportMagewireBackwardsCompatibility\HandleBackwardsCompatibility;
 
-#[HandleBackwardsCompatibility(enabled: false)]
-class CheckoutShipping extends \Magewirephp\Magewire\Component { /* … */ }
-```
-
-The explicit attribute beats the container rule.
-
-## Opting in outside the container
-
-For a legacy component rendered **outside** `hyva-checkout-main` (a mini-cart, a CMS widget):
-
-```php
 #[HandleBackwardsCompatibility]
-class MiniCart extends \Magewirephp\Magewire\Component { /* … */ }
+class CheckoutShipping extends \Magewirephp\Magewire\Component { /* ... */ }
 ```
 
-## Dynamic components
+Once the component is V3-native, remove the attribute. An explicit
+`#[HandleBackwardsCompatibility(enabled: false)]` can be used temporarily when another integration attempts to opt
+the component in, but it is not required under the current false default.
 
-The companion integration also attempts to inherit BC status from a parent through its hydration registry. Treat that as a convenience, not a substitute for explicit component attributes during a migration.
+<a id="dynamic-components"></a>
+
+## Container and parent fallbacks
+
+The companion package contains two fallback ideas:
+
+- enable components inside `hyva-checkout-main`;
+- inherit BC status from a parent through its hydration registry.
+
+Neither is a substitute for explicit attributes in Magewire 3.6. The layout-container fallback is bypassed by the
+core resolver's false default, and dynamic or nested component behavior must be verified independently.
 
 ## What the Hyvä BC layer does (under the hood)
 
@@ -60,13 +55,13 @@ All four are registered into the `magewire.internal.backwards-compatibility` con
 
 ## Removing the BC layer
 
-When every Hyvä Checkout component on your install is V3-native:
+When every Hyvä Checkout component on your installation is V3-native:
 
 1. Remove `#[HandleBackwardsCompatibility]` attributes where present.
-2. Remove the Hyvä Checkout BC Feature from your theme compat module's `etc/frontend/di.xml`.
-3. Flush cache and run the checkout end-to-end.
-
-If any checkout component was relying on the automatic rule without the attribute, it will now break; adding the attribute explicitly is a safe intermediate step.
+2. Do not edit DI configuration inside a vendor package.
+3. If `magewirephp/magewire-hyva-checkout` was installed only for legacy BC and is no longer needed, remove it through
+   Composer.
+4. Flush cache and run the checkout end to end.
 
 ## Related
 

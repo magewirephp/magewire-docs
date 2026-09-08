@@ -179,6 +179,6 @@ setting them by hand will desync the boot machinery.
 ## Related
 
 - [Mechanisms](mechanisms/index.md): the required core steps booted by the runtime.
-- [Features](features.md): the optional services booted alongside them.
+- [Features](features.md): smaller lifecycle services booted alongside them, including both optional and runtime-required capabilities.
 - [Component Hooks](component-hooks.md): the `on()` / `trigger()` event pipeline used throughout boot.
 - [Layout](layout.md): a concrete consumer of `mode()->isSubsequent()`.

@@ -14,7 +14,15 @@ In the PHTML, the component instance is available as `$magewire`. Always escape 
 
 ## Supported types
 
-In addition to the Livewire defaults, Magewire supports `\Magento\Framework\DataObject` out of the box (serialised via `getData()`). Custom value objects require a [synthesizer](../advanced/synthesizers.md).
+Magewire registers a `\Magento\Framework\DataObject` synthesizer in addition to Livewire's scalar, array,
+`\stdClass`, and backed-enum handling.
+
+!!! warning "DataObject round trips in Magewire 3.6"
+    The current synthesizer casts the object to an array instead of serializing `getData()`. That does not provide a
+    dependable round trip for normal Magento DataObject state. Keep a plain array as the public property and reconstruct
+    the DataObject inside the component until the synthesizer is corrected.
+
+Custom value objects require a [synthesizer](../advanced/synthesizers.md).
 
 ## wire:model defaults to deferred
 

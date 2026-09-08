@@ -10,8 +10,10 @@ In this documentation, we will focus specifically on **Features**.
 
 ## Concept
 
-The idea behind Features is that they are primarily optional and can be disabled without affecting the core principles of Magewire.
-In that sense, they are considered nice-to-haves.
+Features are smaller lifecycle capabilities than Mechanisms, but they are not all optional in practice. Notifications
+and project-specific hooks can be removed when nothing uses them. Lifecycle hooks, events, and several other
+registered Features are required for the documented component runtime. Do not disable a core Feature solely because
+it is categorized as a Feature.
 
 Any third-party additions to Magewire will mainly come in the form of Features and can be integrated separately through other modules.
 
@@ -81,15 +83,17 @@ The Livewire (and by extension, Magewire) architecture was designed with extensi
 
 Listeners are registered via `Magewirephp\Magewire\on($event, $callback)`. Two rules:
 
-- A listener's return value is either a **callback** (the "after" half of the hook) or the incoming value unchanged. Returning a callback turns the listener into before/after middleware: the callback receives the downstream return value, can mutate it, and must return a result.
-- When a listener returns a callback, the result is automatically piped into it. Modify it if needed, but always return a result to keep the pipeline consistent.
+- A listener can return a **callback** for the later phase of the event. The code that triggered the event decides when
+  to invoke the returned dispatcher and which value to pass forward.
+- Finish callbacks run in registration order. When a callback returns a value, that value becomes the input for the
+  next callback. This is a forward pipeline, not a reverse middleware unwind.
 
 #### FAQ
 
 | Question | Answer |
 |---|---|
 | When do I use hooks? | When you need to react to specific Magewire lifecycle events (construct, mount, hydrate, update, call, render, dehydrate, destroy, exception, …) or trigger your own events that other code listens for. |
-| Are these hooks the same as Observer Events? | No. Hooks are an in-process, closure-based middleware pipeline: faster, typed, and able to run before/after semantics with return values. Observer Events are Magento's dispatched-event system. Magewire **also** ships `SupportMagentoObserverEvents` (registered by default in frontend and adminhtml), which re-emits every Magewire lifecycle event as a Magento observer event prefixed `magewire_on_*`. Non-alphanumeric characters in the event name are replaced with `_`, so `magewire:component:construct` becomes `magewire_on_magewire_component_construct`, `render` becomes `magewire_on_render`, etc. Reach for a hook when you want middleware semantics; reach for an observer when you want Magento-native extensibility. |
+| Are these hooks the same as Observer Events? | No. Hooks are an in-process callback pipeline with before/later phases and return values. Observer Events are Magento's dispatched-event system. Magewire ships `SupportMagentoObserverEvents`, which maps a fixed list of core events to names prefixed with `magewire_on_*`. It is not a wildcard bridge for every custom event. Non-alphanumeric characters become `_`, so `magewire:component:construct` becomes `magewire_on_magewire_component_construct`. |
 
 #### Observer event example
 
@@ -147,7 +151,7 @@ class SupportExample extends ComponentHook
             // Before: runs immediately when the event fires.
 
             return function (AbstractBlock $block): AbstractBlock {
-                // After: runs when the pipeline unwinds with the downstream result.
+                // Later phase: runs when the caller invokes the returned dispatcher.
                 return $block;
             };
         });
@@ -162,7 +166,9 @@ $construct = trigger('magewire:component:construct', $block);
 $block = $construct();
 ```
 
-`trigger()` returns a callable that fans out to every registered "after" callback, walking the pipeline in reverse registration order. The listener receives the block, performs its "before" work, and returns a callback that is invoked with the block once the rest of the pipeline has completed.
+`trigger()` calls the registered listeners immediately and returns a dispatcher for the callbacks they returned.
+When the caller invokes that dispatcher, finish callbacks run in registration order and pass any returned value
+forward to the next callback.
 
 ## Related
 

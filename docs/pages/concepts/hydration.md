@@ -8,7 +8,10 @@ Magewire posts snapshots to `/magewire/update`. The checksum is an HMAC signed w
 
 ## Built-in synthesizers
 
-Magewire adds a `\Magento\Framework\DataObject` synthesizer on top of the default scalars, arrays, `\stdClass`, and backed enums. Custom types require a synthesizer registered in `etc/frontend/di.xml`. See [Synthesizers](../advanced/synthesizers.md).
+Magewire registers a `\Magento\Framework\DataObject` synthesizer on top of the default scalars, arrays,
+`\stdClass`, and backed enums. Its Magewire 3.6 array-cast implementation does not guarantee a correct round trip
+for normal DataObject state, so use a plain public array until it is corrected. Custom types require a synthesizer
+registered in `etc/frontend/di.xml`. See [Synthesizers](../advanced/synthesizers.md).
 
 ## Hydration hooks
 

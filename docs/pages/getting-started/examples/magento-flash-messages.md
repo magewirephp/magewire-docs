@@ -52,8 +52,8 @@ The flow, end to end:
    non-empty, pushes a `dispatches` effect onto the snapshot: a browser event named
    `magewire:flash-messages:dispatch` with the mapped `{ text, type }` payload.
 3. **Render (JS + theme).** A theme template listens for that event and renders each message in the
-   Magento-styled message area. (Hyvä ships this listener; the bridge is theme-agnostic, so any theme
-   can provide one.)
+   Magento-styled message area. Hyvä's maintained compatibility package ships its listener; other themes can provide their
+   own listener for the same core browser event.
 
 Notice what changed versus Laravel: there's no session bag and no Blade. The message crosses the
 wire as a **dispatched event effect** (the same effect channel Magewire uses for events), and the
