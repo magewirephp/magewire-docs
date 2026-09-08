@@ -12,7 +12,7 @@ import xml.etree.ElementTree as ElementTree
 _SITEMAP_NAMESPACE = "{http://www.sitemaps.org/schemas/sitemap/0.9}"
 
 
-class HeadingParser(HTMLParser):
+class AnchorParser(HTMLParser):
     def __init__(self) -> None:
         super().__init__(convert_charrefs=True)
         self.anchors: set[str] = set()
@@ -20,8 +20,6 @@ class HeadingParser(HTMLParser):
     def handle_starttag(
         self, tag: str, attrs: list[tuple[str, str | None]]
     ) -> None:
-        if tag not in {"h1", "h2", "h3", "h4", "h5", "h6"}:
-            return
         values = {name: value for name, value in attrs if value is not None}
         if values.get("id"):
             self.anchors.add(values["id"])
@@ -171,7 +169,10 @@ def _load_manifest(path: Path) -> dict[str, object]:
 
 
 def _heading_anchors(path: Path) -> set[str]:
-    parser = HeadingParser()
+    # A retained explicit HTML anchor is just as linkable as the heading that
+    # originally generated the id. This lets a page replace obsolete sections
+    # without breaking existing deep links.
+    parser = AnchorParser()
     parser.feed(path.read_text(encoding="utf-8"))
     return parser.anchors
 

@@ -46,30 +46,32 @@ class SupportLogRender extends ComponentHook
 }
 ```
 
-## Before vs. after (middleware pattern)
+<a id="before-vs-after-middleware-pattern"></a>
+
+## Initial and later phases
 
 `on('event', $callback)` is a middleware. The behaviour depends on what `$callback` returns:
 
 | Return value | Runs as |
 |---|---|
 | `null` / nothing | Before-only listener |
-| `Closure` | Before + after. The closure receives the downstream return value, can mutate it, and must return. |
+| `Closure` | Initial + later phase. The closure receives the values supplied when the triggering code invokes the returned dispatcher. |
 
 ```php
-on('dehydrate', function (Component $component, array $snapshot): \Closure {
-    // Before: inspect the component before snapshot finalises.
+on('render', function (Component $component, AbstractBlock $block, array $properties): \Closure {
+    // Initial phase: inspect the block and public properties before final HTML is processed.
 
-    return function (array $snapshot): array {
-        // After: mutate the snapshot before it leaves the server.
-        $snapshot['memo']['customFlag'] = true;
-        return $snapshot;
+    return function (string $html): string {
+        // Later phase: transform the rendered HTML.
+        return $html;
     };
 });
 ```
 
 ## Registering a hook
 
-Register the hook class on the `Magewirephp\Magewire\Features` collection in area-scoped DI, never in global `etc/di.xml`:
+Register the hook class on the `Magewirephp\Magewire\Features` collection in area-scoped DI. A global addition to this
+array can be replaced when Magento loads the later area configuration:
 
 ```xml title="etc/frontend/di.xml"
 <type name="Magewirephp\Magewire\Features">
@@ -87,7 +89,10 @@ Register the hook class on the `Magewirephp\Magewire\Features` collection in are
 </type>
 ```
 
-The `Features` collection calls `provide()` on the hook when it registers, giving it a chance to subscribe to events. Register on `Magewirephp\Magewire\Mechanisms` instead when the hook is framework-critical and must boot before Features. Register in `adminhtml/di.xml` too if the hook is needed in the admin area.
+The `Features` collection calls `provide()` on the hook when it registers, giving it a chance to subscribe to events.
+Register in `adminhtml/di.xml` too if the hook is needed in the admin area. Do not put a `ComponentHook` in the
+`Mechanisms` collection: Mechanisms use a different boot contract and do not register the hook with
+`ComponentHookRegistry`.
 
 ## Events
 

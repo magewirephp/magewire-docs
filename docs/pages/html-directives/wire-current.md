@@ -11,5 +11,5 @@ state, so `wire:current` is not part of Magewire's supported directive surface.
 Render active classes and `aria-current="page"` from Magento route or navigation state instead. If a component changes
 an active item without navigation, use a component property with [`wire:show`](wire-show.md) or an Alpine class binding.
 
-Treat any apparent `wire:current` behavior in Magewire 3.5 as an implementation detail until navigation support is
+Treat any apparent `wire:current` behavior in Magewire 3.6 as an implementation detail until navigation support is
 documented explicitly.

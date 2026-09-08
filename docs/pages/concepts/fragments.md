@@ -2,7 +2,7 @@
 
 !!! tip "Fragments can also be used outside Magewire components!"
 
-A **Fragment** is an explicitly scoped slice of output: a region of a template or a string of rendered HTML that Magewire can validate, enhance, and transform before it reaches the browser. Fragments underpin Magewire's CSP support, developer-mode annotations, and other features that need a second pass over inline markup.
+A **Fragment** is an explicitly scoped slice of output: a region of a template or a string of rendered HTML that Magewire can validate, enhance, and transform before it reaches the browser. Fragments underpin Magewire's CSP support and other features that need a second pass over inline markup. The built-in developer annotation is registered specifically on Script fragments.
 
 Think of a fragment as a typed buffer: you tell Magewire *what kind of output this is* (a `<script>`, a `<style>`, arbitrary HTML, a JS literal), and Magewire runs the registered validators and modifiers for that type.
 
@@ -14,7 +14,7 @@ Fragments flip that. When the contents of an `echo` pass through a fragment, the
 
 - **Validate** the shape (e.g. a `script` fragment must start with `<script` and end with `</script>`).
 - **Decorate** the root element (attributes, nonces, data-flags).
-- **Register with other subsystems** (dynamic CSP collector, FPC hash list, Magewire slots).
+- **Register with other subsystems** (dynamic CSP collector and Magewire slots).
 - **Swap rendering strategy** by environment (developer mode adds a debug attribute; production doesn't).
 
 The template author writes normal-looking markup; the framework makes it safe, observable, and policy-compliant.
@@ -128,7 +128,9 @@ class Script extends \Magewirephp\Magewire\Model\View\Fragment\Html
 
 Two things happen:
 
-1. **Validators** reject anything that isn't a well-formed `<script>…</script>` block. A typo or stray echo becomes a logged exception instead of mangled markup.
+1. **Validators** detect anything that is not a well-formed `<script>…</script>` block. Magewire logs a validation
+   exception and returns the raw fragment output; only an empty-fragment failure returns an empty string. Validation
+   therefore reports malformed markup but does not sanitize or suppress it.
 2. **`getScriptCode()`** gives modifiers access to *just the inline code*: useful for hashing (CSP) or linting.
 
 Because `Script` extends `Html`, it inherits `withAttribute` / `withAttributes`, so a modifier can drop a `nonce="..."` onto the root `<script>` tag without rewriting the output string.
@@ -193,7 +195,7 @@ Register in `etc/frontend/di.xml` for storefront or `etc/adminhtml/di.xml` for a
 | Modifier | Fragment | Effect |
 |---|---|---|
 | `Csp` | `Script` | Adds a hash to the dynamic CSP collector on cached pages; injects a nonce on uncached requests. |
-| `Developer` | `Html` (and subclasses) | Adds a `magewire-fragment` boolean attribute to the root element when `MAGE_MODE=developer`: makes fragments visible in browser devtools. |
+| `Developer` | `Script` | Adds a `magewire-fragment` boolean attribute to the root script element when `MAGE_MODE=developer`. |
 
 ### A sketch of a custom modifier
 
@@ -265,7 +267,7 @@ start()                         → opens ob_start(), records the buffer level
   │
 end()
   ├─ ob_get_clean()             → captures raw output into $this->raw
-  ├─ validate()                 → runs every withValidator callback (exceptions logged, output suppressed)
+  ├─ validate()                 → runs every withValidator callback (failures logged; raw output returned)
   ├─ modify()                   → runs every registered FragmentModifier + callable in sort order
   │    └─ Html::render()        → merges accumulated withAttribute() values into root element
   └─ echo                       → writes the final output to the response (unless mute()'d)
@@ -274,7 +276,9 @@ end()
 A few knobs worth knowing:
 
 - **`lock()`**: freeze a fragment so later code cannot mutate it (useful for shared/injected fragments).
-- **`mute()`**: run the pipeline but suppress the echo. Hand the instance off to other code via `getRawOutput()` or `getScriptCode()`.
+- **`mute()`**: run the pipeline but suppress the echo. The base `getRawOutput()` method is protected, so consumers
+  cannot retrieve generic muted output directly. Script fragments expose public `getScriptCode()`; custom subclasses
+  can provide their own typed public getter when needed.
 - **`withTag('name')`**: tag the fragment so a later pass can identify it by name.
 
 ## When to reach for a fragment
@@ -282,7 +286,7 @@ A few knobs worth knowing:
 Good candidates:
 
 - Inline `<script>` or `<style>` that needs CSP compliance without hand-rolled nonces.
-- Any rendered region you want to annotate in developer mode (devtools-friendly data attributes, profiling hooks).
+- Script output that should receive the built-in developer-mode annotation.
 - A region whose final markup depends on something you cannot know until after render (an FPC-cached vs uncached branch, a nonce from the page config, a hash computed from output).
 - A feature that needs to hand rendered HTML to another subsystem.
 

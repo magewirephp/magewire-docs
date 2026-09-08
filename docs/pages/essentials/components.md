@@ -17,11 +17,10 @@ For more advanced use cases, we recommend exploring the in-depth documentation, 
 ## Block arguments
 
 Magewire components are bound to Magento blocks through layout XML `<argument>` entries. Beyond the
-`magewire` argument that declares the component itself, a structured argument system lets you pass data
-straight into a component from layout XML without custom ViewModel or constructor wiring.
+`magewire` argument that declares the component itself, grouped arguments let you pass named values to
+`mount()` without custom ViewModel or constructor wiring.
 
-Arguments are extracted from the block during the assembly phase, after the component has been resolved and
-mounted.
+Arguments are extracted from the block after the component has been resolved and before it is mounted.
 
 ### Binding a component
 
@@ -43,27 +42,13 @@ to bind to the block. The built-in `LayoutResolver` accepts three formats:
 </argument>
 ```
 
-### Public arguments
+<a id="public-arguments"></a>
 
-Arguments prefixed with `magewire.` become component properties. The prefix is stripped and the kebab-case
-key is converted to camelCase before it is matched against a public property on the component.
+### Public argument namespace
 
-```xml
-<block name="my.component" template="Vendor_Module::my-component.phtml">
-    <arguments>
-        <argument name="magewire" xsi:type="object">Vendor\Module\Magewire\MyComponent</argument>
-        <argument name="magewire.product-id" xsi:type="number">42</argument>
-        <argument name="magewire.sort-order" xsi:type="string">price</argument>
-    </arguments>
-</block>
-```
-
-The keys above map as follows:
-
-| Argument | Property |
-|---|---|
-| `magewire.product-id` | `$productId` |
-| `magewire.sort-order` | `$sortOrder` |
+The current resolver parses `magewire.*` keys into an internal `public` argument subset, but Magewire 3.6
+does not apply that subset to component properties. Do not use this prefix to initialize public state.
+Pass initial state through `magewire:mount:*` and assign it in `mount()`.
 
 ### Group arguments
 
@@ -96,7 +81,7 @@ Any group can also be read directly from the argument API inside a resolver or f
 ```php
 $arguments->forMount();          // ['categoryId' => 10, 'pageSize' => 20]
 $arguments->forGroup('config');  // ['cacheTtl' => 3600]
-$arguments->toParams();          // All public arguments as an array
+$arguments->toParams();          // Complete assembled argument structure
 ```
 
 ### Reserved keys

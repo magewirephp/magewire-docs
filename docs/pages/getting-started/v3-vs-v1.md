@@ -19,7 +19,7 @@ runtime.
 | Area | V1 | V3 |
 |---|---|---|
 | Core | Hand-written, Livewire **v2**-era | Livewire **v3** core ported via **Portman** |
-| Architecture | Implicit, monolithic runtime | Formal **Mechanisms** (required) + **Features** (optional) pipeline |
+| Architecture | Implicit, monolithic runtime | Formal **Mechanisms** plus smaller **Features** pipeline |
 | Boot | Ad-hoc | A **runtime** state machine with request **modes** (preceding/subsequent) |
 | Component → block | Hardcoded `magewire` argument | Pluggable **Component Resolvers** |
 | State transport | `serverMemo` (v2 payload) | **Snapshot** (`data` + `memo` + `checksum`) with **synthesizers** |
@@ -28,7 +28,7 @@ runtime.
 | Messages | `dispatchSuccessMessage()` … | `magewireNotifications()` / `magewireFlashMessages()` |
 | JavaScript | Custom | Ported Livewire bundle + `MagewireUtilities` / `MagewireAddons` |
 | PHP | < 8.2 supported | **8.2+** required |
-| Docs | In-repo | Dedicated **MkDocs** site |
+| Docs | In-repo | Dedicated **Zensical** site |
 
 ---
 
@@ -39,8 +39,8 @@ runtime.
   can be re-adopted. V1 was a bespoke reimplementation of v2 ideas.
 - **Mechanisms & Features pipeline.** The runtime is now split into **Mechanisms** (the
   non-negotiable core steps: `ResolveComponents`, `HandleComponents`, `HandleRequests`,
-  `FrontendAssets`, …) and **Features** (optional, swappable capabilities). Both are area-scoped DI
-  registrations with sort orders. V1 had no such separation.
+  `FrontendAssets`, …) and **Features** (smaller lifecycle capabilities, some optional and some required by the
+  documented runtime). Both are area-scoped DI registrations with sort orders. V1 had no such separation.
 - **Runtime state machine.** A request-scoped runtime boots Magewire once per request, tracks a
   **state** (`UNINITIALIZED → SETUP → BOOTING → BOOTED`) and a **mode** (`PRECEDING` page render vs
   `SUBSEQUENT` update). Mechanisms key off the mode (e.g. page-less block fetching on updates).
@@ -57,8 +57,8 @@ runtime.
   properties), `memo` (reconstruction metadata: name, id, resolver accessor, layout handles, feature
   flags) and a **checksum** that's verified on every update to reject tampering.
 - **Synthesizers.** Non-scalar property values are dehydrated/hydrated by **synthesizers** (arrays,
-  `\stdClass`, backed enums, and Magento's `\Magento\Framework\DataObject`). Custom synths register
-  via DI. V1 had a much narrower, less formal property serialisation.
+  `\stdClass`, and backed enums). A DataObject synth is registered, but its Magewire 3.6 array-cast implementation
+  does not guarantee a correct round trip. Custom synths register via DI.
 
 ## 3. Templates
 
@@ -73,7 +73,7 @@ runtime.
 
 | Concern | V1 | V3 |
 |---|---|---|
-| Dispatch event | `emit()`, `emitUp()`, `emitSelf()`, `emitTo()`, `emitToRefresh()` | `dispatch()` with `->up()` / `->self()` / `->to()` |
+| Dispatch event | `emit()`, `emitUp()`, `emitSelf()`, `emitTo()`, `emitToRefresh()` | `dispatch()` with `->self()` / `->to()`; events bubble by default |
 | Listen | `protected $listeners = [...]` | `#[On('event')]` attribute (listeners array still BC-supported) |
 | All public props | `getPublicProperties()` | `all()` |
 | Component id | public `$id` | `id()` / `getId()` |
@@ -105,7 +105,7 @@ The V1 method names above are preserved by the BC layer's trait so existing comp
 
 ## 6. New features in V3
 
-Optional capabilities that didn't exist (or weren't formalised) in V1:
+Capabilities that did not exist, or were not formalised, in V1:
 
 - **Notifications**: fluent toast API (`magewireNotifications()`).
 - **Magento Flash Messages**: typed messages (`error`/`warning`/`notice`/`success`) rendered in
@@ -116,7 +116,7 @@ Optional capabilities that didn't exist (or weren't formalised) in V1:
 - **Request filters** *(3.5)*: reject a request before component reconstruction.
 - **Loaders / offline states**: first-class loading and offline UX (reworked from V1).
 - **Nesting components**: formal parent/child support.
-- **Flakes**: experimental compiler syntax that is not yet part of the supported navigation.
+- **Flakes**: experimental compiler source that is not a supported production API.
 - **View Model utilities**: `utils()` surface (`magewire`, `security`, `env`, `csp`, `fragment`,
   `layout`, `template`) auto-bound to every Magewire block.
 - **Exception handling**: preceding vs subsequent handling, an error placeholder template, custom
@@ -126,23 +126,24 @@ Optional capabilities that didn't exist (or weren't formalised) in V1:
 
 ## 7. Magento integration
 
-- **Observer events**: every lifecycle event is re-emitted as a Magento observer event
-  (`magewire_on_*`), so you can react with a plain `events.xml` observer.
+- **Observer events**: a fixed map of core lifecycle events is re-emitted as Magento observer events
+  (`magewire_on_*`), so you can react to those mapped events with a plain `events.xml` observer.
 - **Layout containers**: a documented container/block tree for injecting JS, Alpine data, UI
   components, and feature bridges from a theme.
 - **Component layout context**: components expose `magewireBlock()`, `magewireResolver()`,
   `magewireLayoutLifecycle()`.
 - **Admin package**: a dedicated `magewire-admin` package brings components to the Magento admin
   (head-injection strategy, admin resolver/route).
-- **Structured block arguments**: `magewire.*` (→ properties), `magewire:{group}:{key}` (→ grouped,
-  e.g. `mount`), and reserved `magewire:resolver` / `magewire:alias`.
+- **Structured block arguments**: `magewire:{group}:{key}` collects grouped arguments, including named
+  `mount` arguments. The parser also collects `magewire.*` into an internal public subset, but Magewire
+  3.6 does not assign that subset to component properties.
 
 ## 8. Tooling, platform & docs
 
 - **Portman**: the tool that ports upstream libraries (Livewire) into Magento and keeps them in
   sync.
 - **PHP 8.2+**: support for PHP below 8.2 was dropped.
-- **Dedicated documentation**: a GitHub-hosted MkDocs site replaces in-repo docs.
+- **Dedicated documentation**: a GitHub-hosted Zensical site replaces the former in-repository documentation.
 
 ## 9. Backwards compatibility
 

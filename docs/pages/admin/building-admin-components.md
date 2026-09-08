@@ -31,7 +31,11 @@ Storefront components go in `view/frontend/…`; admin components go in `view/ad
 
 namespace Vendor\Module\Magewire\Admin;
 
+use Magento\Framework\App\RequestInterface;
+use Magento\Framework\AuthorizationInterface;
+use Magento\Sales\Api\OrderRepositoryInterface;
 use Magewirephp\Magewire\Component;
+use Vendor\Module\Model\OrderStatusUpdater;
 
 class OrderStatusEditor extends Component
 {
@@ -39,10 +43,19 @@ class OrderStatusEditor extends Component
     public string $status = '';
     public string $note = '';
 
-    public function mount(int $orderId, string $currentStatus): void
+    public function __construct(
+        private readonly RequestInterface $request,
+        private readonly OrderRepositoryInterface $orders,
+        private readonly AuthorizationInterface $authorization,
+        private readonly OrderStatusUpdater $orderService
+    ) {
+    }
+
+    public function mount(): void
     {
-        $this->orderId = $orderId;
-        $this->status = $currentStatus;
+        $this->orderId = (int) $this->request->getParam('order_id');
+        $order = $this->orders->get($this->orderId);
+        $this->status = (string) $order->getStatus();
     }
 
     public function save(): void
@@ -51,6 +64,7 @@ class OrderStatusEditor extends Component
             throw new \Magento\Framework\Exception\AuthorizationException(__('Not allowed.'));
         }
 
+        // The service must reload the order and validate this browser-controlled ID.
         $this->orderService->updateStatus($this->orderId, $this->status, $this->note);
 
         $this->magewireNotifications()
@@ -74,12 +88,6 @@ class OrderStatusEditor extends Component
                     <argument name="magewire" xsi:type="object">
                         Vendor\Module\Magewire\Admin\OrderStatusEditor
                     </argument>
-                    <argument name="magewire:mount:orderId" xsi:type="string">
-                        ${order_id}
-                    </argument>
-                    <argument name="magewire:mount:currentStatus" xsi:type="string">
-                        ${order_status}
-                    </argument>
                 </arguments>
             </block>
         </referenceContainer>
@@ -89,8 +97,15 @@ class OrderStatusEditor extends Component
 
 Notes:
 
-- The argument name stays `magewire`, just as on the storefront. `magewire-admin` registers `LayoutAdminResolver` with a higher sort order in `adminhtml/di.xml`, so it runs before the default `LayoutResolver` and claims admin-area blocks automatically. The `layout_admin` string is the resolver's internal accessor (stored in the snapshot memo for reconstruction), not a layout XML argument name.
-- `magewire:mount:*` arguments are passed to the component's `mount()` method.
+- The argument name stays `magewire`, just as on the storefront. `magewire-admin` registers
+  `LayoutAdminResolver` at numeric sort order `99800`, before the default `LayoutResolver` at `99900`, so it
+  claims admin-area blocks first. The `layout_admin` string is the resolver's internal accessor, not a layout XML
+  argument name.
+- Magento layout XML does not interpolate placeholders such as `${order_id}`. This example reads the route's
+  `order_id` during the initial `mount()`. For another admin route, use its actual request parameter or populate
+  concrete block data before Magewire resolves the component.
+- Public component properties, including `orderId`, are browser-controlled. The action checks ACL and the write
+  service must reload and validate the exact target instead of trusting the hydrated value.
 
 ## Template
 
@@ -140,17 +155,22 @@ public function boot(): void
 
 ## Registering admin-scoped Features
 
-Any Feature / Component Hook / Synthesizer the component depends on must be registered in `etc/adminhtml/di.xml`, the area-scoped equivalent of the storefront's `etc/frontend/di.xml`.
+Register an admin Feature in `etc/adminhtml/di.xml`, the area-scoped equivalent of the storefront's
+`etc/frontend/di.xml`. Synthesizers and other extension collections have their own constructor arguments; do not add
+them to the Features collection.
 
 ```xml title="etc/adminhtml/di.xml"
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-    <type name="Magewirephp\Magewire\MagewireServiceProvider">
+    <type name="Magewirephp\Magewire\Features">
         <arguments>
-            <argument name="features" xsi:type="array">
-                <item name="support_my_admin_feature" xsi:type="string">
-                    Vendor\Module\Magewire\Features\SupportMyAdminFeature
+            <argument name="items" xsi:type="array">
+                <item name="support_my_admin_feature" xsi:type="array">
+                    <item name="type" xsi:type="string">
+                        Vendor\Module\Magewire\Features\SupportMyAdminFeature
+                    </item>
+                    <item name="sort_order" xsi:type="number">5000</item>
                 </item>
             </argument>
         </arguments>

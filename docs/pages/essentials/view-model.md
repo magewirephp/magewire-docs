@@ -153,4 +153,3 @@ ViewModels.
 
 - [Components](components.md): where `$magewire` and `view_model` come from.
 - [Fragments](../concepts/fragments.md): the fragment builder in depth.
-- [Notables](../getting-started/notables.md): the automatic `view_model` resolution rule.

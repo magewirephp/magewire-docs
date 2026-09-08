@@ -138,7 +138,7 @@ V1 runtime with a formalised pipeline.
 
 - **Dedicated Documentation**
 
-  Unlike V1, Magewire V3 now features its own dedicated, GitHub-hosted documentation, powered by MkDocs.
+  Unlike V1, Magewire V3 has its own dedicated, GitHub-hosted documentation, now powered by Zensical.
 
   By moving the documentation out of the core repository and into a centralized location, we aim to provide a more
   structured and accessible knowledge base.
@@ -154,8 +154,9 @@ V1 runtime with a formalised pipeline.
 - **Template Fragments**
 
   Provides the ability to mark a specific area within a template, allowing modifiers to alter its content, such as
-  making inline scripts CSP compliant. This is done using the `$fragment = $viewModel->utils()->template()->fragment()` chain,
-  followed by `$script = $fragment->script()->start()` and `$script->end()` to define the fragment boundaries.
+  making inline scripts CSP compliant. Current code uses
+  `$fragment = $viewModel->utils()->fragment()->make()`, followed by
+  `$script = $fragment->script()->start()` and `$script->end()` to define the fragment boundaries.
 
   For more details, please refer to the [Fragments](../../concepts/fragments.md) documentation.
 
@@ -165,7 +166,7 @@ V1 runtime with a formalised pipeline.
   long as it hasn’t already been manually defined. This reduces the need to explicitly bind the `view_model` to each individual block,
   resulting in cleaner and more maintainable layout XML.
 
-  For more details, please refer to the [Notables](../../getting-started/notables.md#the-magewire-block) documentation.
+  For current usage, see the [View Model](../../essentials/view-model.md) documentation.
 
 - **Portman**
 

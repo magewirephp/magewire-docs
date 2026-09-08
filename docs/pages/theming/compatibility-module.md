@@ -9,11 +9,16 @@ Use the name `Vendor_MagewireCompatibilityWith{Theme}`. Place it in either:
 - `app/code/Vendor/MagewireCompatibilityWith{Theme}/` for a project-local override, or
 - A standalone composer package for reusable distribution.
 
-Hyvä's own compatibility module is the standalone `magewirephp/magewire-hyva-theme` package, an example of the second shape. (Before 3.2.0 it lived in-tree under the core repo's `themes/Hyva/` directory; that directory has since been removed and every theme split into its own package.)
+Hyvä's own compatibility module is the standalone `magewirephp/magewire-hyva-theme` package, an example of the
+second shape. Before 3.2.0 it lived in-tree under the core repository's `themes/Hyva/` directory. The directory was
+removed when maintained integrations moved into separate packages, although core 3.6 still contains a legacy Hyvä
+build-config observer.
 
-## Minimum viable module
+<a id="minimum-viable-module"></a>
 
-Two files, nothing else:
+## Minimum viable project-local module
+
+An `app/code` module needs these two files:
 
 ```php title="registration.php"
 <?php
@@ -49,6 +54,9 @@ bin/magento setup:upgrade
 
 At this point the module exists but does nothing. You add functionality by dropping files into it.
 
+A reusable Composer package also needs a `composer.json` that declares `"type": "magento2-module"`, loads
+`registration.php` through `autoload.files`, and maps the module namespace through `autoload.psr-4`.
+
 ## Decision matrix
 
 Pick only what you need. Each row below adds a capability.
@@ -70,68 +78,32 @@ See [Layout containers](layout-containers.md) for the full map.
 
 ## Area scoping
 
-All Features, Hooks, and Mechanisms register via **area-scoped DI**:
+Register Magewire's `Features` and `Mechanisms` item collections in the area where they run:
 
 - `etc/frontend/di.xml`: storefront
 - `etc/adminhtml/di.xml`: admin
-- **Never** `etc/di.xml` (global)
+- `etc/di.xml`: valid for preferences, plugins, and normal constructor configuration that is genuinely global
 
-Global DI is ignored by the Magewire service provider. If registrations don't appear to take effect, this is almost always why.
+Magewire's collection arrays are configured at Magento's area-specific DI stage. An item added to the same array in
+global `etc/di.xml` can be replaced when Magento loads the later area configuration. Follow the scope of the
+collection being extended.
 
-## Example: flash-message bridge
+<a id="example-flash-message-bridge"></a>
 
-Hyvä already dispatches its own flash messages via `dispatchMessages()`. Bridge Magewire's notifications to that function in three files.
+## Reuse maintained theme behavior
 
-**1. Register the Feature**: `etc/frontend/di.xml`:
+Before adding a bridge, inspect the maintained compatibility package. For example,
+`magewirephp/magewire-hyva-theme` already bridges Magewire flash messages to Hyvä's
+`dispatchMessages()`. Reimplementing that bridge in a project module duplicates behavior and can drift from the
+package.
 
-```xml
-<?xml version="1.0"?>
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-    <type name="Magewirephp\Magewire\Features">
-        <arguments>
-            <argument name="items" xsi:type="array">
-                <item name="support_hyva_flash_messages" xsi:type="array">
-                    <item name="type" xsi:type="string">Vendor\MagewireCompatibilityWithHyva\Magewire\Features\SupportHyvaFlashMessages</item>
-                    <item name="sort_order" xsi:type="number">5150</item>
-                </item>
-            </argument>
-        </arguments>
-    </type>
-</config>
-```
-
-**2. Render the bridge script**: `view/frontend/layout/default_hyva.xml`:
-
-```xml
-<body>
-    <referenceContainer name="magewire.features">
-        <block name="magewire.features.support-hyva-flash-messages"
-               template="Vendor_MagewireCompatibilityWithHyva::magewire-features/support-hyva-flash-messages.phtml" />
-    </referenceContainer>
-</body>
-```
-
-**3. The bridge script**: `view/frontend/templates/magewire-features/support-hyva-flash-messages.phtml`:
-
-```html
-<?php
-$fragment = $block->getData('view_model')->utils()->fragment();
-$script = $fragment->make()->script()->start();
-?>
-<script>
-    window.addEventListener('magewire:flash-messages:dispatch', event => {
-        dispatchMessages(event.detail);
-    });
-</script>
-<?php $script->end(); ?>
-```
-
-Fragments handle CSP nonce/hash injection; never emit raw `<script>` tags.
+Use a project compatibility module only for behavior specific to your theme or store. Register its browser output in
+the appropriate [layout container](layout-containers.md), and wrap inline scripts in a
+[Script fragment](../concepts/fragments.md) for CSP handling.
 
 ## Anti-patterns
 
-- Registering Features or Mechanisms in global `etc/di.xml`.
+- Registering Feature or Mechanism item collections in global `etc/di.xml`.
 - Editing Magewire's base layout XML in place (patches break on upgrade).
 - Emitting raw `<script>` / `<style>` tags instead of using [fragments](../concepts/fragments.md).
 - Referencing theme-specific FQCNs from inside Magewire core: they belong in the compatibility module.

@@ -39,6 +39,5 @@ In addition to the Magewire core, there are several other MagewirePHP packages t
 | `magewirephp/magewire-hyva-theme` | Hyvä storefront compatibility | [magewire-hyva-theme](https://github.com/magewirephp/magewire-hyva-theme) |
 | `magewirephp/magewire-hyva-checkout` | Hyvä Checkout compatibility | [magewire-hyva-checkout](https://github.com/magewirephp/magewire-hyva-checkout) |
 | `magewirephp/magewire-admin` | Magento admin integration | [magewire-admin](https://github.com/magewirephp/magewire-admin) |
-| `magewirephp/magewire-fpc` | Experimental full-page-cache integration | [magewire-fpc](https://github.com/magewirephp/magewire-fpc) |
 
 Check each package's Composer constraints and release tags before installation; companion package versions do not imply that every minor release matches the core's minor version.

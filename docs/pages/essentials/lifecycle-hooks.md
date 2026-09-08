@@ -16,7 +16,8 @@ public function mount(int $productId): void
 
 ## boot() for Magento guards
 
-Run on every request, before hydration. Use this hook for authorisation and dependency resolution:
+Run on every request. During an update, Magewire restores public properties before it triggers the lifecycle sequence;
+`boot()` then runs before the component's `hydrate()` hook. Use `boot()` for authorisation and dependency resolution:
 
 ```php
 public function boot(): void
@@ -26,6 +27,9 @@ public function boot(): void
     }
 }
 ```
+
+Do not add a plain `initialize()` method to a component. Magewire 3.6 calls internal trait initialization hooks with
+that name, but does not expose `initialize()` as a component lifecycle hook.
 
 ## Swap templates per state
 

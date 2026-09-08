@@ -32,7 +32,7 @@ magewire_on_<event>
 
 ## Observable events
 
-The feature maps the full lifecycle. The notable ones:
+The Feature maps this fixed list of core events:
 
 - **Magewire-specific:** `magewire:component:construct`, `magewire:component:reconstruct`,
   `magewire:component:build`, `magewire:view:compile`, `magewire:setup`, `magewire:boot`.
@@ -83,9 +83,8 @@ class OnMagewireMount implements ObserverInterface
 
 ### Before / after semantics
 
-If your callback **returns another callable**, that returned function runs as an *after* step: the
-same before/after middleware shape Magewire's own hooks use. Returning nothing simply reacts at the
-"before" point:
+If your callback **returns another callable**, that returned function runs in the later phase when the triggering code
+invokes the event's returned dispatcher. Returning nothing reacts only at the initial point:
 
 ```php
 $listener->with(function (Component $component) {
@@ -98,7 +97,7 @@ $listener->with(function (Component $component) {
 });
 ```
 
-When several observers each contribute an after step, they run as a pipeline.
+When several observers each contribute a later callback, the Feature runs them as a value pipeline.
 
 ## When to use this vs Component Hooks
 

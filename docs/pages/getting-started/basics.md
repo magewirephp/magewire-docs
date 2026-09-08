@@ -27,24 +27,26 @@ actions on the server.
 
 ## Passing initial values from layout XML
 
-Use a `magewire.` argument for a public property and a `magewire:mount:` argument for a named `mount()` parameter:
+Use a `magewire:mount:` argument for a named `mount()` parameter, then assign that value to public state:
 
 ```xml
-<argument name="magewire.label" xsi:type="string">Items</argument>
+<argument name="magewire:mount:label" xsi:type="string">Items</argument>
 <argument name="magewire:mount:start" xsi:type="number">19</argument>
 ```
 
 ```php
 public string $label = 'Counter';
 
-public function mount(int $start = 0): void
+public function mount(string $label = 'Counter', int $start = 0): void
 {
+    $this->label = $label;
     $this->count = $start;
 }
 ```
 
 The layout resolver converts kebab-case argument names to camelCase. For example,
-`magewire:mount:page-size` is passed as `$pageSize`.
+`magewire:mount:page-size` is passed as `$pageSize`. Although the current resolver parses
+`magewire.*` keys, Magewire 3.6 does not assign those values to public properties.
 
 See [Components](../essentials/components.md) for every supported binding shape and argument group. Continue with
 [Properties](../essentials/properties.md), [Actions](../essentials/actions.md), and the

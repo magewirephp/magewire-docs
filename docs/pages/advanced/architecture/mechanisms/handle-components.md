@@ -33,17 +33,18 @@ A `Snapshot` is three things:
 | `memo` | Metadata needed to reconstruct the component: name, id, resolver accessor, layout handles, feature flags. |
 | `checksum` | An integrity hash over `data` + `memo`. |
 
-On every update the incoming snapshot's checksum is **verified** before anything else runs. If it
-doesn't match, the payload was tampered with and the request is rejected
-(`CorruptComponentPayloadException`). This is why public properties are safe to round-trip but must
-not be trusted blindly: see [Locked properties / security](../../security.md).
+On every update the incoming snapshot's checksum is **verified** before component reconstruction and property
+hydration. Route validation, request setup, and the form-key check happen earlier. If the checksum does not match, the
+payload was tampered with and the request is rejected
+(`CorruptComponentPayloadException`). This protects the serialized snapshot, but public properties can still be
+changed through component updates and must not be trusted blindly. See [Security](../../security.md).
 
 ## Synthesizers
 
 Property values aren't always plain scalars. **Synthesizers** teach `HandleComponents` how to
 dehydrate and hydrate richer types: arrays, `\stdClass`, backed enums, and Magento's
-`\Magento\Framework\DataObject`. Each public property is matched to a synth during snapshot and
-restore.
+`\Magento\Framework\DataObject`. The DataObject synth is registered but its Magewire 3.6 array-cast implementation
+does not guarantee a correct round trip. Each public property is matched to a synth during snapshot and restore.
 
 Register your own by adding it to the `synthesizers` argument of the mechanism in DI:
 

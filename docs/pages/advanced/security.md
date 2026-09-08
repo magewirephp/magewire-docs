@@ -4,11 +4,19 @@
 
 ## CSRF
 
-Magento's `FormKey` protects every Magewire request automatically. The key travels with the snapshot on every POST to `/magewire/update`; Magewire rejects requests with a missing or stale key. Do not disable `FormKey` on the Magewire route.
+Magento's `FormKey` protects every Magewire request automatically. The browser sends it as the top-level `_token`
+field in the POST request envelope. The router exposes it to the form-key validator as `token` and removes it from the
+component payload; it is not stored inside the serialized snapshot. Magewire rejects requests with a missing or stale
+key. Do not disable `FormKey` on the Magewire route.
 
 ## Snapshot checksum
 
 Each snapshot carries an HMAC checksum signed with the Magento crypt key (`app/etc/env.php` → `crypt/key`). The checksum authenticates the snapshot's integrity; it does not authorise the user. Always check permissions inside actions.
+
+Public properties are browser-controlled state. Magewire 3.6 does not provide a documented locked-property attribute,
+so do not rely on an identifier being absent from the template or lacking `wire:model`. Reload sensitive entities in
+the action, validate the current user against the exact target, and keep authorization in the service that performs
+the write.
 
 ## Namespace and escaping
 

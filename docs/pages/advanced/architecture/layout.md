@@ -10,7 +10,7 @@ The canonical source is `src/view/base/layout/default.xml`. The tree below mirro
 
 ```
 head.additional
-└── magewire.css                              ← CSS for wire:* attributes (loading / cloak states)
+└── magewire.css                              ← CSS for loading, offline, dirty, and x-cloak states
 
 after.body.start
 └── magewire.priority                         ← early JS, runs right after <body> opens
@@ -53,7 +53,8 @@ magewire (root block: Magewirephp_Magewire::root.phtml)
 │   └── magewire.directives.mage-throttle
 ├── magewire.features (block)                 ← Feature bridge scripts
 │   ├── magewire.features.support-magewire-loaders
-│   └── magewire.features.support-magewire-rate-limiting
+│   ├── magewire.features.support-magewire-request-filters
+│   └── magewire.features.support-lazy-loading
 ├── magewire.after.internal (container)       ← runs after core internal block (rare)
 ├── magewire.disabled (container)             ← ONLY rendered when Magewire is disabled
 │   └── magewire.state.disabled               ← debug-only disabled notice
@@ -76,7 +77,7 @@ Admin layout (`magewire-admin` package) replaces the body-end move with a head-i
 
 | Container / block                    | Type      | Description |
 |--------------------------------------|-----------|-------------|
-| `magewire.css`                       | block     | Lives in `head.additional`. Renders the CSS for `wire:*` attributes (loading / cloak states). Outside the `magewire` root subtree. |
+| `magewire.css`                       | block     | Lives in `head.additional`. Renders CSS for loading, offline, dirty, and `x-cloak` states. It does not include a `wire:cloak` hiding rule. Outside the `magewire` root subtree. |
 | `magewire.priority`                  | block     | Lives in `after.body.start`. Early JS that must run right after `<body>` opens. Hosts `magewire.object-proxy` on the frontend. Outside the `magewire` root subtree. |
 | `magewire`                           | block     | Root; wraps every Magewire-owned output. Do not replace its template: override children instead. |
 | `magewire.global`                    | block     | Global setup pass: runs once per page, before any per-feature wiring. |
@@ -93,7 +94,7 @@ Admin layout (`magewire-admin` package) replaces the body-end move with a head-i
 | `magewire.internal`                  | block     | Non-overridable core. Deliberately a block, not a container, so arbitrary injection is impossible. Inject via `magewire.after.internal` instead. |
 | `magewire.internal.backwards-compatibility` | container | v1 BC shims only. Reserved. |
 | `magewire.directives`                | block     | Magewire's own `wire:*` / `mage-*` directives (select, mage-notify, mage-throttle). |
-| `magewire.features`                  | block     | Feature-side bridge scripts (loaders, rate-limiting, etc.). One child per Feature by convention. |
+| `magewire.features`                  | block     | Feature-side bridge scripts, including loaders, request filters, and lazy loading. One child per Feature by convention. |
 | `magewire.after.internal`            | container | After the internal block. Use when you must interleave with core internals. |
 | `magewire.disabled`                  | container | Rendered ONLY when Magewire is disabled site-wide: surface a fallback or a warning here. Ships the debug-only `magewire.state.disabled` notice. |
 | `magewire.after`                     | container | Last-to-render Magewire content. Theme-owned; safe default for theme-final output. |
@@ -145,7 +146,7 @@ Do not rely on file load order because it depends on module sequence and is brit
 | Bridge a Feature's JS counterpart | `magewire.features` |
 | Inject theme-final content | `magewire.after` |
 | Render a fallback when Magewire is disabled | `magewire.disabled` |
-| Style `wire:*` loading / cloak states | `magewire.css` |
+| Style loading, offline, dirty, and `x-cloak` states | `magewire.css` |
 | Run JS immediately after `<body>` opens | `magewire.priority` |
 
 ## Directories & Templates

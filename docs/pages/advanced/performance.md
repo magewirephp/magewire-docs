@@ -12,7 +12,9 @@ Magewire components are cheap: a typical round-trip is a small JSON payload, a P
 | Live filter / search | `wire:model.live.debounce.250ms` |
 | Expensive validation, react when user pauses | `wire:model.blur` |
 
-`wire:model.live` without debounce hits the server on every keystroke. Use the 250–500 ms debounce unless you have a concrete reason not to.
+`wire:model.live` sends updates while the user types, but Magewire applies a 150 ms debounce to live text inputs by
+default. Add an explicit 250 to 500 ms debounce when the server work is expensive or the interface does not need faster
+feedback.
 
 ### Scope `wire:poll`
 
@@ -61,9 +63,13 @@ Set this inside the `<item>` definition when registering a Feature or Mechanism 
 
 Use [lazy loading](../features/lazy-loading.md) for expensive components that are not needed in the initial viewport. `on-intersect` delays work until the placeholder becomes visible; `on-load` moves it behind the initial page response.
 
-### Avoid work in `render()` / `rendering()` hooks
+<a id="avoid-work-in-render-rendering-hooks"></a>
 
-`render()` runs every time the component re-renders. Computing expensive derived state there means paying on every round-trip. Cache the derivation in a property computed in `boot()` or `updated*()` and read the property from the template.
+### Avoid expensive work during rendering
+
+The `rendering()` hook and the component template run every time the component re-renders. Computing expensive
+derived state there means paying on every round trip. Cache the derivation in a property computed in `boot()` or
+`updated*()` and read the property from the template.
 
 ## Reduce round-trip size
 
@@ -77,7 +83,9 @@ A 100 ms request followed by a visible "Loading…" state creates jank. `wire:lo
 
 ### Keyed loops
 
-An unkeyed loop over 200 items forces the morph algorithm to replace every node on any change. A keyed loop matches nodes by `wire:key` and moves or mutates only what changed. Always key loops.
+Without stable keys, the morph algorithm primarily matches repeated nodes by position. Reordering, inserting, or
+removing items can then reuse the wrong DOM state and cause unnecessary updates. A keyed loop matches each item by
+`wire:key`, allowing the browser to preserve and move the correct node. Always key dynamic loops.
 
 ### `wire:ignore` for heavy subtrees
 

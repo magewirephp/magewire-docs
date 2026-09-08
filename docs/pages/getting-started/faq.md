@@ -62,9 +62,10 @@ support channels.
 
 ## Can Magewire be used with Luma or another theme?
 
-Magewire core is theme-agnostic, but every storefront must load compatible frontend assets and integrate with its
-JavaScript and CSP setup. The maintained `magewirephp/magewire-hyva-theme` package provides Hyvä Theme support. Other
-themes need an equivalent integration where the core defaults are not sufficient.
+Magewire is designed to keep active theme behavior in companion packages, but core 3.6 still contains a legacy Hyvä
+build-config observer. Every storefront must load compatible frontend assets and integrate with its JavaScript and CSP
+setup. The maintained `magewirephp/magewire-hyva-theme` package provides Hyvä Theme support. Other themes need an
+equivalent integration where the core defaults are not sufficient.
 
 Magento's admin area is supported separately through `magewirephp/magewire-admin`.
 

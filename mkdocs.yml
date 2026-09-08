@@ -98,7 +98,6 @@ nav:
         - 'pages/getting-started/examples/magento-flash-messages.md'
       - 'pages/getting-started/faq.md'
       - 'pages/getting-started/license.md'
-      - 'pages/getting-started/notables.md'
       - 'pages/getting-started/purpose.md'
       - 'pages/getting-started/roadmap.md'
       - 'pages/getting-started/sponsoring.md'
@@ -106,7 +105,6 @@ nav:
       - 'pages/getting-started/versioning.md'
       - 'V3 vs V1': 'pages/getting-started/v3-vs-v1.md'
       - 'Releases':
-        - 'pages/getting-started/releases/building-javascript-bundles.md'
         - 'pages/getting-started/releases/feature-history.md'
   - 'Essentials':
       - 'pages/essentials/components.md'
@@ -122,7 +120,6 @@ nav:
       - 'pages/features/alpine.md'
       - 'pages/features/lazy-loading.md'
       - 'pages/features/pagination.md'
-#      - 'pages/features/magewire-flakes.md'
       - 'pages/features/magewire-template-directives.md'
       - 'pages/features/notifications.md'
       - 'pages/features/rate-limiting.md'
@@ -170,7 +167,6 @@ nav:
     - 'pages/advanced/application-container.md'
     - 'pages/advanced/request-filters.md'
     - 'pages/advanced/best-practices.md'
-    - 'pages/advanced/patterns.md'
     - 'pages/advanced/performance.md'
     - 'pages/advanced/security.md'
     - 'pages/advanced/synthesizers.md'

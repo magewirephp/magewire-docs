@@ -2,14 +2,16 @@
 
 {{ include('admonition/livewire-concept.md') }}
 
-Magewire is composed of three layers: the Magento module that loads everything, **Mechanisms** (required core steps), and **Features** (optional extensions). This page covers Mechanisms.
+Magewire is composed of three layers: the Magento module that loads everything, **Mechanisms** (required core
+services), and **Features** (smaller lifecycle capabilities, some optional and some required by the documented
+runtime). This page covers Mechanisms.
 
 ## Mechanism vs. Feature
 
 | | Mechanism | Feature |
 |---|---|---|
-| Optional | No | Yes |
-| Can be disabled | No | Yes: or replaced via DI |
+| Optional | No | Depends on the Feature |
+| Can be disabled | No | Only when no documented runtime behavior depends on it |
 | Runs per request | Every request | Only when registered |
 | Examples | ResolveComponents, HandleRequests | SupportMagewireNotifications, SupportMagewireRateLimiting |
 
@@ -17,7 +19,7 @@ Mechanisms form the non-negotiable core pipeline. Removing any of them breaks th
 
 ## The pipeline
 
-Every Magewire request passes through the mechanisms in sort-order sequence:
+The service provider boots registered mechanisms in sort-order sequence:
 
 ```
 ResolveComponents (1000)
@@ -34,6 +36,10 @@ FrontendAssets (1400)
    ↓
 HandleCompiling (1500)
 ```
+
+This ordering controls initialization and event registration. A page render or update does not flow through every
+mechanism as one linear middleware chain; each mechanism attaches to the parts of the Magento and Magewire lifecycle it
+owns.
 
 ## Built-in mechanisms
 
