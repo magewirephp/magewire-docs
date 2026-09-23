@@ -1,58 +1,103 @@
 # Events
 
-{{ include("admonition/livewire-reference.md", reference_url="https://livewire.laravel.com/docs/3.x/events") }}
+Events let one Magewire component tell another that something changed. The
+sender does not need to know which other component is listening, which keeps
+both components reusable.
 
-Component events use Livewire 3's `dispatch()` and `#[On]` concepts. Use them for application communication between components and browser code.
+## Dispatch an event
 
-```php
-use Magewirephp\Magewire\Attributes\On;
+Here a category picker publishes the selected ID. The action validates the
+browser-supplied value before dispatching it:
 
-$this->dispatch('cart-updated', count: $this->itemCount);
+```php title="Magewire/CategoryPicker.php"
+<?php
 
-#[On('cart-updated')]
-public function refreshSummary(int $count): void
+namespace Vendor\Module\Magewire;
+
+use Magento\Framework\Exception\LocalizedException;
+use Magewirephp\Magewire\Component;
+
+class CategoryPicker extends Component
 {
-    // …
+    public function select(int $categoryId): void
+    {
+        if ($categoryId < 1) {
+            throw new LocalizedException(__('Choose a category.'));
+        }
+
+        $this->dispatch('category-selected', categoryId: $categoryId);
+    }
 }
 ```
 
-The V1 `emit*()` methods and `$listeners` property are migration APIs provided by the [backwards-compatibility layer](backwards-compatibility.md). New Magewire 3 components should use `dispatch()` and attributes.
-
-## Framework hooks are different
-
-Magewire also has an internal `on()` / `trigger()` pipeline used by mechanisms and features. Those hooks are framework extension points, not component-dispatched events.
-
-```php
-use function Magewirephp\Magewire\on;
-
-on('render', function ($component, $view, $data) {
-    // Before render.
-
-    return function ($html) {
-        // After render.
-        return $html;
-    };
-});
+```php title="view/frontend/templates/magewire/category-picker.phtml"
+<div>
+    <button type="button" wire:click="select(10)">
+        <?= $escaper->escapeHtml(__('Show category 10')) ?>
+    </button>
+</div>
 ```
 
-The current observable internal map includes:
+## Listen in another component
 
-- Magewire lifecycle: `magewire:component:construct`, `magewire:component:reconstruct`, `magewire:component:build`, `magewire:view:compile`, `magewire:setup`, and `magewire:boot`;
-- component lifecycle: `pre-mount`, `mount.stub`, `mount`, `hydrate`, `update`, `call`, `render`, `render.placeholder`, `dehydrate`, and `destroy`;
-- Magento rendering: `magento:block:render`, `magento:block:rendered`, and `magento:template:render`;
-- transport and integrity: `request`, `response`, `checksum.generate`, `checksum.verify`, `checksum.fail`, and `snapshot-verified`;
-- utility hooks: `__get`, `__unset`, `__call`, `exception`, `flush-state`, and `profile`.
+`#[On]` registers a method as a listener. The named event argument becomes
+the method argument:
 
-Not every internal event has the same arguments or return pipeline. Inspect the tagged call site before writing a low-level hook.
+```php title="Magewire/CategorySummary.php"
+<?php
 
-## Magento observers
+namespace Vendor\Module\Magewire;
 
-The observer bridge re-emits its explicit internal event map as Magento events. Non-alphanumeric characters become underscores:
+use Magewirephp\Magewire\Attributes\On;
+use Magewirephp\Magewire\Component;
 
-```text
-magewire:component:construct → magewire_on_magewire_component_construct
-checksum.fail               → magewire_on_checksum_fail
-render                      → magewire_on_render
+class CategorySummary extends Component
+{
+    public int $categoryId = 0;
+
+    #[On('category-selected')]
+    public function showCategory(int $categoryId): void
+    {
+        $this->categoryId = $categoryId;
+    }
+}
 ```
 
-See [Magento Observer Events](../advanced/architecture/observer-events.md) for registration and before/after callback semantics.
+```php title="view/frontend/templates/magewire/category-summary.phtml"
+<div>
+    <?php if ($magewire->categoryId > 0): ?>
+        <?= $escaper->escapeHtml(__('Selected category: %1', $magewire->categoryId)) ?>
+    <?php else: ?>
+        <?= $escaper->escapeHtml(__('Choose a category above.')) ?>
+    <?php endif ?>
+</div>
+```
+
+Bind each class to its own layout block using the
+[component layout pattern](components.md#create-your-first-component).
+The listener can now appear elsewhere on the page without changing the picker.
+Use descriptive event names if several integrations share a page.
+
+## Browser listeners
+
+Component events are browser events too. A theme integration can listen for
+one when it needs to update browser-only UI:
+
+```javascript
+window.addEventListener('category-selected', event => {
+    console.log(event.detail.categoryId)
+})
+```
+
+Put production listeners in a [compatibility module](../theming/compatibility-module.md)
+and wrap inline scripts in a [Script fragment](../concepts/fragments.md#the-script-fragment).
+The old `emit*()` helpers and `$listeners` property are V1 migration APIs;
+new components use `dispatch()` and `#[On]`.
+
+<a id="framework-hooks-are-different"></a>
+<a id="magento-observers"></a>
+
+Magewire's internal `on()` and `trigger()` hooks serve framework extensions
+and are separate from these component events. See
+[Component hooks](../advanced/architecture/component-hooks.md) and
+[Magento observer events](../advanced/architecture/observer-events.md).

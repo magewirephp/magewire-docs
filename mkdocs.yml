@@ -91,21 +91,21 @@ nav:
   - 'Getting Started':
       - 'index.md'
       - 'pages/getting-started/basics.md'
-      - 'pages/getting-started/contribute.md'
-      - 'pages/getting-started/documentation.md'
       - 'Examples':
         - 'pages/getting-started/examples.md'
         - 'pages/getting-started/examples/magento-flash-messages.md'
-      - 'pages/getting-started/faq.md'
-      - 'pages/getting-started/license.md'
       - 'pages/getting-started/purpose.md'
-      - 'pages/getting-started/roadmap.md'
-      - 'pages/getting-started/sponsoring.md'
+      - 'pages/getting-started/documentation.md'
       - 'pages/getting-started/upgrade.md'
-      - 'pages/getting-started/versioning.md'
       - 'V3 vs V1': 'pages/getting-started/v3-vs-v1.md'
+      - 'pages/getting-started/faq.md'
+      - 'pages/getting-started/versioning.md'
+      - 'pages/getting-started/roadmap.md'
       - 'Releases':
         - 'pages/getting-started/releases/feature-history.md'
+      - 'pages/getting-started/contribute.md'
+      - 'pages/getting-started/sponsoring.md'
+      - 'pages/getting-started/license.md'
   - 'Essentials':
       - 'pages/essentials/components.md'
       - 'pages/essentials/view-model.md'
@@ -131,7 +131,6 @@ nav:
       - 'pages/html-directives/wire-submit.md'
       - 'pages/html-directives/wire-model.md'
       - 'pages/html-directives/wire-loading.md'
-      - 'pages/html-directives/wire-current.md'
       - 'pages/html-directives/wire-cloak.md'
       - 'pages/html-directives/wire-dirty.md'
       - 'pages/html-directives/wire-confirm.md'
@@ -151,6 +150,7 @@ nav:
     - 'pages/concepts/nesting.md'
   - 'Theming':
     - 'pages/theming/index.md'
+    - 'pages/theming/breeze.md'
     - 'pages/theming/compatibility-module.md'
     - 'pages/theming/layout-containers.md'
     - 'pages/theming/alpine-loading.md'
@@ -188,7 +188,6 @@ nav:
         - 'pages/advanced/architecture/observer-events.md'
         - 'pages/advanced/architecture/index.md'
         - 'pages/advanced/architecture/runtime.md'
-        - 'pages/advanced/architecture/facades.md'
         - 'pages/advanced/architecture/features.md'
         - 'Mechanisms':
             - 'pages/advanced/architecture/mechanisms/index.md'

@@ -47,7 +47,10 @@ Inspect the response status and `X-Magewire-Message-Severity` header. A register
 
 ## Admin components never mount
 
-Confirm `Magewirephp_MagewireAdmin` is enabled and that `setup:upgrade` ran after installation. The currently tagged admin package also contains an obsolete rate-limit block reference; see [Admin Rate Limiting](../admin/rate-limiting.md).
+Confirm `Magewirephp_MagewireAdmin` is enabled and that `setup:upgrade` ran
+after installation. Then inspect the page's admin layout handle for a block
+with a direct `magewire` object argument. If the block renders but updates
+fail, check the admin update request status and Magento logs.
 
 ## Reporting a reproducible bug
 

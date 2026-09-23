@@ -7,6 +7,7 @@
 ```xml title="etc/adminhtml/routes.xml"
 <router id="admin">
     <route id="magewire" frontName="magewire">
+        <module name="Magewirephp_MagewireAdmin" before="Magewirephp_Magewire"/>
         <module name="Magewirephp_Magewire" before="Magento_Backend"/>
     </route>
 </router>
@@ -73,9 +74,6 @@ The plugin runs after Magento assembles the head assets and injects the `magewir
 ```
 
 This moves the `magewire` block to root so its children render in the admin's layout tree and declares a standalone `magewire.head` block for the Renderer plugin.
-
-!!! warning "Rate-limit layout compatibility"
-    The currently tagged admin package still contains an override for the removed `magewire.features.support-magewire-rate-limiting` block. Magewire 3.6 uses `magewire.features.support-magewire-request-filters` instead. The obsolete reference has no target and should not be copied into new integrations.
 
 ## Admin component resolver
 

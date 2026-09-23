@@ -1,6 +1,17 @@
-### 1. Create the component class
+<a id="1-create-the-component-class"></a>
 
-Create the component below inside your Magento module:
+### 1. Add a component to your Magento module
+
+This example adds a counter to the CMS home page. Start in an existing, enabled
+`Vendor_Module` module. The three files are:
+
+```text
+Vendor/Module/
+├── Magewire/Counter.php
+└── view/frontend/
+    ├── layout/cms_index_index.xml
+    └── templates/magewire/counter.phtml
+```
 
 ```php title="Magewire/Counter.php"
 <?php
@@ -22,18 +33,18 @@ class Counter extends Component
 }
 ```
 
-Public properties hold the component state. Public methods can be called from the template, so treat their arguments as
-untrusted input and perform the same validation and authorization you would use in a controller.
+The public property is browser-visible state. The public method is an action the
+browser can call; validate and authorize actions that read or change business data.
 
-### 2. Create the template
+<a id="2-create-the-template"></a>
 
-The corresponding template reads state through the injected `$magewire` variable:
+### 2. Render it with PHTML
+
+Magewire makes the component available to its template as `$magewire`:
 
 ```php title="view/frontend/templates/magewire/counter.phtml"
-<div>
-    <span>
-        <?= $escaper->escapeHtml(__('Counter: %1', $magewire->count)) ?>
-    </span>
+<div data-testid="magewire-counter">
+    <span><?= $escaper->escapeHtml(__('Count: %1', $magewire->count)) ?></span>
 
     <button type="button" wire:click="increment">
         <?= $escaper->escapeHtml(__('Increase')) ?>
@@ -41,34 +52,46 @@ The corresponding template reads state through the injected `$magewire` variable
 </div>
 ```
 
-Every component template must have one root HTML element. Magewire attaches the component snapshot to that element and
-morphs its contents after an update.
+Keep one root element. Magewire uses it to attach the component snapshot and to
+update the rendered HTML. Escape text and attributes using Magento's `$escaper`.
 
-### 3. Bind it in layout XML
+<a id="3-bind-it-in-layout-xml"></a>
 
-Add a block to the layout handle where the component should appear:
+### 3. Place it with layout XML
 
-```xml title="view/frontend/layout/page_handle.xml"
-<referenceContainer name="content">
-    <block name="vendor.module.counter"
-           template="Vendor_Module::magewire/counter.phtml">
-        <arguments>
-            <argument name="magewire" xsi:type="object">
-                Vendor\Module\Magewire\Counter
-            </argument>
-        </arguments>
-    </block>
-</referenceContainer>
+The `cms_index_index` handle places the counter on the CMS home page:
+
+```xml title="view/frontend/layout/cms_index_index.xml"
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block name="vendor.module.counter"
+                   template="Vendor_Module::magewire/counter.phtml">
+                <arguments>
+                    <argument name="magewire" xsi:type="object" shared="false">
+                        Vendor\Module\Magewire\Counter
+                    </argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>
 ```
 
-The built-in layout resolver turns the block's `magewire` argument into the component instance. Custom resolvers are
-available for integrations that cannot use this standard block-and-argument shape.
+The `magewire` argument binds the PHP class to this block. `shared="false"` gives
+the block its own component instance, which also makes the pattern safe when you
+place the same class more than once on a page.
 
-### 4. Clear layout caches and try it
+<a id="4-clear-layout-caches-and-try-it"></a>
+
+### 4. Try it
 
 ```shell
-bin/magento cache:clean layout full_page
+bin/magento cache:clean layout block_html full_page
 ```
 
-Open the page represented by the layout handle. Clicking **Increase** sends a Magewire update request, calls
-`increment()`, renders the template again, and morphs the changed counter into the existing DOM.
+Open the home page and click **Increase**. Magewire calls `increment()` on the
+server and updates the count without a full page reload. If the block does not
+appear, confirm the module is enabled and that this page uses `cms_index_index`.

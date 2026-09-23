@@ -35,7 +35,7 @@ Add Alpine `x-data` registrations as blocks inside Magewire's named containers:
 
 Inside the phtml, emit the script via a [fragment](../concepts/fragments.md) to stay CSP-compliant:
 
-```html title="view/frontend/templates/js/alpinejs/components/search-box.phtml"
+```php title="view/frontend/templates/js/alpinejs/components/search-box.phtml"
 <?php
 $magewireViewModel = $block->getData('view_model');
 $fragment = $magewireViewModel->utils()->fragment();

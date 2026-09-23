@@ -72,9 +72,13 @@ Access to the Magewire runtime and configuration:
 | `build()` | The Magewire `Builder`. |
 
 ```php
-<?php $magewire = $viewModel->utils()->magewire(); ?>
-<script>window.MAGEWIRE_UPDATE_URI = '<?= $magewire->getUpdateUri() ?>';</script>
+$magewire = $viewModel->utils()->magewire();
+$updateUri = $magewire->getUpdateUri();
 ```
+
+The runtime uses the update URI for component requests. If your integration
+needs it, read it from this utility instead of hard-coding `/magewire/update`;
+the admin route has a different prefix.
 
 ## Security: `utils()->security()`
 
@@ -96,7 +100,7 @@ $viewModel->utils()->env()->isProductionMode();
 
 ## CSP: `utils()->csp()`
 
-Generate Content-Security-Policy nonces for inline scripts and styles:
+Generate Content-Security-Policy nonces for low-level integrations:
 
 ```php
 $csp = $viewModel->utils()->csp();
@@ -106,11 +110,9 @@ $attr  = $csp->generateNonceAttribute();        // e.g. ` nonce="..."` (note the
 $attr  = $csp->generateNonceAttribute('%s');    // without the leading space
 ```
 
-```php
-<script<?= $viewModel->utils()->csp()->generateNonceAttribute() ?>>
-    /* CSP-compliant inline script */
-</script>
-```
+For normal PHTML scripts, prefer a [Script fragment](../concepts/fragments.md#the-script-fragment).
+It chooses a nonce or hash as appropriate for the response, including
+cached pages, without requiring your template to manage the attribute.
 
 ## Fragment: `utils()->fragment()`
 

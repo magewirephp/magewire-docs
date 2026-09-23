@@ -1,34 +1,58 @@
-# Admin
+<a id="admin"></a>
 
-Magewire V1 was storefront-only. V3 supports the Magento **admin panel** through a separately-installed companion package: `magewirephp/magewire-admin`.
+# Magewire in Magento Admin
 
-The admin ships with its own conventions: a different frontName (`/admin`), RequireJS, Prototype.js on every page, a strict login/ACL model, and no Tailwind. `magewire-admin` bridges all of that so components behave the same way they do on the storefront.
+<a id="when-to-install-it"></a>
+<a id="no-in-core-admin-marker"></a>
 
-## What the package provides
+Build an admin component with the same PHP class, PHTML template, and layout
+argument used on the storefront. Install `magewirephp/magewire-admin` to add
+the admin update route and browser integration:
 
-| Concern | Solution |
-|---|---|
-| **Routing** | Custom admin route at `/admin/magewire/update` with admin session validation |
-| **Authentication** | Session-cookie check via `Magento\Backend\Model\Auth\Session\Proxy` before every update |
-| **Script injection** | Plugin on `Magento\Framework\View\Page\Config\Renderer` that emits Magewire's bundle *before* RequireJS |
-| **Prototype.js collision** | RequireJS shim restoring `Object.keys` / `Object.values` that Prototype pollutes |
-| **Component resolution** | `LayoutAdminResolver` reading admin-layout metadata under the `layout_admin` accessor |
-| **Component discovery workaround** | `doesPageHaveComponents()` always returns `true`: admin JS loads too early for DOM-based discovery |
+```shell
+composer require magewirephp/magewire-admin
+bin/magento module:enable Magewirephp_MagewireAdmin
+bin/magento setup:upgrade
+```
 
-## No in-core admin marker
+<a id="what-the-package-provides"></a>
 
-Everything admin-related lives in the standalone `magewirephp/magewire-admin` package, which is the only package you install for admin support.
+Then put the layout and template in `view/adminhtml/`:
 
-!!! note "Changed in 3.2.0"
-    Before 3.2.0 the core `magewirephp/magewire` package shipped a marker compatibility module under `themes/Backend/` to set area scope and enable the service provider in `adminhtml`. That `themes/` directory has been removed: all theme and admin integration now lives in its own repository. Do not look for a `themes/Backend/` folder in the core repo; it no longer exists.
+```text
+Vendor/Module/
+├── Magewire/Admin/ReportFilter.php
+└── view/adminhtml/
+    ├── layout/vendor_module_report_index.xml
+    └── templates/magewire/admin/report-filter.phtml
+```
 
-## When to install it
+The binding still uses a direct `magewire` object argument:
 
-Install `magewire-admin` when you want to build admin components: grids that update without page reload, inline editors, reactive dashboards, wizards. If you only build storefront components, you don't need it.
+```xml
+<block name="vendor.module.report-filter"
+       template="Vendor_Module::magewire/admin/report-filter.phtml">
+    <arguments>
+        <argument name="magewire" xsi:type="object" shared="false">
+            Vendor\Module\Magewire\Admin\ReportFilter
+        </argument>
+    </arguments>
+</block>
+```
 
-## Where to go next
+Choose the layout handle and parent container for the admin page you are
+extending. [Building admin components](building-admin-components.md) shows a
+larger example with an action and ACL check.
 
-- [Installation](installation.md)
-- [How it works](how-it-works.md): architecture detail.
-- [Building admin components](building-admin-components.md): layout XML, area scoping.
-- [Rate limiting](rate-limiting.md): current core behavior and companion-package compatibility note.
+Admin authentication protects the update route, but it does not decide
+which records a given admin user may change. Check the appropriate ACL
+resource inside every sensitive action and let a Magento service enforce
+the operation's business rules. The admin theme also has different CSS
+and JavaScript conventions from Hyvä; do not assume Tailwind classes
+or storefront script ordering are available.
+
+<a id="where-to-go-next"></a>
+
+See [Installation](installation.md) for verification,
+[How it works](how-it-works.md) for routing and script details, and
+[Admin rate limiting](rate-limiting.md) for update traffic controls.

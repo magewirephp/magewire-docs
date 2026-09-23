@@ -1,102 +1,106 @@
 # Components
 
-{{ include("admonition/livewire-reference.md", reference_url="https://livewire.laravel.com/docs/3.x/components") }}
+Build a component with a PHP class, a PHTML template, and a Magento layout
+block. Magewire resolves the class from the block's `magewire` argument and
+passes it to the template as `$magewire`.
 
-## Creating components
+<a id="creating-components"></a>
 
-Creating a basic Magewire component takes just a few minutes and requires only two or three files, depending on whether
-you already have a layout handle. At its core, a Magewire component consists of two main files: a PHP class that handles
-the logic and a template responsible for rendering the HTML on the frontend.
-
-In the following example, we assume you are using layout XML to inject a Magewire component onto a page.
-For more advanced use cases, we recommend exploring the in-depth documentation, where concepts like the
-[resolver](../advanced/architecture/mechanisms/resolvers.md) mechanism will most likely play a role.
+## Create your first component
 
 {{ include("create-a-component.md") }}
 
-## Block arguments
+<a id="block-arguments"></a>
+<a id="binding-a-component"></a>
 
-Magewire components are bound to Magento blocks through layout XML `<argument>` entries. Beyond the
-`magewire` argument that declares the component itself, grouped arguments let you pass named values to
-`mount()` without custom ViewModel or constructor wiring.
+## Pass initial values from layout
 
-Arguments are extracted from the block after the component has been resolved and before it is mounted.
+Prefix an argument with `magewire:mount:` to pass a named value to `mount()`.
+This makes the same class reusable on different pages:
 
-### Binding a component
-
-The `magewire` argument tells the [resolver](../advanced/architecture/mechanisms/resolvers.md) which component
-to bind to the block. The built-in `LayoutResolver` accepts three formats:
-
-```xml
-<!-- 1. Direct object binding (most common) -->
-<argument name="magewire" xsi:type="object">Vendor\Module\Magewire\MyComponent</argument>
-
-<!-- 2. Array with an object type, allowing extra config alongside the component -->
-<argument name="magewire" xsi:type="array">
-    <item name="type" xsi:type="object">Vendor\Module\Magewire\MyComponent</item>
-</argument>
-
-<!-- 3. Array with a boolean type for a dynamic component with no physical class -->
-<argument name="magewire" xsi:type="array">
-    <item name="type" xsi:type="boolean">true</item>
-</argument>
-```
-
-<a id="public-arguments"></a>
-
-### Public argument namespace
-
-The current resolver parses `magewire.*` keys into an internal `public` argument subset, but Magewire 3.6
-does not apply that subset to component properties. Do not use this prefix to initialize public state.
-Pass initial state through `magewire:mount:*` and assign it in `mount()`.
-
-### Group arguments
-
-Arguments prefixed with `magewire:{group}:{key}` are collected into named groups rather than being assigned
-directly to properties. This keeps related values together and lets a component (or resolver) request a whole
-group at once.
-
-```xml
-<block name="my.component" template="Vendor_Module::my-component.phtml">
+```xml title="view/frontend/layout/catalog_category_view.xml"
+<block name="vendor.module.category-products"
+       template="Vendor_Module::magewire/category-products.phtml">
     <arguments>
-        <argument name="magewire" xsi:type="object">Vendor\Module\Magewire\MyComponent</argument>
+        <argument name="magewire" xsi:type="object" shared="false">
+            Vendor\Module\Magewire\CategoryProducts
+        </argument>
         <argument name="magewire:mount:category-id" xsi:type="number">10</argument>
         <argument name="magewire:mount:page-size" xsi:type="number">20</argument>
-        <argument name="magewire:config:cache-ttl" xsi:type="number">3600</argument>
     </arguments>
 </block>
 ```
 
-The `mount` group is passed to your component's `mount()` method as named parameters on the initial render:
+```php title="Magewire/CategoryProducts.php"
+<?php
 
-```php
-public function mount(int $categoryId = 0, int $pageSize = 10): void
+namespace Vendor\Module\Magewire;
+
+use Magewirephp\Magewire\Component;
+
+class CategoryProducts extends Component
 {
-    // $categoryId = 10, $pageSize = 20 (from magewire:mount:*)
+    public int $categoryId = 0;
+    public int $pageSize = 10;
+
+    public function mount(int $categoryId, int $pageSize = 10): void
+    {
+        $this->categoryId = $categoryId;
+        $this->pageSize = $pageSize;
+    }
 }
 ```
 
-Any group can also be read directly from the argument API inside a resolver or feature:
+Magewire converts the `category-id` and `page-size` suffixes to `$categoryId`
+and `$pageSize`. `mount()` runs on the first render. On later requests, Magewire
+restores public state from the snapshot, so treat both values as untrusted when
+using them in a query or action. Resolve the current category and check its
+visibility through your Magento service.
 
-```php
-$arguments->forMount();          // ['categoryId' => 10, 'pageSize' => 20]
-$arguments->forGroup('config');  // ['cacheTtl' => 3600]
-$arguments->toParams();          // Complete assembled argument structure
-```
+## Reuse the class safely
 
-### Reserved keys
-
-A few `magewire:` keys are reserved by the framework and are not treated as group arguments:
-
-| Argument | Purpose |
-|---|---|
-| `magewire:resolver` | Forces a specific resolver for the block, overriding automatic resolution (e.g. `widget`). |
-| `magewire:alias` | Sets a component alias used for lookup (e.g. `shipping-form`). |
+Each rendered block needs a unique `name` and an independent component instance.
+Set `shared="false"` on the Magento object argument when a class is bound more
+than once. Give each block its own `magewire:mount:*` values:
 
 ```xml
-<argument name="magewire:resolver" xsi:type="string">widget</argument>
-<argument name="magewire:alias" xsi:type="string">shipping-form</argument>
+<block name="vendor.module.featured" template="Vendor_Module::magewire/category-products.phtml">
+    <arguments>
+        <argument name="magewire" xsi:type="object" shared="false">Vendor\Module\Magewire\CategoryProducts</argument>
+        <argument name="magewire:mount:category-id" xsi:type="number">10</argument>
+    </arguments>
+</block>
+<block name="vendor.module.sale" template="Vendor_Module::magewire/category-products.phtml">
+    <arguments>
+        <argument name="magewire" xsi:type="object" shared="false">Vendor\Module\Magewire\CategoryProducts</argument>
+        <argument name="magewire:mount:category-id" xsi:type="number">20</argument>
+    </arguments>
+</block>
 ```
 
-For more on how a block becomes a component and how resolvers consume these arguments, see the
-[Resolvers](../advanced/architecture/mechanisms/resolvers.md) documentation.
+<a id="group-arguments"></a>
+<a id="reserved-keys"></a>
+<a id="public-arguments"></a>
+
+## Advanced block arguments
+
+Custom resolvers and features can read grouped arguments through the argument
+API. Application components usually only need `magewire:mount:*`.
+
+```xml
+<argument name="magewire:config:cache-ttl" xsi:type="number">3600</argument>
+```
+
+```php
+$arguments->forMount()->all();          // ['categoryId' => 10, 'pageSize' => 20]
+$arguments->forGroup('config')->all();  // ['cacheTtl' => 3600]
+```
+
+Use `magewire:alias` only when you need a stable component lookup alias, and
+`magewire:resolver` only for a custom resolver. The older array binding with a
+`type` item is retained for migration but marked deprecated in the V3 resolver.
+A boolean `type` item cannot construct a component. The `magewire.*` namespace
+is parsed but does not initialize public properties; use `mount()` instead.
+
+See [Resolvers](../advanced/architecture/mechanisms/resolvers.md) for custom
+binding and [Properties](properties.md) for public state.

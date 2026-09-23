@@ -2,13 +2,14 @@
 
 {{ include("admonition/magewire-specific.md", since_version="3.6.0") }}
 
-The `WithPagination` trait keeps one or more page numbers in synchronized Magewire component state.
-It provides navigation methods and lifecycle hooks; the component remains responsible for querying
-and rendering the records for its current page.
+The `WithPagination` trait tracks page numbers and provides actions such as
+`nextPage()` and `previousPage()`. Your component supplies the records and the
+last-page boundary.
 
 ## Add pagination to a component
 
-Use `Magewirephp\Magewire\WithPagination` and read the current page with `getPage()`:
+This small catalog keeps its data in memory so you can try the controls
+without a database query. Use `getPage()` to select the current slice:
 
 ```php
 <?php
@@ -22,50 +23,61 @@ class ProductList extends Component
 {
     use WithPagination;
 
-    private const PER_PAGE = 12;
+    private const PER_PAGE = 4;
+    private const PRODUCTS = [
+        'Notebook', 'Pen', 'Pencil', 'Eraser',
+        'Ruler', 'Folder', 'Marker', 'Highlighter',
+        'Stapler', 'Tape'
+    ];
 
     /** @return string[] */
     public function getVisibleProducts(): array
     {
-        $products = $this->loadProductNames();
         $offset = ((int) $this->getPage() - 1) * self::PER_PAGE;
 
-        return array_slice($products, $offset, self::PER_PAGE);
+        return array_slice(self::PRODUCTS, $offset, self::PER_PAGE);
     }
 
-    /** @return string[] */
-    private function loadProductNames(): array
+    public function getLastPage(): int
     {
-        // Load values from the service or collection owned by this component.
-        return [];
+        return (int) ceil(count(self::PRODUCTS) / self::PER_PAGE);
     }
 }
 ```
 
-Render the current values and call the trait's public actions from the template:
+Render one root element and call the trait's actions from the template:
 
-```html
+```php title="view/frontend/templates/magewire/product-list.phtml"
 <?php $currentPage = (int) $magewire->getPage() ?>
 
-<ul>
-    <?php foreach ($magewire->getVisibleProducts() as $product): ?>
-        <li><?= $escaper->escapeHtml($product) ?></li>
-    <?php endforeach ?>
-</ul>
+<div>
+    <ul>
+        <?php foreach ($magewire->getVisibleProducts() as $product): ?>
+            <li wire:key="product-<?= $escaper->escapeHtmlAttr($product) ?>">
+                <?= $escaper->escapeHtml($product) ?>
+            </li>
+        <?php endforeach ?>
+    </ul>
 
-<button type="button" wire:click="previousPage" <?= $currentPage === 1 ? 'disabled' : '' ?>>
-    <?= $escaper->escapeHtml(__('Previous')) ?>
-</button>
+    <button type="button" wire:click="previousPage" <?= $currentPage === 1 ? 'disabled' : '' ?>>
+        <?= $escaper->escapeHtml(__('Previous')) ?>
+    </button>
 
-<span><?= $escaper->escapeHtml(__('Page %1', $currentPage)) ?></span>
+    <span><?= $escaper->escapeHtml(__('Page %1 of %2', $currentPage, $magewire->getLastPage())) ?></span>
 
-<button type="button" wire:click="nextPage">
-    <?= $escaper->escapeHtml(__('Next')) ?>
-</button>
+    <button type="button" wire:click="nextPage"
+            <?= $currentPage >= $magewire->getLastPage() ? 'disabled' : '' ?>>
+        <?= $escaper->escapeHtml(__('Next')) ?>
+    </button>
+</div>
 ```
 
-Disable **Next** in real components when the current page reaches the last available page. Magewire
-does not know the size of the collection and therefore cannot enforce that boundary automatically.
+For a real catalog, inject a Magento query service and request only one page
+of results with a page size and current page. Avoid loading every product and
+then calling `array_slice()`. The last page should come from the same filtered
+query as the visible records. The trait does not know your collection size,
+so enforce the upper bound in your own action or service if callers can request
+arbitrary pages.
 
 ## Available methods
 

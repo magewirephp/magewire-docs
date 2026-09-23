@@ -21,6 +21,14 @@ bin/magento module:enable Magewirephp_MagewireHyvaTheme
 bin/magento setup:upgrade
 ```
 
+## Breeze
+
+Install [`swissup/module-breeze-magewire`](breeze.md) on a Breeze storefront.
+Its `breeze_default` layout loads the Magewire script and runtime host on
+component pages. Do not copy Hyvä's `default_hyva` layout or add a second
+Magewire script to the page. The [Breeze guide](breeze.md) covers installation
+and the checks for pages with and without components.
+
 ## Custom themes
 
 A custom compatibility module owns three decisions:
@@ -39,12 +47,14 @@ Use the `magewire.alpinejs.load` layout node as the integration point. Preserve 
 | `magewire:init` | Register Magewire hooks. |
 | `magewire:initialized` | Run work that requires the initialized runtime. |
 
-```html
+```php title="view/frontend/templates/js/magewire/search-box.phtml"
+<?php $script = $block->getData('view_model')->utils()->fragment()->make()->script()->start() ?>
 <script>
     document.addEventListener('alpine:init', () => {
         Alpine.data('searchBox', () => ({ open: false }))
     }, { once: true })
 </script>
+<?php $script->end() ?>
 ```
 
 If Alpine warns that it was started more than once, inspect the final merged layout and rendered script tags before changing component code.

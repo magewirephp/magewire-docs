@@ -1,26 +1,55 @@
 # wire:model
 
-{{ include("admonition/livewire-reference.md", reference_url="https://livewire.laravel.com/docs/3.x/wire-model") }}
+`wire:model` binds an input to a public component property. A plain binding
+keeps the browser-side value until the next action or submit request:
 
-`wire:model` binds a form control to a public component property:
+```php title="view/frontend/templates/magewire/profile.phtml"
+<div>
+    <label for="display-name"><?= $escaper->escapeHtml(__('Display name')) ?></label>
+    <input id="display-name"
+           type="text"
+           wire:model="displayName"
+           value="<?= $escaper->escapeHtmlAttr($magewire->displayName) ?>">
 
-```php
-<label for="email"><?= $escaper->escapeHtml(__('Email address')) ?></label>
-<input id="email" type="email" wire:model="email">
+    <button type="button" wire:click="save">
+        <?= $escaper->escapeHtml(__('Save')) ?>
+    </button>
+</div>
 ```
 
-A plain binding updates the browser-side component state but does not immediately send a request. Its value is included
-in the next action, submit, or explicit commit. Choose a network trigger when the server must react sooner:
+The matching component declares `public string $displayName = '';` and a
+`save()` action. The action validates the submitted value before using it.
+
+## Choose when to send a request
+
+Use a live binding when server-rendered results should change as the user
+types. For a product search, debounce the requests:
+
+```php
+<input type="search"
+       wire:model.live.debounce.300ms="query"
+       value="<?= $escaper->escapeHtmlAttr($magewire->query) ?>">
+```
+
+Use `.blur` for a field that should update after the user leaves it:
+
+```php
+<input type="text"
+       wire:model.blur="postcode"
+       value="<?= $escaper->escapeHtmlAttr($magewire->postcode) ?>">
+```
 
 | Modifier | Request timing |
 |---|---|
+| none | On the next action, submit, or explicit commit. |
 | `.live` | While the value changes; text inputs use a 150 ms debounce by default. |
 | `.blur` | When the control loses focus. |
 | `.change` | When the browser emits a change event. |
 | `.lazy` | Supported as an alias for `.change`. |
 
-Use the Livewire 3 reference for casting and debounce modifiers. Bound values are browser-controlled input: validate
-them before persistence and do not expose secrets or authorization decisions as public properties.
+For a complete form, see [`wire:submit`](wire-submit.md). All bound values are
+browser-controlled input. Keep secrets and permission decisions out of public
+properties and validate values before persistence.
 
 !!! info "Migrating from Magewire V1"
     V1's `wire:model` synchronized with the server by default. V3 defers a plain binding, and `.live` opts into
