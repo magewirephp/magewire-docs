@@ -150,6 +150,7 @@ nav:
     - 'pages/concepts/nesting.md'
   - 'Theming':
     - 'pages/theming/index.md'
+    - 'pages/theming/breeze.md'
     - 'pages/theming/compatibility-module.md'
     - 'pages/theming/layout-containers.md'
     - 'pages/theming/alpine-loading.md'

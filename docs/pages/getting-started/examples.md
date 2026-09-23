@@ -13,6 +13,7 @@ one component class, one PHTML template, and one layout file.
 | [Two components that communicate](../essentials/events.md) | `dispatch()` and `#[On]` |
 | [A paginated list](../features/pagination.md#add-pagination-to-a-component) | `WithPagination`, page controls, last-page boundary |
 | [A Hyvä compatibility module](../theming/compatibility-module.md) | Composer packaging, layout extension, Alpine, CSP fragment |
+| [A Breeze storefront integration](../theming/breeze.md) | Package installation, reusable component, Breeze-only morph hook |
 | [An admin editor](../admin/building-admin-components.md) | Admin layout, ACL, application service |
 | [Magento flash messages](examples/magento-flash-messages.md) | A Magewire feature and the Hyvä browser bridge |
 
@@ -45,8 +46,9 @@ Keep only theme-specific browser and styling code in a
 | Area | Package |
 |---|---|
 | Hyvä storefront | [`magewirephp/magewire-hyva-theme`](../theming/index.md#hyva-storefront) |
+| Breeze storefront | [`swissup/module-breeze-magewire`](../theming/breeze.md) |
 | Existing Hyvä Checkout V1 components | [`magewirephp/magewire-hyva-checkout`](../theming/hyva-checkout-bc.md) |
 | Magento Admin | [`magewirephp/magewire-admin`](../admin/installation.md) |
 
-For another theme, start with the
+For a theme without an integration package, start with the
 [compatibility-module guide](../theming/compatibility-module.md).

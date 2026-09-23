@@ -53,11 +53,21 @@ bin/magento setup:upgrade
 It supplies legacy browser shims. New V3 components should use current
 directives, events, and lifecycle hooks instead of depending on those shims.
 
+## Breeze storefront
+
+For an enabled Breeze storefront, install the
+[`swissup/module-breeze-magewire`](breeze.md) integration. It supplies the
+`breeze_default` layout bridge, Magewire runtime host, flash-message listener,
+and scroll-reveal morph handling. Keep your reusable component logic in its
+feature module; add a Breeze-only companion module only for extra theme
+behavior. The [Breeze guide](breeze.md) includes installation, a component,
+and a small extension example.
+
 <a id="when-you-need-a-theme-module"></a>
 
 ## Another storefront theme
 
-For Luma, Breeze, or a custom theme, build a
+For Luma or a custom theme without an integration package, build a
 [compatibility module](compatibility-module.md). Give it ownership of the
 theme's script loading and browser bridges. Keep component state, actions,
 and persistence in the feature module. Start with Magewire's

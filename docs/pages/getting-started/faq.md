@@ -61,11 +61,14 @@ because many V1/V3 differences appear during hydration and browser updates.
 Report reproducible framework defects through GitHub Issues. For implementation help, use the Magewire community
 support channels.
 
-## Can Magewire be used with Luma or another theme?
+<a id="can-magewire-be-used-with-luma-or-another-theme"></a>
+
+## Can Magewire be used with Luma, Breeze, or another theme?
 
 Yes, with a theme integration that loads compatible frontend assets and
 coordinates Alpine and CSP behavior. Use `magewirephp/magewire-hyva-theme`
-for Hyvä. For Luma or another theme, build a
+for Hyvä and [`swissup/module-breeze-magewire`](../theming/breeze.md) for
+Breeze. For Luma or another theme without an integration package, build a
 [compatibility module](../theming/compatibility-module.md) for the
 theme's script and layout conventions.
 

@@ -49,6 +49,8 @@ For Magento Admin, install
 [`magewirephp/magewire-admin`](pages/admin/installation.md). Existing Hyvä
 Checkout components built for Magewire V1 need the separate
 [checkout compatibility package](pages/theming/hyva-checkout-bc.md).
+For Breeze storefronts, use the
+[`swissup/module-breeze-magewire` integration](pages/theming/breeze.md).
 
 After deploying static content in production mode, clean the Magento caches:
 
@@ -94,8 +96,10 @@ action, validation, and progress state.
 
 Magewire's browser runtime includes Alpine.js. Use the
 [Hyvä theme package](pages/theming/index.md) when building for Hyvä. For
-another theme, create a [compatibility module](pages/theming/compatibility-module.md)
-that coordinates script loading and your theme's frontend conventions.
+Breeze, use its [integration package](pages/theming/breeze.md). For a theme
+without an integration package, create a
+[compatibility module](pages/theming/compatibility-module.md) that coordinates
+script loading and your theme's frontend conventions.
 
 ## Full-page cache
 

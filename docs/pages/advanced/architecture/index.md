@@ -38,8 +38,10 @@ The maintained packages are
 [Hyvä Theme](https://github.com/magewirephp/magewire-hyva-theme),
 [Hyvä Checkout compatibility](https://github.com/magewirephp/magewire-hyva-checkout),
 and [Magento Admin](https://github.com/magewirephp/magewire-admin).
+For Breeze storefronts, there is also the
+[`swissup/module-breeze-magewire` integration](../../theming/breeze.md).
 
-For another theme, follow the
+For a theme without an integration package, follow the
 [compatibility-module guide](../../theming/compatibility-module.md).
 The component class can remain reusable while the companion module changes
 its template and browser bridge.
