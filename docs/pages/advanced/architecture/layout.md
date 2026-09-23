@@ -252,7 +252,7 @@ public function mount(): void
     `getParent()`. Use `magewireBlock()` / `magewireResolver()` in new code.
 
 Reaching for the block is the escape hatch when you need something only Magento's layout knows. For
-passing data *into* a component, prefer [block arguments](../../essentials/components.md#block-arguments)
+passing data *into* a component, prefer [mount arguments](../../essentials/components.md#pass-initial-values-from-layout)
 over reading raw block data.
 
 ## Dynamic, page-less block loading

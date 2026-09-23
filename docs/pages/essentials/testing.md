@@ -48,6 +48,32 @@ npm run test:ui
 
 Do not commit real customer credentials or a local `.env` file.
 
+## Test an application component
+
+A component needs one browser check in addition to its isolated PHP tests:
+the layout must bind it, its script must initialize, and its action must
+complete a request. The [quickstart counter](../../index.md#quickstart)
+has a `data-testid="magewire-counter"` root so a Playwright test can stay
+independent of theme markup:
+
+```javascript title="tests/browser/counter.spec.js"
+import { test, expect } from '@playwright/test'
+
+test('counter updates without a page reload', async ({ page }) => {
+    await page.goto('/')
+
+    const counter = page.getByTestId('magewire-counter')
+    await expect(counter).toContainText('Count: 0')
+    await counter.getByRole('button', { name: 'Increase' }).click()
+    await expect(counter).toContainText('Count: 1')
+})
+```
+
+Run this against a Magento installation with your module and theme
+integration enabled. For an action that writes data, also test an
+unauthorized request and a browser-controlled ID or value; a successful
+button click does not prove the server-side guard.
+
 ## Compatibility matrix
 
 Magewire 3.6's production workflow verifies these representative builds:

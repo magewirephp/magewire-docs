@@ -14,7 +14,7 @@ The variants are mutually exclusive:
 
 | Variant | Enforcement | Budget |
 |---|---|---|
-| None | No rate limiting. This is the default. |: |
+| None | No rate limiting. This is the default. | — |
 | Requests only | Runs once in the 3.5 request-filter pipeline, before component reconstruction. | Configurable maximum and decay window. |
 | Components only | Runs for each reconstructed component. | Fixed at 4 attempts per 5 seconds. |
 

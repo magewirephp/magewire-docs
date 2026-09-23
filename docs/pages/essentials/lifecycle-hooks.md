@@ -1,18 +1,36 @@
 # Lifecycle Hooks
 
-{{ include("admonition/livewire-reference.md", reference_url="https://livewire.laravel.com/docs/3.x/lifecycle-hooks") }}
+Lifecycle hooks let a component prepare initial state, check each request, and
+react to property updates. The hooks live on the same PHP class as its actions.
+
+| Hook | When it runs | Typical use |
+|---|---|---|
+| `mount()` | Initial render | Convert layout arguments into public state. |
+| `boot()` | Initial render and updates | Resolve the current user and enforce access. |
+| `hydrate()` | After state is restored on an update | Rebuild request-local state. |
+| `updatedQuery()` | After `query` changes | Reset a paginator or dependent UI state. |
+| `rendering()` | Before PHTML renders | Select a template for the current state. |
 
 ## mount() receives layout XML arguments
 
 `mount()` receives `magewire:mount:*` layout arguments as named parameters:
 
+```xml
+<argument name="magewire:mount:product-id" xsi:type="number">42</argument>
+```
+
 ```php
+public int $productId = 0;
+
 public function mount(int $productId): void
 {
     $this->productId = $productId;
-    $this->name = $this->productRepository->getById($productId)->getName();
 }
 ```
+
+`mount()` does not run again on a Magewire update. Reload the product from a
+repository when a later action needs it, and check that the current visitor
+may access it. Public `productId` is restored from browser-visible state.
 
 ## boot() for Magento guards
 
@@ -28,8 +46,33 @@ public function boot(): void
 }
 ```
 
-Do not add a plain `initialize()` method to a component. Magewire 3.6 calls internal trait initialization hooks with
-that name, but does not expose `initialize()` as a component lifecycle hook.
+Use an action-specific check as well if some methods need a stronger
+permission. A plain `initialize()` method is not a public component
+lifecycle hook.
+
+## React to a changed property
+
+When a query changes, returning to the first page keeps the result list
+consistent. This component uses Magewire's `WithPagination` trait:
+
+```php
+use Magewirephp\Magewire\WithPagination;
+
+class ProductList extends \Magewirephp\Magewire\Component
+{
+    use WithPagination;
+
+    public string $query = '';
+
+    public function updatedQuery(string $value): void
+    {
+        $this->resetPage();
+    }
+}
+```
+
+Pair this with `wire:model.live.debounce.300ms="query"` in the template.
+See [Pagination](../features/pagination.md) for querying and page controls.
 
 ## Swap templates per state
 
@@ -46,15 +89,8 @@ public function rendering(): void
 }
 ```
 
-## Exception handling with notifications
+<a id="exception-handling-with-notifications"></a>
 
-```php
-public function exception(\Throwable $e, callable $stopPropagation): void
-{
-    $this->magewireNotifications()
-        ->make(__($e->getMessage()))
-        ->asError();
-
-    $stopPropagation();
-}
-```
+For exception handling, show a safe customer-facing message and let
+authorization failures propagate. Do not translate or display arbitrary
+exception messages. See [Exception handling](../advanced/exception-handling.md).

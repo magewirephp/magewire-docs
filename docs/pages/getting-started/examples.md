@@ -1,43 +1,52 @@
 # Examples
 
+Each example starts with a task and shows the Magento files needed to
+complete it. If Magewire is new to you, build the counter first; it uses
+one component class, one PHTML template, and one layout file.
+
 ## Tutorials
 
-Walkthroughs that build something real and, where relevant, show what it takes to adapt a Livewire
-concept to Magento.
+| Build | What you will use |
+|---|---|
+| [A counter](../../index.md#quickstart) | Component, template, and layout binding |
+| [A customer-name form](../html-directives/wire-submit.md#save-a-customer-name) | Deferred model state, submit action, server validation, repository |
+| [Two components that communicate](../essentials/events.md) | `dispatch()` and `#[On]` |
+| [A paginated list](../features/pagination.md#add-pagination-to-a-component) | `WithPagination`, page controls, last-page boundary |
+| [A Hyvä compatibility module](../theming/compatibility-module.md) | Composer packaging, layout extension, Alpine, CSP fragment |
+| [An admin editor](../admin/building-admin-components.md) | Admin layout, ACL, application service |
+| [Magento flash messages](examples/magento-flash-messages.md) | A Magewire feature and the Hyvä browser bridge |
 
-- [Magento Flash Messages](examples/magento-flash-messages.md): surface typed messages from a
-  component, and see how a Laravel/Livewire feature is re-seated on Magento's primitives.
+The examples use `Vendor_Module` as a placeholder for your enabled Magento
+module. Replace it with your module name and check that the matching
+storefront or admin integration is installed.
 
-## Ecosystem note
+<a id="ecosystem-note"></a>
+<a id="developer-tooling"></a>
+<a id="magewire-agent-skills"></a>
+<a id="magento-bricklayer-third-party"></a>
 
-The public `magewirephp/magewire-examples` and `magewirephp/magewire-requirejs` repositories currently target Magewire 1. Treat them as historical references, not Magewire 3 starter projects.
+## Try a complete interaction
 
-## Developer tooling
+After adding the [counter](../../index.md#quickstart), open your CMS home
+page and click **Increase**. The browser should send a Magewire update
+request and change the count without navigating. A
+[Playwright check](../essentials/testing.md#test-an-application-component)
+shows how to verify that behavior in a project.
 
-### Magewire agent skills
+When adapting another example, keep its PHP logic in a Magento service
+when a controller, queue consumer, or second component needs the same rule.
+Keep only theme-specific browser and styling code in a
+[compatibility module](../theming/compatibility-module.md).
 
-The official [`magewirephp/magewire-skills`](https://github.com/magewirephp/magewire-skills) repository provides portable agent skills for Magewire 3 development. It covers day-to-day component work, architecture, backwards compatibility, best practices, JavaScript, Portman, and theme integrations. Install only the skill directories your coding agent needs.
+<a id="packages"></a>
 
-### Magento Bricklayer (third-party)
+## Choose an integration package
 
-[Magento Bricklayer](https://github.com/Inchoo/magento-bricklayer) is a third-party, AI-assisted Magento development toolkit maintained by Inchoo. Its MCP server gives supported coding agents runtime visibility into Magento configuration, DI, plugins, events, layouts, and other installation-specific state. It also bundles a Magewire 3 skill family covering architecture, backwards compatibility, best practices, JavaScript, Portman, and theming.
+| Area | Package |
+|---|---|
+| Hyvä storefront | [`magewirephp/magewire-hyva-theme`](../theming/index.md#hyva-storefront) |
+| Existing Hyvä Checkout V1 components | [`magewirephp/magewire-hyva-checkout`](../theming/hyva-checkout-bc.md) |
+| Magento Admin | [`magewirephp/magewire-admin`](../admin/installation.md) |
 
-Install it as a development dependency and follow the repository's setup instructions for your coding agent:
-
-```bash
-composer require --dev inchoo/magento-bricklayer
-```
-
-Bricklayer is not maintained by MagewirePHP. Check its Magento and PHP requirements, security model, and release notes before enabling it in a project.
-
-## Packages
-
-In addition to the Magewire core, there are several other MagewirePHP packages that may be of interest.
-
-| Package | Purpose | Repository |
-|---|---|---|
-| `magewirephp/magewire-hyva-theme` | Hyvä storefront compatibility | [magewire-hyva-theme](https://github.com/magewirephp/magewire-hyva-theme) |
-| `magewirephp/magewire-hyva-checkout` | Hyvä Checkout compatibility | [magewire-hyva-checkout](https://github.com/magewirephp/magewire-hyva-checkout) |
-| `magewirephp/magewire-admin` | Magento admin integration | [magewire-admin](https://github.com/magewirephp/magewire-admin) |
-
-Check each package's Composer constraints and release tags before installation; companion package versions do not imply that every minor release matches the core's minor version.
+For another theme, start with the
+[compatibility-module guide](../theming/compatibility-module.md).

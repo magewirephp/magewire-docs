@@ -1,45 +1,59 @@
-Magento has evolved over time, and certain aspects of its PHP architecture and development approach may not align with
-current trends. This is understandable, given the platform's age and the challenges of modernizing certain concepts
-without extensive restructuring.
+# Why Magewire?
 
-In recent years, alternatives have emerged that offer more modern and streamlined development techniques,
-particularly on the frontend. Magewire takes a similar approach, leveraging its architecture to introduce new features
-and concepts while trying to stay somewhat aligned with Magento's core principles.
+Suppose a Magento block needs to respond to a customer without reloading the
+page. You can keep the layout, PHTML template, dependency injection, and
+business services you already use. Magewire adds a PHP component for the
+state and actions, then updates that block in the browser.
 
-Magewire tries to further modernize Magento by offering a proven solution, much like Hyvä did with Tailwind CSS and Alpine JS.
-Over the years, we've seen many new technologies emerge, some that borrow ideas from other frameworks and try to do things
-just that little bit differently, or ones that were built by accident but never really took off. This often happens because
-our open-source community tends to focus more on using tools than contributing back to them.
+Use it for interactions that repeatedly need the server: product selectors,
+account forms, cart tools, checkout steps, and admin editors. For static
+output, an ordinary Magento block is simpler. For a disclosure or tab that
+only changes browser state, Alpine is enough.
 
-We've seen this cycle before, like when Snow Dog introduced two themes. While they were used, issues often led to
-complaints instead of solutions. As a result, the Snow Dog team ended up managing issues rather than working on improvements.
+## More than a port
 
-Magewire aims to change this by offering a framework that's already proven. With Laravel Livewire, we've seen developers
-embrace its simplicity and power. Magewire V3 stays close to Livewire V3’s architecture, making it easy for Magento
-developers to experience the same smooth workflow and productivity.
+Magewire 3 brings selected Livewire 3 concepts into Magento. Magento still
+owns its routes, layout, templates, repositories, and authorization. Magewire
+adds component snapshots, actions, lifecycle hooks, and directives where they
+fit those conventions.
 
-## More than a Port
+That division makes a feature easy to find: the PHP component handles the
+interaction, a Magento service handles business rules, and the layout decides
+where it appears.
 
-Magewire is more than just a [Livewire](https://livewire.laravel.com/docs/3.x/){:target="_blank"} port; it draws inspiration from Laravel,
-particularly its simplicity. While Magewire primarily focuses on enabling dynamic component development,
-it also includes a range of enhancements that accelerate Magento feature development and improve the developer experience.
+<a id="shake-things-up"></a>
 
-## Shake Things Up
+## Build for reuse
 
-Magewire aims to shake things up by introducing modern, innovative concepts. Yes, this requires a different approach to
-development, but everything within a Magewire component is entirely optional. Traditional Magento workflows remain fully supported.
+Pass page-specific values through layout instead of hard-coding them into a
+component class:
 
-By modernizing Magento’s development experience, Magewire seeks to (also) attract a new generation of developers who prefer a
-more streamlined approach. Simplifying certain Magento concepts makes backend development more approachable and enjoyable.
+```xml
+<block name="vendor.catalog.featured" template="Vendor_Module::magewire/product-list.phtml">
+    <arguments>
+        <argument name="magewire" xsi:type="object" shared="false">Vendor\Module\Magewire\ProductList</argument>
+        <argument name="magewire:mount:category-id" xsi:type="number">10</argument>
+    </arguments>
+</block>
+```
 
-## The Long Term
+Another page can bind `Vendor\Module\Magewire\ProductList` with a different
+category ID. A theme can change the PHTML while keeping that PHP class.
+An admin action or controller can call the same underlying Magento service
+without copying business rules. See [Components](../essentials/components.md)
+and [Best practices](../advanced/best-practices.md) for those patterns.
 
-Magewire is a powerful, feature-rich package with a bold vision for the future. With version 3, we aim to make it the
-default choice for both frontend and backend developers, whether for use in themes or to build dynamic admin panel features.
+<a id="the-long-term"></a>
 
-The future of Magewire lies in the passion, contributions, and support of its community. It has the potential to redefine
-backend development and reshape the way developers interact with Magento.
+## Extend only what you need
 
-Combined with forward-thinking frontend solutions like [Hyvä](https://hyva.io?ref=magewire-documentation){:target="_blank"}, Magewire can help Magento
-reclaim or push forward its place at the forefront of modern development, ushering in a new era driven by fresh ideas and
-a willingness to embrace change.
+Most modules need components, not new Magewire framework internals. A
+[compatibility module](../theming/compatibility-module.md) contains
+theme-specific loading and browser behavior; an ordinary Magento service
+contains reusable business behavior. When a feature truly needs to
+participate in Magewire's lifecycle, use a
+[Feature](../advanced/architecture/features.md) or a
+[Mechanism](../advanced/architecture/mechanisms/index.md).
+
+Start with the [quickstart](../../index.md#quickstart) and add those layers
+only when the feature calls for them.

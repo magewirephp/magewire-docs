@@ -1,63 +1,77 @@
-# Theming
+<a id="theming"></a>
+<a id="three-layers"></a>
 
-Magewire is not tied to a single Magento theme. Most active theme integration belongs in **theme compatibility modules**
-for Hyvä, Luma, Breeze, or a custom theme. Magento Admin support is an area integration rather than a storefront theme.
+# Themes and Magewire
 
-This section explains how the theming layer is organised and how to build a compatibility module for your own theme.
+Magewire components can render through any Magento theme. The component PHP
+class and its actions stay the same; a theme integration supplies the browser
+loading, layout, CSS, and any theme-specific bridges.
 
-## Three layers
+<a id="supported-themes"></a>
 
-Magewire is deliberately split across three layers:
+## Hyvä storefront
 
-| Layer | Location | Responsibility |
-|---|---|---|
-| **Core module** | `magewirephp/magewire` | Framework runtime. Controllers, DI, events, layout XML scaffolding, and templates. Magewire 3.6 still contains a legacy Hyvä build-config observer that has not yet moved out. |
-| **Global view layer** | `magewirephp/magewire/src/view/base/` + `src/view/frontend/` | Skeleton every theme inherits: named layout nodes for JS addons, utilities, Alpine components, directives, and feature bridges. |
-| **Integration packages** | Standalone packages like `magewirephp/magewire-hyva-theme`, `magewirephp/magewire-hyva-checkout`, and `magewirephp/magewire-admin` | Adapts Magewire to a storefront theme, checkout implementation, or admin area through the integration pieces it needs. |
+Install the maintained Hyvä integration alongside Magewire:
 
-The split matters because **every theme has different conventions**. Hyvä uses Tailwind and its own `hyva_config_generate_before` event for build hooks. Luma uses LESS. The admin uses RequireJS. A core runtime that tried to handle all of them would be unreadable; a thin core with per-theme adapters is tractable.
+```shell
+composer require magewirephp/magewire magewirephp/magewire-hyva-theme
+bin/magento module:enable Magewirephp_Magewire Magewirephp_MagewireHyvaTheme
+bin/magento setup:upgrade
+```
 
-## Supported themes
+Rebuild your Hyvä theme assets after installation so its Tailwind build sees
+the package's styles. The integration coordinates Magewire's bundled Alpine
+with Hyvä's normal Alpine loader and includes the flash-message bridge.
+Follow [Alpine loading](alpine-loading.md) if you need to inspect that
+decision.
 
-!!! info "Themes are separate packages since 3.2.0"
-    Before 3.2.0 the Hyvä theme and the admin marker shipped in-tree under a `themes/` directory inside the core
-    `magewirephp/magewire` repository. That directory no longer exists. Maintained first-party integrations now have
-    their own repositories and Composer packages. Core 3.6 still contains a legacy
-    `HyvaConfigGenerateBefore` observer, so the source split is not yet completely theme-neutral.
+Use the same component class with a different template when the theme calls
+for different markup:
 
-| Theme | Package | Install |
-|---|---|---|
-| **Hyvä** | `magewirephp/magewire-hyva-theme` | `composer require magewirephp/magewire-hyva-theme` |
-| **Hyvä Checkout** | `magewirephp/magewire-hyva-checkout` | `composer require magewirephp/magewire-hyva-checkout` |
-| **Magento Admin** | `magewirephp/magewire-admin` | `composer require magewirephp/magewire-admin` |
-| Luma | custom/community integration required | No maintained first-party Magewire 3 package. |
-| Breeze | custom/community integration required | No maintained first-party Magewire 3 package. |
+```xml title="view/frontend/layout/catalog_product_view.xml"
+<referenceBlock name="vendor.module.product-options"
+                template="Vendor_HyvaIntegration::magewire/product-options.phtml"/>
+```
 
-Each package carries only the integration pieces it needs, such as layout overrides, event observers, routes, plugins,
-or CSS build configuration. These responsibilities are not identical across packages. See
-[Admin](../admin/index.md) for the separate admin-area integration.
+The layout block keeps its `magewire` argument and PHP class. The theme
+module changes only the template. This makes the business behavior reusable
+across storefronts. See [Components](../essentials/components.md) for the
+original block binding.
 
-## When you need a theme module
+## Existing Hyvä Checkout components
 
-Install Magewire's core package without a theme module and you get:
+If an installed Hyvä Checkout integration still uses Magewire V1 behavior,
+add the [Hyvä Checkout compatibility package](hyva-checkout-bc.md) during
+migration:
 
-- A working `/magewire/update` route.
-- The JS bundle (including Alpine CSP).
-- Named layout containers to extend.
+```shell
+composer require magewirephp/magewire-hyva-checkout
+bin/magento module:enable Magewirephp_MagewireHyvaCheckout
+bin/magento setup:upgrade
+```
 
-You will still need a theme module whenever you want:
+It supplies legacy browser shims. New V3 components should use current
+directives, events, and lifecycle hooks instead of depending on those shims.
 
-- Theme-specific layout overrides (Alpine loading order, script injection point).
-- Theme-scoped Features (flash-message bridges, BC layers, custom wire directives).
-- CSS pipeline integration (Tailwind `@source`, build-hook observers).
-- Backwards-compatibility shims for V1 components in an existing theme.
+<a id="when-you-need-a-theme-module"></a>
 
-## Where to go next
+## Another storefront theme
 
-- [Compatibility module](compatibility-module.md): build one from scratch.
-- [Layout containers](layout-containers.md): the extension points you plug into.
-- [Alpine loading](alpine-loading.md): coordinate the theme and Magewire Alpine loaders.
-- [Hyvä CSP script bootstrap](csp-script-bootstrap.md): load runtime request configuration without Alpine directives on the script element.
-- [Tailwind](tailwind.md): integrate Magewire's components into a Tailwind pipeline.
-- [Backwards compatibility](../essentials/backwards-compatibility.md): V1 → V3 BC system.
-- [Hyvä Checkout BC](hyva-checkout-bc.md): explicit BC opt-in and the current container-fallback limitation.
+For Luma, Breeze, or a custom theme, build a
+[compatibility module](compatibility-module.md). Give it ownership of the
+theme's script loading and browser bridges. Keep component state, actions,
+and persistence in the feature module. Start with Magewire's
+[layout nodes](layout-containers.md); use the actual theme layout handles
+and asset pipeline rather than assuming Hyvä's handles apply everywhere.
+
+Magento Admin has its own
+[integration package](../admin/installation.md) and area-specific layout.
+
+<a id="where-to-go-next"></a>
+
+## Related
+
+- [Compatibility module](compatibility-module.md): a complete package example.
+- [Layout nodes](layout-containers.md): safe extension points.
+- [Tailwind](tailwind.md): scan the right package sources.
+- [CSP script bootstrap](csp-script-bootstrap.md): how Hyvä receives runtime configuration.

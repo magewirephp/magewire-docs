@@ -36,11 +36,12 @@ extension. See [V3 vs V1](v3-vs-v1.md) and the [Upgrade Guide](upgrade.md) befor
 
 ## Is Magewire V1 still supported?
 
-No. Feature development stopped earlier, and the announced security-maintenance window ended on **January 1, 2026**.
-V1 is now unsupported.
-
-Upgrade to Magewire 3. Report suspected vulnerabilities privately according to the security policy in the current
-Magewire repository rather than opening a public issue with sensitive details.
+Magewire V1 is no longer actively maintained. According to the
+[core README](https://github.com/magewirephp/magewire), it may receive
+security-related updates when necessary, but no new features or regular bug
+fixes are planned. Upgrade to Magewire 3 for ongoing development and support.
+Report suspected vulnerabilities privately under the repository's security
+policy.
 
 ## Does V3 contain every V1 feature?
 
@@ -62,10 +63,11 @@ support channels.
 
 ## Can Magewire be used with Luma or another theme?
 
-Magewire is designed to keep active theme behavior in companion packages, but core 3.6 still contains a legacy Hyvä
-build-config observer. Every storefront must load compatible frontend assets and integrate with its JavaScript and CSP
-setup. The maintained `magewirephp/magewire-hyva-theme` package provides Hyvä Theme support. Other themes need an
-equivalent integration where the core defaults are not sufficient.
+Yes, with a theme integration that loads compatible frontend assets and
+coordinates Alpine and CSP behavior. Use `magewirephp/magewire-hyva-theme`
+for Hyvä. For Luma or another theme, build a
+[compatibility module](../theming/compatibility-module.md) for the
+theme's script and layout conventions.
 
 Magento's admin area is supported separately through `magewirephp/magewire-admin`.
 

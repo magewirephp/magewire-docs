@@ -60,11 +60,11 @@ class OrderStatusEditor extends Component
 
     public function save(): void
     {
-        if (! $this->authorization->isAllowed('Magento_Sales::edit')) {
+        if (! $this->authorization->isAllowed('Vendor_Module::manage_orders')) {
             throw new \Magento\Framework\Exception\AuthorizationException(__('Not allowed.'));
         }
 
-        // The service must reload the order and validate this browser-controlled ID.
+        // The service reloads the order and validates this browser-controlled ID.
         $this->orderService->updateStatus($this->orderId, $this->status, $this->note);
 
         $this->magewireNotifications()
@@ -135,7 +135,7 @@ Public methods on an admin component are callable by any admin user whose sessio
 ```php
 public function refund(int $orderId): void
 {
-    if (! $this->authorization->isAllowed('Magento_Sales::refund')) {
+    if (! $this->authorization->isAllowed('Vendor_Module::manage_orders')) {
         throw new \Magento\Framework\Exception\AuthorizationException(__('Not allowed.'));
     }
     // …
@@ -147,11 +147,33 @@ For component-wide checks, use `boot()`:
 ```php
 public function boot(): void
 {
-    if (! $this->authorization->isAllowed('Vendor_Module::some_resource')) {
+    if (! $this->authorization->isAllowed('Vendor_Module::manage_orders')) {
         throw new \Magento\Framework\Exception\AuthorizationException(__('Not allowed.'));
     }
 }
 ```
+
+Declare the resource in your module so Magento roles can grant it:
+
+```xml title="etc/acl.xml"
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Vendor_Module::manage_orders"
+                          title="Manage module orders"
+                          sortOrder="10"/>
+            </resource>
+        </resources>
+    </acl>
+</config>
+```
+
+`OrderStatusUpdater` in the example is an application service you provide.
+It must load the order and enforce allowed status transitions. Keeping that
+logic in a service lets a controller or queue consumer use the same rule.
 
 ## Registering admin-scoped Features
 

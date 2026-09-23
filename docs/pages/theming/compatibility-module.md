@@ -1,118 +1,211 @@
-# Compatibility Module
+<a id="compatibility-module"></a>
 
-A **compatibility module** is a standard Magento 2 module whose job is to adapt Magewire to one specific theme. This page walks through the minimum viable module and the decisions that take you from minimal to full-featured.
+# Build a compatibility module
 
-## Naming and location
+A compatibility module keeps theme-specific code out of your reusable
+components. Your PHP class can serve several storefronts; a small companion
+module provides the layout, Alpine, CSS, or template changes needed by one
+theme.
 
-Use the name `Vendor_MagewireCompatibilityWith{Theme}`. Place it in either:
+<a id="example-flash-message-bridge"></a>
 
-- `app/code/Vendor/MagewireCompatibilityWith{Theme}/` for a project-local override, or
-- A standalone composer package for reusable distribution.
+Install an existing integration first. For Hyvä, use
+[`magewirephp/magewire-hyva-theme`](https://github.com/magewirephp/magewire-hyva-theme).
+It already coordinates the Alpine loader and bridges Magento flash messages.
+The example below adds one reusable Hyvä behavior on top of that package.
 
-Hyvä's own compatibility module is the standalone `magewirephp/magewire-hyva-theme` package, an example of the
-second shape. Before 3.2.0 it lived in-tree under the core repository's `themes/Hyva/` directory. The directory was
-removed when maintained integrations moved into separate packages, although core 3.6 still contains a legacy Hyvä
-build-config observer.
-
+<a id="naming-and-location"></a>
 <a id="minimum-viable-module"></a>
 
-## Minimum viable project-local module
+## Package the integration
 
-An `app/code` module needs these two files:
+Create a Composer package with this structure:
 
-```php title="registration.php"
+```text
+vendor/module-magewire-hyva-extras/
+├── composer.json
+└── src/
+    ├── registration.php
+    ├── etc/module.xml
+    └── view/frontend/
+        ├── layout/default_hyva.xml
+        └── templates/js/magewire-disclosure.phtml
+```
+
+The dependencies make the package installable in any project that uses
+Magewire 3 and the maintained Hyvä integration:
+
+```json title="composer.json"
+{
+  "name": "vendor/module-magewire-hyva-extras",
+  "description": "Reusable Magewire UI behavior for Hyvä",
+  "type": "magento2-module",
+  "require": {
+    "magewirephp/magewire": "^3.6",
+    "magewirephp/magewire-hyva-theme": "^3.1"
+  },
+  "autoload": {
+    "files": ["src/registration.php"]
+  }
+}
+```
+
+Register the Magento module and sequence it after the package whose layout
+nodes you extend:
+
+```php title="src/registration.php"
 <?php
 
-\Magento\Framework\Component\ComponentRegistrar::register(
-    \Magento\Framework\Component\ComponentRegistrar::MODULE,
-    'Vendor_MagewireCompatibilityWithMyTheme',
+use Magento\Framework\Component\ComponentRegistrar;
+
+ComponentRegistrar::register(
+    ComponentRegistrar::MODULE,
+    'Vendor_MagewireHyvaExtras',
     __DIR__
 );
 ```
 
-```xml title="etc/module.xml"
+```xml title="src/etc/module.xml"
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
-    <module name="Vendor_MagewireCompatibilityWithMyTheme">
+    <module name="Vendor_MagewireHyvaExtras">
         <sequence>
             <module name="Magewirephp_Magewire"/>
-            <module name="Vendor_MyTheme"/>
+            <module name="Magewirephp_MagewireHyvaTheme"/>
+            <module name="Hyva_Theme"/>
         </sequence>
     </module>
 </config>
 ```
 
-The `sequence` block is load-bearing because it forces this module to load **after** both Magewire and your theme, so your DI and layout overrides win.
+For a project-local module in `app/code`, use the same `registration.php` and
+`etc/module.xml` layout. Composer metadata matters when you distribute it.
 
-Enable it:
+## Register shared browser behavior
 
+The Hyvä integration uses the `default_hyva` layout handle. Add a block to
+Magewire's Alpine component container; the block inherits the Magewire view
+model from the root layout block:
+
+```xml title="src/view/frontend/layout/default_hyva.xml"
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="magewire.alpinejs.components">
+            <block name="vendor.magewire.hyva.disclosure"
+                   template="Vendor_MagewireHyvaExtras::js/magewire-disclosure.phtml"/>
+        </referenceContainer>
+    </body>
+</page>
 ```
-bin/magento module:enable Vendor_MagewireCompatibilityWithMyTheme
-bin/magento setup:upgrade
+
+Wrap inline JavaScript in a Script fragment so Magewire can supply the CSP
+nonce or hash. This follows the pattern used by the maintained Hyvä package:
+
+```php title="src/view/frontend/templates/js/magewire-disclosure.phtml"
+<?php
+
+/** @var \Magento\Framework\View\Element\Template $block */
+$magewireViewModel = $block->getData('view_model');
+$fragment = $magewireViewModel->utils()->fragment();
+?>
+<?php $script = $fragment->make()->script()->start() ?>
+<script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('magewireDisclosure', () => ({
+            open: false,
+            toggle() { this.open = ! this.open }
+        }));
+    }, { once: true });
+</script>
+<?php $script->end() ?>
 ```
 
-At this point the module exists but does nothing. You add functionality by dropping files into it.
+Any component template in the project can now use the same browser behavior:
 
-A reusable Composer package also needs a `composer.json` that declares `"type": "magento2-module"`, loads
-`registration.php` through `autoload.files`, and maps the module namespace through `autoload.psr-4`.
+```php title="view/frontend/templates/magewire/counter.phtml"
+<div x-data="magewireDisclosure">
+    <button type="button" x-on:click="toggle" x-bind:aria-expanded="open">
+        <?= $escaper->escapeHtml(__('Show counter')) ?>
+    </button>
 
-## Decision matrix
+    <div x-show="open" x-cloak>
+        <span><?= $escaper->escapeHtml(__('Count: %1', $magewire->count)) ?></span>
+        <button type="button" wire:click="increment">
+            <?= $escaper->escapeHtml(__('Increase')) ?>
+        </button>
+    </div>
+</div>
+```
 
-Pick only what you need. Each row below adds a capability.
+The disclosure state stays in Alpine; the count stays in the Magewire
+component. That division lets several PHP components use the same browser
+behavior without copying scripts into every PHTML file.
 
-| Want to… | Add |
-|---|---|
-| Override a core Magewire layout handle for the theme | `view/frontend/layout/default_{theme}.xml` |
-| Override a Magewire PHTML template | `view/frontend/templates/…` (same path as in core) |
-| Run a theme-scoped Feature / Component Hook | `etc/frontend/di.xml` + a class extending `\Magewirephp\Magewire\ComponentHook` |
-| Register a Feature's PHTML into a layout container | `<referenceContainer name="magewire.features">` |
-| Register a custom Alpine component | `<referenceContainer name="magewire.alpinejs.components">` |
-| Register a custom `wire:*` directive | `<referenceContainer name="magewire.directives">` |
-| Register a JavaScript utility / addon | `<referenceContainer name="magewire.utilities">` / `magewire.addons` |
-| Bridge a Magento observer event | `etc/frontend/events.xml` + an observer class |
-| Integrate with the theme's CSS build | An observer on the theme's build event |
-| Provide theme-specific BC shims | A Feature + PHTML scripts in `magewire.internal.backwards-compatibility` |
+Install the package with Composer, enable `Vendor_MagewireHyvaExtras` if needed,
+run `bin/magento setup:upgrade`, and rebuild the Hyvä frontend assets if the
+package also contributes Tailwind sources.
 
-See [Layout containers](layout-containers.md) for the full map.
+## Adapt another theme
 
-## Area scoping
+For a theme without a maintained Magewire package, start with the same Magento
+module structure. Use a layout handle that your theme actually adds; the
+`default_hyva` handle above belongs to Hyvä and is not a Magento convention
+for every theme. A general `default.xml` applies wherever the module is enabled,
+which matters in stores with more than one active theme.
 
-Register Magewire's `Features` and `Mechanisms` item collections in the area where they run:
+The first integration decision is script ownership. Magewire bundles Alpine.
+Your module must place the Magewire loader at the right layout node and
+coordinate the theme's own Alpine asset so one instance starts on a page.
+The [Hyvä loader layout](https://github.com/magewirephp/magewire-hyva-theme/blob/main/src/view/frontend/layout/default_hyva.xml)
+and [script template](https://github.com/magewirephp/magewire-hyva-theme/blob/main/src/view/frontend/templates/script.phtml)
+are concrete references. Then add only the CSS and browser bridges your theme
+needs. Keep PHP business services in the feature module; put theme behavior in
+this companion module.
 
-- `etc/frontend/di.xml`: storefront
-- `etc/adminhtml/di.xml`: admin
-- `etc/di.xml`: valid for preferences, plugins, and normal constructor configuration that is genuinely global
+<a id="decision-matrix"></a>
 
-Magewire's collection arrays are configured at Magento's area-specific DI stage. An item added to the same array in
-global `etc/di.xml` can be replaced when Magento loads the later area configuration. Follow the scope of the
-collection being extended.
+## Extend and replace layout output
 
-<a id="example-flash-message-bridge"></a>
+Add a child to an existing container when you want additional output:
 
-## Reuse maintained theme behavior
+```xml
+<referenceContainer name="magewire.features">
+    <block name="vendor.magewire.theme-bridge"
+           template="Vendor_MagewireHyvaExtras::js/theme-bridge.phtml"/>
+</referenceContainer>
+```
 
-Before adding a bridge, inspect the maintained compatibility package. For example,
-`magewirephp/magewire-hyva-theme` already bridges Magewire flash messages to Hyvä's
-`dispatchMessages()`. Reimplementing that bridge in a project module duplicates behavior and can drift from the
-package.
+Change an existing block's template when you need a replacement:
 
-Use a project compatibility module only for behavior specific to your theme or store. Register its browser output in
-the appropriate [layout container](layout-containers.md), and wrap inline scripts in a
-[Script fragment](../concepts/fragments.md) for CSP handling.
+```xml
+<referenceBlock name="magewire.ui-components.notifier"
+                template="Vendor_MagewireHyvaExtras::magewire/notifier.phtml"/>
+```
 
-## Anti-patterns
+The replacement template must provide the behavior expected by that block.
+Merely placing a PHTML file at the same relative path in your module does not
+replace another module's template. Prefer adding a child or a small feature
+bridge when it meets the need; replacing a whole core template ties your
+package to its internal markup.
 
-- Registering Feature or Mechanism item collections in global `etc/di.xml`.
-- Editing Magewire's base layout XML in place (patches break on upgrade).
-- Emitting raw `<script>` / `<style>` tags instead of using [fragments](../concepts/fragments.md).
-- Referencing theme-specific FQCNs from inside Magewire core: they belong in the compatibility module.
-- Assuming `referenceBlock` replaces a block or `referenceContainer` is inherently additive. Both reference an existing layout node; child addition and template/argument changes determine the result. Follow the node and pattern used by the current first-party package.
-- Shipping theme modules separately from the themes they compat with, without a `<sequence>` declaration.
+<a id="area-scoping"></a>
 
-## Related
+If your integration registers a Magewire Feature or Mechanism, add its
+collection item in `etc/frontend/di.xml`. For admin extensions use
+`etc/adminhtml/di.xml`. Magento's area configuration can replace collection
+arrays declared in global `etc/di.xml`.
 
-- [Layout containers](layout-containers.md)
-- [Alpine loading](alpine-loading.md)
-- [Tailwind](tailwind.md)
-- [Admin](../admin/index.md): the canonical standalone compat module.
+<a id="anti-patterns"></a>
+<a id="related"></a>
+
+## Check both page types
+
+Test one page with a Magewire component and one page without one. Confirm the
+component updates, Alpine initializes once, CSP permits your script, and the
+theme still works when Magewire does not drive the page. Test again with
+Magento full-page cache enabled. See [Alpine loading](alpine-loading.md),
+[Layout nodes](layout-containers.md), and
+[Tailwind](tailwind.md) for each integration point.

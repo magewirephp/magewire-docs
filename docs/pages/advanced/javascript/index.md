@@ -11,9 +11,13 @@ These registries are `Map`-like objects. Registered values are also available as
 
 ## Initialization
 
-Use the globals directly; `event.detail.magewire` is not part of Magewire's initialization event.
+Use the globals directly; `event.detail.magewire` is not part of Magewire's
+initialization event. Place registrations in a PHTML block under the
+appropriate [layout node](../../theming/layout-containers.md) and use a
+CSP-aware Script fragment:
 
-```html
+```php title="view/frontend/templates/js/magewire/commit-listener.phtml"
+<?php $script = $block->getData('view_model')->utils()->fragment()->make()->script()->start() ?>
 <script>
     document.addEventListener('magewire:init', () => {
         window.Magewire.hook('commit', ({ component, commit, succeed }) => {
@@ -23,22 +27,25 @@ Use the globals directly; `event.detail.magewire` is not part of Magewire's init
         })
     }, { once: true })
 </script>
+<?php $script->end() ?>
 ```
 
 The Hyvä companion package forwards the corresponding `livewire:init` and `livewire:initialized` events to the Magewire names for compatibility. Application integrations should use the Magewire names.
 
 ## Register an addon
 
-Place the registration template below the `magewire.addons` layout container, then call `register()`:
+Place the registration template below the `magewire.addons.after` container
+so built-in addons register first, then call `register()`:
 
-```xml
-<referenceContainer name="magewire.addons">
+```xml title="view/frontend/layout/default.xml"
+<referenceContainer name="magewire.addons.after">
     <block name="vendor.magewire.addons.cart-preview"
            template="Vendor_Module::js/magewire/addons/cart-preview.phtml" />
 </referenceContainer>
 ```
 
-```html
+```php title="view/frontend/templates/js/magewire/addons/cart-preview.phtml"
+<?php $script = $block->getData('view_model')->utils()->fragment()->make()->script()->start() ?>
 <script>
     function cartPreviewAddon() {
         return {
@@ -49,26 +56,26 @@ Place the registration template below the `magewire.addons` layout container, th
 
     window.MagewireAddons.register('cartPreview', cartPreviewAddon, true)
 </script>
+<?php $script->end() ?>
 ```
 
 The third argument makes the returned object Alpine-reactive. Registration is queued until Alpine exists when necessary. If the registered value defines `init()`, the registry invokes it once.
 
 ## Register a utility
 
-Use `magewire.utilities` and the equivalent registry:
+Add a template below `magewire.utilities.after` and use the equivalent
+registry. Inside its Script fragment:
 
-```html
-<script>
-    function currencyUtility() {
-        return {
-            format(value) {
-                return new Intl.NumberFormat().format(value)
-            }
+```javascript
+function currencyUtility() {
+    return {
+        format(value) {
+            return new Intl.NumberFormat().format(value)
         }
     }
+}
 
-    window.MagewireUtilities.register('currency', currencyUtility)
-</script>
+window.MagewireUtilities.register('currency', currencyUtility)
 ```
 
 Access it as `window.MagewireUtilities.currency`. Built-in utilities are `cookie`, `dom`, `loader`, and `str`.

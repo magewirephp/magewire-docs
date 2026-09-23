@@ -1,17 +1,18 @@
 {
   "deferred_anchor_loss": {},
   "deferred_missing": {
+    "pages/advanced/architecture/facades.html": "The removed facade API is not part of Magewire V3 documentation.",
+    "pages/advanced/patterns.html": "The retired Alpine proxy pattern was removed from the V3 guide.",
+    "pages/features/magewire-flakes.html": "The experimental Flakes draft was removed until there is a supported workflow.",
+    "pages/getting-started/notables.html": "The legacy overview was removed in favor of current feature guides.",
+    "pages/getting-started/releases/building-javascript-bundles.html": "The obsolete private bundle process was removed from public documentation.",
+    "pages/html-directives/wire-current.html": "The unsupported directive page was removed from the V3 guide.",
     "personal/archive/2026.html": "Personal publishing was deliberately deferred on 2026-09-01; its canonical Markdown remains preserved.",
     "personal/category/life.html": "Personal publishing was deliberately deferred on 2026-09-01; its canonical Markdown remains preserved.",
     "personal/index.html": "Personal publishing was deliberately deferred on 2026-09-01; its canonical Markdown remains preserved.",
     "personal/why-i-started-a-personal-corner.html": "Personal publishing was deliberately deferred on 2026-09-01; its canonical Markdown remains preserved."
   },
-  "deferred_sitemap_missing": {
-    "pages/advanced/patterns.html": "The retired patterns page remains routable for compatibility but is deliberately omitted from navigation and the sitemap.",
-    "pages/features/magewire-flakes.html": "The deliberately unlisted Flakes draft remains routable but Zensical excludes unlisted pages from its sitemap.",
-    "pages/getting-started/notables.html": "The retired notables page remains routable for compatibility but is deliberately omitted from navigation and the sitemap.",
-    "pages/getting-started/releases/building-javascript-bundles.html": "The retired maintainer-only bundle page remains routable for compatibility but is deliberately omitted from navigation and the sitemap."
-  },
+  "deferred_sitemap_missing": {},
   "captured_at": "2026-09-01",
   "pages": {
     "blogs/2025/05/24/magewire-3---docs-publication.html": [

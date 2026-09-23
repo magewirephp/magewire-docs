@@ -39,12 +39,14 @@ Use the `magewire.alpinejs.load` layout node as the integration point. Preserve 
 | `magewire:init` | Register Magewire hooks. |
 | `magewire:initialized` | Run work that requires the initialized runtime. |
 
-```html
+```php title="view/frontend/templates/js/magewire/search-box.phtml"
+<?php $script = $block->getData('view_model')->utils()->fragment()->make()->script()->start() ?>
 <script>
     document.addEventListener('alpine:init', () => {
         Alpine.data('searchBox', () => ({ open: false }))
     }, { once: true })
 </script>
+<?php $script->end() ?>
 ```
 
 If Alpine warns that it was started more than once, inspect the final merged layout and rendered script tags before changing component code.

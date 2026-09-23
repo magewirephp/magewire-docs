@@ -1,6 +1,9 @@
 # Security
 
-{{ include("admonition/livewire-reference.md", reference_url="https://livewire.laravel.com/docs/3.x/security") }}
+Treat a Magewire action like a Magento controller action: the browser chooses
+the method arguments and supplies public component state. The snapshot
+checksum protects integrity, but an action still needs its own access and
+business checks.
 
 ## CSRF
 
@@ -22,12 +25,16 @@ the write.
 
 Components extend `Magewirephp\Magewire\Component`. In templates the instance is available as `$magewire`; use Magento's `$escaper` for every output:
 
-```html
+```php
 <p><?= $escaper->escapeHtml($magewire->bio) ?></p>
 <a href="<?= $escaper->escapeUrl($magewire->link) ?>">…</a>
 <img alt="<?= $escaper->escapeHtmlAttr($magewire->caption) ?>" src="…" />
-<script>var name = <?= $escaper->escapeJs(json_encode($magewire->name)) ?>;</script>
 ```
+
+For inline JavaScript, use a
+[Script fragment](../concepts/fragments.md#the-script-fragment) and encode
+dynamic values for their actual JavaScript context. A raw `<script>` in a
+component template bypasses Magewire's CSP handling.
 
 ## Authorisation
 
@@ -36,10 +43,11 @@ Use Magento's authorization service in public methods, and `boot()` for up-front
 ```php
 public function refund(int $orderId): void
 {
-    if (! $this->authorization->isAllowed('Magento_Sales::refund')) {
+    if (! $this->authorization->isAllowed('Vendor_Module::refund')) {
         throw new \Magento\Framework\Exception\AuthorizationException(__('Not allowed.'));
     }
 
+    // The service loads the order and checks the requested operation.
     $this->refundService->refund($orderId);
 }
 
@@ -50,6 +58,10 @@ public function boot(): void
     }
 }
 ```
+
+Declare `Vendor_Module::refund` in your module's `etc/acl.xml`. The service
+must verify the exact order and refund rules; an ACL check alone does not
+make an arbitrary browser-supplied ID safe.
 
 ## Rate limiting
 
