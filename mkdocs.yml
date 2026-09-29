@@ -122,6 +122,7 @@ nav:
       - 'pages/features/pagination.md'
       - 'pages/features/magewire-template-directives.md'
       - 'pages/features/notifications.md'
+      - 'pages/features/loading-indicator.md'
       - 'pages/features/rate-limiting.md'
       - 'pages/features/redirects.md'
       - 'pages/features/request-bundling.md'

@@ -2,8 +2,8 @@
 
 {{ include("admonition/magewire-specific.md", since_version="3.7.0") }}
 
-Magewire ships a framework-independent stylesheet for the UI it renders itself: the notifier, the loading
-indicator, the exception placeholder, and the states of directives such as `wire:loading`. It needs no Tailwind
+Magewire ships a framework-independent stylesheet for the UI it renders itself: the notifier, the
+[loading indicator](../features/loading-indicator.md), the exception placeholder, and the states of directives such as `wire:loading`. It needs no Tailwind
 build or theme integration. Themes adjust it through CSS custom properties (tokens) or their own rules.
 
 ## How the stylesheet loads

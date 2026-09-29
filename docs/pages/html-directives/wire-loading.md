@@ -20,4 +20,6 @@ compatible commits from its component. Delay modifiers avoid flashing an indicat
 attribute, and removal modifiers follow the Livewire 3 behavior.
 
 For page-level notifier messages driven by a PHP configuration map, see
-[Magewire Loaders](../advanced/javascript/features/magewire-loaders.md).
+[Magewire Loaders](../advanced/javascript/features/magewire-loaders.md). Since Magewire 3.7, slow requests from
+components that handle dispatched events also show a spinner over the component without any markup; see
+[Loading Indicator](../features/loading-indicator.md).

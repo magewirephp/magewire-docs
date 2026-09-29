@@ -78,7 +78,9 @@ function currencyUtility() {
 window.MagewireUtilities.register('currency', currencyUtility)
 ```
 
-Access it as `window.MagewireUtilities.currency`. Built-in utilities are `cookie`, `dom`, `loader`, and `str`.
+Access it as `window.MagewireUtilities.currency`. Built-in utilities are `cookie`, `dom`, `loader`,
+`loadingIndicatorTiming`, and `str`. Built-in addons are `notifier` and `loadingIndicator`; see
+[Magewire Notifier](addons/magewire-notifier.md) and [Loading Indicator](../../features/loading-indicator.md#javascript-api).
 
 ## Feature scripts
 

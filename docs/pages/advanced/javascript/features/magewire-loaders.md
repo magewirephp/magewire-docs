@@ -3,10 +3,12 @@
 {{ include("admonition/magewire-specific.md", since_version="3.0.0") }}
 
 Magewire loaders connect a component update to the notifier addon. The notification appears when a configured action or
-property update starts, keeps its loader active while the commit is in flight, and stops it on success or failure.
+property update starts, keeps its `loader.active` state on while the commit is in flight, and turns it off on success or
+failure.
 
 This is separate from [`wire:loading`](../../../html-directives/wire-loading.md), which changes an element inside the
-component template. Use `wire:loading` for local button and form state; use a Magewire loader when the interaction needs
+component template, and from the [loading indicator](../../../features/loading-indicator.md), which places a spinner over
+a slow component. Use `wire:loading` for local button and form state; use a Magewire loader when the interaction needs
 a page-level notification.
 
 ## Configuring action loaders
@@ -73,7 +75,16 @@ The loader utility recognizes a small message grammar:
 | `Catalog: Refreshing` | Use `Catalog` as the notification title. |
 
 The follow-up part is created only after a successful commit. On failure, the active loader is stopped without showing
-the success message. Three literal periods form the separator; the Unicode ellipsis character does not.
+the success message. Before Magewire 3.7, the `... Saved` form showed a "Message Unknown" notification during the
+request.
+
+The message is split in two cases only:
+
+- it starts with three periods, with or without a following space (`...Saved` and `... Saved` both work);
+- it contains three periods with a space on both sides (`Saving ... Saved`).
+
+Periods inside a sentence, as in `Hi... there` or `Loading...`, do not split the message. The Unicode ellipsis
+character never splits it. A title is separated by a colon followed by a space, and only the first one counts.
 
 ## Property update loaders
 
@@ -96,8 +107,13 @@ never treat them as escaped HTML or trusted state.
 ## Fast-request suppression
 
 The browser records recent completion times per component and action in `sessionStorage`. After at least two samples,
-it suppresses the spinner when the median duration is below 300 ms. The notification can still appear, but without an
-active loader. This avoids flashing a spinner for interactions that consistently finish almost immediately.
+it sets the notification's `loader.active` state to `false` when the median duration is below 300 ms. The notification
+can still appear, but without an active loader. This avoids flashing a spinner for interactions that consistently
+finish almost immediately.
+
+Since Magewire 3.7, core no longer draws a spinner inside notifications. A theme that renders its own indicator in the
+notifier's `notification.after` block can read `notification.loader.active`. For a spinner over the component itself,
+see [Loading Indicator](../../../features/loading-indicator.md).
 
 Timings are browser-local heuristics, not performance telemetry. Use server profiling and the browser network panel for
 real measurements.
