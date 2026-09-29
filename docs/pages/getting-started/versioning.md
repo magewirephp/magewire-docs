@@ -29,8 +29,28 @@ This keeps the ecosystem readable: if you see a `3.x` tag anywhere in the Magewi
 An experimental repository without a public tag or Packagist release is not an installable subpackage and does not
 inherit a support promise from this convention. Verify the selected package's published tags and Composer metadata.
 
+## Companion package compatibility
+
+A subpackage's minor version does not follow core's. The `magewirephp/magewire` constraint in each tag's
+`composer.json` decides which core releases it installs with:
+
+| Package | Release | Requires `magewirephp/magewire` | Other Magewire requirements |
+|---|---|---|---|
+| `magewirephp/magewire-hyva-theme` | 3.0.0, 3.0.1 | `>=3.2` | |
+| `magewirephp/magewire-hyva-theme` | 3.1.0, 3.1.1 | `>=3.6` | |
+| `magewirephp/magewire-hyva-theme` | 3.1.2 | `>=3.7` | |
+| `magewirephp/magewire-hyva-checkout` | 3.0.0 | `>=3.2` | `magewirephp/magewire-hyva-theme` (any) |
+| `magewirephp/magewire-hyva-checkout` | 3.1.0 | `>=3.7` | `magewirephp/magewire-hyva-theme` (any) |
+| `magewirephp/magewire-hyva-checkout` | 3.1.1 | `~3.7.1` | `magewirephp/magewire-hyva-theme` (any) |
+| `magewirephp/magewire-admin` | 3.0.0 | `^3.0` | |
+
+`magewirephp/magewire-hyva-checkout` 3.1.1 caps core below 3.8, so a later core minor release needs a matching
+checkout release. Because the checkout package accepts any Hyvä theme package version, require
+`magewirephp/magewire-hyva-theme` 3.1.2 or later explicitly alongside Magewire 3.7; older theme releases ship notifier
+styles written for the 3.6 markup.
+
 ## PHP version support
 
-The `php` constraint in the tagged package's `composer.json` is authoritative. Magewire 3.6 requires PHP 8.2 or newer, while the production-build matrix verifies selected Magento and Mage-OS releases on PHP 8.2 through 8.5.
+The `php` constraint in the tagged package's `composer.json` is authoritative. Magewire 3.7 requires PHP 8.2 or newer, while the production-build matrix verifies selected Magento and Mage-OS releases on PHP 8.2 through 8.5.
 
 A future release may raise the minimum when ecosystem compatibility or language support requires it. Check Composer constraints and the repository's production-build workflow before planning an upgrade; do not infer support solely from PHP's general support calendar.

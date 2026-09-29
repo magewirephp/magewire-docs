@@ -6,6 +6,57 @@ of new capabilities.
 
 Versions not included in this log indicate releases where no new features were introduced.
 
+When upgrading between V3 releases, also read the [Upgrade notes](upgrade-notes.md).
+
+## 3.7.1
+
+- **Notifier position**
+
+  On screens `48rem` and wider, the notifier stack is pinned to the bottom start edge instead of the
+  bottom center, so it no longer covers centered primary actions. See
+  [Core styles](../../theming/styles.md#position).
+
+## 3.7.0
+
+- **Framework-independent core styles**
+
+  Core ships `Magewirephp_Magewire::css/magewire.css` as a head asset for the notifier, loading indicator,
+  exception placeholder, and directive states, with a `--magewire-*` token API. Core templates no longer
+  contain Tailwind classes, notifications gained a close button, and core is no longer registered for the Hyvä
+  Tailwind build. See [Core styles](../../theming/styles.md).
+
+- **Adaptive loading indicator**
+
+  Components that handle dispatched events show a spinner over themselves when a request is slow, with a
+  threshold that adapts to recent response times and the connection. Enabled by default; the admin setting
+  **Show Spinner on Interacted Components** extends it to every request. See
+  [Loading Indicator](../../features/loading-indicator.md).
+
+- **Layout overrides**
+
+  The `magewire:listeners`, `magewire:loader`, and `magewire:modifiers` block arguments adjust listeners,
+  loader messages, and anything else for one placement of a component. Dispatching a removed or unknown event
+  now fails with `EventHandlerDoesNotExist`. See [Layout Overrides](../../features/layout-overrides.md).
+
+- **Service type sequences**
+
+  A `sequence` on a Feature, Mechanism, or Container item now declares name-based "boot after" dependencies,
+  with errors for cycles and for eager items that sequence after lazy ones. See
+  [Runtime → Ordering items](../../advanced/architecture/runtime.md#ordering-items).
+
+- **Loader continuation fix**
+
+  A loader message such as `... Saved` now shows nothing during the request and `Saved` after success, instead of
+  a "Message Unknown" notification. See [Magewire Loaders](../../advanced/javascript/features/magewire-loaders.md#message-sequences).
+
+## 3.6.1
+
+- **Canonical runtime providers**
+
+  The Alpine runtime providers were renamed to `magewireRuntime` and `magewireRuntimeBindings`. The previous
+  `magewireScript` and `magewireScriptBindings` names remain as deprecated aliases. See
+  [CSP Script Bootstrap](../../theming/csp-script-bootstrap.md#runtime-provider-names).
+
 ## 3.6.0
 
 - **Component-state pagination**

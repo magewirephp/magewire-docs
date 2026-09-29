@@ -11,8 +11,8 @@ attribute.
 </div>
 ```
 
-!!! warning "Add the hiding rule in Magewire 3.6"
-    Magewire 3.6 removes the `wire:cloak` attribute when it initializes, but its base CSS only defines the equivalent `x-cloak` rule. Add the following
+!!! warning "Add the hiding rule"
+    Magewire 3.7 removes the `wire:cloak` attribute when it initializes, but its [core stylesheet](../theming/styles.md) only defines the equivalent `x-cloak` rule. Add the following
     rule to your theme until core supplies it:
 
     ```css

@@ -12,6 +12,9 @@ Magewire's roadmap is intentionally conservative: tagged source describes what h
 | 3.4 | Lazy component loading. |
 | 3.5 | Magento-backed application container and pre-reconstruction request filters. |
 | 3.6 | Component-state pagination, temporary rate-limit lockouts, notifier coalescing, and a template-fragment compiler fix. |
+| 3.6.1 | Canonical `magewireRuntime` and `magewireRuntimeBindings` Alpine providers. |
+| 3.7 | Framework-independent core styles, the adaptive loading indicator, layout overrides for listeners, loaders, and modifiers, and service type sequences. |
+| 3.7.1 | Notifier pinned to the bottom start edge on wide screens. |
 
 See [Feature History](releases/feature-history.md) for details and links to the relevant documentation.
 

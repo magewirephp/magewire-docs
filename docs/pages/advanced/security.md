@@ -16,7 +16,7 @@ key. Do not disable `FormKey` on the Magewire route.
 
 Each snapshot carries an HMAC checksum signed with the Magento crypt key (`app/etc/env.php` → `crypt/key`). The checksum authenticates the snapshot's integrity; it does not authorise the user. Always check permissions inside actions.
 
-Public properties are browser-controlled state. Magewire 3.6 does not provide a documented locked-property attribute,
+Public properties are browser-controlled state. Magewire 3.7 does not provide a documented locked-property attribute,
 so do not rely on an identifier being absent from the template or lacking `wire:model`. Reload sensitive entities in
 the action, validate the current user against the exact target, and keep authorization in the service that performs
 the write.

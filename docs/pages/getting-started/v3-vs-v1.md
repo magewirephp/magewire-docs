@@ -57,7 +57,7 @@ runtime.
   properties), `memo` (reconstruction metadata: name, id, resolver accessor, layout handles, feature
   flags) and a **checksum** that's verified on every update to reject tampering.
 - **Synthesizers.** Non-scalar property values are dehydrated/hydrated by **synthesizers** (arrays,
-  `\stdClass`, and backed enums). A DataObject synth is registered, but its Magewire 3.6 array-cast implementation
+  `\stdClass`, and backed enums). A DataObject synth is registered, but its Magewire 3.7 array-cast implementation
   does not guarantee a correct round trip. Custom synths register via DI.
 
 ## 3. Templates
@@ -136,7 +136,7 @@ Capabilities that did not exist, or were not formalised, in V1:
   (head-injection strategy, admin resolver/route).
 - **Structured block arguments**: `magewire:{group}:{key}` collects grouped arguments, including named
   `mount` arguments. The parser also collects `magewire.*` into an internal public subset, but Magewire
-  3.6 does not assign that subset to component properties.
+  3.7 does not assign that subset to component properties.
 
 ## 8. Tooling, platform & docs
 

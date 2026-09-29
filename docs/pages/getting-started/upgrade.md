@@ -2,7 +2,8 @@
 
 {{ include("admonition/livewire-reference.md", reference_url="https://livewire.laravel.com/docs/3.x/upgrading") }}
 
-This page covers upgrading from Magewire V1 to V3. Read it top-to-bottom the first time, then use it as a reference. Copy the checklist at the end into a ticket or PR description when you start the work.
+This page covers upgrading from Magewire V1 to V3. For upgrades between V3 releases, such as 3.6 to 3.7, see
+[Upgrade notes](releases/upgrade-notes.md). Read this page top-to-bottom the first time, then use it as a reference. Copy the checklist at the end into a ticket or PR description when you start the work.
 
 ## TL;DR
 
@@ -28,7 +29,7 @@ See [Versioning](versioning.md) for the full versioning scheme, including how su
 
 Before running `composer update`, bring the surrounding environment up to spec.
 
-- **Magento or Mage-OS** on a release line supported by the selected Magewire tag. Magewire 3.6's tested floor is Magento Open Source 2.4.6-p15 or Mage-OS 1.3.1.
+- **Magento or Mage-OS** on a release line supported by the selected Magewire tag. Magewire 3.7's tested floor is Magento Open Source 2.4.6-p15 or Mage-OS 1.3.1.
 - **PHP** `8.2` or later.
 - **Composer 2**.
 - **A compatible theme integration.** Magewire bundles Alpine, while the compatibility package coordinates it with the theme's own loader.
@@ -226,7 +227,7 @@ V3 adds more lifecycle hooks than V1 exposed. All are optional:
 
 V1's `hydrate()` / `dehydrate()` signatures survive, while V3 adds per-property variants and `booted()`.
 The framework calls trait `initialize*` hooks internally, but a plain `initialize()` method on the component is not a
-public lifecycle hook in Magewire 3.6.
+public lifecycle hook in Magewire 3.7.
 
 ### `updating` / `updated` argument order
 
@@ -329,7 +330,7 @@ If you registered a V1 "feature" as a plugin or observer, consider whether it sh
 V1 had a `HydratorInterface`. V3 uses **Synthesizers**: classes that explain how to serialise and deserialise a given type across the snapshot boundary.
 
 Magewire ships synthesizers for scalars, arrays, `\stdClass`, and backed enums. A
-`\Magento\Framework\DataObject` synthesizer is registered too, but its Magewire 3.6 array-cast implementation does
+`\Magento\Framework\DataObject` synthesizer is registered too, but its Magewire 3.7 array-cast implementation does
 not guarantee a correct round trip for normal DataObject state. Keep that state in a public array until the
 implementation is corrected. For custom value objects, write a `Synth` and register it:
 
