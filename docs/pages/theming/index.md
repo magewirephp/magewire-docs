@@ -5,7 +5,9 @@
 
 Magewire components can render through any Magento theme. The component PHP
 class and its actions stay the same; a theme integration supplies the browser
-loading, layout, CSS, and any theme-specific bridges.
+loading, layout, CSS, and any theme-specific bridges. Since Magewire 3.7, core
+ships framework-independent styles for its own UI that a theme can adjust; see
+[Core styles](styles.md).
 
 <a id="supported-themes"></a>
 

@@ -89,8 +89,8 @@ The V1 method names above are preserved by the BC layer's trait so existing comp
 
 - **JS is based on the Livewire bundle.** V3 serves the ported Livewire runtime as a Magento static
   asset and adds Magewire aliases and Magento/theme integration around it. V1 shipped custom JS.
-- **Utilities & Addons.** `window.MagewireUtilities` (`dom`, `loader`, `str`, `cookie`) and
-  `window.MagewireAddons` (the notifier) are registerable, layout-driven extension points. New in V3.
+- **Utilities & Addons.** `window.MagewireUtilities` (`dom`, `loader`, `loadingIndicatorTiming`, `str`, `cookie`) and
+  `window.MagewireAddons` (`notifier`, `loadingIndicator`) are registerable, layout-driven extension points. New in V3.
 - **`wire:*` default changes (v2 → v3):**
 
 | V1 / v2 | V3 | Behaviour |

@@ -155,6 +155,7 @@ nav:
     - 'pages/theming/layout-containers.md'
     - 'pages/theming/alpine-loading.md'
     - 'pages/theming/csp-script-bootstrap.md'
+    - 'pages/theming/styles.md'
     - 'pages/theming/tailwind.md'
     - 'pages/theming/hyva-checkout-bc.md'
   - 'Admin':

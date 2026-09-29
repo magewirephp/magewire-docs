@@ -42,8 +42,9 @@ Instead of appending another item, `create()` returns the existing notification 
 increments its `occurrences`, merges any new hooks, and restarts its cleanup timer. Different text,
 a different type, an inactive previous notification, or `activate: false` creates a separate item.
 
-The built-in presentation shows an occurrence badge after the count reaches two. Integrations can
-read `notification.occurrences` and style or announce repeated messages differently.
+The built-in presentation shows an occurrence badge after the count reaches two and adds
+`magewire-notifier-occurrences--emphasized` above ten. Integrations can read `notification.occurrences`
+and style or announce repeated messages differently.
 
 Per-notification hook names are:
 
@@ -75,6 +76,18 @@ Hooks receive an object. For example, `onStateChange` receives `{ state, previou
 | `trigger(hook, args = {}, notification = null)` | Run item and global hooks. |
 
 There is no `fetch()` method. Read the reactive `notifications` array when a UI needs the complete collection.
+
+## Presentation
+
+The `magewire.ui-components.notifier` block renders the `notifications` array. Each item carries the
+`magewire-notifier-item` class and a `data-type` attribute with its type. In the browser:
+
+- clicking an item terminates it, unless an `onClick` hook calls `preventDefault()`;
+- hovering an item holds it, and leaving it schedules cleanup again;
+- the close button, rendered by `magewire.ui-components.notifier.close-button`, terminates the item.
+
+Since Magewire 3.7, the stack is styled by the core stylesheet. See [Core styles](../../../theming/styles.md) for
+tokens, the markup contract, position, and reduced-motion behavior.
 
 ## Global hooks
 

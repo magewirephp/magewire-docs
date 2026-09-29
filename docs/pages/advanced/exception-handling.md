@@ -113,8 +113,10 @@ The default preceding-mode handler points the block at
 `Magewirephp_Magewire::magewire/exception.phtml` and passes along the application state. Because the
 state is available, the template can show full exception detail in
 [developer mode](../essentials/view-model.md) and a quiet, generic message in
-production. Override the template (per the [Layout](architecture/layout.md) override rules) to
-style or restyle the placeholder for your theme.
+production. Since Magewire 3.7, the placeholder uses `magewire-exception-*` classes styled by the core
+stylesheet. Adjust the `--magewire-exception-*` tokens described in [Core styles](../theming/styles.md) to
+restyle it, or override the template (per the [Layout](architecture/layout.md) override rules) when you need
+different markup.
 
 ## Related
 
