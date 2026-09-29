@@ -55,8 +55,6 @@ class DeliveryNote extends \Magewirephp\Magewire\Component { /* ... */ }
 Keep the opt-out while this package is installed. Removing the attribute puts the component back under the container
 fallback.
 
-<a id="opting-in-outside-the-container"></a>
-
 ## Opting in outside the container
 
 A legacy component rendered outside `hyva-checkout-main`, and not resolved by Hyvä Checkout's component resolver,
