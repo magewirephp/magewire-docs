@@ -85,7 +85,10 @@ than once. Give each block its own `magewire:mount:*` values:
 ## Advanced block arguments
 
 Custom resolvers and features can read grouped arguments through the argument
-API. Application components usually only need `magewire:mount:*`.
+API. Application components usually only need `magewire:mount:*`, plus the
+per-placement `magewire:listeners`, `magewire:loader`, and
+`magewire:modifiers` arguments described in
+[Layout overrides](../features/layout-overrides.md).
 
 ```xml
 <argument name="magewire:config:cache-ttl" xsi:type="number">3600</argument>

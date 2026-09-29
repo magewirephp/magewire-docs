@@ -51,6 +51,9 @@ Loader strings are passed through Magento translation during dehydration. The cu
 
 Prefer exact action names. A wildcard can generate noisy notifications for internal or incidental calls.
 
+Since Magewire 3.7, a layout block can adjust this map for one placement with the `magewire:loader` argument, without
+changing the class. See [Layout overrides](../../../features/layout-overrides.md#loader-messages).
+
 ## Message sequences
 
 A value may be one string or an array of strings:

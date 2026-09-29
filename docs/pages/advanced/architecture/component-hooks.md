@@ -102,7 +102,7 @@ Register in `adminhtml/di.xml` too if the hook is needed in the admin area. Do n
 |---|---|
 | `magewire:component:construct` | Component instantiated during initial page load |
 | `magewire:component:reconstruct` | Component instantiated during an update roundtrip |
-| `magewire:component:build` | Component has been fully built |
+| `magewire:component:build` | Component has been fully built, after [component modifiers](../../features/layout-overrides.md#modifiers) ran and the resolver assembled it |
 | `pre-mount` | Before `mount()` runs |
 | `mount.stub` | Placeholder mount step |
 | `mount` | `mount()` completes |

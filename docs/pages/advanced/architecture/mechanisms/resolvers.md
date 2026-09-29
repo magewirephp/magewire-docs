@@ -30,9 +30,9 @@ A resolver must implement three abstract methods (`construct`, `reconstruct`, `a
 |---|---|---|
 | `construct(AbstractBlock $block): AbstractBlock` | yes | Attach a `Component` to the block (via `$block->setData('magewire', $component)`) and return the block. |
 | `reconstruct(ComponentRequestContext $request): AbstractBlock` | yes | Rebuild the block + component from the XHR snapshot. |
-| `arguments(): MagewireArguments` | yes | Provide the typed arguments object that collects `magewire.*` / `magewire:*` data keys from the block. Core consumes mount and component groups; the collected public subset is not assigned automatically in Magewire 3.6. |
+| `arguments(): MagewireArguments` | yes | Provide the typed arguments object that collects `magewire.*` / `magewire:*` data keys from the block. Core consumes mount and component groups, and the top-level `listeners`, `loader`, and `modifiers` arguments collected from `magewire:listeners`, `magewire:loader`, and `magewire:modifiers` (see [Layout overrides](../../../features/layout-overrides.md)). The collected public subset is not assigned automatically. |
 | `complies(AbstractBlock $block, mixed $magewire = null): bool` | no | Cheap check. Returns `true` if this resolver should handle the block. The base implementation already matches when the block's `magewire:resolver` data key equals this resolver's accessor. |
-| `assemble(AbstractBlock $block, Component $component): AbstractBlock` | no | Final step after construct/reconstruct: binds `name`, `id` and `alias` onto the component and resolves a default template. |
+| `assemble(AbstractBlock $block, Component $component): AbstractBlock` | no | Final step after construct/reconstruct and the [component modifiers](../../../features/layout-overrides.md#modifiers): binds `name`, `id` and `alias` onto the component and resolves a default template. |
 | `remember(): bool` | no | Cache the resolver/block pairing. Defaults to `true`. Return `false` for a fluent resolver that re-evaluates conditions per request. |
 | `canPropagate(): bool` | no | Whether a dynamically-loaded child block with no resolver of its own may reuse this resolver. Defaults to `false`. |
 

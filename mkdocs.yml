@@ -119,6 +119,7 @@ nav:
   - 'Features':
       - 'pages/features/alpine.md'
       - 'pages/features/lazy-loading.md'
+      - 'pages/features/layout-overrides.md'
       - 'pages/features/pagination.md'
       - 'pages/features/magewire-template-directives.md'
       - 'pages/features/notifications.md'

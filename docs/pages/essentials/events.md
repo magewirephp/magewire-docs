@@ -91,8 +91,24 @@ window.addEventListener('category-selected', event => {
 
 Put production listeners in a [compatibility module](../theming/compatibility-module.md)
 and wrap inline scripts in a [Script fragment](../concepts/fragments.md#the-script-fragment).
-The old `emit*()` helpers and `$listeners` property are V1 migration APIs;
-new components use `dispatch()` and `#[On]`.
+The old `emit*()` helpers are V1 migration APIs; new components use
+`dispatch()`, and `#[On]` rather than the `$listeners` property.
+
+## Per-placement listeners
+
+Since Magewire 3.7, a layout block can add, reassign, or remove listeners for
+one placement of a component without changing its class:
+
+```xml
+<argument name="magewire:listeners" xsi:type="array">
+    <item name="category-selected" xsi:type="string">onCategorySelected</item>
+    <item name="category-cleared" xsi:type="null"/>
+</argument>
+```
+
+See [Layout overrides](../features/layout-overrides.md#listeners) for
+precedence, placeholders, and what happens when a removed event is still
+dispatched.
 
 <a id="framework-hooks-are-different"></a>
 <a id="magento-observers"></a>
