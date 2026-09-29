@@ -152,8 +152,8 @@ V3 ships a **BC layer** so V1 components run on the V3 runtime without a rewrite
 - Opt in per component with `#[HandleBackwardsCompatibility]` (or out with `enabled: false`).
 - A PHP trait keeps the deprecated V1 APIs (`emit*`, `getPublicProperties()`, public `$id`, error
   helpers, `dispatch*Message()`).
-- A JS shim rewrites `wire:*` directives, restores live-by-default `entangle`, and re-fires renamed
-  hook names for BC-enabled components.
+- On the Hyvä Checkout page, the companion package's JS shim rewrites `wire:*` directives for BC-enabled components
+  and re-fires renamed hook names. No shim changes `entangle`.
 - Disable the whole subsystem via DI once everything is migrated.
 
 ---

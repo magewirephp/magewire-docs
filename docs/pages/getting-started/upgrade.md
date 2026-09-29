@@ -10,7 +10,8 @@ This page covers upgrading from Magewire V1 to V3. Read it top-to-bottom the fir
 2. Install V3: `composer require magewirephp/magewire:^3.0`.
 3. Install or update the appropriate theme compatibility package so Alpine is loaded once.
 4. Add `#[HandleBackwardsCompatibility]` to legacy components, then test each interaction. The layer covers specific
-   V1 browser behaviors, but it is not a guarantee that unchanged component code will work.
+   V1 behaviors, and its directive rewrites currently run only on the Hyvä Checkout page. It is not a guarantee that
+   unchanged component code will work.
 5. Migrate one component at a time using the checklist below.
 6. Drop the BC attribute per component once it is fully V3-native.
 7. Remove obsolete BC attributes and any companion package installed only for legacy compatibility.
@@ -72,7 +73,7 @@ class LegacyCart extends \Magewirephp\Magewire\Component
     // The documented BC transformations are enabled for this component.
 }
 
-// Explicitly opt out: useful to override a theme-level auto-enable rule:
+// Explicitly opt out: required for V3-native components inside the Hyvä Checkout container:
 #[HandleBackwardsCompatibility(enabled: false)]
 class ModernCart extends \Magewirephp\Magewire\Component { /* … */ }
 ```
@@ -81,14 +82,21 @@ The attribute lives in `Magewirephp\Magewire\Features\SupportMagewireBackwardsCo
 
 ### What the BC layer does automatically
 
-When BC is enabled for a component, at runtime Magewire:
+When BC is enabled for a component, Magewire's PHP side:
 
-- Rewrites `wire:model` → `wire:model.live`, `wire:model.defer` → `wire:model`, `wire:model.lazy` → `wire:model.blur`, `wire:model.delay.Xms` → `wire:model.live.debounce.Xms`.
-- Returns a live-by-default proxy from `$wire.entangle('…')`.
+- Adapts the selected V1 `updating*` and `updated*` hook argument shapes covered by its registered resolvers.
+- Keeps `$this->id`, `$this->getPublicProperties()`, and the V1 `emit*()` family available on the base `Component` class via the `HandlesComponentBackwardsCompatibility` trait. These are present on every component, with or without BC.
+
+The browser-side rewrites come from a companion package. On the Hyvä Checkout page, `magewirephp/magewire-hyva-checkout`:
+
+- Rewrites `wire:model` → `wire:model.live`, `wire:model.defer` → `wire:model`, `wire:model.lazy` → `wire:model.blur`, `wire:model.delay.Xms` → `wire:model.live.debounce.Xms` for BC-enabled components.
+- Maps V1's `$wire.sync(name, value)` onto `$wire.$set(name, value)`.
 - Re-triggers deprecated JS hook names (`component.initialized`, `element.updating`, `message.sent`, …) alongside their V3 replacements.
 - Proxies `component.data` → `component.$wire` and `component.deferredActions` → `component.queuedUpdates`.
-- Adapts the selected V1 `updating*` and `updated*` hook argument shapes covered by its registered resolvers.
-- Keeps `$this->id`, `$this->getPublicProperties()`, and the V1 `emit*()` family available on the base `Component` class via the `HandlesComponentBackwardsCompatibility` trait.
+
+Outside the Hyvä Checkout page, V1 directives are not rewritten, so migrate those templates as described under
+[Breaking changes](#breaking-changes). No part of the BC layer changes `$wire.entangle('…')`; see
+[Entangle is deferred by default](#entangle-is-deferred-by-default).
 
 ### What the BC layer does **not** do
 
@@ -104,15 +112,16 @@ BC buys time; it does not eliminate migration work.
 
 ### The `memo.bc.enabled` flag
 
-BC pivots on a single flag in the snapshot memo: `memo.bc.enabled`. When present and truthy, the browser shims
-activate for that component's DOM subtree. The support Feature and deprecated PHP helpers remain registered on the
-base component, so the flag should be understood as a browser-behavior switch rather than complete removal of all BC code.
+BC pivots on a single flag in the snapshot memo: `memo.bc.enabled`. When present and truthy, a companion package's
+directive shim activates for that component. The support Feature and deprecated PHP helpers remain registered on the
+base component, so the flag should be understood as a behavior switch rather than complete removal of all BC code.
 
 Resolution priority for the flag:
 
 1. `#[HandleBackwardsCompatibility]` attribute (either `enabled: true` or `enabled: false`): wins in all cases.
-2. Programmatic assignment: `store($component)->set('magewire:bc', true)` from a Component Hook or Feature.
-3. Theme default. A companion package may attempt a default, but current Hyvä Checkout migrations should add the attribute explicitly; see [Theming → Hyvä Checkout BC](../theming/hyva-checkout-bc.md).
+2. Opt-in before render: `store($component)->set('magewire:bc', true)` from a Component Hook, Feature, or component resolver.
+3. Companion default. Since `magewirephp/magewire-hyva-checkout` 3.1.0, a newly mounted component without an attribute is enabled when it renders inside `hyva-checkout-main`; see [Theming → Hyvä Checkout BC](../theming/hyva-checkout-bc.md).
+4. Otherwise disabled.
 
 ## Breaking changes
 
@@ -121,12 +130,12 @@ so test the complete interaction rather than treating this as an exhaustive comp
 
 ### `wire:model` is deferred by default
 
-| V1 | V3 | BC auto-handled? |
+| V1 | V3 | Rewritten by BC? |
 |---|---|---|
-| `wire:model` | `wire:model.live` | Yes |
-| `wire:model.defer` | `wire:model` | Yes |
-| `wire:model.lazy` | `wire:model.blur` | Yes |
-| `wire:model.delay.500ms` | `wire:model.live.debounce.500ms` | Yes |
+| `wire:model` | `wire:model.live` | On the Hyvä Checkout page |
+| `wire:model.defer` | `wire:model` | On the Hyvä Checkout page |
+| `wire:model.lazy` | `wire:model.blur` | On the Hyvä Checkout page |
+| `wire:model.delay.500ms` | `wire:model.live.debounce.500ms` | On the Hyvä Checkout page |
 
 V1's default was "sync on every keystroke", V3's default is "sync on form submit / next request". If you want instant sync in a V3 component, you must opt in with `.live`. The `.defer` / `.lazy` / `.delay` modifiers no longer exist in V3.
 
@@ -140,7 +149,7 @@ V1's default was "sync on every keystroke", V3's default is "sync on form submit
 <div x-data="{ open: $wire.entangle('open').live }">…</div>
 ```
 
-BC auto-restores the V1 live-by-default proxy. Once the component is migrated, decide per `entangle` call whether you want live or deferred; each call site may want a different answer.
+BC does not change `entangle`: a bare call is deferred even in a BC-enabled component. Decide per `entangle` call whether you want live or deferred, and add `.live` where the component relied on V1's live default. Each call site may want a different answer.
 
 ### Event listeners use the `#[On]` attribute
 
@@ -388,7 +397,7 @@ The sequence below is recommended for a module with more than a handful of V1 co
 
 ### 1. Install V3 with BC on everything
 
-Add `#[HandleBackwardsCompatibility]` to every V1 component in the module. Run the test suite; visit the site. The goal here is not to change behaviour; it is to prove that BC alone keeps the site green.
+Add `#[HandleBackwardsCompatibility]` to every V1 component in the module. Run the test suite; visit the site. The goal here is not to change behaviour; it is to find what BC already covers. On the Hyvä Checkout page it also rewrites V1 directives. On other pages, V1 `wire:model` modifiers need step 2 before they behave as in V1.
 
 ### 2. Migrate wire directives
 
@@ -416,7 +425,7 @@ Each entry becomes an `#[On('event-name')]` attribute on the target method.
 
 ### 5. Migrate JS hook names
 
-If your theme or custom JS listens on `message.sent`, `element.updating`, `component.initialized`, or friends, move those listeners to the V3 names (see the rename table above). The BC layer re-triggers the old names for BC-enabled components, but removing your dependency on the old names is the cleaner end state.
+If your theme or custom JS listens on `message.sent`, `element.updating`, `component.initialized`, or friends, move those listeners to the V3 names (see the rename table above). On the Hyvä Checkout page the BC layer re-triggers the old names, but removing your dependency on the old names is the cleaner end state.
 
 ### 6. Migrate PHP component calls
 
@@ -437,7 +446,8 @@ Move registrations that extend the `Magewirephp\Magewire\Features` or
 
 As each component becomes fully V3-native, switch its attribute to
 `#[HandleBackwardsCompatibility(enabled: false)]` to disable the browser transformations. When every component in
-the module is V3-native, remove the attribute entirely.
+the module is V3-native, remove the attribute entirely. Keep the opt-out on components inside `hyva-checkout-main`
+while `magewirephp/magewire-hyva-checkout` is installed, because its container default applies again without it.
 
 <a id="9-remove-the-bc-feature-registration-whole-module"></a>
 
@@ -449,10 +459,11 @@ that package through Composer and verify the merged layout before deployment.
 
 ## Hyvä Checkout
 
-Hyvä Checkout V1 is wired for Livewire V2 semantics. Install `magewirephp/magewire-hyva-checkout`, add
-`#[HandleBackwardsCompatibility]` explicitly to legacy components, and verify the checkout end to end. The companion
-package contains a container-based fallback, but the Magewire 3.6 resolver writes a default false value before that
-fallback checks for an unset value. Implicit opt-in is therefore unreliable.
+Hyvä Checkout V1 is wired for Livewire V2 semantics. Install `magewirephp/magewire-hyva-checkout`. Since package
+3.1.0, which requires Magewire 3.7, newly mounted components without an attribute receive BC when they render inside
+`hyva-checkout-main`. Add `#[HandleBackwardsCompatibility(enabled: false)]` to V3-native checkout components, add
+`#[HandleBackwardsCompatibility]` to legacy components rendered outside that container, and verify the checkout end
+to end.
 
 See [Theming → Hyvä Checkout BC](../theming/hyva-checkout-bc.md) for the full detail.
 
@@ -476,7 +487,9 @@ The following issues have appeared during real upgrades. Check this list before 
 - **"My Feature's `provide()` is never called"**: confirm it is an item on `Magewirephp\Magewire\Features` in the
   active area's `etc/frontend/di.xml` or `etc/adminhtml/di.xml`. A global array addition can be replaced by the later
   area-specific DI configuration.
-- **"Entangle spams the network tab"**: the call is still live-by-default from BC. Remove the `#[HandleBackwardsCompatibility]` attribute once the component is migrated, then audit every `entangle` on that component.
+- **"An `entangle` value no longer reaches the server immediately"**: a bare `$wire.entangle('…')` is deferred in V3, and BC does not change it. Add `.live` where each change must be sent immediately.
+- **"A migrated checkout component behaves like V1 again"**: since `magewirephp/magewire-hyva-checkout` 3.1.0, components inside `hyva-checkout-main` without an attribute receive BC. Add `#[HandleBackwardsCompatibility(enabled: false)]`.
+- **"`$wire.sync()` fails with a public method `sync` not found error"**: V1's `$wire.sync()` is mapped onto `$wire.$set()` only on the Hyvä Checkout page with `magewirephp/magewire-hyva-checkout` 3.1.0 or later. Use `$wire.$set(name, value)`.
 
 ## Verifying the upgrade
 
@@ -525,7 +538,7 @@ Copy this into a PR description.
 - [ ] Inline `<script>` tags wrapped in Script fragments where CSP compliance matters.
 - [ ] Custom `HydratorInterface` implementations rewritten as Synthesizers.
 - [ ] `render(): string` methods replaced by `rendering()` hooks that call `magewireBlock()->setTemplate(...)`.
-- [ ] BC attribute set to `enabled: false` (or removed) on fully migrated components.
+- [ ] BC attribute set to `enabled: false` (or removed) on fully migrated components. Keep `enabled: false` on components inside `hyva-checkout-main` while `magewirephp/magewire-hyva-checkout` is installed.
 - [ ] Smoke-tested against the top-trafficked components (devtools Network + console).
 
 Migration done. Remove obsolete BC attributes and any package used only for the legacy integration when every module on
@@ -534,7 +547,7 @@ the site has reached this state.
 ## Related
 
 - [Backwards compatibility](../essentials/backwards-compatibility.md): the BC system in depth.
-- [Hyvä Checkout BC](../theming/hyva-checkout-bc.md): explicit opt-in and the current fallback limitation.
+- [Hyvä Checkout BC](../theming/hyva-checkout-bc.md): the container default, opt-outs, and the checkout shims.
 - [Admin → Installation](../admin/installation.md): install the admin companion package.
 - [Features](../advanced/architecture/features.md): how to rewrite V1 Features as V3 Component Hooks.
 - [Synthesizers](../advanced/synthesizers.md): replacement for V1 hydrators.

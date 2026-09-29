@@ -50,8 +50,11 @@ bin/magento module:enable Magewirephp_MagewireHyvaCheckout
 bin/magento setup:upgrade
 ```
 
-It supplies legacy browser shims. New V3 components should use current
-directives, events, and lifecycle hooks instead of depending on those shims.
+It supplies legacy browser shims. Since package 3.1.0, which requires
+Magewire 3.7, components inside the checkout's main container receive BC by
+default. New V3 components should use current directives, events, and
+lifecycle hooks, and opt out with
+`#[HandleBackwardsCompatibility(enabled: false)]`.
 
 ## Breeze storefront
 
