@@ -89,6 +89,10 @@ array can be replaced when Magento loads the later area configuration:
 </type>
 ```
 
+To boot after a specific core feature, add a `sequence` (see [Ordering items](runtime.md#ordering-items)). A hook
+with `boot_mode` `30`, like the one above, cannot sequence after a `LAZY` feature; drop the `boot_mode` or align it
+first.
+
 The `Features` collection calls `provide()` on the hook when it registers, giving it a chance to subscribe to events.
 Register in `adminhtml/di.xml` too if the hook is needed in the admin area. Do not put a `ComponentHook` in the
 `Mechanisms` collection: Mechanisms use a different boot contract and do not register the hook with

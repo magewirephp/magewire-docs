@@ -131,11 +131,53 @@ Each item declares a **boot mode** that controls *when* it boots:
 
 A boot call only runs items whose boot mode is **at or above** the requested level. So `setup()`'s
 `boot(PERSISTENT)` starts the `PERSISTENT` and `ALWAYS` items and skips `LAZY` ones; the later full
-`boot()` (no minimum) picks up everything that's left. The default boot mode is `ALWAYS`, while
-Mechanisms fall back to `LAZY`; most mechanisms only matter once a component is in play.
+`boot()` (no minimum) picks up everything that's left. An item without a `boot_mode` takes its service
+type's fallback: `ALWAYS` for Containers and `LAZY` for Mechanisms and Features, because most of them only
+matter once a component is in play.
 
-Within a service type, items boot in `sort_order`, with an optional `sequence` to declare
-"boot after this other item" dependencies.
+### Ordering items
+
+Within a service type, items boot in ascending `sort_order`. An item without a `sort_order` (or with `0`)
+gets the previous item's value plus one, in declaration order, and items with the same value keep their
+declaration order.
+
+Since Magewire 3.7, an item can also declare a `sequence`: the items of the same service type it must boot
+after, by DI item name.
+
+```xml title="etc/frontend/di.xml"
+<type name="Magewirephp\Magewire\Features">
+    <arguments>
+        <argument name="items" xsi:type="array">
+            <item name="vendor_listener_audit" xsi:type="array">
+                <item name="type" xsi:type="string">Vendor\Module\Magewire\Features\SupportListenerAudit\SupportListenerAudit</item>
+                <item name="sort_order" xsi:type="number">6000</item>
+                <item name="sequence" xsi:type="array">
+                    <item name="magewire_events" xsi:type="boolean">true</item>
+                </item>
+            </item>
+        </argument>
+    </arguments>
+</type>
+```
+
+- Keys are item names from the DI array, such as `events` or `magewire_events`, not class names.
+- Only the value `true` counts. `false`, so another module can switch an entry off, and names that are not in
+  the collection are ignored.
+- A sequence takes precedence over `sort_order` and applies transitively. An item waits for every item it lists.
+- A sequenced item is placed after the items that were ready in the same ordering pass, not necessarily directly
+  after the item it names. Keep using `sort_order` for the rest of the placement.
+- An item with boot mode `PERSISTENT` or `ALWAYS` cannot sequence after a `LAZY` item. Because Features and
+  Mechanisms default to `LAZY`, an eager item usually cannot sequence after a core item. This throws
+  `LogicException: Service type item "…" cannot sequence after lazy item "…"`.
+- A cycle, including an item that lists itself, throws
+  `LogicException: Circular service type sequence detected among items: …`.
+
+Both exceptions are thrown when the service type is first sorted during Magewire's setup, and the runtime state
+becomes `FAILED`. Core uses a sequence itself: `magewire_events` boots after `events`.
+
+In Magewire 3.6 and earlier, `sequence` was only consulted when two items had the same `sort_order`, and it did
+not check which item was named. Existing `sequence` entries become real ordering constraints after upgrading to
+3.7, so recheck them.
 
 ## Hooking into the boot
 
