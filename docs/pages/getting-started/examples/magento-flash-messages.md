@@ -113,6 +113,14 @@ $this->magewireFlashMessages()->make(__('Saving…'), FlashMessageType::Notice, 
 
 Remove one by name with `unset('save-status')`. `count()` and `fetch()` inspect the collection.
 
+### Repeated messages on Hyvä Checkout
+
+Names de-duplicate messages within one response. On the Hyvä Checkout page,
+`magewirephp/magewire-hyva-checkout` 3.1.0 and later also groups repeated messages in the browser: a message
+with the same text and type as the last visible one increments a count badge instead of being shown again. See
+[Hyvä Checkout flash messages](../../theming/index.md#hyva-checkout-flash-messages) for the rules and the
+setting that turns it off.
+
 ## Flash messages vs notifications
 
 Magewire has two ways to talk to the user, and they're not the same:

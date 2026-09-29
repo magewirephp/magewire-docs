@@ -6,9 +6,10 @@ Magewire V3 is a full rewrite on top of Livewire V3, which changed a number of c
 V1 (Livewire V2) era. To keep existing V1 components running while you migrate, Magewire ships a
 **backwards-compatibility (BC) layer**.
 
-The browser transformations are **opt-in and per-component**. The current base component still includes deprecated PHP
-helpers, and the registered BC Feature itself has no per-component `skip()` guard. This page separates those
-always-present pieces from behavior controlled by the component flag. For the current Hyvä Checkout limitation, see
+BC behavior is **opt-in and per-component**. The current base component still includes deprecated PHP helpers, and the
+registered BC Feature itself has no per-component `skip()` guard. This page separates those always-present pieces from
+behavior controlled by the component flag. The browser-side transformations are supplied by a companion package. For
+Hyvä Checkout, which enables BC by default inside its main container, see
 [Hyvä Checkout BC](../theming/hyva-checkout-bc.md).
 
 ## Two scopes of enable / disable
@@ -17,7 +18,7 @@ There are two independent switches. Most of the time you only touch the first.
 
 | Scope | What it controls | Default |
 |---|---|---|
-| **Per component** | Whether an individual component receives BC behaviour. | Off (no BC) |
+| **Per component** | Whether an individual component receives BC behaviour. | Off, unless a companion package supplies a default |
 | **The whole feature** | Whether the BC subsystem is registered at all, site-wide. | On (registered) |
 
 ## Per-component: the `#[HandleBackwardsCompatibility]` attribute
@@ -35,8 +36,8 @@ class LegacyCart extends Component
 }
 ```
 
-Pass `enabled: false` to opt **out** explicitly, which is handy when a theme rule would otherwise enable BC
-for this component (see resolution order below):
+Pass `enabled: false` to opt **out** explicitly. This is required when a companion package would otherwise enable BC
+for this component, such as the Hyvä Checkout container default (see resolution order below):
 
 ```php
 #[HandleBackwardsCompatibility(enabled: false)]
@@ -66,11 +67,15 @@ store($component)->set('magewire:bc', true);
 When more than one source has an opinion, the flag resolves in this order:
 
 1. **Explicit attribute**: `#[HandleBackwardsCompatibility]` (either value) wins.
-2. **Data-store value**: a programmatically set `magewire:bc` flag.
-3. **Default**: the layout resolver writes `false` when neither of the earlier sources provided a value.
+2. **Data-store opt-in**: a `magewire:bc` value of `true`, set programmatically or by a component resolver before the
+   component renders.
+3. **Companion default**: a companion package may enable BC for components without an attribute. Since
+   `magewirephp/magewire-hyva-checkout` 3.1.0, a newly mounted component that renders inside `hyva-checkout-main` is
+   enabled.
+4. **Default**: the layout resolver writes `false` when none of the earlier sources enabled BC.
 
-A companion package may attempt to supply a theme or container default later, but that is not dependable when it checks
-for an unset value after the core resolver has already written `false`. Use explicit attributes.
+A programmatic `false` holds only where no companion default applies. To keep BC off for a component inside the Hyvä
+Checkout container, use `#[HandleBackwardsCompatibility(enabled: false)]`.
 
 ## What the BC layer does
 
@@ -94,25 +99,38 @@ BC enabling activates several adaptations, on both the PHP and JavaScript sides.
   argument order of `updatingFoo()` / `updatedFoo()`. V1 hook methods keep being called correctly
   without you rewriting their signatures.
 
-### JavaScript side (theme shim)
+<a id="javascript-side-theme-shim"></a>
 
-The per-component flag reaches the browser as `memo.bc.enabled`. When present and truthy, a theme's
-BC shim activates for that component's DOM subtree and applies the V2→V3 transforms automatically;
-when absent or false, the shim sleeps, so non-BC components avoid the browser-side transformations. With BC active it:
+### JavaScript side (companion packages)
+
+Core does not ship browser code that reads the component flag. The flag reaches the browser as `memo.bc.enabled` when a
+companion package adds it. `magewirephp/magewire-hyva-checkout` does, and its shims load only on the Hyvä Checkout
+page. There, for components with `memo.bc.enabled`, the shim:
 
 - rewrites `wire:model` to `wire:model.live` (V1's default was live);
 - rewrites `wire:model.defer` to `wire:model`, and `wire:model.lazy` to `wire:model.blur`;
-- rewrites `wire:model.delay.Xms` to `wire:model.live.debounce.Xms`;
-- returns a **live-by-default** proxy from `$wire.entangle()`;
+- rewrites `wire:model.delay.Xms` to `wire:model.live.debounce.Xms`.
+
+For every component on that page, regardless of the flag, it also:
+
+- maps V1's `$wire.sync(name, value)` onto `$wire.$set(name, value)`;
 - re-fires deprecated hook names (`component.initialized`, `element.updating`, `message.sent`, …)
   alongside their V3 replacements, so V1 JavaScript listening on old names keeps working;
 - aliases `component.data` and `component.deferredActions` to `component.$wire` and
   `component.queuedUpdates`.
 
-This shim lives in the theme compatibility module (see
-[Compatibility module](../theming/compatibility-module.md)). Themes may also add their own BC
-behaviour on top. The Hyvä Checkout companion attempts a container-based default, but Magewire 3.6 migrations must use
-explicit attributes; see [Hyvä Checkout BC](../theming/hyva-checkout-bc.md).
+No shim changes `$wire.entangle()`. A bare `entangle` call is deferred in V3, including in BC-enabled components.
+
+A few V1 browser APIs are bridged without reading the flag:
+
+- `magewirephp/magewire-hyva-theme` re-dispatches the legacy `magewire:load` and `magewire:available` document events
+  and provides `Magewire.emitTo()`.
+- Core replays `Magewire.onError(callback)` calls made before the Magewire runtime has loaded.
+
+On pages without a directive shim, such as Hyvä storefront pages outside the checkout,
+`#[HandleBackwardsCompatibility]` enables only the PHP-side adaptations. Migrate those templates to V3 directives. See
+[Compatibility module](../theming/compatibility-module.md) for where a theme integration places its own shims, and
+[Hyvä Checkout BC](../theming/hyva-checkout-bc.md) for the checkout rules.
 
 ### V1 → V3 cheat sheet
 
@@ -125,8 +143,8 @@ The directive and `entangle` defaults that changed between versions:
 | `wire:model.lazy` | `wire:model.blur` | Sync on blur |
 | `$wire.entangle('p')` (live) | `$wire.entangle('p').live` | Opt back in to live; bare `entangle` is now deferred |
 
-For a BC-enabled component the theme shim applies these rewrites automatically. When you migrate the
-component for real, update the markup to the V3 column and drop BC.
+On the Hyvä Checkout page, the shim applies the directive rewrites to BC-enabled components. No shim changes
+`entangle`. When you migrate the component for real, update the markup to the V3 column and drop BC.
 
 ## What BC does *not* cover
 
@@ -176,23 +194,25 @@ own code.
 2. Migrate one component at a time using the [Upgrade](../getting-started/upgrade.md) checklist.
 3. When a component is fully V3-native, switch its attribute to
    `#[HandleBackwardsCompatibility(enabled: false)]` to disable the browser transformations, then remove the
-   attribute once you are confident.
+   attribute once you are confident. Keep the opt-out on components inside `hyva-checkout-main` while
+   `magewirephp/magewire-hyva-checkout` is installed, because the container default applies again once the attribute is removed.
 4. When the whole site is migrated, [disable the server Feature](#disabling-the-server-feature). Remove a companion
    package through Composer if it was installed only for legacy browser shims; do not edit vendor DI or layout files.
 
 ## Performance impact
 
-The BC shim runs on every morph for every BC-enabled component. The cost per morph is:
+On the Hyvä Checkout page, the shims add:
 
-- one pass over the element's `wire:*` attributes (directive rewriting);
-- one `Proxy` wrapper around the component's `$wire` (entangle semantics);
+- one pass over the element's `wire:*` attributes per morph for each BC-enabled component (directive rewriting);
+- one `Proxy` wrapper around each component's `$wire` (`sync` and `__instance` handling);
 - one extra event dispatch per deprecated hook name during each commit.
 
-The exact cost depends on component size and browser workload. Treat BC as a migration aid, measure it in the target checkout, and switch it off per component as migration finishes.
+The exact cost depends on component size and browser workload. Treat BC as a migration aid, measure it in the target
+checkout, and switch it off per component as migration finishes.
 
 ## Related
 
-- [Hyvä Checkout BC](../theming/hyva-checkout-bc.md): explicit opt-in and the current container-fallback limitation.
+- [Hyvä Checkout BC](../theming/hyva-checkout-bc.md): the container default, opt-outs, and the checkout shims.
 - [Compatibility module](../theming/compatibility-module.md): where a theme's BC shim and features live.
 - [Upgrade](../getting-started/upgrade.md): the V1 → V3 migration checklist.
 - [Features](../advanced/architecture/features.md): how the BC feature is registered and booted.

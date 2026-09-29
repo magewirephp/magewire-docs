@@ -14,7 +14,7 @@ Magewire renders its browser resources through a named Magento layout tree. Comp
 | `magewire.utilities` | block | Built-in `MagewireUtilities` registrations. Add late utilities under `magewire.utilities.after`. |
 | `magewire.addons` | block | Built-in `MagewireAddons` registrations. Add late addons under `magewire.addons.after`. |
 | `magewire.before` | container | Theme-facing content before Magewire internals. |
-| `magewire.ui-components` | container | Rendered Alpine UI, including the notifier. |
+| `magewire.ui-components` | container | Rendered Alpine UI, including the notifier and loading indicator. |
 | `magewire.internal` | block | Internal bridge output; do not override casually. |
 | `magewire.internal.backwards-compatibility` | container | V1 browser compatibility shims. |
 | `magewire.directives` | block | Custom Magewire directive registrations. |

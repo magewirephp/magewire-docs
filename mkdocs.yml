@@ -119,9 +119,11 @@ nav:
   - 'Features':
       - 'pages/features/alpine.md'
       - 'pages/features/lazy-loading.md'
+      - 'pages/features/layout-overrides.md'
       - 'pages/features/pagination.md'
       - 'pages/features/magewire-template-directives.md'
       - 'pages/features/notifications.md'
+      - 'pages/features/loading-indicator.md'
       - 'pages/features/rate-limiting.md'
       - 'pages/features/redirects.md'
       - 'pages/features/request-bundling.md'
@@ -155,6 +157,7 @@ nav:
     - 'pages/theming/layout-containers.md'
     - 'pages/theming/alpine-loading.md'
     - 'pages/theming/csp-script-bootstrap.md'
+    - 'pages/theming/styles.md'
     - 'pages/theming/tailwind.md'
     - 'pages/theming/hyva-checkout-bc.md'
   - 'Admin':

@@ -8,7 +8,7 @@ element state; it does not use this utility for text interpolation.
 
 Parse a loader message into an ordered list of `{ text, title? }` parts.
 
-The parser recognises three shapes:
+The parser recognises four shapes:
 
 | Shape | Input | Output |
 |---|---|---|
@@ -16,6 +16,9 @@ The parser recognises three shapes:
 | Titled | `"Save: In progress"` | `[{ title: 'Save', text: 'In progress' }]` |
 | Separated | `"Saving ... Almost done"` | `[{ text: 'Saving' }, { text: 'Almost done' }]` |
 | Continuation | `"...Almost done"` | `[{ text: null }, { text: 'Almost done' }]` |
+
+A message is separated only when it contains three periods with a space on both sides, or starts with three periods.
+`"Hi... there"` stays a single part.
 
 ```javascript
 const parts = window.MagewireUtilities.loader.parseText('Save: In progress ... Done');

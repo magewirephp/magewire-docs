@@ -89,8 +89,8 @@ The V1 method names above are preserved by the BC layer's trait so existing comp
 
 - **JS is based on the Livewire bundle.** V3 serves the ported Livewire runtime as a Magento static
   asset and adds Magewire aliases and Magento/theme integration around it. V1 shipped custom JS.
-- **Utilities & Addons.** `window.MagewireUtilities` (`dom`, `loader`, `str`, `cookie`) and
-  `window.MagewireAddons` (the notifier) are registerable, layout-driven extension points. New in V3.
+- **Utilities & Addons.** `window.MagewireUtilities` (`dom`, `loader`, `loadingIndicatorTiming`, `str`, `cookie`) and
+  `window.MagewireAddons` (`notifier`, `loadingIndicator`) are registerable, layout-driven extension points. New in V3.
 - **`wire:*` default changes (v2 → v3):**
 
 | V1 / v2 | V3 | Behaviour |
@@ -152,8 +152,8 @@ V3 ships a **BC layer** so V1 components run on the V3 runtime without a rewrite
 - Opt in per component with `#[HandleBackwardsCompatibility]` (or out with `enabled: false`).
 - A PHP trait keeps the deprecated V1 APIs (`emit*`, `getPublicProperties()`, public `$id`, error
   helpers, `dispatch*Message()`).
-- A JS shim rewrites `wire:*` directives, restores live-by-default `entangle`, and re-fires renamed
-  hook names for BC-enabled components.
+- On the Hyvä Checkout page, the companion package's JS shim rewrites `wire:*` directives for BC-enabled components
+  and re-fires renamed hook names. No shim changes `entangle`.
 - Disable the whole subsystem via DI once everything is migrated.
 
 ---

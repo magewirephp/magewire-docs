@@ -82,6 +82,11 @@ ComponentRegistrar::register(
 For a project-local module in `app/code`, use the same `registration.php` and
 `etc/module.xml` layout. Composer metadata matters when you distribute it.
 
+If the package restyles Magewire's own UI, require `magewirephp/magewire` `^3.7`
+(and `magewirephp/magewire-hyva-theme` `^3.1.2` on Hyvä). Magewire 3.7.0 replaced
+the notifier, loading icon, and exception markup with the classes documented in
+[Core styles](styles.md).
+
 ## Register shared browser behavior
 
 The Hyvä integration uses the `default_hyva` layout handle. Add a block to
@@ -162,8 +167,10 @@ coordinate the theme's own Alpine asset so one instance starts on a page.
 The [Hyvä loader layout](https://github.com/magewirephp/magewire-hyva-theme/blob/main/src/view/frontend/layout/default_hyva.xml)
 and [script template](https://github.com/magewirephp/magewire-hyva-theme/blob/main/src/view/frontend/templates/script.phtml)
 are concrete references. Then add only the CSS and browser bridges your theme
-needs. Keep PHP business services in the feature module; put theme behavior in
-this companion module.
+needs. Since Magewire 3.7, core ships complete styles for its own UI, so a new
+integration can adjust the [core style tokens](styles.md) instead of supplying
+notifier or loading-indicator CSS. Keep PHP business services in the feature
+module; put theme behavior in this companion module.
 
 <a id="decision-matrix"></a>
 
@@ -185,9 +192,11 @@ Change an existing block's template when you need a replacement:
                 template="Vendor_MagewireHyvaExtras::magewire/notifier.phtml"/>
 ```
 
-The replacement template must provide the behavior expected by that block.
-Merely placing a PHTML file at the same relative path in your module does not
-replace another module's template. Prefer adding a child or a small feature
+The replacement template must provide the behavior expected by that block. For
+the notifier, keep the classes and attributes listed under
+[Notifier markup](styles.md#notifier-markup) so the core styles and theme tokens
+still apply. Merely placing a PHTML file at the same relative path in your
+module does not replace another module's template. Prefer adding a child or a small feature
 bridge when it meets the need; replacing a whole core template ties your
 package to its internal markup.
 
@@ -206,6 +215,9 @@ arrays declared in global `etc/di.xml`.
 Test one page with a Magewire component and one page without one. Confirm the
 component updates, Alpine initializes once, CSP permits your script, and the
 theme still works when Magewire does not drive the page. Test again with
-Magento full-page cache enabled. See [Alpine loading](alpine-loading.md),
-[Layout nodes](layout-containers.md), and
+Magento full-page cache enabled. To check style overrides, open the
+[UI workbench](styles.md#preview-with-the-ui-workbench) at
+`/magewire/playwright/ui`, which renders the real notifier, loading icon, and
+exception markup. See [Alpine loading](alpine-loading.md),
+[Layout nodes](layout-containers.md), [Core styles](styles.md), and
 [Tailwind](tailwind.md) for each integration point.

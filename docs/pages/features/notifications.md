@@ -56,4 +56,5 @@ document.addEventListener('magewire:init', async () => {
 }, { once: true })
 ```
 
-See [Magewire Notifier](../advanced/javascript/addons/magewire-notifier.md) for lifecycle methods and hooks.
+See [Magewire Notifier](../advanced/javascript/addons/magewire-notifier.md) for lifecycle methods and hooks, and
+[Core styles](../theming/styles.md) to restyle the notifications.

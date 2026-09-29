@@ -9,8 +9,8 @@ The canonical source is `src/view/base/layout/default.xml`. The tree below mirro
 ## Container tree
 
 ```
-head.additional
-└── magewire.css                              ← CSS for loading, offline, dirty, and x-cloak states
+head
+└── <css src="Magewirephp_Magewire::css/magewire.css"/>   ← core styles (head asset, not a block)
 
 after.body.start
 └── magewire.priority                         ← early JS, runs right after <body> opens
@@ -28,21 +28,24 @@ magewire (root block: Magewirephp_Magewire::root.phtml)
 │   ├── magewire.utilities (block)            ← window.MagewireUtilities
 │   │   ├── magewire.utilities.dom
 │   │   ├── magewire.utilities.loader
+│   │   ├── magewire.utilities.loading-indicator-timing   ← adaptive loading-indicator thresholds
 │   │   ├── magewire.utilities.str
 │   │   ├── magewire.utilities.cookie
 │   │   └── magewire.utilities.after          ← custom utilities render after core
 │   ├── magewire.addons (block)               ← window.MagewireAddons
 │   │   ├── magewire.addons.notifier          ← core notifier addon
+│   │   ├── magewire.addons.loading-indicator ← core loading-indicator addon
 │   │   └── magewire.addons.after             ← custom addons render after core
 │   └── magewire.global.after (container)
 ├── magewire.before (container)               ← theme-owned directives / UI components
 │   ├── magewire.alpinejs.directives          ← custom Alpine directives
 │   ├── magewire.ui-components (container)
-│   │   └── magewire.ui-components.notifier    ← core notifier UI component
-│   │       ├── …notifier.notification.before
-│   │       └── …notifier.notification.after
-│   │           └── …notifier.activity-state
-│   │               └── …notifier.activity-state.loader-icon   ← spinner
+│   │   ├── magewire.ui-components.notifier    ← core notifier UI component
+│   │   │   ├── …notifier.notification.before
+│   │   │   └── …notifier.notification.after
+│   │   │       └── …notifier.close-button     ← notification close button
+│   │   └── magewire.ui-components.loading-indicator   ← component loading overlay
+│   │       └── …loading-indicator.spinner     ← spinner icon (alias: spinner)
 │   └── magewire.alpinejs.after               ← Alpine code rendered AFTER Magewire's
 ├── magewire.before.internal (container)      ← before core internals; holds magewire.state.enabled (debug)
 ├── magewire.internal (block)                 ← non-overridable framework internals
@@ -63,11 +66,11 @@ magewire (root block: Magewirephp_Magewire::root.phtml)
     └── magewire.plugin.scripts               ← pre-v3 plugin compatibility
 ```
 
-The base layout also defines two blocks **outside** the `magewire` root subtree: `magewire.css` (in `head.additional`) and `magewire.priority` (in `after.body.start`). They are not moved with the root and stay where they render best: CSS in the head, priority JS right after the body opens.
+The base layout also places two pieces **outside** the `magewire` root subtree: the core stylesheet, added as a `<css>` head asset, and the `magewire.priority` block (in `after.body.start`). They are not moved with the root and stay where they render best: CSS in the head, priority JS right after the body opens. Before Magewire 3.7, the styles were an inline `magewire.css` block in `head.additional`; see [Core styles](../../theming/styles.md).
 
 Frontend layout (`src/view/frontend/layout/default.xml`) adds on top:
 
-- `<move element="magewire" destination="before.body.end"/>`: moves the whole `magewire` root subtree to the end of `<body>` (`magewire.css` and `magewire.priority` stay put).
+- `<move element="magewire" destination="before.body.end"/>`: moves the whole `magewire` root subtree to the end of `<body>` (the stylesheet and `magewire.priority` stay put).
 - `magewire.alpinejs.components.magewire-script` inside `magewire.alpinejs.components`: the Alpine component that boots Magewire's JS runtime.
 - `magewire.object-proxy` as a child of `magewire.priority`: early global object so inline snippets can queue work against `window.Magewire` before the runtime boots.
 
@@ -77,7 +80,7 @@ Admin layout (`magewire-admin` package) replaces the body-end move with a head-i
 
 | Container / block                    | Type      | Description |
 |--------------------------------------|-----------|-------------|
-| `magewire.css`                       | block     | Lives in `head.additional`. Renders CSS for loading, offline, dirty, and `x-cloak` states. It does not include a `wire:cloak` hiding rule. Outside the `magewire` root subtree. |
+| `Magewirephp_Magewire::css/magewire.css` | head asset | Core stylesheet for the notifier, loading indicator, exception placeholder, and loading, offline, dirty, and `x-cloak` states. It does not include a `wire:cloak` hiding rule. Not a block: remove it with `<remove src="…"/>` in `<head>`. See [Core styles](../../theming/styles.md). |
 | `magewire.priority`                  | block     | Lives in `after.body.start`. Early JS that must run right after `<body>` opens. Hosts `magewire.object-proxy` on the frontend. Outside the `magewire` root subtree. |
 | `magewire`                           | block     | Root; wraps every Magewire-owned output. Do not replace its template: override children instead. |
 | `magewire.global`                    | block     | Global setup pass: runs once per page, before any per-feature wiring. |
@@ -88,7 +91,7 @@ Admin layout (`magewire-admin` package) replaces the body-end move with a head-i
 | `magewire.alpinejs.components`       | container | `Alpine.data(...)` registrations. Each child block renders an `<script>` calling `Alpine.data`. |
 | `magewire.before`                    | container | Everything that must precede Magewire's own directives/features. Theme-owned by convention. |
 | `magewire.alpinejs.directives`       | container | Custom `x-*` directive registrations. |
-| `magewire.ui-components`             | container | UI Alpine components: the core notifier lives here; theme overrides and additions too. |
+| `magewire.ui-components`             | container | UI Alpine components: the core notifier and loading indicator live here; theme overrides and additions too. |
 | `magewire.alpinejs.after`            | container | Alpine code that must load AFTER Magewire's Alpine wiring. |
 | `magewire.before.internal`           | container | Before Magewire's internal machinery. Reserved for framework use; ships the debug-only `magewire.state.enabled` notice (`ifconfig dev/magewire/debug/enable`). |
 | `magewire.internal`                  | block     | Non-overridable core. Deliberately a block, not a container, so arbitrary injection is impossible. Inject via `magewire.after.internal` instead. |
@@ -98,9 +101,9 @@ Admin layout (`magewire-admin` package) replaces the body-end move with a head-i
 | `magewire.after.internal`            | container | After the internal block. Use when you must interleave with core internals. |
 | `magewire.disabled`                  | container | Rendered ONLY when Magewire is disabled site-wide: surface a fallback or a warning here. Ships the debug-only `magewire.state.disabled` notice. |
 | `magewire.after`                     | container | Last-to-render Magewire content. Theme-owned; safe default for theme-final output. |
-| `magewire.utilities`                 | block     | Loads `window.MagewireUtilities` and registers core utilities (dom, loader, str, cookie). |
+| `magewire.utilities`                 | block     | Loads `window.MagewireUtilities` and registers core utilities (dom, loader, loading-indicator timing, str, cookie). |
 | `magewire.utilities.after`           | container | Inject custom utilities so they register after the core ones. |
-| `magewire.addons`                    | block     | Loads `window.MagewireAddons` and registers core addons (notifier). |
+| `magewire.addons`                    | block     | Loads `window.MagewireAddons` and registers core addons (notifier, loading indicator). |
 | `magewire.addons.after`              | container | Inject custom addons so they register after the core ones. |
 | `magewire.legacy`                    | container | BC shelf for v1 block/container names. |
 | `magewire.plugin.scripts`            | container | Pre-v3 plugin compatibility target. |
@@ -146,7 +149,7 @@ Do not rely on file load order because it depends on module sequence and is brit
 | Bridge a Feature's JS counterpart | `magewire.features` |
 | Inject theme-final content | `magewire.after` |
 | Render a fallback when Magewire is disabled | `magewire.disabled` |
-| Style loading, offline, dirty, and `x-cloak` states | `magewire.css` |
+| Restyle core UI and loading, offline, dirty, and `x-cloak` states | CSS tokens and overrides; see [Core styles](../../theming/styles.md) |
 | Run JS immediately after `<body>` opens | `magewire.priority` |
 
 ## Directories & Templates
@@ -169,8 +172,8 @@ Magewire's `src/view/base/templates/` directory is organised by the library the 
 | `js/alpinejs/components/` | Alpine `.data(...)` registrations: one file per component. |
 | `js/alpinejs/directives/` | Alpine `x-*` directive registrations. |
 | `js/magewire/` | Magewire runtime templates. |
-| `js/magewire/addons/` | One file per `MagewireAddons.register(...)` call (the notifier lives here). |
-| `js/magewire/utilities/` | One file per `MagewireUtilities.register(...)` call (dom, loader, str, cookie). |
+| `js/magewire/addons/` | One file per `MagewireAddons.register(...)` call (notifier, loading indicator). |
+| `js/magewire/utilities/` | One file per `MagewireUtilities.register(...)` call (dom, loader, loading-indicator timing, str, cookie). |
 | `js/magewire/directives/` | Magewire-level directive registrations (select, mage-notify, mage-throttle). |
 | `js/magewire/internal/` | Non-overridable internals: do not add here from a module. |
 
@@ -178,7 +181,7 @@ Magewire's `src/view/base/templates/` directory is organised by the library the 
 
 | Directory | Purpose |
 |---|---|
-| `magewire/ui-components/` | Alpine-driven UI components (notifier, notifier activity state, …). |
+| `magewire/ui-components/` | Alpine-driven UI components (notifier, notifier close button, loading indicator). |
 | `magewire/utils/` | Shared PHTML snippets consumed by other templates (icons, spinners). |
 
 ### Under `magewire-features/`
