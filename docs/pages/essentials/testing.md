@@ -19,7 +19,8 @@ The repository workflow currently runs this suite on PHP 8.2. Application module
 
 ## Playwright
 
-The browser suite requires a Magento installation with sample data and Magewire's Playwright fixtures enabled.
+The browser suite requires a Magento installation with sample data, in developer mode, and with Magewire's Playwright
+fixtures enabled. The fixture routes are served only outside production mode.
 
 From the Magewire source checkout:
 
@@ -76,7 +77,7 @@ button click does not prove the server-side guard.
 
 ## Compatibility matrix
 
-Magewire 3.6's production workflow verifies these representative builds:
+Magewire 3.7's production workflow verifies these representative builds:
 
 | Distribution | Release | PHP |
 |---|---:|---:|

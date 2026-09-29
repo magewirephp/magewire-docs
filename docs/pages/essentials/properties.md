@@ -56,7 +56,7 @@ other value types. Prefer an ID or a small array of values over a Magento
 model or service object in public state. Inject repositories and services
 into the component constructor, then load fresh domain objects on the server.
 
-!!! warning "DataObject round trips in Magewire 3.6"
+!!! warning "DataObject round trips in Magewire 3.7"
     The current synthesizer casts the object to an array instead of serializing
     `getData()`. A normal DataObject cannot dependably round-trip through public
     state. Keep its data in a plain array, or keep only its ID and reload it.

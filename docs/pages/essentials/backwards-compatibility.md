@@ -91,7 +91,7 @@ BC enabling activates several adaptations, on both the PHP and JavaScript sides.
   Error, BrowserEvent, Request and View concerns. These exist on every component, but are only
   meaningful to code written against the old API.
 - **Snapshot effects.** The `SupportMagewireBackwardsCompatibility` Feature is registered at sort order `99100`.
-  In Magewire 3.6 it has no `skip()` guard, so it initializes for every component. It rebuilds V1-style request data
+  In Magewire 3.7 it has no `skip()` guard, so it initializes for every component. It rebuilds V1-style request data
   on `hydrate()` and pushes a `bc` effect containing the property-path map on `dehydrate()`. The component flag
   controls whether the browser shim applies V1 behavior.
 - **Lifecycle-hook argument adaptation.** For BC-enabled components only, a plugin on the lifecycle

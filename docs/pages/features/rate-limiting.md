@@ -33,7 +33,7 @@ Rate limiting is always evaluated in production mode. In default or developer mo
 
 ## Temporary lockouts
 
-Magewire 3.6 can escalate repeated rejections into a temporary lockout. It is disabled by default
+Since Magewire 3.6, repeated rejections can escalate into a temporary lockout. It is disabled by default
 and configured in the **Lockout** group below the normal rate-limit settings:
 
 | Setting | Default | Meaning |

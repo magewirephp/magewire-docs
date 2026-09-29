@@ -46,7 +46,7 @@ public function mount(string $label = 'Counter', int $start = 0): void
 
 The layout resolver converts kebab-case argument names to camelCase. For example,
 `magewire:mount:page-size` is passed as `$pageSize`. Although the current resolver parses
-`magewire.*` keys, Magewire 3.6 does not assign those values to public properties.
+`magewire.*` keys, Magewire 3.7 does not assign those values to public properties.
 
 See [Components](../essentials/components.md) for every supported binding shape and argument group. Continue with
 [Properties](../essentials/properties.md), [Actions](../essentials/actions.md), and the
