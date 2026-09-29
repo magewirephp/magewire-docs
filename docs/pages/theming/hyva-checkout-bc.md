@@ -125,7 +125,8 @@ When every Hyvä Checkout component on your installation is V3-native:
    inside `hyva-checkout-main`, and remove `#[HandleBackwardsCompatibility]` opt-ins elsewhere.
 2. Do not edit DI configuration inside a vendor package.
 3. If `magewirephp/magewire-hyva-checkout` was installed only for legacy BC and is no longer needed, remove it through
-   Composer. The package also groups repeated checkout flash messages; that behavior is removed with it.
+   Composer. The package also [groups repeated checkout flash messages](index.md#hyva-checkout-flash-messages); that
+   behavior is removed with it.
 4. Flush cache and run the checkout end to end.
 
 ## Related

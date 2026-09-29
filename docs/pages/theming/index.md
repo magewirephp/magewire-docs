@@ -21,9 +21,11 @@ bin/magento module:enable Magewirephp_Magewire Magewirephp_MagewireHyvaTheme
 bin/magento setup:upgrade
 ```
 
-Rebuild your Hyvä theme assets after installation so its Tailwind build sees
-the package's styles. The integration coordinates Magewire's bundled Alpine
-with Hyvä's normal Alpine loader and includes the flash-message bridge.
+Package 3.1.2 requires Magewire 3.7. Magewire's own UI is styled without a
+Tailwind build. To use the package's optional Hyvä notifier presentation,
+rebuild the theme after `setup:upgrade`; see [Tailwind](tailwind.md). The
+integration coordinates Magewire's bundled Alpine with Hyvä's normal Alpine
+loader and includes the flash-message bridge.
 Follow [Alpine loading](alpine-loading.md) if you need to inspect that
 decision.
 
@@ -57,6 +59,29 @@ Magewire 3.7, components inside the checkout's main container receive BC by
 default. New V3 components should use current directives, events, and
 lifecycle hooks, and opt out with
 `#[HandleBackwardsCompatibility(enabled: false)]`.
+
+### Hyvä Checkout flash messages
+
+Since package 3.1.0, consecutive checkout flash messages with the same text
+and type are shown once, with a count badge. The package wraps Hyvä's
+`initMessages` component rather than replacing its template, so it only
+applies on the checkout page and only when Hyvä's message component is
+present:
+
+- messages rendered on page load are grouped when neighbouring messages match;
+- a new message that matches the last visible one increments its count
+  instead of being added again;
+- messages with empty text are never grouped, and the counts reset once the
+  message list is empty;
+- the badge appears from two occurrences and is emphasized above ten, like the
+  [notifier badge](../advanced/javascript/addons/magewire-notifier.md#repeated-messages).
+
+Grouping is enabled by default. Turn it off with the **Group Consecutive
+Messages** field of the checkout's **Flash Messages** configuration group
+(`hyva_themes_checkout/component/flash_messages/group_consecutive`), per
+website or store view. The badge styles are compiled into the Hyvä theme, so
+rebuild the theme after installing or updating the package; see
+[Tailwind](tailwind.md#hyva-checkout-package).
 
 ## Breeze storefront
 
