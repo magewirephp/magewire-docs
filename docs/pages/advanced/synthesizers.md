@@ -5,7 +5,7 @@
 ## Built-in synthesizers
 
 Magewire registers a `\Magento\Framework\DataObject` synthesizer on top of Livewire's defaults (scalars, arrays,
-`\stdClass`, backed enums). In Magewire 3.6 it dehydrates by casting the object to an array rather than calling
+`\stdClass`, backed enums). In Magewire 3.7 it dehydrates by casting the object to an array rather than calling
 `getData()`, so normal DataObject state is not guaranteed to round trip correctly. Prefer a public array and rebuild
 the DataObject internally until that implementation is corrected.
 

@@ -43,7 +43,7 @@ changed through component updates and must not be trusted blindly. See [Security
 
 Property values aren't always plain scalars. **Synthesizers** teach `HandleComponents` how to
 dehydrate and hydrate richer types: arrays, `\stdClass`, backed enums, and Magento's
-`\Magento\Framework\DataObject`. The DataObject synth is registered but its Magewire 3.6 array-cast implementation
+`\Magento\Framework\DataObject`. The DataObject synth is registered but its Magewire 3.7 array-cast implementation
 does not guarantee a correct round trip. Each public property is matched to a synth during snapshot and restore.
 
 Register your own by adding it to the `synthesizers` argument of the mechanism in DI:

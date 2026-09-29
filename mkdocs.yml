@@ -103,6 +103,7 @@ nav:
       - 'pages/getting-started/roadmap.md'
       - 'Releases':
         - 'pages/getting-started/releases/feature-history.md'
+        - 'pages/getting-started/releases/upgrade-notes.md'
       - 'pages/getting-started/contribute.md'
       - 'pages/getting-started/sponsoring.md'
       - 'pages/getting-started/license.md'

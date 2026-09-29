@@ -146,9 +146,11 @@ public function updatedReviewPage(int $page): void
 }
 ```
 
-## Magewire 3.6 limitations
+<a id="magewire-36-limitations"></a>
 
-Pagination in 3.6 deliberately covers component state and navigation only:
+## Current limitations
+
+As of Magewire 3.7, pagination deliberately covers component state and navigation only:
 
 - page numbers are not synchronized with the browser URL or query string;
 - a reload starts the component at page `1` unless the component restores state itself;
@@ -158,7 +160,7 @@ Pagination in 3.6 deliberately covers component state and navigation only:
 - the component must query, slice, and render the current result set itself.
 
 These differences mean Livewire pagination examples that depend on `$records->links()` or URL-backed
-page state cannot be copied directly into Magewire 3.6.
+page state cannot be copied directly into Magewire.
 
 ## Related
 
