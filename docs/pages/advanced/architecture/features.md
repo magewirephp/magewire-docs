@@ -50,8 +50,9 @@ Create a class that extends `Magewirephp\Magewire\ComponentHook` and declare a `
 Each `<item>` in the `items` array carries:
 
 - `type`: fully-qualified class name of the feature (must extend `ComponentHook`).
-- `sort_order`: required; lower numbers boot first. Pick a slot relative to the features yours depends on and recheck the tagged area-specific DI configuration on upgrades.
-- `boot_mode`: optional; integer from the `ServiceTypeItemBootMode` enum (`LAZY = 10`, `PERSISTENT = 20`, `ALWAYS = 30`). Omit to inherit the Features fallback.
+- `sort_order`: recommended; lower numbers boot first. Without it, the item gets the previous item's value plus one. Pick a slot relative to the features yours depends on and recheck the tagged area-specific DI configuration on upgrades.
+- `sequence`: optional, since Magewire 3.7; an array of other feature item names mapped to `true`, which this feature must boot after. See [Ordering items](runtime.md#ordering-items).
+- `boot_mode`: optional; integer from the `ServiceTypeItemBootMode` enum (`LAZY = 10`, `PERSISTENT = 20`, `ALWAYS = 30`). Omit to inherit the Features fallback. A `PERSISTENT` or `ALWAYS` feature cannot sequence after a `LAZY` one.
 
 Register under `etc/adminhtml/di.xml` as well if the feature must run in the admin area.
 

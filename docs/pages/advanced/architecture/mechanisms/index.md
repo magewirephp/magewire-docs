@@ -19,7 +19,8 @@ Mechanisms form the non-negotiable core pipeline. Removing any of them breaks th
 
 ## The pipeline
 
-The service provider boots registered mechanisms in sort-order sequence:
+The service provider boots registered mechanisms in `sort_order`, adjusted by any `sequence` constraints
+(see [Ordering items](../runtime.md#ordering-items)):
 
 ```
 ResolveComponents (1000)
@@ -81,6 +82,9 @@ Mechanisms are declared on `Magewirephp\Magewire\Mechanisms` via DI. The two sup
     </arguments>
 </type>
 ```
+
+The long form also accepts a `sequence` array of other mechanism item names that must boot first. See
+[Ordering items](../runtime.md#ordering-items).
 
 To override a mechanism in a specific area, declare the replacement class in `etc/frontend/di.xml` or `etc/adminhtml/di.xml` with the same item name. Replacing is what `magewire-admin` does to patch the admin-specific update route and component resolver. See [Admin → How it works](../../../admin/how-it-works.md).
 
