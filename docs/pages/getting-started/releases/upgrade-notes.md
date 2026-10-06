@@ -29,13 +29,6 @@ The current companion packages accept 3.7.2 without a new release: `magewirephp/
 requires `>=3.7`, `magewirephp/magewire-hyva-checkout` 3.1.1 requires `~3.7.1`, and `magewirephp/magewire-admin`
 3.0.0 requires `^3.0`.
 
-### Hyvä Checkout 1.4.0 beta
-
-Existing Hyvä Checkout 1.4.0 betas can pin an affected Magewire release, so Composer may refuse a Magewire-only
-update. A coordinated 1.4.0-beta6 release will follow. Upgrade every environment when it is available, then run
-`composer show magewirephp/magewire` to confirm 3.7.2 or later is installed. Follow the Hyvä Checkout release
-instructions rather than overriding its constraints.
-
 ### Inherited methods are no longer browser actions
 
 Every public method defined on your component class is callable from the browser, even when no template refers to

@@ -484,9 +484,6 @@ Hyvä Checkout V1 is wired for Livewire V2 semantics. Install `magewirephp/magew
 `#[HandleBackwardsCompatibility]` to legacy components rendered outside that container, and verify the checkout end
 to end.
 
-Hyvä Checkout 1.4.0 betas can pin an affected Magewire release. Upgrade to 1.4.0-beta6 when it is available and
-confirm that Magewire 3.7.2 or later is installed.
-
 See [Theming → Hyvä Checkout BC](../theming/hyva-checkout-bc.md) for the full detail.
 
 ## Admin (new in V3)
