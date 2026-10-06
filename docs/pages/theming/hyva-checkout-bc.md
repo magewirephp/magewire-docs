@@ -14,10 +14,7 @@ The package requires `magewirephp/magewire-hyva-theme` and Hyvä Checkout. Its s
 
 !!! danger "Magewire 3.7.2 security release"
     Every package release above accepts Magewire 3.7.2, which fixes
-    [GHSA-64j9-rg74-hqc7](https://github.com/magewirephp/magewire/security/advisories/GHSA-64j9-rg74-hqc7). Existing
-    Hyvä Checkout 1.4.0 betas can pin an affected Magewire release, so a Magewire-only update may be blocked. A
-    coordinated 1.4.0-beta6 release will follow; upgrade when it is available and confirm with
-    `composer show magewirephp/magewire` that 3.7.2 or later is installed.
+    [GHSA-64j9-rg74-hqc7](https://github.com/magewirephp/magewire/security/advisories/GHSA-64j9-rg74-hqc7).
 
     Legacy checkout components that call an inherited Magewire helper, such as `reset`, from the browser or from a
     listener need a public action of their own. See
