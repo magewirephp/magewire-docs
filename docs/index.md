@@ -14,10 +14,6 @@
     composer show magewirephp/magewire
     ```
 
-    **Hyvä Checkout 1.4.0 beta:** existing betas can pin an affected Magewire release, which can block a Magewire-only
-    update. A coordinated 1.4.0-beta6 release will follow. Upgrade when it is available and confirm that the installed
-    Magewire version is 3.7.2 or later.
-
     Custom components that call inherited Magewire helpers from the browser or from event listeners may need a small
     change. See [Upgrade notes](pages/getting-started/releases/upgrade-notes.md#371-to-372).
 
