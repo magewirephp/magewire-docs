@@ -77,3 +77,6 @@ class Recommendations extends Component
 ```
 
 Component parameters are resolved again from Magento layout data when the lazy request runs; they are not trusted from browser-provided placeholder state.
+
+Since 3.7.2, Magewire accepts the load request only for a component that is still a lazy placeholder. The
+`placeholder()` method is reserved for this feature, so do not use it as a browser action.

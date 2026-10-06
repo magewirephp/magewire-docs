@@ -5,6 +5,31 @@ the method arguments and supplies public component state. The snapshot
 checksum protects integrity, but an action still needs its own access and
 business checks.
 
+<a id="browser-callable-methods"></a>
+
+## What the browser can call
+
+Every public method defined on your component class, or on your own base classes and traits, is an action. The
+browser can call it with any arguments, even when no template refers to it. Keep helpers `protected` or `private`,
+and check access inside each action.
+
+Since 3.7.2, Magewire rejects browser calls to:
+
+- public methods inherited from `Magewirephp\Magewire\Component` or `Component\Form` and their traits, such as
+  `reset`, `fill`, `redirect`, `validate`, and `tap`;
+- methods whose name starts with `__`;
+- lifecycle hooks and other [reserved names](../getting-started/releases/upgrade-notes.md#reserved-method-names),
+  such as `mount`, `boot`, `placeholder`, and `updatedEmail`.
+
+The same rules apply to [event listener](../essentials/events.md#listener-targets) targets. To expose a framework
+helper, wrap it in a public action that performs your checks. Re-declaring an inherited method as `public` on your
+component makes it callable again.
+
+!!! danger "Magewire 3.0.0 to 3.7.1"
+    Earlier releases allowed the browser to call the inherited methods listed above
+    ([GHSA-64j9-rg74-hqc7](https://github.com/magewirephp/magewire/security/advisories/GHSA-64j9-rg74-hqc7)).
+    Upgrade to 3.7.2 or later. See [Upgrade notes](../getting-started/releases/upgrade-notes.md#371-to-372).
+
 ## CSRF
 
 Magento's `FormKey` protects every Magewire request automatically. The browser sends it as the top-level `_token`
@@ -72,6 +97,17 @@ Use [Request Filters](request-filters.md) for inexpensive request-wide checks th
 ## Vulnerability reports
 
 Report suspected Magewire vulnerabilities privately to `magewirephp@wpoortman.nl` according to the repository security policy. Do not post exploit details in a public issue, discussion, or pull request.
+
+## Security advisories
+
+Published fixes are listed under the repository's
+[security advisories](https://github.com/magewirephp/magewire/security/advisories). Each advisory names the affected
+and fixed releases. Upgrade every environment, including staging, development, and test installations, and check
+lockfiles and deployment images as well as `composer.json`.
+
+| Advisory | Severity | Affected | Fixed |
+|---|---|---|---|
+| [GHSA-64j9-rg74-hqc7](https://github.com/magewirephp/magewire/security/advisories/GHSA-64j9-rg74-hqc7): browser access to framework component methods | High | 3.0.0 – 3.7.1 | 3.7.2 |
 
 ## CSP
 

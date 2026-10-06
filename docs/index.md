@@ -1,5 +1,26 @@
 # Magewire PHP 3
 
+!!! danger "Security release: upgrade to Magewire 3.7.2"
+    Security advisory
+    [GHSA-64j9-rg74-hqc7](https://github.com/magewirephp/magewire/security/advisories/GHSA-64j9-rg74-hqc7)
+    (High) affects Magewire 3.0.0 through 3.7.1. A visitor who can load a page with a Magewire component could call
+    public methods inherited from Magewire's base component that the component never exposed as actions.
+
+    Upgrade every environment to 3.7.2, including production, staging, development, local, demo, and test
+    installations. Agencies should also check client projects, lockfiles, and deployment images.
+
+    ```shell
+    composer update magewirephp/magewire:3.7.2 --with-all-dependencies
+    composer show magewirephp/magewire
+    ```
+
+    **Hyvä Checkout 1.4.0 beta:** existing betas can pin an affected Magewire release, which can block a Magewire-only
+    update. A coordinated 1.4.0-beta6 release will follow. Upgrade when it is available and confirm that the installed
+    Magewire version is 3.7.2 or later.
+
+    Custom components that call inherited Magewire helpers from the browser or from event listeners may need a small
+    change. See [Upgrade notes](pages/getting-started/releases/upgrade-notes.md#371-to-372).
+
 Build interactive Magento interfaces with PHP and PHTML. A Magewire component
 starts as a Magento layout block, renders a template, and responds to browser
 events through a PHP class. Magewire updates the rendered HTML without a full
@@ -114,6 +135,10 @@ Use the [Magewire GitHub repository](https://github.com/magewirephp/magewire) fo
 
 !!! danger "Report vulnerabilities privately"
     Do not open a public issue, discussion, or pull request for a suspected security vulnerability. Follow the repository's security policy and email `magewirephp@wpoortman.nl`.
+
+Published fixes are listed under the repository's
+[security advisories](https://github.com/magewirephp/magewire/security/advisories). Each advisory names the affected
+and fixed releases; upgrade to the fixed release or later.
 
 ## Next steps
 

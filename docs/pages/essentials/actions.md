@@ -49,6 +49,31 @@ The two buttons call the same reusable action. `wire:loading.attr="disabled"`
 prevents repeated clicks while it runs. The method still checks `$step` because
 browser-supplied arguments can be changed outside the template.
 
+## Only your own public methods are actions
+
+The browser can call any public method defined on your component, even one no template uses. Keep helpers
+`protected` or `private`.
+
+Methods inherited from Magewire's `Component` and `Component\Form`, such as `reset`, `redirect`, and `validate`, are
+not actions, and neither are [lifecycle hooks](lifecycle-hooks.md#hooks-are-not-actions). To let the browser use one,
+wrap it in an action of your own:
+
+```php
+public function clearSearch(): void
+{
+    $this->reset('query');
+}
+```
+
+```php
+<button type="button" wire:click="clearSearch"><?= $escaper->escapeHtml(__('Clear')) ?></button>
+```
+
+!!! danger "Upgrade to 3.7.2"
+    Magewire 3.0.0 through 3.7.1 also accepted browser calls to inherited methods
+    ([GHSA-64j9-rg74-hqc7](https://github.com/magewirephp/magewire/security/advisories/GHSA-64j9-rg74-hqc7)).
+    See [Security](../advanced/security.md#browser-callable-methods).
+
 <a id="authorisation"></a>
 
 ## Authorize data-changing work

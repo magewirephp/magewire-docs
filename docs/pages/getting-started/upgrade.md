@@ -8,7 +8,7 @@ This page covers upgrading from Magewire V1 to V3. For upgrades between V3 relea
 ## TL;DR
 
 1. Upgrade PHP, Magento, and Composer requirements.
-2. Install V3: `composer require magewirephp/magewire:^3.0`.
+2. Install V3: `composer require magewirephp/magewire:^3.7.2`.
 3. Install or update the appropriate theme compatibility package so Alpine is loaded once.
 4. Add `#[HandleBackwardsCompatibility]` to legacy components, then test each interaction. The layer covers specific
    V1 behaviors, and its directive rewrites currently run only on the Hyvä Checkout page. It is not a guarantee that
@@ -40,7 +40,7 @@ Before running `composer update`, bring the surrounding environment up to spec.
 ## Install the new version
 
 ```bash
-composer require magewirephp/magewire:^3.0
+composer require magewirephp/magewire:^3.7.2
 
 bin/magento setup:upgrade
 bin/magento setup:di:compile          # production mode only
@@ -169,6 +169,24 @@ public function refresh(): void { /* … */ }
 `$listeners` still works (the base `Component` class still reads it) but is discouraged. `#[On]` gives better IDE support and lets a single method respond to multiple events via multiple attributes.
 
 Dispatch from PHP with `$this->dispatch('event-name', foo: 'bar')`. This replaces V1's `$this->emit('event-name', ['foo' => 'bar'])`. The BC trait keeps `emit`, `emitUp`, `emitSelf`, and `emitTo` available, but they are thin wrappers around `dispatch()` now.
+
+### Only your own public methods are browser actions
+
+In V3, the browser can call public methods defined on your component, but not public methods inherited from
+Magewire's `Component` or `Component\Form`. A V1 template or listener that calls an inherited helper directly, such as
+`wire:click="reset"`, fails with `MethodNotFoundException`. Wrap the helper in an action of your own:
+
+```php
+public function clearEmail(): void
+{
+    $this->reset('email');
+}
+```
+
+Lifecycle hooks such as `mount`, `boot`, and `placeholder` cannot be called from the browser or used as listener
+targets. Magewire 3.0.0 through 3.7.1 did not enforce all of this
+([GHSA-64j9-rg74-hqc7](https://github.com/magewirephp/magewire/security/advisories/GHSA-64j9-rg74-hqc7)), so require
+3.7.2 or later. See [Upgrade notes](releases/upgrade-notes.md#371-to-372).
 
 ### Hook / event renames (JS)
 
@@ -466,6 +484,9 @@ Hyvä Checkout V1 is wired for Livewire V2 semantics. Install `magewirephp/magew
 `#[HandleBackwardsCompatibility]` to legacy components rendered outside that container, and verify the checkout end
 to end.
 
+Hyvä Checkout 1.4.0 betas can pin an affected Magewire release. Upgrade to 1.4.0-beta6 when it is available and
+confirm that Magewire 3.7.2 or later is installed.
+
 See [Theming → Hyvä Checkout BC](../theming/hyva-checkout-bc.md) for the full detail.
 
 ## Admin (new in V3)
@@ -520,7 +541,7 @@ If the upgrade surfaces a showstopper bug, you can roll back to V1 by restoring 
 Copy this into a PR description.
 
 - [ ] PHP is on 8.2+ and the Magento or Mage-OS release is supported by the selected Magewire tag.
-- [ ] Composer updated to `magewirephp/magewire:^3.0`.
+- [ ] Composer updated to `magewirephp/magewire:^3.7.2`.
 - [ ] `magewirephp/magewire-admin` installed if the site uses Magewire in admin.
 - [ ] The theme compatibility package ensures only one Alpine runtime starts on pages with and without Magewire components.
 - [ ] Every existing component carries `#[HandleBackwardsCompatibility]` (imported from `Magewirephp\Magewire\Features\SupportMagewireBackwardsCompatibility\`).

@@ -8,6 +8,15 @@ Versions not included in this log indicate releases where no new features were i
 
 When upgrading between V3 releases, also read the [Upgrade notes](upgrade-notes.md).
 
+## 3.7.2
+
+- **Security release**
+
+  Fixes [GHSA-64j9-rg74-hqc7](https://github.com/magewirephp/magewire/security/advisories/GHSA-64j9-rg74-hqc7)
+  (High) for Magewire 3.0.0 through 3.7.1. Browser calls are limited to application actions, event-listener targets
+  are validated, lifecycle hook names are reserved, and `__lazyLoad` is accepted only for a lazy placeholder. No new
+  features. See [Upgrade notes](upgrade-notes.md#371-to-372).
+
 ## 3.7.1
 
 - **Notifier position**

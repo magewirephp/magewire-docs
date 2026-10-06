@@ -12,6 +12,17 @@ The package requires `magewirephp/magewire-hyva-theme` and Hyvä Checkout. Its s
 | 3.1.0 | `>=3.7` |
 | 3.1.1 | `~3.7.1` |
 
+!!! danger "Magewire 3.7.2 security release"
+    Every package release above accepts Magewire 3.7.2, which fixes
+    [GHSA-64j9-rg74-hqc7](https://github.com/magewirephp/magewire/security/advisories/GHSA-64j9-rg74-hqc7). Existing
+    Hyvä Checkout 1.4.0 betas can pin an affected Magewire release, so a Magewire-only update may be blocked. A
+    coordinated 1.4.0-beta6 release will follow; upgrade when it is available and confirm with
+    `composer show magewirephp/magewire` that 3.7.2 or later is installed.
+
+    Legacy checkout components that call an inherited Magewire helper, such as `reset`, from the browser or from a
+    listener need a public action of their own. See
+    [Upgrade notes](../getting-started/releases/upgrade-notes.md#371-to-372).
+
 !!! warning "Behavior change in 3.1.0"
     In 3.0.0, the core layout resolver wrote an explicit `false` value before the package checked for an unset
     one, so the container fallback never enabled BC. From 3.1.0, a newly mounted component without an attribute

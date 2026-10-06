@@ -11,6 +11,10 @@ Magewire and its released companion packages follow [semantic versioning](https:
 - **MINOR**: new, backward-compatible features.
 - **PATCH**: backward-compatible bug fixes.
 
+A security patch can remove behavior that code depended on without meaning to. The 3.7.2 security release, for
+example, stopped the browser from calling methods inherited from Magewire's base component. Read the
+[Upgrade notes](releases/upgrade-notes.md) before applying any release.
+
 ## Why V2 was skipped
 
 Magewire V2 never existed. Magewire V1 was built on Livewire V2, which created persistent version confusion: a "Magewire 1" that was effectively at Livewire's v2 feature line. V3 aligns Magewire's major version with Livewire's, so V2 was skipped entirely. Going forward, Magewire's major version tracks Livewire's.
@@ -44,10 +48,10 @@ A subpackage's minor version does not follow core's. The `magewirephp/magewire` 
 | `magewirephp/magewire-hyva-checkout` | 3.1.1 | `~3.7.1` | `magewirephp/magewire-hyva-theme` (any) |
 | `magewirephp/magewire-admin` | 3.0.0 | `^3.0` | |
 
-`magewirephp/magewire-hyva-checkout` 3.1.1 caps core below 3.8, so a later core minor release needs a matching
-checkout release. Because the checkout package accepts any Hyvä theme package version, require
-`magewirephp/magewire-hyva-theme` 3.1.2 or later explicitly alongside Magewire 3.7; older theme releases ship notifier
-styles written for the 3.6 markup.
+Every listed release accepts the 3.7.2 security release. `magewirephp/magewire-hyva-checkout` 3.1.1 caps core below
+3.8, so a later core minor release needs a matching checkout release. Because the checkout package accepts any Hyvä
+theme package version, require `magewirephp/magewire-hyva-theme` 3.1.2 or later explicitly alongside Magewire 3.7;
+older theme releases ship notifier styles written for the 3.6 markup.
 
 ## PHP version support
 
