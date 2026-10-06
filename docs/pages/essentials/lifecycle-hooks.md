@@ -89,6 +89,18 @@ public function rendering(): void
 }
 ```
 
+## Hooks are not actions
+
+The browser cannot call a lifecycle hook, and an event listener cannot point at one. Since Magewire 3.7.2, these names
+are reserved:
+
+- `boot`, `booted`, `mount`, `exception`, `rendering`, `rendered`, and `placeholder`;
+- any name starting with `hydrate`, `dehydrate`, `updating`, or `updated`;
+- trait hooks, such as `bootWithPagination`: a hook name followed by the basename of a trait the component uses.
+
+Names are matched case-sensitively, so declare hooks in the casing shown. If an action uses one of these names, rename
+it. See [Upgrade notes](../getting-started/releases/upgrade-notes.md#reserved-method-names) for the full list.
+
 <a id="exception-handling-with-notifications"></a>
 
 For exception handling, show a safe customer-facing message and let

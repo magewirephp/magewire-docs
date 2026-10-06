@@ -41,7 +41,7 @@ Magewire 3 and the maintained Hyvä integration:
   "description": "Reusable Magewire UI behavior for Hyvä",
   "type": "magento2-module",
   "require": {
-    "magewirephp/magewire": "^3.6",
+    "magewirephp/magewire": "^3.7.2",
     "magewirephp/magewire-hyva-theme": "^3.1"
   },
   "autoload": {

@@ -65,8 +65,12 @@ component's state for listeners you add and for listeners you remove.
     Giving it another handler from layout has no effect, because the shorthand entry is matched first. Declare the
     listener with an explicit event name in the class if placements need different handlers.
 
-Magewire does not check that a handler method exists when the block is built. A missing method fails when the
-event arrives.
+Magewire does not check handler methods when the block is built. When the event arrives:
+
+- a public method defined on the component runs;
+- a method the component does not declare is skipped, and the component re-renders;
+- since 3.7.2, a method inherited from `Component` or `Component\Form`, such as `reset`, or a lifecycle hook, such as
+  `mount`, fails with `MethodNotFoundException`. See [Events](../essentials/events.md#listener-targets).
 
 ## Loader messages
 

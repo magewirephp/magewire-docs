@@ -78,6 +78,25 @@ Bind each class to its own layout block using the
 The listener can now appear elsewhere on the page without changing the picker.
 Use descriptive event names if several integrations share a page.
 
+<a id="listener-targets"></a>
+
+## Choose a listener method
+
+A listener must point at a public method you define on the component. Since Magewire 3.7.2, a listener that points at
+a method inherited from `Component` or `Component\Form`, such as `reset`, or at a lifecycle hook, such as `mount`,
+throws `MethodNotFoundException` when the event arrives. Wrap the helper in a method of your own:
+
+```php
+#[On('filters-cleared')]
+public function clearFilters(): void
+{
+    $this->reset('categoryId');
+}
+```
+
+The rule covers `#[On]`, the `$listeners` property, and
+[layout overrides](../features/layout-overrides.md#listeners).
+
 ## Browser listeners
 
 Component events are browser events too. A theme integration can listen for

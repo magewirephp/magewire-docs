@@ -15,6 +15,7 @@ Magewire's roadmap is intentionally conservative: tagged source describes what h
 | 3.6.1 | Canonical `magewireRuntime` and `magewireRuntimeBindings` Alpine providers. |
 | 3.7 | Framework-independent core styles, the adaptive loading indicator, layout overrides for listeners, loaders, and modifiers, and service type sequences. |
 | 3.7.1 | Notifier pinned to the bottom start edge on wide screens. |
+| 3.7.2 | Security release for [GHSA-64j9-rg74-hqc7](https://github.com/magewirephp/magewire/security/advisories/GHSA-64j9-rg74-hqc7): only application actions are browser-callable. |
 
 See [Feature History](releases/feature-history.md) for details and links to the relevant documentation.
 
