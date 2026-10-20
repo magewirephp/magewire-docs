@@ -25,6 +25,20 @@ features that Magewire actually registers.
 | Add Magewire to the backend | [Admin installation](../admin/installation.md) and [Building admin components](../admin/building-admin-components.md) |
 | Move a V1 component to V3 | [Upgrade](upgrade.md) and [Backwards compatibility](../essentials/backwards-compatibility.md) |
 
+## Use with an AI assistant
+
+Give your assistant [llms.txt](https://docs.magewirephp.nl/llms.txt) as a starting
+point. It lists the documentation by topic and links to the published guides.
+For a task spanning many guides, use
+[llms-full.txt](https://docs.magewirephp.nl/llms-full.txt), which contains the
+complete navigated documentation in one file. The full file may be too large
+for your assistant's context window.
+
+These resources are manually refreshed snapshots for Magewire 3.x. Check the
+refresh date in each file and consult the linked guides for changes since
+then. Review generated code against the relevant guide, especially where
+Magewire differs from Livewire.
+
 <a id="compatibility-boundary"></a>
 <a id="source-verification"></a>
 

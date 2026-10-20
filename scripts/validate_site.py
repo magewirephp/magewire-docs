@@ -1,8 +1,8 @@
 """Validate the complete static documentation artifact before publication.
 
 The validator treats ``mkdocs.yml`` navigation as the source of truth. It checks
-the human HTML, raw Markdown, aggregate AI resources, search index, important
-legacy URLs, and local links without making network requests.
+the human HTML, committed AI snapshots, search index, important legacy URLs,
+and local links without making network requests or refreshing the snapshots.
 """
 
 from __future__ import annotations
@@ -17,7 +17,7 @@ import posixpath
 import re
 from urllib.parse import unquote, urlsplit
 
-from generate_ai_docs import _AI_GUARDRAILS, _load_sources
+import yaml
 
 
 _IMPORTANT_URLS = (
@@ -41,6 +41,7 @@ _FENCED_BLOCK_RE = re.compile(
 )
 _INLINE_CODE_RE = re.compile(r"(`+)(.*?)\1", re.DOTALL)
 _SKIPPED_SCHEMES = {"data", "javascript", "mailto", "tel"}
+_AI_SNAPSHOTS = {PurePosixPath("llms.txt"), PurePosixPath("llms-full.txt")}
 
 
 @dataclass(frozen=True)
@@ -93,37 +94,19 @@ def main() -> None:
     args = parser.parse_args()
 
     site_dir = args.site_dir.resolve()
-    project, sections, pages = _load_sources(args.config_file, site_dir)
+    site_url, docs_dir, expected_html = _load_site_layout(args.config_file)
     errors: list[str] = []
 
-    expected_html = {
-        _output_path(page.url, ".html") for page in pages.values()
-    }
-    expected_raw = {PurePosixPath(page.raw_url) for page in pages.values()}
-    expected_aggregates = {
-        PurePosixPath("llms.txt"),
-        PurePosixPath("llms-full.txt"),
-        *(PurePosixPath("ai") / f"{section.slug}.txt" for section in sections),
-    }
-
-    _check_required_outputs(
-        site_dir,
-        expected_html,
-        expected_raw,
-        expected_aggregates,
-        project.site_url,
-        project.documentation_version,
-        errors,
-    )
+    _check_required_outputs(site_dir, docs_dir, expected_html, errors)
     html_documents = _parse_html_documents(site_dir, errors)
-    _check_runtime_assets(html_documents, project.site_url, errors)
+    _check_runtime_assets(html_documents, site_url, errors)
     html_reference_count = _check_html_links(
-        site_dir, html_documents, project.site_url, errors
+        site_dir, html_documents, site_url, errors
     )
-    markdown_reference_count = _check_markdown_links(
-        site_dir, expected_raw, html_documents, project.site_url, errors
+    snapshot_reference_count = _check_snapshot_links(
+        site_dir, html_documents, site_url, errors
     )
-    search_count = _check_search(site_dir, html_documents, project.site_url, errors)
+    search_count = _check_search(site_dir, html_documents, site_url, errors)
 
     if errors:
         print(f"Site validation failed with {len(errors)} error(s):")
@@ -132,49 +115,62 @@ def main() -> None:
         raise SystemExit(1)
 
     print(
-        f"Validated {len(pages)} navigated pages, {len(html_documents)} HTML files, "
-        f"{html_reference_count} HTML references, {markdown_reference_count} "
-        f"raw Markdown references, {search_count} search entries, and "
-        f"{len(expected_raw) + len(expected_aggregates)} generated AI resources; "
+        f"Validated {len(expected_html)} navigated pages, {len(html_documents)} HTML files, "
+        f"{html_reference_count} HTML references, {snapshot_reference_count} "
+        f"AI snapshot references, {search_count} search entries, and "
+        "2 committed AI snapshot routes; "
         "no third-party runtime assets found"
     )
 
 
+def _load_site_layout(config_file: Path) -> tuple[str, Path, set[PurePosixPath]]:
+    config_file = config_file.resolve()
+    # Keep MkDocs-specific YAML tags inert; only strings, lists, and mappings
+    # are needed to derive the expected published page paths.
+    config = yaml.load(config_file.read_text(encoding="utf-8"), Loader=yaml.BaseLoader)
+    site_url = config["site_url"].rstrip("/")
+    docs_dir = (config_file.parent / config.get("docs_dir", "docs")).resolve()
+    directory_urls = str(config.get("use_directory_urls", "true")).lower() not in {
+        "false", "no", "0"
+    }
+
+    def collect(item):
+        if isinstance(item, str):
+            if item.endswith(".md") and "://" not in item:
+                path = PurePosixPath(item)
+                if directory_urls and path.name != "index.md":
+                    yield path.with_suffix("") / "index.html"
+                else:
+                    yield path.with_suffix(".html")
+        elif isinstance(item, list):
+            for child in item:
+                yield from collect(child)
+        elif isinstance(item, dict):
+            for child in item.values():
+                yield from collect(child)
+
+    expected_html = set(collect(config.get("nav", [])))
+    if not expected_html:
+        raise ValueError("The configured navigation contains no Markdown pages")
+    return site_url, docs_dir, expected_html
+
+
 def _check_required_outputs(
     site_dir: Path,
+    docs_dir: Path,
     expected_html: set[PurePosixPath],
-    expected_raw: set[PurePosixPath],
-    expected_aggregates: set[PurePosixPath],
-    site_url: str,
-    documentation_version: str,
     errors: list[str],
 ) -> None:
-    required = expected_html | expected_raw | expected_aggregates
+    required = expected_html | _AI_SNAPSHOTS
     for relative in sorted(required):
         path = site_dir / relative
         if not path.is_file() or path.stat().st_size == 0:
             errors.append(f"required output is missing or empty: {relative}")
 
-    actual_raw = {
-        PurePosixPath(path.relative_to(site_dir).as_posix())
-        for path in site_dir.rglob("*.md")
-    }
-    if actual_raw != expected_raw:
-        for relative in sorted(expected_raw - actual_raw):
-            errors.append(f"navigated raw Markdown output is missing: {relative}")
-        for relative in sorted(actual_raw - expected_raw):
-            errors.append(f"unexpected raw Markdown output is present: {relative}")
-
-    actual_topics = {
-        PurePosixPath(path.relative_to(site_dir).as_posix())
-        for path in (site_dir / "ai").glob("*.txt")
-    }
-    expected_topics = {path for path in expected_aggregates if path.parent.name == "ai"}
-    if actual_topics != expected_topics:
-        for relative in sorted(expected_topics - actual_topics):
-            errors.append(f"topic bundle is missing: {relative}")
-        for relative in sorted(actual_topics - expected_topics):
-            errors.append(f"unexpected topic bundle is present: {relative}")
+    for path in sorted(site_dir.rglob("*.md")):
+        errors.append(f"unexpected raw Markdown export: {path.relative_to(site_dir)}")
+    for path in sorted((site_dir / "ai").glob("*.txt")):
+        errors.append(f"unexpected AI topic export: {path.relative_to(site_dir)}")
 
     cname = site_dir / "CNAME"
     if not cname.is_file() or cname.read_text(encoding="utf-8").strip() != "docs.magewirephp.nl":
@@ -184,23 +180,22 @@ def _check_required_outputs(
         if not (site_dir / relative).is_file():
             errors.append(f"important existing URL has no output file: /{relative}")
 
-    for relative in sorted(expected_aggregates):
+    for relative in sorted(_AI_SNAPSHOTS):
         path = site_dir / relative
         if not path.is_file():
             continue
-        content = path.read_text(encoding="utf-8")
-        if f"Documentation version: {documentation_version}" not in content:
-            errors.append(f"documentation version is missing from: {relative}")
-        if _AI_GUARDRAILS not in content:
-            errors.append(f"AI guardrails are missing from: {relative}")
-
-    llms = site_dir / "llms.txt"
-    if llms.is_file():
-        content = llms.read_text(encoding="utf-8")
-        for relative in sorted(expected_raw):
-            expected_url = f"{site_url.rstrip('/')}/{relative.as_posix()}"
-            if expected_url not in content:
-                errors.append(f"llms.txt does not link to raw page: {relative}")
+        source = docs_dir / relative
+        try:
+            content = path.read_text(encoding="utf-8")
+            if path.read_bytes() != source.read_bytes():
+                errors.append(f"AI snapshot route differs from committed docs/{relative}")
+        except (OSError, UnicodeError) as exception:
+            errors.append(f"cannot read AI snapshot {relative}: {exception}")
+            continue
+        if not content.startswith("# "):
+            errors.append(f"AI snapshot must start with a Markdown H1: {relative}")
+        if not re.search(r"^Last refreshed: \d{4}-\d{2}-\d{2}$", content, re.MULTILINE):
+            errors.append(f"AI snapshot has no refresh date: {relative}")
 
 
 def _parse_html_documents(
@@ -261,16 +256,18 @@ def _check_runtime_assets(
             )
 
 
-def _check_markdown_links(
+def _check_snapshot_links(
     site_dir: Path,
-    raw_pages: set[PurePosixPath],
     documents: dict[PurePosixPath, DocumentParser],
     site_url: str,
     errors: list[str],
 ) -> int:
     references: list[Reference] = []
-    for source in sorted(raw_pages):
-        content = (site_dir / source).read_text(encoding="utf-8")
+    for source in sorted(_AI_SNAPSHOTS):
+        path = site_dir / source
+        if not path.is_file():
+            continue
+        content = path.read_text(encoding="utf-8")
         content = _INLINE_CODE_RE.sub("", _FENCED_BLOCK_RE.sub("", content))
         for kind, pattern in (
             ("Markdown link", _MARKDOWN_LINK_RE),
@@ -411,14 +408,6 @@ def _resolve_reference(
     elif not relative or relative == ".":
         relative = "index.html"
     return PurePosixPath(relative), parsed.fragment
-
-
-def _output_path(url: str, default_suffix: str) -> PurePosixPath:
-    if not url:
-        return PurePosixPath(f"index{default_suffix}")
-    if url.endswith("/"):
-        return PurePosixPath(url) / f"index{default_suffix}"
-    return PurePosixPath(url)
 
 
 if __name__ == "__main__":

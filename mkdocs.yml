@@ -40,9 +40,6 @@ extra:
   generator: false
   includes:
     dir: includes
-  ai_docs:
-    documentation_version: Magewire 3.x
-    summary: Magewire is a reactive, full-stack component framework for Magento 2 that lets developers build dynamic interfaces in PHP and PHTML.
 
 markdown_extensions:
   - abbr
@@ -83,9 +80,6 @@ plugins:
       separator: '[\s\-,:!=\[\]()"/]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)|&[lg]t;'
   - macros:
       include_dir: includes
-
-hooks:
-  - scripts/generate_ai_docs.py
 
 nav:
   - 'Getting Started':

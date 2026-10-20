@@ -38,9 +38,6 @@ jobs:
       - name: Finalize blog compatibility pages
         run: python scripts/build_blog.py finalize --docs-dir docs --site-dir site
 
-      - name: Generate AI documentation
-        run: python scripts/generate_ai_docs.py --config-file mkdocs.yml --output-dir site
-
       - name: Validate Pages output
         run: python scripts/validate_site.py --config-file mkdocs.yml --site-dir site
 
