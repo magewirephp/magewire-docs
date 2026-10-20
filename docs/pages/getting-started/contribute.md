@@ -51,3 +51,12 @@ Here are some ways you can contribute:
 - Creating third-party extensions based on Magewire
 - Improving documentation
 - Spreading the word
+
+## Core hook events
+
+Core contributions should reuse existing hook events wherever possible. Adding events beyond Livewire's default hooks
+is exceptional: each new event must have a clear meaning and serve more than one use case. New Magewire-specific core
+hooks must use the `magewire:` prefix.
+
+See [Adding hook events](../advanced/architecture/component-hooks.md#adding-hook-events) for the rationale and an
+example. Custom project or extension code can introduce events for its own needs.

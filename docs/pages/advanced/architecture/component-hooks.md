@@ -100,6 +100,27 @@ Register in `adminhtml/di.xml` too if the hook is needed in the admin area. Do n
 
 ## Events
 
+### Adding hook events
+
+Prefer subscribing to existing hook events when extending Magewire. Additional events are fine for custom project or
+extension code, where they can serve that code's specific needs. In Magewire core, adding events beyond Livewire's
+default hooks is an exception.
+
+A new core hook must represent a meaningful framework event and be useful beyond the single integration that prompted
+it. Before proposing one, explain why existing hooks cannot cover the behaviour and describe more than one use case.
+The event name must accurately describe what happens where it is emitted, with clear timing and scope for listeners.
+
+Every additional hook becomes part of the framework's extension contract. Adding hooks wherever another feature needs
+a callback leads to an uncontrolled collection of narrowly useful events, with names that may promise more than their
+individual call sites provide.
+
+For example, a proposed `magewire:component:reset` hook needs a clear definition of what is reset and when the event
+fires. Adding it solely to make one feature work elsewhere is insufficient justification; the reset event itself must
+make sense as a reusable extension point.
+
+Any new Magewire-specific core hook must use the `magewire:` prefix. Existing Livewire hook names remain unchanged.
+The prefix identifies the hook's origin; it does not replace the need for a well-defined, broadly useful event.
+
 ### Lifecycle
 
 | Event | Fires |
