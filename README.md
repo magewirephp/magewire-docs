@@ -1,8 +1,29 @@
 # Magewire PHP - Documentation
 
+## AI documentation and automatic updates
+
+The site publishes [`llms.txt`](https://docs.magewirephp.nl/llms.txt), a compact
+index linking to Markdown pages, and
+[`llms-full.txt`](https://docs.magewirephp.nl/llms-full.txt), the complete
+navigated documentation. Smaller section bundles live under `/ai/`.
+
+Every PR targeting `main` builds and validates these resources. When the PR is
+merged, the resulting push to `main` regenerates them from the merged Markdown
+and `mkdocs.yml` navigation, then deploys them with the HTML in the same GitHub
+Pages artifact. CI rejects missing resources and content that differs from the
+current sources. Generated files live in ignored `site/`; edit the source docs
+and includes, and add new pages to `nav` in `mkdocs.yml`.
+
+See [AI documentation research and maintenance](ai-documentation.md) for the
+format choices, corpus rules, deployment flow, and verification procedure.
+
 ## Local Zensical build
 
 The production documentation runs on Zensical, uses privacy-friendly system fonts, and rejects third-party runtime assets during validation. A build-time compatibility adapter derives the Blog pages from their canonical Markdown before Zensical builds the site.
+
+Use Python 3.14 to match CI. After installing dependencies, the focused AI
+documentation checks can also run independently with
+`python -m unittest discover -s tests -p 'test_*.py'`.
 
 ```shell
 python3 -m venv .venv

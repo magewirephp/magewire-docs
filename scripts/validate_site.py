@@ -17,7 +17,7 @@ import posixpath
 import re
 from urllib.parse import unquote, urlsplit
 
-from generate_ai_docs import _AI_GUARDRAILS, _load_sources
+from generate_ai_docs import _AI_GUARDRAILS, _load_sources, _render_outputs
 
 
 _IMPORTANT_URLS = (
@@ -115,6 +115,7 @@ def main() -> None:
         project.documentation_version,
         errors,
     )
+    _check_ai_freshness(site_dir, _render_outputs(project, sections, pages), errors)
     html_documents = _parse_html_documents(site_dir, errors)
     _check_runtime_assets(html_documents, project.site_url, errors)
     html_reference_count = _check_html_links(
@@ -135,7 +136,8 @@ def main() -> None:
         f"Validated {len(pages)} navigated pages, {len(html_documents)} HTML files, "
         f"{html_reference_count} HTML references, {markdown_reference_count} "
         f"raw Markdown references, {search_count} search entries, and "
-        f"{len(expected_raw) + len(expected_aggregates)} generated AI resources; "
+        f"{len(expected_raw) + len(expected_aggregates)} generated AI resources "
+        "matching current sources; "
         "no third-party runtime assets found"
     )
 
@@ -201,6 +203,26 @@ def _check_required_outputs(
             expected_url = f"{site_url.rstrip('/')}/{relative.as_posix()}"
             if expected_url not in content:
                 errors.append(f"llms.txt does not link to raw page: {relative}")
+
+
+def _check_ai_freshness(
+    site_dir: Path, expected_outputs: dict[Path, str], errors: list[str]
+) -> None:
+    """Reject stale artifacts without regenerating or repairing them."""
+    for path, expected in expected_outputs.items():
+        if not path.is_file():
+            continue  # Missing files are reported by _check_required_outputs.
+        relative = path.relative_to(site_dir)
+        try:
+            actual = path.read_bytes()
+        except OSError as exception:
+            errors.append(f"cannot read AI documentation {relative}: {exception}")
+            continue
+        if actual != expected.encode("utf-8"):
+            errors.append(
+                f"AI documentation is stale: {relative}; "
+                "regenerate with scripts/generate_ai_docs.py"
+            )
 
 
 def _parse_html_documents(

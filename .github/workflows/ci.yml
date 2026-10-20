@@ -29,6 +29,9 @@ jobs:
       - name: Install dependencies
         run: python -m pip install --disable-pip-version-check -r requirements.txt
 
+      - name: Test AI documentation freshness checks
+        run: python -m unittest discover -s tests -p 'test_*.py'
+
       - name: Prepare blog compatibility pages
         run: python scripts/build_blog.py prepare --docs-dir docs --output-dir .build/docs
 
@@ -38,7 +41,9 @@ jobs:
       - name: Finalize blog compatibility pages
         run: python scripts/build_blog.py finalize --docs-dir docs --site-dir site
 
-      - name: Generate AI documentation
+      # A merged PR pushes to main, regenerating these files in the same
+      # artifact as the HTML documentation before Pages can deploy it.
+      - name: Generate AI documentation from current sources
         run: python scripts/generate_ai_docs.py --config-file mkdocs.yml --output-dir site
 
       - name: Validate Pages output

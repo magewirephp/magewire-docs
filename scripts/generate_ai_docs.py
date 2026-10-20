@@ -281,6 +281,18 @@ def _raw_page_url(page_url: str) -> str:
 def _generate(
     project: Project, sections: list[Section], pages: dict[str, Page]
 ) -> dict[Path, str]:
+    outputs = _render_outputs(project, sections, pages)
+    for path, content in outputs.items():
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(content, encoding="utf-8")
+    _validate_generated_outputs(project, sections, pages, outputs)
+    return outputs
+
+
+def _render_outputs(
+    project: Project, sections: list[Section], pages: dict[str, Page]
+) -> dict[Path, str]:
+    """Render expected resources without writing, also used by the CI validator."""
     outputs: dict[Path, str] = {
         project.site_dir / "llms.txt": _render_index(project, sections, pages),
         project.site_dir / "llms-full.txt": _render_full(project, sections, pages),
@@ -296,11 +308,7 @@ def _generate(
             raise ValueError(f"Raw Markdown output collides with AI resource: {raw_path}")
         outputs[raw_path] = page.markdown
 
-    for path, content in outputs.items():
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(content.rstrip() + "\n", encoding="utf-8")
-    _validate_generated_outputs(project, sections, pages, outputs)
-    return outputs
+    return {path: content.rstrip() + "\n" for path, content in outputs.items()}
 
 
 def _render_index(
