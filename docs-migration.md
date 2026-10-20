@@ -1,5 +1,11 @@
 # Zensical migration notes
 
+AI documentation follow-up, 2026-10-20: the build-time generator and its topic
+and per-page Markdown exports have been retired. Only `docs/llms.txt` and
+`docs/llms-full.txt` are now published as committed static snapshots, refreshed
+manually by an agent when needed. See the README for the refresh prompt. The
+generator and AI export descriptions below are historical migration findings.
+
 Status: Zensical production cutover complete; blog compatibility follow-up proven locally, 2026-09-01
 
 Current follow-up branch: `docs/blog-menu-posts`

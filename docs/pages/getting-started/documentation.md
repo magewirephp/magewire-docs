@@ -28,15 +28,16 @@ features that Magewire actually registers.
 ## Use with an AI assistant
 
 Give your assistant [llms.txt](https://docs.magewirephp.nl/llms.txt) as a starting
-point. It lists the documentation by topic and links to Markdown versions of
-each page. For a task spanning many guides, use a section bundle linked from
-that index or [llms-full.txt](https://docs.magewirephp.nl/llms-full.txt), which
-contains the complete navigated documentation in one file. The full file may
-be too large for your assistant's context window.
+point. It lists the documentation by topic and links to the published guides.
+For a task spanning many guides, use
+[llms-full.txt](https://docs.magewirephp.nl/llms-full.txt), which contains the
+complete navigated documentation in one file. The full file may be too large
+for your assistant's context window.
 
-These resources describe Magewire 3.x and are rebuilt and published with the
-site after each PR is merged into `main`. Review generated code against the
-relevant guide, especially where Magewire differs from Livewire.
+These resources are manually refreshed snapshots for Magewire 3.x. Check the
+refresh date in each file and consult the linked guides for changes since
+then. Review generated code against the relevant guide, especially where
+Magewire differs from Livewire.
 
 <a id="compatibility-boundary"></a>
 <a id="source-verification"></a>
